@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+    <ul id="layout">
+        <li id="logo">
+            <h1>
+                <a href="/"><img src="https://www.kiweb.or.kr/assets/front/img/ki_logo_white.png"></a>
+            </h1>
+        </li>
+        {% if userid %}
+        <li id="write">
+            <button><a href="#">글 작성</a></button>
+        </li>
+        <li id="userMenu">
+            <div id="userImage"><img src="{{user.image}}" alt=""></div>
+            <div id="userTab">
+                <button>▾</button>
+                <ul>
+                    <li>내 글 보기</li>
+                    <li>보관함</li>
+                    <li>설정</li>
+                    <li>로그아웃</li>
+                </ul>
+            </div>
+        </li>
+        {% else %}
+        <li id="login">
+            <button><a href="#">로그인</a></button>
+        </li>
+    </ul>
+    
+    {% block content %}
+
+    {% endblock %}
+</body>
+
+</html>

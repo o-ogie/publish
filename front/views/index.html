@@ -1,0 +1,98 @@
+{% extends 'layout/layout.html' %}
+{% block content %}
+
+
+<div id="wrap">
+    <div id="header">
+        <div id="gnb">
+            <div id="sortBox">
+                <form action="" method="get">
+                    <select onchange="this.form.submit()" name="sort" id="sortSwitch">
+                        <option value="id">최신순</option>
+                        <option value="hit">조회순</option>
+                        <option value="comment_count">댓글많은순</option>
+                        <option value="like_count">추천순</option>
+                    </select>
+                </form>
+            </div>
+            <div id="searchBox">
+                <form action="" method="get">
+                    <select name="searchType" id="searchType">
+                        <option value="writer">글쓴이</option>
+                        <option value="subject">제목</option>
+                        <option value="content">내용</option>
+                        <option value="hash">태그</option>
+                        <input name="search" type="text">
+                    </select>
+                    <button type="submit"><img
+                            src="https://www.think-lab.com/ko/wp_2021/wp-content/themes/think-lab2021/img/search.png"
+                            width=14px alt=""></button>
+                </form>
+                <div id="snb">
+                    <ul>
+                        <li>공지사항</li>
+                        <li>Q&A</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <ul>
+            {% for item in list %}
+            <li>
+                <div id="item">
+                    <div><input type="hidden" value="{{item.idx}}"></div>
+                    <div>
+                        <span><img src='{{item.image}}' alt=""></span>
+                        <a href="/board/view?index={{item.idx}}">{{item.subject}}</a>
+                    </div>
+                    <div>
+                        <span style="color: #999; font-size: 0.8em; ">{{item.register_date}}</span>
+                        <span style="color: #999; font-size: 0.8em; ">조회수 : {{item.hit}}</span>
+                        <span style="color: #999; font-size: 0.8em; ">{{item.comment_count}}개의 댓글</span>
+                    </div>
+                    <div>
+                        <span>by {{item.writer}}</span>
+                        <span>❤︎ {{item.like_count}}</span>
+                    </div>
+                </div>
+                <div id="item">
+                    <div><input type="hidden" value="{{item.idx}}"></div>
+                    <div>
+                        <span><img src='{{item.image}}' alt=""></span>
+                        <a href="/board/view?index={{item.idx}}">{{item.subject}}</a>
+                    </div>
+                    <div>
+                        <span style="color: #999; font-size: 0.8em; ">{{item.register_date}}</span>
+                        <span style="color: #999; font-size: 0.8em; ">조회수 : {{item.hit}}</span>
+                        <span style="color: #999; font-size: 0.8em; ">{{item.comment_count}}개의 댓글</span>
+                    </div>
+                    <div>
+                        <span>by {{item.writer}}</span>
+                        <span>❤︎ {{item.like_count}}</span>
+                    </div>
+                </div>
+                <div id="item">
+                    <div><input type="hidden" value="{{item.idx}}"></div>
+                    <div>
+                        <span><img src='{{item.image}}' alt=""></span>
+                        <a href="/board/view?index={{item.idx}}">{{item.subject}}</a>
+                    </div>
+                    <div>
+                        <span style="color: #999; font-size: 0.8em; ">{{item.register_date}}</span>
+                        <span style="color: #999; font-size: 0.8em; ">조회수 : {{item.hit}}</span>
+                        <span style="color: #999; font-size: 0.8em; ">{{item.comment_count}}개의 댓글</span>
+                    </div>
+                    <div>
+                        <span>by {{item.writer}}</span>
+                        <span>❤︎ {{item.like_count}}</span>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock%}
