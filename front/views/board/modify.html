@@ -5,29 +5,37 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        <link rel="stylesheet" href="../../public/css/board/write.css" />
+        <link rel="stylesheet" href="/css/board/board.css" />
     </head>
 
     <body>
-        <form action="">
-            <ul>
-                <li>
-                    <input type="text" name="subject" id="subject" placeholder="제목을 입력해주세요" />
-                </li>
-                <li>
-                    <input type="text" name="hashtag" id="hashtag" placeholder="태그를 입력해주세요" />
-                </li>
-                <li>
-                    <input type="file" name="imgfile" id="" />
-                </li>
-                <li>
-                    <textarea name="content" id="content" cols="30" rows="10"></textarea>
-                </li>
-            </ul>
-
-            <button>←나가기</button>
-            <button>수정하기</button>
-        </form>
+        <div id="wrap">
+            <div id="insert">
+                <form id="frm" method="post" action="">
+                    <ul id="board">
+                        <li>
+                            <input type="text" name="subject" id="subject" placeholder="제목을 입력해주세요" />
+                        </li>
+                        <li>
+                            <input type="text" name="hashtag" id="hashtag" placeholder="태그를 입력해주세요" />
+                        </li>
+                        <li>
+                            <input type="file" name="imgfile" id="imgfile" multiple />
+                        </li>
+                        <li>
+                            <textarea name="content" id="content" cols="30" rows="10" placeholder="내용을 입력해주세요"></textarea>
+                        </li>
+                    </ul>
+                    <div id="btns">
+                        <button id="back" class="btns">← 나가기</button>
+                        <button id="temporarily" class="btns" type="submit">임시저장</button>
+                        <button id="insertBtn" class="btns" type="submit">등록하기</button>
+                    </div>
+                </form>
+            </div>
+            <div id="preview"></div>
+        </div>
+        <script type="text/javascript" src="/js/module/board/board.js"></script>
     </body>
 </html>
 
