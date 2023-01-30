@@ -46,9 +46,6 @@ module.exports = (sequelize, Sequelize) => {
         through: "Hashtag",
         foreignKey: "boardid",
       });
-      this.hasMany(models.Liked, {
-        foreignKey: "boardid",
-      });
     }
   }
   Board.createTable();
