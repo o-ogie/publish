@@ -14,6 +14,10 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
+<<<<<<< HEAD
+=======
+
+>>>>>>> pkc
 app.use((req, res, next) => {
     // console.log(`req.cookies :`, req.cookies);
     try {
@@ -29,6 +33,8 @@ app.use((req, res, next) => {
         next();
     }
 });
+app.use(router);
+
 app.use(router);
 
 app.listen(3005, () => {
