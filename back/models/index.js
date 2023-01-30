@@ -14,9 +14,10 @@ fs.readdirSync(__dirname)
   });
 
 const { models } = sequelize;
-for (const unit in models) {
-  if (typeof models[unit].asscoiate !== "function") continue;
-  models[unit].associate(models);
+
+for (const v in models) {
+    if (typeof models[v].associate !== "function") continue
+    sequelize.models[v].associate(models);
 }
 
 (() => {
