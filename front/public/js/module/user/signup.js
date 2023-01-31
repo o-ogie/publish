@@ -41,8 +41,8 @@ const config = {
     callback: duplicateCheck,
   },
   username: {
-    reg: /^[A-Za-z가-힣]{2,16}$/,
-    callback: duplicateCheck,
+    reg: /^[A-Za-z가-힣]{3,16}$/,
+    // callback: null,
   },
   nickname: {
     reg: /^[A-Za-z가-힣0-9]{2,16}$/,

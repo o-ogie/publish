@@ -16,29 +16,10 @@
         <ul id="layout">
             <li id="logo">
                 <h1>
-                    <a href="/"><img src="https://www.kiweb.or.kr/assets/front/img/ki_logo_white.png"></a>
+                    <a href="/"><img src="https://img.freepik.com/free-icon/sleep_318-876856.jpg?w=2000"></a>
                 </h1>
             </li>
             {% if userid %}
-            <!-- <li id="write">
-                <button><a href="#">글쓰기</a></button>
-            </li>
-            <li id="userMenu">
-                <div id="userImage"><img src="{{user.userImg}}" alt=""></div>
-                <div id="userTab">
-                    <button>▾</button>
-                    <ul>
-                        <li>내 글 보기</li>
-                        <li>보관함</li>
-                        <li>설정</li>
-                        <li>로그아웃</li>
-                    </ul>
-                </div>
-            </li> -->
-            {% else %}
-            <!-- <li id="login">
-                <button><a href="/user/signin">로그인</a></button>
-            </li> -->
             <li id="write">
                 <button><a href="#">글쓰기</a></button>
             </li>
@@ -62,6 +43,10 @@
                         <li>로그아웃</li>
                     </ul>
                 </div>
+            </li>
+            {% else %}
+            <li id="login">
+                <button><a href="/user/signin">로그인</a></button>
             </li>
             {% endif %}
         </ul>
