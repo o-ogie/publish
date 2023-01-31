@@ -11,9 +11,12 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             primaryKey: true,
           },
-          commentid: {
-            type: Sequelize.ENUM('0', '1'),
+          comment: {
+            type: Sequelize.ENUM('0','1'),
             primaryKey: true,
+          },
+          commentid: {
+            type: Sequelize.INTEGER,
           },
         },
         {

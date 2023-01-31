@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background-color: #c9dde4;
+}
+
+
+#sigininWrap {
+    background-color: #fff;
+    width: 370px;
+    height: 660px;
+    margin: 10vh auto;
+    box-shadow: 0px 2px 16px rgba(0,0,0,0.2);
+    border-radius: 6px;
+}
+
+#imageBox {
+    width: 370px;
+    height: 200px;
+    border-radius: 6px 6px 0 0;
+    background: url(https://preview.colorlib.com/theme/bootstrap/login-form-15/images/bg-1.jpg.webp) no-repeat;
+    background-size: cover;
+}
+
+#bannerText {
+    text-align: center;
+    margin: 20px;
+}
+
+#loginFrm {
+    width: 300px;
+    margin: 0 auto;
+}
+
+#loginFrm .inputContainer {
+    width: 100%;
+    height: 48px;
+    border-radius: 4px;
+    border: solid 1px rgb(220, 220, 220);
+    margin-bottom: 16px;
+}
+
+#loginFrm input {
+    width: 90%;
+    height: 46px;
+    border: transparent;
+    outline: none;
+    background: none;
+    padding-left: 10px;
+}
+#loginFrm input::placeholder {
+    font-size: 1rem;
+    color: rgb(200, 200, 200);
+}
+#loginFrm input:focus, .inputContainer:focus {
+    border: #2F8F9D;
+    cursor: pointer;
+}
+
+#loginFrm button {
+    width: 100%;
+    height: 45px;
+    border: none;
+    font-size: 16px;
+    border-radius: 4px;
+    background-color: #2F8F9D;
+    color: #fff;
+    margin-bottom: 16px;
+    cursor: pointer;
+}
+
+#textBox {
+    width: 300px;
+    margin: 0 auto;
+    font-size: 15px;
+}
+
+#textBox ul {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    margin: 16px 0 20px 0;
+}
+
+#textBox li:nth-child(1) {
+    color: #2C74B3;
+}
+
+#textBox li:nth-child(2) > a {
+    color: #666;
+}
+
+
+#textBox > p {
+    text-align: center;
+    color: #666;
+}
+
+#textBox > p > a {
+    color: #2C74B3;
+}

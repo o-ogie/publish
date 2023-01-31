@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+
+body {
+    height: 2000px;
+}
+
+a {
+    text-decoration: none;
+}
+
+#layoutWrap {
+    height: 64px;
+    width: 100%;
+    background-color: #FFF;
+    z-index: 9;
+}
+
+#layoutWrap.scrolled {
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+    transition: all 0.5s ease-out;
+    position: fixed;
+    top: 0px;
+}
+
+#layout {
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#layout li:not(:first-of-type) {
+    padding-left: 20px;
+}
+
+#layout #logo {
+    margin-right: auto;
+}
+
+#logo img {
+    height: 32px;
+}
+
+
+#userMenu {
+    display: flex;
+    justify-content: space-between;
+}
+
+#userImg img {
+    height: 2.5rem;
+    width: 2.5rem;
+    box-shadow: rgb(0 0 0 / 9%) 0px 0px 8px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: all 0.125s ease-in 0s;
+    cursor: pointer;
+}
+
+
+
+input[id="menu_icon"] {
+    display: none;
+  }
+  
+  input[id="menu_icon"] + label {
+    position: relative;
+    display: inline-block;
+    margin-top: 5px;
+    width: 32px;
+    height: 28px;
+    cursor: pointer;
+  }
+  
+  input[id="menu_icon"] + label > span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 5px;
+    border-radius: 30px;
+    background: rgb(70, 70, 70);
+    transition: all 0.35s;
+    z-index: 1;
+  }
+  
+  input[id="menu_icon"] + label > span:nth-child(1) {
+    top: 0px;
+  }
+  
+  input[id="menu_icon"] + label > span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  input[id="menu_icon"] + label > span:nth-child(3) {
+    bottom: 0px;
+  }
+  
+  input[id="menu_icon"]:checked + label > span:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+  }
+  
+  input[id="menu_icon"]:checked + label > span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  input[id="menu_icon"]:checked + label > span:nth-child(3) {
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+  }
+
+
+#userTab #userMenu {
+    position: absolute;
+    width: 300px;
+    height: 60px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+    top: 70px;
+    opacity: 0;
+    right: 40px;
+    transition: all 0.35s;
+}
+
+#userTab #userMenu.clicked {
+    opacity: 1;
+    right: 100px;   
+    transition: all 0.35s;
+}
+
+#userTab ul {
+    width: 300px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+#login button {
+    margin-top: 3px;
+    text-align: center;
+    height: 32px;
+    line-height: 32px;
+    width: 82px;
+    border-radius: 16px;
+    border: none;
+    background-color: #0A2647;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+#login button a {
+    color: #FFF;
+}
+
+#login button:hover {
+    cursor: pointer;
+    background-color: #2C74B3;
+}
+
+#write button {
+    margin-top: 3px;
+    text-align: center;
+    height: 32px;
+    line-height: 32px;
+    width: 82px;
+    border-radius: 16px;
+    border: solid 1px #0A2647;
+    background: none;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+#write button a {
+    color: #000;
+}
+
+#write button:hover {
+    cursor: pointer;
+    background-color: #2C74B3;
+    border: solid 1px #fff;
+}
+#write button:hover a {
+    color: #fff;
+}

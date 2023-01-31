@@ -45,7 +45,7 @@ module.exports = (sequelize, Sequelize) => {
               isEmail: true,
             },
           },
-          profileImg: {
+          userImg: {
             type: Sequelize.TEXT(),
             allowNull: false,
             defaultValue: "",
@@ -79,9 +79,6 @@ module.exports = (sequelize, Sequelize) => {
       this.hasMany(models.PointUp, {
         foreignKey: "userid",
       });
-      //   this.hasMany(models.Chat, {
-      //     foreignKey: "userid",
-      //   })
       this.belongsToMany(models.Board, {
         through: "Liked",
         foreignKey: "userid",

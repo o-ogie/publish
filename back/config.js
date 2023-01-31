@@ -1,5 +1,5 @@
 
-require("dotenv").config({path: "~/Documents/workspace/ZDB/project/back/.env"});
+require("dotenv").config();
 const BadRequest = require("./exceptions/BadRequest");
 
 const config = {
