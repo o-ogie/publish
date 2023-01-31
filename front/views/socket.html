@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+    <form action="" id='frm'>
+        <input type="text" name="message">
+        <button type="submit">submit</button>
+    </form>
+
+    <ul id="chat">
+
+    </ul>
+    <script type="text/javascript">
+        const socket = io.connect('http://localhost:3000',{
+            path:'/socket.io',
+            transports:['websocket']
+        })
+
+        socket.on('reply', (data)=>{
+            console.log(data)
+        })
+
+        const frm = document.querySelector('#frm')
+        frm.addEventListener('submit',(e)=>{
+            e.preventDefault()
+
+            const {message} = e.target
+
+            socket.emit('message', message.value)
+            const li = document.createElement('li')
+            li.classList.add('right')
+            li.innerHTML = message.value
+
+
+        })
+    </script>
+</body>
+</html>
