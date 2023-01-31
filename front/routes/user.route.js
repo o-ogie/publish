@@ -1,5 +1,13 @@
 const express = require("express");
 const route = express.Router();
+const axios = require("axios");
+const config = require("../config");
+
+const request = axios.create({
+    baseURL: `http://${config.BACK_HOST}:${config.PORT}`,
+    withCredentials: true,
+});
+
 
 route.get("/signup", (req, res) => {
     res.render("user/signup.html");
@@ -29,6 +37,7 @@ route.get("/signin", (req, res) => {
 });
 
 route.get("/profile", (req, res) => {
+    console.log(req.user)
     res.render("user/profile.html", { ...req.user });
 });
 
@@ -41,7 +50,7 @@ route.post("/modify", async (req, res) => {
     const response = await request.put("/users", { ...req.body });
     console.log("response :", response.data.token);
     res.cookie("token", response.data.token);
-    await res.redirect("/profile");
+    await res.redirect("/user/profile");
 });
 
 module.exports = route;

@@ -5,7 +5,7 @@ import request from "/js/lib/request.js";
 const frm = document.querySelector("#loginFrm");
 
 let date = new Date()
-date.setTime(date.getTime() + (1 * 30 * 1000))
+date.setTime(date.getTime() + (1 * 60 * 60 * 1000))
 // console.log(date)
 
 frm.addEventListener("submit", async (e) => {
