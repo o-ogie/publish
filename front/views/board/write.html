@@ -11,17 +11,24 @@
     <body>
         <div id="wrap">
             <div id="insert">
-                <form id="frm" method="post" action="">
+                <form id="imgform" method="post" enctype="multipart/form-data">
+                    <ul>
+                        <li>
+                            <input type="file" name="upload" />
+                        </li>
+                        <li>
+                            <button type="submit">전송</button>
+                        </li>
+                    </ul>
+                </form>
+                <form id="frm" method="post" action="/board">
                     <ul id="board">
                         <li>
                             <input type="text" name="subject" id="subject" placeholder="제목을 입력해주세요" />
                         </li>
-                        <li id="hashs"></li>
+                        <li id="hash"></li>
                         <li>
                             <input type="text" name="hashtag" id="hashtag" placeholder="태그를 입력해주세요" />
-                        </li>
-                        <li>
-                            <input type="file" name="imgfile" id="imgfile" multiple />
                         </li>
                         <li>
                             <textarea name="content" id="content" cols="30" rows="10" placeholder="내용을 입력해주세요"></textarea>
@@ -36,7 +43,9 @@
             </div>
             <div id="preview"></div>
         </div>
-        <script type="text/javascript" src="/js/module/board/board.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="module" src="/js/lib/request.js"></script>
+        <script type="module" src="/js/module/board/board.js"></script>
     </body>
 </html>
 
