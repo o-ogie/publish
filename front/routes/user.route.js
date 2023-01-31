@@ -1,5 +1,11 @@
 const express = require("express");
 const route = express.Router();
+const axios = require('axios')
+const request = axios.create({
+    baseURL: "http://localhost:3000",
+    // baseURL: "http://54.180.163.189:80",
+    withCredentials: true,
+});
 
 route.get("/signup", (req, res) => {
     res.render("user/signup.html");

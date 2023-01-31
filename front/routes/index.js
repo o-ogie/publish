@@ -12,6 +12,12 @@ router.get("/", (req, res) => {
         username,
     });
 });
+
+router.get('/socket',(req,res)=>{
+    if (req.user === undefined) return res.render("index.html");
+    console.log(req.user)
+    res.render('socket.html')
+})
 router.use("/user", user);
 router.use("/board", board);
 // router.use("/admin", admin);
