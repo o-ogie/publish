@@ -1,41 +1,43 @@
 {% extends "layout/layout.html" %} {% block content %}
-<div id="board">
-    <div id="boardSubject">
-        <h2>{{subject}}subject</h2>
+<link rel="stylesheet" href="/css/board/view.css" />
+<div id="wrap">
+    <div id="board">
+        <div id="boardSubject">
+            <h2>{{subject}}subject</h2>
+        </div>
+        <div id="boardInfo"><span id="userid">{{userid}}아이디</span><span id="date">{{regesterdate}}1900.00.01</span></div>
+        <div id="boardcontent">{{content}}content</div>
     </div>
-    <div id="boardInfo"><span>{{writer}}</span><span>{{regesterdate}}</span></div>
-    <div id="boardcontent">{{content}}content</div>
+    <div id="profile">
+        <div id="img">
+            <img src="" alt="" />
+        </div>
+        <div>
+            <p>작성자</p>
+            <p>blogname</p>
+        </div>
+    </div>
+    <div id="total">
+        <h3>{{asdasd}}개의 댓글이 있습니다</h3>
+    </div>
+    <form method="post" action="" id="commentfrm">
+        <div>
+            <input type="text" name="comment" id="comment" />
+        </div>
+        <button type="submit">댓글 등록</button>
+    </form>
+    <template id="commentList">
+        <ul>
+            <li id="commentContent">{{content}}</li>
+            <li id="commentWriter">{{writer}}</li>
+            <li id="commnetDate">{{regesterdate}}</li>
+        </ul>
+    </template>
+    <template id="comentBtns">
+        <span id="commentRe">수정</span>
+        <span id="commentDelete">삭제</span>
+    </template>
 </div>
-<div id="profile">
-    <div id="img">
-        <img src="" alt="" />
-    </div>
-    <div>
-        <p>작성자</p>
-        <p>blogname</p>
-    </div>
-</div>
-<div id="total">
-    <h3>{{asdasd}}개의 댓글이 있습니다</h3>
-</div>
-<form method="post" action="" id="commentfrm">
-    <div>
-        <input type="text" name="comment" id="comment" />
-    </div>
-    <button type="submit">댓글 등록</button>
-</form>
-<template id="commentList">
-    <ul>
-        <li id="commentContent">{{content}}</li>
-        <li id="commentWriter">{{writer}}</li>
-        <li id="commnetDate">{{regesterdate}}</li>
-    </ul>
-</template>
-<template id="comentBtns">
-    <span id="commentRe">수정</span>
-    <span id="commentDelete">삭제</span>
-</template>
-
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="module" src="/js/lib/request.js"></script>
 {% endblock %}
