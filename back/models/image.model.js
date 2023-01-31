@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
           image: {
             type: Sequelize.TEXT(),
             allowNull: false,
-            defaultValue: "",
+            defaultValue: null,
           },
         },
         {

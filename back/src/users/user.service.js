@@ -7,6 +7,7 @@ class UserService {
 
   async signup(userData) {
     try {
+      if (!userData.userImg) userData.userImg = "default-image.png";
       const {userid, username, userpw, ...rest} = userData
       if (!userid || !userpw || !username) throw "내용이 없습니다";
       const hash = this.crypto

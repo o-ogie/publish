@@ -3,13 +3,15 @@ const router = express.Router();
 const user = require("./user.route");
 const board = require("./board.route");
 
+
 router.get("/", (req, res) => {
     // console.log(`req.user :`, req.user);
     if (req.user === undefined) return res.render("index.html");
-    const { userid, username } = req.user;
+    const { userid, nickname, userImg } = req.user;
     res.render("index.html", {
         userid,
-        username,
+        nickname,
+        userImg
     });
 });
 router.use("/user", user);
