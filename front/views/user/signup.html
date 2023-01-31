@@ -1,11 +1,21 @@
-{% extends 'layout/layout.html' %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="/css/signup.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
 
 <div id="signupWrap">
     <form method="post" action="/single" id="photoFrm">
-        <p class="title">사진 등록</p>
+        <p class="title">사진 선택</p>
         <input type="file" name="filename">
-        <button type="submit">전송</button>
+        <button type="submit">등록</button>
     </form>
 
     <form method="post" action="/signup" id="signupFrm">
@@ -13,7 +23,7 @@
         <ul class="container">
             <div id="imageBox">
                 <img id="previewImg" src="" alt="">
-                <input type="hidden" name="image" id="userImg">
+                <input type="hidden" name="userImg" id="userImg">
             </div>
             <li id="useridBox">
                 <p class="title">아이디</p>
@@ -21,8 +31,13 @@
                 <p class="alertMessage" style="opacity: 0; color: red">영문과 숫자를 사용하여 6~16자 사이로 입력해주세요</p>
             </li>
             <li id="usernameBox">
+                <p class="title">이름</p>
+                <span><input type="text" name="username" id="username" placeholder="이름을 입력해주세요"></span>
+                <p class="alertMessage" style="opacity: 0; color: red">띄어쓰기 없이 한글 또는 영문으로 입력해주세요</p>
+            </li>
+            <li id="nicknameBox">
                 <p class="title">닉네임</p>
-                <span><input type="text" name="username" id="username" placeholder="닉네임을 입력해주세요"></span>
+                <span><input type="text" name="nickname" id="nickname" placeholder="닉네임을 입력해주세요"></span>
                 <p class="alertMessage" style="opacity: 0; color: red">특수문자를 제외하여 두 글자 이상으로 입력해주세요</p>
             </li>
             <li id="userpwBox">
@@ -59,5 +74,7 @@
     </form>
 </div>
 
-<script type="module" src="/js/module/join.js"></script>
-{% endblock%}
+<script type="module" src="/js/module/user/signup.js"></script>
+</body>
+
+</html>
