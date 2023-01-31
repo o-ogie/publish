@@ -22,23 +22,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// app.use((req, res, next) => {
-//   // console.log(`req.cookies :`, req.cookies);
-//   try {
-//     const { token } = req.cookies;
-//     const [header, payload, signature] = token.split(".");
+app.use((req, res, next) => {
+  // console.log(`req.cookies :`, req.cookies);
+  try {
+    const { token } = req.cookies;
+    const [header, payload, signature] = token.split(".");
 
-//     const decodedPl = JSON.parse(
-//       Buffer.from(payload, "base64").toString("utf-8")
-//     );
-//     // console.log(`decodedPl :`,decodedPl);
+    const decodedPl = JSON.parse(
+      Buffer.from(payload, "base64").toString("utf-8")
+    );
+    // console.log(`decodedPl :`,decodedPl);
 
-//     req.user = decodedPl;
-//   } catch (e) {
-//   } finally {
-//     next();
-//   }
-// });
+    req.user = decodedPl;
+  } catch (e) {
+  } finally {
+    next();
+  }
+});
 
 app.get("/", (req, res) => {
   // console.log(`req.user :`, req.user);
