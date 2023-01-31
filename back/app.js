@@ -17,7 +17,7 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.static("uploads"));
-app.use(router);
+
 
 app.use((error, req, res, next) => {
     console.log(error.message);
@@ -34,5 +34,8 @@ app.use((error, req, res, next) => {
         });
     }
 });
+
+app.use(router);
+
 module.exports = app;
 
