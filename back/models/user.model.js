@@ -45,7 +45,7 @@ module.exports = (sequelize, Sequelize) => {
               isEmail: true,
             },
           },
-          profileImg: {
+          userImg: {
             type: Sequelize.TEXT(),
             allowNull: false,
             defaultValue: "",
