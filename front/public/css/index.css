@@ -10,9 +10,10 @@ body {
 
 #wrap {
     position: absolute;
-    top: 480px;
+    top: 600px;
     left: 50%;
     height: 100%;
+    width: 100%;
     overflow: auto;
     transform: translate(-50%, -50%);
 }
@@ -41,6 +42,7 @@ body {
     color: #FABE19;
     font-size: 1.1em;
     position: relative;
+    box-shadow: rgb(0 0 0 / 0.4) 0px 4px 8px;
 }
 
 #sortBox::after {
@@ -71,6 +73,7 @@ body {
     height: 32px;
     border-radius: 4px;
     background: #fff;
+    box-shadow: rgb(0 0 0 / 0.4) 0px 4px 8px;
 }
 
 #searchBox select {
