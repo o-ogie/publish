@@ -2,6 +2,29 @@
 {% block content %}
 <link rel="stylesheet" href="/css/signup.css">
 
+<div id="agreeFrm">
+    <div>
+        <div id="logo"></div>
+        <div class="titleBox">
+            <h2>이용약관</h2>
+        </div>
+        <div class="textBox">여러분을 환영합니다.<br>
+            회원으로 가입하시면 서비스를 보다 편리하게 이용할 수 있습니다.<br>
+            여러분이 제공한 콘텐츠를 소중히 다룰 것입니다.<br>
+            여러분의 개인정보를 소중히 보호합니다.<br>
+            타인의 권리를 존중해 주세요.<br>
+            사이트에서 제공하는 다양한 포인트를 요긴하게 활용해 보세요.<br>
+            부득이 서비스 이용을 제한할 경우 합리적인 절차를 준수합니다.<br>
+            주요 사항을 잘 안내하고 여러분의 소중한 의견에 귀 기울이겠습니다.<br>
+            <br>
+            아래의 약관 동의에 체크하시면 회원 가입이 시작됩니다.
+        </div>
+        <div class="checkBox">
+            <a href="/" class="goBack"><iconify-icon icon="tabler:arrow-back-up"></iconify-icon> 뒤로 가기</a>
+            <span><input type="checkbox" id="agree"><label for="agree">약관에 동의합니다</label></span>
+        </div>
+    </div>
+</div>
 <div id="signupWrap">
     <div class="leftContainer">
         <h2 id="bannerText">환영합니다</h2>
@@ -15,17 +38,27 @@
         </form>
     </div>
     <div class="rightContainer">
+        <div class="signupIcon"><iconify-icon icon="mdi:user-circle"></iconify-icon></div>
+        <h3>회원정보를 입력해주세요</h3>
         <form method="post" action="/user/signup" id="signupFrm">
             <ul class="container">
                 <input type="hidden" name="userImg" id="inputImg">
                 <li id="useridBox">
-                    <div class="inputContainer"><input type="text" name="userid" id="userid"  maxlength="16" placeholder="아이디">
+                    <div class="inputContainer"><input type="text" name="userid" id="userid" maxlength="16"
+                            placeholder="아이디"><iconify-icon icon="mdi:account"></iconify-icon>
                     </div>
                     <p class="alertMessage" style="opacity: 0; color: red">영문과 숫자를 사용하여 6자 이상으로 입력해주세요</p>
                 </li>
+                <li id="nicknameBox">
+                    <div class="inputContainer"><input type="text" name="nickname" id="nickname" maxlength="16"
+                            placeholder="닉네임"><iconify-icon icon="mdi:account-tag"></iconify-icon>
+                    </div>
+                    <p class="alertMessage" style="opacity: 0; color: red">특수문자를 제외하여 두 글자 이상으로 입력해주세요</p>
+                </li>
                 <li id="usernameBox">
-                    <div class="inputContainer"><input type="text" name="username" id="username"  maxlength="16"
-                            placeholder="이름"></div>
+                    <div class="inputContainer"><input type="text" name="username" id="username" maxlength="16"
+                            placeholder="이름"><iconify-icon icon="mdi:account-edit"></iconify-icon>
+                    </div>
                     <p class="alertMessage" style="opacity: 0; color: red">띄어쓰기 없이 한글 또는 영문으로 입력해주세요</p>
                 </li>
                 <li class="li_gender">
@@ -34,35 +67,35 @@
                         <option value="male">남성</option>
                         <option value="female">여성</option>
                     </select>
+                    <iconify-icon icon="mdi:gender-male-female"></iconify-icon>
                     <p class="alertMessage" style="opacity: 0; color: red">필수 선택사항입니다</p>
                 </li>
-                <li id="nicknameBox">
-                    <div class="inputContainer"><input type="text" name="nickname" id="nickname" maxlength="16"
-                            placeholder="닉네임"></div>
-                    <p class="alertMessage" style="opacity: 0; color: red">특수문자를 제외하여 두 글자 이상으로 입력해주세요</p>
-                </li>
                 <li id="userpwBox">
-                    <div class="inputContainer"><input type="password" name="userpw" id="userpw"
-                            placeholder="비밀번호" maxlength="16"></div>
+                    <div class="inputContainer"><input type="password" name="userpw" id="userpw" placeholder="비밀번호"
+                            maxlength="16"><iconify-icon icon="mdi:password"></iconify-icon>
+                    </div>
                     <p class="alertMessage" style="opacity: 0; color: red">영문, 숫자, 특수문자를 모두 혼합하여 8자 이상으로 써주세요</p>
                 </li>
                 <li>
                     <div class="inputContainer"><input type="password" id="pwcheck" placeholder="비밀번호 확인"
-                            maxlength="16"></div>
+                            maxlength="16"><iconify-icon icon="mdi:password-check"></iconify-icon>
+                        </div>
                     <p class="checkMessage" style="opacity: 0; color: red">비밀번호가 일치하지 않습니다</p>
                 </li>
                 <li id="phoneNumberBox">
-                    <div class="inputContainer"><input type="tel" name="phoneNumber" id="phoneNumber" maxlength="11" placeholder="전화번호">
+                    <div class="inputContainer"><input type="tel" name="phoneNumber" id="phoneNumber" maxlength="11"
+                            placeholder="전화번호"><iconify-icon icon="material-symbols:phone-android-rounded"></iconify-icon>
                     </div>
                     <p class="alertMessage" style="opacity: 0; color: red">"-"를 제외한 11자리의 숫자로 입력해주세요</p>
                 </li>
                 <li id="emailBox">
-                    <div class="inputContainer"><input type="email" name="email" id="email" required maxlength="30" placeholder="이메일 주소">
+                    <div class="inputContainer"><input type="email" name="email" id="email" required maxlength="30"
+                            placeholder="이메일 주소"><iconify-icon icon="ic:round-email"></iconify-icon>
                     </div>
                     <p class="alertMessage" style="opacity: 0; color: red">이메일 형식에 맞게 입력해주세요</p>
                 </li>
             </ul>
-            <button type="submit" class="button">회원가입</button>
+            <button type="submit" class="button">회원가입<iconify-icon icon="mdi:sign-in"></iconify-icon></button>
         </form>
     </div>
 </div>

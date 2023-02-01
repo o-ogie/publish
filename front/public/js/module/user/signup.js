@@ -89,19 +89,32 @@ document.querySelector("#photoFrm").addEventListener("submit", async (e) => {
       ["Content-Type"]: "multipart/form-data",
     },
   });
-  document.querySelector('#inputImg').value = response.data.filename;
-  document.querySelector('#previewImg').src = `http://127.0.0.1:3000/${response.data.filename}`;
-  console.log(document.querySelector('#imageBox > img').src)
+  document.querySelector("#inputImg").value = response.data.filename;
+  document.querySelector(
+    "#previewImg"
+  ).src = `http://127.0.0.1:3000/${response.data.filename}`;
+  console.log(document.querySelector("#imageBox > img").src);
 });
-
-
 
 // CSS
-document.querySelectorAll('.inputContainer input').forEach(input => {
-  input.addEventListener('focus', e => {
-    e.target.parentElement.classList.add('focused');
+document.querySelectorAll(".inputContainer input").forEach((input) => {
+  input.addEventListener("focus", (e) => {
+    e.target.parentElement.classList.add("focused");
   });
-  input.addEventListener('blur', e => {
-    e.target.parentElement.classList.remove('focused');
+  input.addEventListener("blur", (e) => {
+    e.target.parentElement.classList.remove("focused");
   });
 });
+
+
+let checkbox = document.querySelector("#agree");
+let agreeFrm = document.querySelector("#agreeFrm");
+const checkHandler = () => {
+  if (checkbox.checked) {
+    agreeFrm.classList.add("hide");
+    setTimeout(() => {
+      agreeFrm.style.zIndex = "-1";
+    }, 3000);
+  }
+};
+checkbox.addEventListener("change", checkHandler);
