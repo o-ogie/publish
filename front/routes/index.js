@@ -36,9 +36,6 @@ router.get('/kakao/login', (req, res) => {
     res.redirect(redirectURI)
 })
 
-// 백엔드에도 라우터 필요 oauth/kakao
-//http://localhost:3000/oauth/kakao?code=JzHb7ZEbdA40F7zDUtbigH80UkTbvQZEm3ShUDBA9T8qekMZCzYXIrGpu_UNdEC5udxzAwoqJZEAAAGFyBRI0g
-
 
 module.exports = router;
 
