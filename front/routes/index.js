@@ -17,7 +17,6 @@ router.get("/", (req, res) => {
 
 router.get('/socket',(req,res)=>{
     if (req.user === undefined) return res.render("index.html");
-    console.log(1)
     console.log(req.user)
     res.render('socket.html')
 })
