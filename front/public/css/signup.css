@@ -15,46 +15,120 @@ a {
     text-decoration: none;
 }
 
-body {
-    background-color: #c9dde4;
-}
-
 
 #signupWrap {
+    /* margin: 5vh 0; */
+    position: absolute;
+    display: flex;
+    justify-content:space-between;
     background-color: #fff;
-    width: 370px;
-    height: 1000px;
-    margin: 10vh auto;
+    width: 800px;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     box-shadow: 0px 2px 16px rgba(0,0,0,0.2);
     border-radius: 6px;
 }
+.leftContainer {
+    width: 380px;
+    background: #3786BD;
+    border-radius: 6px 0 0 6px;
+}
 
+.rightContainer {
+    margin-right: 60px;
+}
+
+#photoFrm {
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content:center;;
+}
+
+#photoFrm input {
+    opacity: 0;
+    width: 10px;
+}
+#photoFrm .choiceBtn {
+    display: block;
+    width: 140px;
+    height: 40px;
+    line-height: 40px;
+    background: #fff;
+    border-radius: 4px 0 0 4px;
+    padding-left: 10px;
+    color: rgb(160,160,160);
+    font-size: 14px;
+    cursor: pointer;
+}
+#photoFrm button {
+    width: 80px;
+    border: none;
+    background-color: #00337C;
+    border-radius: 0 4px 4px 0;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#imageBox {
+    margin: 40px 60px;
+}
+#previewImg {
+    height: 16rem;
+    width: 16rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
 
 #bannerText {
     text-align: center;
-    margin: 20px;
+    margin-top: 60px;
+    font-size: 2rem;
+    color: #fff;
 }
 
 #siginupFrm {
-    width: 300px;
+    width: 320px;
     margin: 0 auto;
 }
 
 .container {
     width: 300px;
     margin: 0 auto;
-}
-
-.container li > span {
-    display: inline-block;
-    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    }
+    
+    .container .inputContainer {
+    width: 140px;
     height: 48px;
     border-radius: 4px;
     border: solid 1px rgb(220, 220, 220);
+    flex-basis: calc(50% - 10px);
+    }
+.container .inputContainer.focused {
+    border: none;
+    box-shadow: 0 0 5px #00337C;
+    animation: pulse 1.2s infinite;
 }
+@keyframes pulse {
+    0% {
+      box-shadow: 0 0 5px #00337C;
+    }
+    50% {
+      box-shadow: 0 0 10px #00337C;
+    }
+    100% {
+      box-shadow: 0 0 5px #00337C;
+    }
+  }
 
 .container li > p {
-    font-size: 12px;
+    font-size: 9px;
     margin: 4px 0;
 }
 .container li > p:nth-child(1) {
@@ -67,7 +141,7 @@ body {
     height: 46px;
     border: transparent;
     outline: none;
-    background: none;
+    background: transparent;
     padding-left: 10px;
 }
 #signupFrm input::placeholder {

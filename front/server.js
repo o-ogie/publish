@@ -32,8 +32,6 @@ app.use((req, res, next) => {
 });
 app.use(router);
 
-app.use(router);
-
 app.listen(3005, () => {
     console.log(`front server listening on 3005`);
 });
