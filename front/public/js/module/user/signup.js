@@ -89,8 +89,19 @@ document.querySelector("#photoFrm").addEventListener("submit", async (e) => {
       ["Content-Type"]: "multipart/form-data",
     },
   });
-  document.querySelector('#userImg').value = response.data.filename;
-  document.querySelector('#previewImg').src = `http://54.180.163.189:80/${response.data.filename}`;
-  console.log(document.querySelector('#userImg').value)
+  document.querySelector('#inputImg').value = response.data.filename;
+  document.querySelector('#previewImg').src = `http://127.0.0.1:3000/${response.data.filename}`;
   console.log(document.querySelector('#imageBox > img').src)
+});
+
+
+
+// CSS
+document.querySelectorAll('.inputContainer input').forEach(input => {
+  input.addEventListener('focus', e => {
+    e.target.parentElement.classList.add('focused');
+  });
+  input.addEventListener('blur', e => {
+    e.target.parentElement.classList.remove('focused');
+  });
 });

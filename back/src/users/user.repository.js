@@ -46,7 +46,7 @@ class UserRepository {
     console.log(`repo : `, userData);
     const user = await this.User.update(
       {
-        image: userData.image,
+        userImg: userData.userImg,
         username: userData.username,
         userpw: userData.userpw,
         phoneNumber: userData.phoneNumber,
