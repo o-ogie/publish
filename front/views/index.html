@@ -32,7 +32,7 @@
         </div>
     </div>
     <div id="content">
-        <ul>
+        <!-- <ul>
             {% for item in list %}
             <li>
                 <div id="item">
@@ -85,6 +85,33 @@
                 </div>
             </li>
             {% endfor %}
+        </ul> -->
+
+
+
+
+
+        <ul>
+            <li class="boardItem">
+                <input type="hidden" value="{{item.idx}}">
+                <a href="/board/view?index={{item.idx}}">
+                <div class="itemContainer">
+                    <div class="itemPartA">
+                        <span class="boardThumbnail"><img src='https://velog.velcdn.com/images/joshuara7235/post/4ff77ade-f802-4cb1-99be-d732433eed1b/image.jpeg' alt=""></span>
+                        <span class="boardTitle">테스트입니다</span>
+                    </div>
+                    <div class="itemPartB">
+                        <span style="color: #999; font-size: 1.1em; "><iconify-icon icon="mdi:message-processing"></iconify-icon> 2일 전</span>
+                        <span style="color: #999; font-size: 1.1em; "><iconify-icon icon="ic:baseline-remove-red-eye"></iconify-icon> 0</span>
+                        <span style="color: #999; font-size: 1.1em; "><iconify-icon icon="mdi:message-processing"></iconify-icon> 0</span>
+                    </div>
+                    <div class="itemPartC">
+                        <span style="color: #999; font-size: 1.1em; "><iconify-icon icon="mdi:user-circle"></iconify-icon> web7722</span>
+                        <span style="font-size: 1.1em; "><iconify-icon icon="flat-color-icons:like"></iconify-icon> 1</span>
+                    </div>
+                </div>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

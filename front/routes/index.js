@@ -17,7 +17,6 @@ router.get("/", (req, res) => {
 
 router.get('/socket',(req,res)=>{
     if (req.user === undefined) return res.render("index.html");
-    console.log(1)
     console.log(req.user)
     res.render('socket.html')
 })
@@ -36,9 +35,6 @@ router.get('/kakao/login', (req, res) => {
     const redirectURI = `${KKO_HOST}/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
     res.redirect(redirectURI)
 })
-
-// 백엔드에도 라우터 필요 oauth/kakao
-//http://localhost:3000/oauth/kakao?code=JzHb7ZEbdA40F7zDUtbigH80UkTbvQZEm3ShUDBA9T8qekMZCzYXIrGpu_UNdEC5udxzAwoqJZEAAAGFyBRI0g
 
 
 module.exports = router;

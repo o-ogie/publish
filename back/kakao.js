@@ -1,48 +1,11 @@
 const express = require("express");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
 const app = express();
-const router = require("./routes");
 const axios = require("axios");
 const qs = require("qs");
-const config = require("./config");
-const BadRequest = config.exception.BadRequest;
-
-app.use(
-    cors({
-        origin: true,
-        credentials: true,
-    })
-);
-app.use(cookieParser());
-app.use(express.json());
-app.use(express.static("uploads"));
-
-app.use((error, req, res, next) => {
-    console.log(error.message);
-    if (error instanceof BadRequest) {
-        res.json({
-            isError: true,
-            message: error.message,
-            status: error.status,
-        });
-    } else if (error instanceof Error) {
-        res.json({
-            isError: true,
-            message: error.message,
-        });
-    }
-});
-
-app.use(router);
 
 
-
-// KAKAO LOGIN
-const JWT = require("./lib/jwt")
-const crypto = require("crypto")
-const jwt = new JWT({ crypto })
-
+module.exports = () => {
+    // KAKAO LOGIN
 const KKO_HOST = `https://kauth.kakao.com`;
 const REST_API_KEY = `1fe7ae4bf45bdf9bd6fc758bd63e9e0f`;
 const REDIRECT_URI = `http://localhost:3000/oauth/kakao`;
@@ -85,17 +48,12 @@ app.get("/oauth/kakao", async (req, res, next) => {
             Authorization: `Bearer ${access_token}`
         }
     })
-    kakao_user = {
-        userid: userData.data.id,
-        username: userData.data.kakao_account.profile.nickname,
-        nickname: userData.data.id,
-        email: userData.data.kakao_account.email,
-        gender: userData.data.kakao_account.gender,
-        userImg: userData.data.kakao_account.profile.profile_image_url,
-    }
-    console.log(kakao_user)
-    const token = jwt.createToken(kakao_user)
-    console.log(token)
+    console.log(`userid :::`, userData.data.id)
+    console.log(`username :::`, userData.data.id)
+    console.log(`nickname :::`, userData.data.kakao_account.profile.nickname)
+    console.log(`email :::`, userData.data.kakao_account.email)
+    console.log(`gender :::`, userData.data.kakao_account.gender)
+    console.log(`userImg :::`, userData.data.kakao_account.profile.profile_image_url)
 
     // 사용자 DB에 저장하기 ~ provider, snsId
     // 사용자측 토큰 형식에 맞게 재발급해서 클라이언트에 건네기
@@ -103,8 +61,8 @@ app.get("/oauth/kakao", async (req, res, next) => {
     next(e);
   }
 
-    res.redirect("http://localhost:3005");
+  res.redirect("http://localhost:3005");
 });
+}
 
-module.exports = app;
 
