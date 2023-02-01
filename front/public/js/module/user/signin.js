@@ -30,18 +30,32 @@ frm.addEventListener("submit", async (e) => {
       userpw: userpw.value,
     });
 
+    console.log(response.data)
     const status = response.data.status;
     if (status >= 400) throw new Error(e);
     else if (response.status >= 200) {
       document.cookie = `token=${
         response.data.token
       }; path=/; expires=${date.toUTCString()};`;
-      location.href = "/";
     }
+    location.href = "/";
   } catch (e) {
     alert(`아이디와 패스워드가 일치하지 않습니다`);
   }
 });
+
+
+// // KAKAO
+// const kakao = document.querySelector("#kakaoLogin")
+// kakao.addEventListener("click", async () => {
+//   const response = await request.get("/oauth/kakao")
+//   console.log(response)
+//   document.cookie = `token="${response};`
+// })
+
+
+
+
 
 // CSS
 document.querySelectorAll(".inputContainer input").forEach((input) => {
@@ -52,10 +66,3 @@ document.querySelectorAll(".inputContainer input").forEach((input) => {
     e.target.parentElement.classList.remove("focused");
   });
 });
-
-
-
-
-
-
-
