@@ -34,6 +34,7 @@ class UserController {
   }
   async putProfile(req, res, next) {
     try {
+      // console.log("req.body:", req.body);
       const token = await this.userService.putProfile(req.body);
       // console.log(token);
       // res.cookie('token', token)

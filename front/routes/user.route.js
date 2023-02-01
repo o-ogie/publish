@@ -48,7 +48,7 @@ route.get("/modify", (req, res) => {
 route.post("/modify", async (req, res) => {
     // console.log("modify :", req.body)
     const response = await request.put("/users", { ...req.body });
-    console.log("response :", response.data.token);
+    // console.log("response :", response.data.token);
     res.cookie("token", response.data.token);
     await res.redirect("/user/profile");
 });
