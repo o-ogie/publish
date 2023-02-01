@@ -1,20 +1,22 @@
 import request from "/js/lib/request.js";
 
-const preview = document.querySelector("#preview");
+const preview = document.querySelector("#preview > #text");
+const preimg = document.querySelector("#preview > #img");
 const insert = document.querySelector("#insert");
 const insertBtn = document.querySelector("#insertBtn");
-const imgfile = document.querySelector("#imgfile");
 const imgform = document.querySelector("#imgform");
+const imgfile = document.querySelector("#imgfile");
+const inputimg = document.querySelector("#inputimg");
 
 let subject = "";
 let content = "";
+let img = "";
 const back = document.querySelector("#back");
 
 const frm = document.querySelector("#frm");
 
 const inserthandler = (e) => {
     const value = e.target.value;
-
     if (e.target.name === "subject") {
         subject = value;
     } else if (e.target.name === "content") {
@@ -58,23 +60,33 @@ const submithandler = async (e) => {
     for (let i = 0; i < hashtags.length; i++) {
         hashs.push(hashtags[i].innerHTML);
     }
-    // hash.value = hashs;
+
     frm.submit();
 };
-const testhandler = async (e) => {
-    e.preventDefault();
-    // console.log(e.target);
-    const body = new FormData(e.target);
 
+const imghandler = async (e) => {
+    const body = new FormData(frm);
     const respone = await request.post("/boards/array", body, {
         headers: {
             "Content-Type": "multipart/form-data",
         },
     });
-    console.log(respone);
+    const imgarray = respone.data;
+    for (let i = 0; i < imgarray.length; i++) {
+        const img = document.createElement("img");
+        img.className = "previewimg";
+        img.src = `http://localhost:3000/board/${imgarray[i]}`;
+        preimg.append(img);
+        // console.log(imgfile[i].value);
+    }
 };
 
-imgform.addEventListener("submit", testhandler);
+inputimg.addEventListener("click", imghandler);
+// const testhandler = async (e) => {
+//     e.preventDefault();
+// };
+
+// imgform.addEventListener("submit", testhandler);
 
 hash.addEventListener("keydown", hashhandler);
 insert.addEventListener("input", inserthandler);
