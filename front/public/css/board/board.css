@@ -111,7 +111,7 @@ input {
     cursor: pointer;
 }
 
-#hashs > .hashtags {
+#hash > .hashtags {
     display: inline-block;
     width: auto;
     height: 20px;
@@ -120,5 +120,6 @@ input {
     border-radius: 7px;
     padding: 4px;
     margin: 2px 2px;
+    cursor: pointer;
 }
 
