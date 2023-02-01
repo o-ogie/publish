@@ -34,7 +34,7 @@ a {
 
 #layoutWrap.scrolled {
     box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
-    transition: all 0.5s ease-out;
+    transition: all 1s ease-out;
     position: fixed;
     background-color: #FFF;
     top: 0px;
@@ -70,7 +70,7 @@ a {
 
 #userMenu {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 #userImg img {
@@ -140,7 +140,7 @@ input[id="menu_icon"] {
 #userTab #userMenu {
     position: absolute;
     background: #FFF;
-    width: 320px;
+    width: 340px;
     height: 60px;
     border-radius: 4px;
     box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
@@ -148,22 +148,33 @@ input[id="menu_icon"] {
     opacity: 0;
     right: 40px;
     transition: all 0.35s;
+    z-index: -1;
 }
 
 #userTab #userMenu.clicked {
+    z-index: 2;
     opacity: 1;
     right: 100px;   
     transition: all 0.35s;
 }
 
 #userTab ul {
-    width: 320px;
+    width: 340px;
     height: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 14px;
 }
 
+#userMenu li {
+    display: block;
+    text-align: center;
+    width: 70px;
+    height: 64px;
+    line-height: 64px;
+    cursor: pointer;
+}
 
 
 #login button {
