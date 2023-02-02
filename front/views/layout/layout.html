@@ -7,10 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/index.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+    </style>
 </head>
 
 <body id="particles-js">
@@ -18,7 +25,7 @@
         <ul id="layout">
             <li id="logo">
                 <h1>
-                    <a href="/"><img src="https://img.freepik.com/free-icon/sleep_318-876856.jpg?w=2000"> {{nickname}}'s Blog</a>
+                    <a href="/"><img src="https://img.freepik.com/free-icon/sleep_318-876856.jpg?w=2000"> {{nickname}}.LOG</a>
                 </h1>
             </li>
             {% if userid %}
@@ -27,7 +34,7 @@
             </li>
             <li id="userImg">
                 <a href="/user/profile"><img src='http://localhost:3000/{{userImg}}' alt=""></a>
-                </li>
+            </li>
             <li id="userTab">
                 <input type="checkbox" id="menu_icon" />
                 <label for="menu_icon">
@@ -51,7 +58,30 @@
             {% endif %}
         </ul>
     </div>
-
+    <div id="chatterWrap">
+        <div id="chatToggle">
+            <button><iconify-icon icon="ph:chats-bold"></iconify-icon></button>
+            <span class="messageAlert"><iconify-icon icon="humbleicons:exclamation"></iconify-icon>
+            </span>
+        </div>
+        <div id="chatterBox">
+            <div id="userList">
+                <div>현재 참가자 <span id="userCount"></span>명</div>
+                <div id="participant"></div>
+            </div>
+            <form action="" id='frm'>
+                <span>To:</span>
+                <select id="toUser" class="inbox" name="nickname">
+                    <option value="default">모두</option>
+                </select>
+                <input type="text" name="message">
+                <button type="submit">submit</button>
+            </form>
+            <ul id="chat">
+    
+            </ul>
+        </div>
+    </div>
     {% block content %}
 
     {% endblock %}

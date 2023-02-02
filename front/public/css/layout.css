@@ -226,3 +226,62 @@ input[id="menu_icon"] {
 #write button:hover a {
     color: #FFF;
 }
+
+
+
+
+
+
+/* chat */
+#chatToggle {
+    height: 3.6rem;
+    width: 3.6rem;
+    box-shadow: rgb(0 0 0 / 50%) 0px 4px 8px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: all 0.125s ease-in 0s;
+    cursor: pointer;
+    background-color: #f5c06b;
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    z-index: 3;
+}
+#chatToggle button {
+    height: 3.6rem;
+    width: 3.6rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #efefef;
+    padding-top: 7px;
+}
+#chatToggle .messageAlert iconify-icon {
+    height: 1.1rem;
+    width: 1.1rem;
+    border-radius: 50%;
+    background-color: #e83c35;
+    color:#fff;
+    z-index: 4;
+    position: absolute;
+    font-size: 0.8rem;
+    padding: 2px;
+    top: 5%;
+    right: 0;
+}
+#chatToggle:hover {
+    height: 3.8rem;
+    width: 3.8rem;
+}
+
+#chatterBox {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    width: 38vh;
+    height: 50vh;
+    position: absolute;
+    bottom: 10%;
+    right: 8%;
+    display: none;
+}
