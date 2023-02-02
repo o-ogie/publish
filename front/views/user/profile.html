@@ -1,44 +1,58 @@
 {% extends 'layout/layout.html' %}
 {% block content %}
-<div id="profileFrm">
-    <h2 id="#bannerText">마이 페이지</h2>
-    <ul class="container">
-        <div>
-            <p class="title">프로필 사진</p>
-            <span><img src='http://localhost:3000/{{userImg}}' alt=""></span>
+<link rel="stylesheet" href="/css/profile.css">
+
+<div id="profileWrap">
+    <div class="topContainer">
+        <div id="imageBox">
+            <img id="previewImg" src='http://localhost:3000/{{userImg}}' alt="">
         </div>
-        <li>
-            <p class="title">아이디</p>
-            <span>{{userid}}</span>
-        </li>
-        <li>
-            <p class="title">이름</p>
-            <span>{{username}}</span>
-        </li>
-        <li>
-            <p class="title">닉네임</p>
-            <span>{{nickname}}</span>
-        </li>
-        <li>
-            <p class="title">생년월일</p>
-            <span>{{birth}}</span>
-        </li>
-        <li>
-            <p class="title">성별</p>
-            <span>{{gender}}</span>
-        </li>
-        <li>
-            <p class="title">이메일 주소</p>
-            <span>{{email}}</span>
-        </li>
-        <li>
-            <p class="title">전화번호</p>
-            <span>{{phoneNumber}}</span>
-        </li>
-    </ul>
-    <div id="btnBox">
-        <button class="button"><a href="/user/modify">회원정보 수정</a></button>
-        <button class="button"><a href="/">메인페이지로 이동</a></button>
+        <!-- <form method="post" action="/single" id="photoFrm">
+            <input type="file" name="filename" id="fileChoice">
+            <label for="fileChoice" class="choiceBtn">프로필 사진 선택</label>
+            <button type="submit">등록</button>
+        </form> -->
+    </div>
+    <div class="bottomContainer">
+        <h2 id="bannerText">{{userid}}</h2>
+        <form method="post" action="/user/signup" id="profileFrm">
+            <ul class="container">
+                <input type="hidden" name="userImg" id="inputImg">
+                <li id="nicknameBox">
+                    <div class="inputContainer">
+                        <h3>닉네임</h3>
+                        <input type="text" id="nickname"  value="{{nickname}}" readonly>
+                            <iconify-icon icon="mdi:account-tag"></iconify-icon>
+                    </div>
+                </li>
+                <li id="usernameBox">
+                    <div class="inputContainer">
+                        <h3>이름</h3>
+                        <input type="text" id="username"  value="{{username}}" readonly>
+                        <iconify-icon icon="mdi:account-edit"></iconify-icon>
+                    </div>
+                </li>
+                <li id="phoneNumberBox">
+                    <div class="inputContainer">
+                        <h3>전화번호</h3>
+                        <input type="text" id="phoneNumber"  value="{{phoneNumber}}" readonly>
+                        <iconify-icon icon="material-symbols:phone-android-rounded"></iconify-icon>
+                    </div>
+                </li>
+                <li id="emailBox">
+                    <div class="inputContainer">
+                        <h3>이메일</h3>
+                        <input type="text" id="email"  value="{{email}}" readonly>
+                            <iconify-icon icon="ic:round-email"></iconify-icon>
+                    </div>
+                </li>
+            </ul>
+            <div id="btnBox">
+                <button class="button" type="button"><a href="/user/modify">회원정보 수정</a></button>
+                <button class="button" type="submit">회원탈퇴</a></button>
+            </div>    
+        </form>
     </div>
 </div>
+
 {% endblock%}
