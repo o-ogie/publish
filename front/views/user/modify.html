@@ -1,86 +1,74 @@
-{% extends 'layout/layout.html' %} {% block content %}
+{% extends 'layout/layout.html' %}
+{% block content %}
+<link rel="stylesheet" href="/css/profile.css">
 
-
-<form method="post" action="/single" id="photoFrm">
-  <p class="title">사진 선택</p>
-  <input type="file" name="filename">
-  <button type="submit">등록</button>
-</form>
-
-<form method="post" action="/user/modify" id="modifyFrm">
-  <h2 id="bannerText">회원정보 수정</h2>
-  <ul class="container">
-    <div id="imageBox">
-      <img id="previewImg" src="" alt="">
-      <input type="hidden" name="userImg" id="inputImg">
+<div id="profileWrap">
+    <div class="topContainer">
+        <div id="imageBox">
+            <img id="previewImg" src='http://localhost:3000/{{userImg}}' alt="">
+        </div>
+        <form method="post" action="/single" id="photoFrm">
+          <input type="file" name="filename" id="fileChoice">
+          <label for="fileChoice" class="choiceBtn">프로필 사진 선택</label>
+          <button type="submit">등록</button>
+      </form>
     </div>
-    <li>
-      <p class="title">아이디</p>
-      <span><input type="text" name="userid" id="userid"  value="{{userid}}" readonly></span>
-      <p class="alertMessage" style="opacity: 0; color: red">
-        영문과 숫자를 사용하여 6~16자 사이로 입력해주세요
-      </p>
-    </li>
-    <li>
-      <p class="title">닉네임</p>
-      <span
-        ><input type="text" name="nickname" id="username" value="{{username}}"
-      /></span>
-      <p class="alertMessage" style="opacity: 0; color: red">
-        특수문자를 제외하여 두 글자 이상으로 입력해주세요
-      </p>
-    </li>
-    <li>
-      <p class="title">비밀번호</p>
-      <span
-        ><input
-          type="password"
-          name="userpw"
-          id="userpw"
-          placeholder="비밀번호를 입력해주세요"
-          maxlength="16"
-      /></span>
-      <p class="alertMessage" style="opacity: 0; color: red">
-        영문, 숫자, 특수문자를 모두 혼합하여 8자 이상으로 써주세요
-      </p>
-    </li>
-    <li>
-        <p class="title">비밀번호 확인</p>
-        <span><input type="password" id="pwcheck" placeholder="비밀번호를 다시 한 번 입력해주세요" maxlength="16"></span>
-        <p class="alertMessage" style="opacity: 0; color: red">비밀번호가 일치하지 않습니다</p>
-    </li>
-    <!-- <li>
-      <p class="title">생년월일</p>
-      <span
-        ><input type="text" name="birth" id="birth" value="{{birth}}"
-      /></span>
-    </li> -->
-    <li>
-      <p class="title">전화번호</p>
-      <span
-        ><input
-          type="tel"
-          name="phoneNumber"
-          id="phoneNumber"
-          value="{{phoneNumber}}"
-      /></span>
-      <p class="alertMessage" style="opacity: 0; color: red">
-        "-"를 제외한 11자리의 숫자로 입력해주세요
-      </p>
-    </li>
-    <li>
-      <p class="title">이메일 주소</p>
-      <span
-        ><input type="email" name="email" id="email" value="{{email}}" required
-      /></span>
-      <p class="alertMessage" style="opacity: 0; color: red">
-        이메일 형식에 맞게 입력해주세요
-      </p>
-    </li>
-  </ul>
-  <button type="submit" class="button">수정완료</button>
-</form>
-
+    <div class="bottomContainer">
+        <h2 id="bannerText">{{userid}}</h2>
+        <form method="post" action="/user/modify" id="profileFrm">
+            <ul class="container">
+                <input type="hidden" name="userid" id="userid" value="{{userid}}">
+                <input type="hidden" name="userImg" id="inputImg">
+                <li id="nicknameBox">
+                    <div class="inputContainer">
+                        <span><iconify-icon icon="mdi:account-tag"></iconify-icon></span>
+                        <input type="text" id="nickname"  value="{{nickname}}">
+                    </div>
+                    <p class="alertMessage" style="opacity: 0; color: red">
+                      특수문자를 제외하여 두 글자 이상으로 입력해주세요
+                    </p>
+                </li>
+                <li>
+                  <div class="inputContainer">
+                    <span><iconify-icon icon="mdi:password"></iconify-icon></span>
+                    <input type="password" name="userpw" id="userpw" placeholder="비밀번호" maxlength="16"/>
+                  </div>
+                  <p class="alertMessage" style="opacity: 0; color: red">
+                    영문, 숫자, 특수문자를 모두 혼합하여 8자 이상으로 써주세요
+                  </p>
+                </li>
+                <li>
+                    <div class="inputContainer">
+                      <span><iconify-icon icon="mdi:password-check"></iconify-icon></span>
+                      <input type="password" id="pwcheck" placeholder="비밀번호 확인" maxlength="16">
+                    </div>
+                    <p class="alertMessage" style="opacity: 0; color: red">비밀번호가 일치하지 않습니다</p>
+                </li>
+                <li id="phoneNumberBox">
+                    <div class="inputContainer">
+                        <span><iconify-icon icon="material-symbols:phone-android-rounded"></iconify-icon></span>
+                        <input type="text" id="phoneNumber"  value="{{phoneNumber}}">
+                    </div>
+                    <p class="alertMessage" style="opacity: 0; color: red">
+                      "-"를 제외한 11자리의 숫자로 입력해주세요
+                    </p>
+                </li>
+                <li id="emailBox">
+                    <div class="inputContainer">
+                        <span><iconify-icon icon="ic:round-email"></iconify-icon></span>
+                        <input type="text" id="email"  value="{{email}}">
+                        <p class="alertMessage" style="opacity: 0; color: red">
+                          이메일 형식에 맞게 입력해주세요
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <div id="btnBox">
+                <button class="button" type="button"><a href="/user/profile">뒤로가기</a></button>
+                <button class="button" type="submit">수정완료</a></button>
+            </div>    
+        </form>
+    </div>
+</div>
 <script type="module" src="/js/module/user/signup.js"></script>
-
-{% endblock %}
+{% endblock%}

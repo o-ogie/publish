@@ -1,0 +1,243 @@
+
+#profileWrap {
+    /* margin: 5vh 0; */
+    position: absolute;
+    background-color: #fff;
+    width: 24vw;
+    height: 70vh;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+}
+
+.topContainer {
+    width: 24vw;
+    height: 13vh;
+    background: #4b6fec;
+    border-radius: 16px 16px 0 0;
+    position: absolute;
+}
+
+#photoFrm {
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    ;
+}
+
+#photoFrm input {
+    opacity: 0;
+    width: 10px;
+}
+
+#photoFrm .choiceBtn {
+    display: block;
+    width: 140px;
+    height: 40px;
+    line-height: 40px;
+    background: #eee;
+    border-radius: 4px 0 0 4px;
+    padding-left: 10px;
+    color: rgb(160, 160, 160);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#photoFrm button {
+    width: 80px;
+    border: none;
+    background-color: #00337C;
+    border-radius: 0 4px 4px 0;
+    color: #ddd;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#imageBox {
+    margin: 40px;
+}
+
+#previewImg {
+    height: 8rem;
+    width: 8rem;
+    position: absolute;;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 6px solid #4b6fec;
+    object-fit: cover;
+}
+
+.bottomContainer {
+    margin-top: 20vh;
+}
+
+#bannerText {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+
+#siginupFrm {
+    width: 440px;
+    margin: 0 auto;
+}
+.signupIcon {
+    color: #7280f6;
+    font-size: 3rem;
+    text-align: center;
+    padding-top: 40px;
+}
+.signupIcon + h3 {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.container .inputContainer {
+    width: 12vw;
+    height: 2rem;
+    margin-top: 20px;
+    /* border-bottom: solid 1px rgb(220, 220, 220); */
+    flex-basis: calc(50% - 10px);
+}
+
+.container .inputContainer.focused {
+    box-shadow: 0 6px 3px -4px rgba(31, 33, 67, 0.5)
+}
+
+
+.container li>p {
+    font-size: 9px;
+    margin: 4px 0;
+    position: absolute;
+}
+
+.container li>p:nth-child(1) {
+    font-size: 16px;
+}
+
+.container li> div {
+    position: relative;
+}
+
+
+.container iconify-icon {
+    font-size: 1.2rem;
+    top: 50%;
+    left: 5%;
+    position: absolute;
+    color: #888;
+}
+
+
+#profileFrm input {
+    width: 100%;
+    height: 2rem;
+    border: transparent;
+    outline: none;
+    background: #ececec;
+    margin-top: 10px;
+    padding-left: 40px;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+#profileFrm input::placeholder {
+    font-size: 1rem;
+    color: #bbb;
+}
+
+#profileFrm input:focus,
+.inputContainer:focus {
+    border: #2F8F9D;
+    cursor: pointer;
+}
+
+#userChart {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    left: 50%;
+    bottom: 13%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+#btnBox {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    width: 80%;
+    bottom: 5%;
+    left: 10%;
+}
+
+#profileFrm button {
+    width: 15vh;
+    height: 5vh;
+    border: none;
+    font-size: 16px;
+    border-radius: 16px;
+    background-color: #5161f4;
+    color: #fff;
+    cursor: pointer;
+}
+#profileFrm button iconify-icon {
+    font-size: 1.2rem;
+    padding-left: 10px;
+    height: 16px;
+}
+#profileFrm button:hover {
+    background-color: #212fa9;
+    transition: all 0.3s ease-out;
+}
+#profileFrm button a {
+    color: #fff;
+}
+
+#textBox {
+    width: 300px;
+    margin: 0 auto;
+    font-size: 15px;
+}
+
+#textBox ul {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    margin: 16px 0 20px 0;
+}
+
+#textBox li:nth-child(1) {
+    color: #2C74B3;
+}
+
+#textBox li:nth-child(2)>a {
+    color: #666;
+}
+
+
+#textBox>p {
+    text-align: center;
+    color: #666;
+}
+
+#textBox>p>a {
+    color: #2C74B3;
+}
