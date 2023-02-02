@@ -8,7 +8,7 @@ li {
     list-style: none;
 }
 
-#wrap {
+#boardwrap {
     padding-top: 50px;
     margin: 0 auto;
     width: 1200px;
@@ -16,19 +16,20 @@ li {
     justify-content: space-between;
 }
 
-#wrap > #insert {
+#boardwrap > #insert {
     width: 47%;
 }
 
-#wrap > #preview {
-    width: 45%;
-    height: 500px;
+#boardwrap > #preview {
+    width: 47%;
+    height: 540px;
     padding: 10px;
     background-color: aqua;
     box-sizing: border-box;
+    border-radius: 10px;
 }
 
-#wrap > #preview > #text {
+#boardwrap > #preview > #text {
     width: 45%;
     height: 500px;
 }
@@ -43,6 +44,7 @@ input {
     background: #fff;
     padding: 10px 0 0 10px;
     box-sizing: border-box;
+    border-radius: 10px;
 }
 
 #board > li {
@@ -68,7 +70,7 @@ input {
 
 #board > #imgfile {
     padding: 5px 10px;
-    width: 400px;
+    width: 490px;
     border-bottom: 2px solid #ececec;
 }
 
@@ -115,13 +117,16 @@ input {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
-    width: 570px;
+    width: 565px;
 }
 
 #btns > .btns {
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
     padding: 5px 10px;
     width: 100px;
-    height: 30px;
+    height: 36px;
     box-sizing: border-box;
 }
 

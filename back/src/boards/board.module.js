@@ -1,6 +1,6 @@
 const {
     sequelize: {
-        models: { Board },
+        models: { Board, Hashtag, Comment, User, Hash, Liked },
     },
     sequelize,
 } = require("../../models/index");
@@ -10,7 +10,7 @@ const BoardService = require("./board.service");
 const BoardController = require("./board.controller");
 const config = require("../../config");
 
-const repository = new BoardRepository({ Board });
+const repository = new BoardRepository({ sequelize, Board, Hashtag, Comment, User, Hash, Liked });
 const service = new BoardService({ boardRepository: repository, config });
 const controller = new BoardController({ boardService: service });
 

@@ -14,10 +14,12 @@ class BoardService {
             throw new this.BadRequest(e);
         }
     }
-    async getView(id) {
-        console.log(`serv :`, { id });
+    async getView(id, idx) {
         try {
-            const view = await this.boardRepository.findOne(id);
+            const view = await this.boardRepository.findOne(id, idx);
+            // console.log(view.liked);
+            // const hashtag = view.hashtag.map((v) => v.tagname);
+            // const data = { view: view.view, hashtag };
             return view;
         } catch (e) {
             throw new this.BadRequest(e);

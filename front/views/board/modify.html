@@ -1,41 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-        <link rel="stylesheet" href="/css/board/board.css" />
-    </head>
-
-    <body>
-        <div id="wrap">
-            <div id="insert">
-                <form id="frm" method="post" action="">
-                    <ul id="board">
-                        <li>
-                            <input type="text" name="subject" id="subject" placeholder="제목을 입력해주세요" />
-                        </li>
-                        <li>
-                            <input type="text" name="hashtag" id="hashtag" placeholder="태그를 입력해주세요" />
-                        </li>
-                        <li>
-                            <input type="file" name="imgfile" id="imgfile" multiple />
-                        </li>
-                        <li>
-                            <textarea name="content" id="content" cols="30" rows="10" placeholder="내용을 입력해주세요"></textarea>
-                        </li>
-                    </ul>
-                    <div id="btns">
-                        <button id="back" class="btns">← 나가기</button>
-                        <button id="temporarily" class="btns" type="submit">임시저장</button>
-                        <button id="insertBtn" class="btns" type="submit">등록하기</button>
-                    </div>
-                </form>
-            </div>
-            <div id="preview"></div>
+{% extends "layout/layout-alter.html" %}{% block content %}
+<link rel="stylesheet" href="/css/board/board.css" />
+<body>
+    <div id="boardwrap">
+        <div id="insert">
+            <form id="frm" method="post" action="/board">
+                <ul id="board">
+                    <li>
+                        <input type="text" name="subject" id="subject" placeholder="제목을 입력해주세요" />
+                    </li>
+                    <li id="hash"></li>
+                    <li>
+                        <input type="text" name="hashtag" id="hashtag" placeholder="태그를 입력해주세요" />
+                    </li>
+                    <li id="imgfile">
+                        <label for="upload1">
+                            <img class="labelimg" src="https://cdn.icon-icons.com/icons2/2483/PNG/512/image_file_icon_149928.png" alt="" />
+                        </label>
+                        <input type="file" name="upload1" id="upload1" class="imgs" />
+                        <label for="upload2">
+                            <img class="labelimg" src="https://cdn.icon-icons.com/icons2/2483/PNG/512/image_file_icon_149928.png" alt="" />
+                        </label>
+                        <input type="file" name="upload2" id="upload2" class="imgs" />
+                        <label for="upload3">
+                            <img class="labelimg" src="https://cdn.icon-icons.com/icons2/2483/PNG/512/image_file_icon_149928.png" alt="" />
+                        </label>
+                        <input type="file" name="upload3" id="upload3" class="imgs" />
+                        <button type="submit" id="inputimg">전송</button>
+                    </li>
+                    <li>
+                        <textarea name="content" id="content" cols="30" rows="10" placeholder="내용을 입력해주세요"></textarea>
+                    </li>
+                </ul>
+                <div id="btns">
+                    <button id="back" class="btns">← 나가기</button>
+                    <button id="temporarily" class="btns" type="submit">임시저장</button>
+                    <button id="insertBtn" class="btns" type="submit">등록하기</button>
+                </div>
+            </form>
         </div>
-        <script type="text/javascript" src="/js/module/board/board.js"></script>
-    </body>
-</html>
+        <div id="preview">
+            <div id="text"></div>
+            <div id="img"></div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module" src="/js/lib/request.js"></script>
+    <script type="module" src="/js/module/board/board.js"></script>
+</body>
+{% endblock %}
 
