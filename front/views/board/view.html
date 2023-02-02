@@ -1,29 +1,38 @@
-{% extends "layout/layout.html" %} {% block content %}
+{% extends "layout/layout.html" %}{% block content %}
 <link rel="stylesheet" href="/css/board/view.css" />
-<div id="wrap">
+<div id="viewwrap">
     <div id="board">
         <div id="boardSubject">
-            <h2>{{subject}}subject</h2>
+            <h2>{{data.view.subject}}</h2>
         </div>
-        <div id="boardInfo"><span id="userid">{{userid}}아이디</span><span id="date">{{regesterdate}}1900.00.01</span></div>
-        <div id="boardcontent">{{content}}content</div>
+        <div id="boardInfo"><span id="userid">{{data.view.userid}}</span><span id="date">{{regesterdate}}1900.00.01</span></div>
+        <div id="hashs">{{data.hashtag}}</div>
+        <div id="contents">
+            <div id="likes">
+                <div class="img">
+                    <iconify-icon class="like" icon="mdi:cards-heart"></iconify-icon>
+                </div>
+                <p>{{likes}}0</p>
+            </div>
+            <div id="boardcontent">{{data.view.content}}</div>
+        </div>
     </div>
     <div id="profile">
         <div id="img">
-            <img src="" alt="" />
+            <img src="https://cdn.pixabay.com/photo/2020/05/17/20/21/cat-5183427__480.jpg" alt="" />
         </div>
         <div id="writerInfo">
             <p id="pWriter">작성자</p>
             <p id="pblog">blogname</p>
         </div>
     </div>
-    <div id="comment">
+    <div id="comments">
         <div id="total">
             <h3>{{asdasd}}개의 댓글이 있습니다</h3>
         </div>
         <form method="post" action="" id="commentfrm">
-            <div>
-                <input type="text" name="comment" id="comment" />
+            <div id="commentFrmInput">
+                <textarea type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요"></textarea>
             </div>
             <button type="submit">댓글 등록</button>
         </form>
@@ -42,5 +51,6 @@
 </div>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="module" src="/js/lib/request.js"></script>
+<script type="text/javascript" src="/js/module/board/view.js"></script>
 {% endblock %}
 

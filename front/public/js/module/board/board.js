@@ -60,6 +60,7 @@ const submithandler = async (e) => {
     for (let i = 0; i < hashtags.length; i++) {
         hashs.push(hashtags[i].innerHTML);
     }
+    hash.value = hashs;
 
     frm.submit();
 };
