@@ -36,9 +36,11 @@ class Kakao {
             username: data.kakao_account.profile.nickname,
             nickname: data.kakao_account.profile.nickname,
             gender: data.kakao_account.gender,
-            userImg: data.kakao_account.profile.profile_image_url
+            userImg: data.kakao_account.profile.profile_image_url,
+            provider:'kakao'
         }
-        // this.User.create()
+        const result = this.User.create(payload, {raw:true})
+        console.log(result)
     }
 
 
