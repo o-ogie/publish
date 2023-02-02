@@ -7,6 +7,7 @@ module.exports = (server,app)=>{
 
     /** Client 접속 이벤트 */
     io.on('connection',(socket)=>{
+        console.log('cookie::::',socket.handshake.headers)
         const req = socket.request
         const cookie = socket.handshake.headers.cookie
         const payload = cookie.split('=')[1].split('.')[1]
