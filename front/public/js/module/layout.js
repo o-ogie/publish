@@ -110,34 +110,37 @@ particlesJS("particles-js", {
   });
 
 
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 0) {
-        document.querySelector('#layoutWrap').classList.add('scrolled');
-        document.querySelector('#logo').style.filter = "invert(0%)";
-        document.querySelector('#write>button>a').style.filter = "invert(100%)";
-        document.querySelector('input[id="menu_icon"] + label').style.filter = "invert(100%)";
-    } else {
-        document.querySelector('#layoutWrap').classList.remove('scrolled');
-        document.querySelector('#logo').style.filter = "invert(100%)";
-        document.querySelector('#write>button>a').style.filter = "invert(0%)";
-        document.querySelector('input[id="menu_icon"] + label').style.filter = "invert(0%)";
-    }
-});
-
-// let prevScroll = window.pageYOffset;
 // window.addEventListener('scroll', () => {
-//     let currentScroll = window.pageYOffset;
-//     console.log('prevScroll :', prevScroll);
-//     console.log('currentScroll :', currentScroll);
-//     if (prevScroll > currentScroll) {
+//     if (window.pageYOffset > 0) {
 //         document.querySelector('#layoutWrap').classList.add('scrolled');
+//         document.querySelector('#logo').style.filter = "invert(0%)";
+//         document.querySelector('#write>button>a').style.filter = "invert(100%)";
+//         document.querySelector('input[id="menu_icon"] + label').style.filter = "invert(100%)";
 //     } else {
 //         document.querySelector('#layoutWrap').classList.remove('scrolled');
+//         document.querySelector('#logo').style.filter = "invert(100%)";
+//         document.querySelector('#write>button>a').style.filter = "invert(0%)";
+//         document.querySelector('input[id="menu_icon"] + label').style.filter = "invert(0%)";
 //     }
 // });
 
-document.querySelector('#menu_icon').addEventListener('click', () => {
 
+document.querySelector('#layout').addEventListener('mouseover', () => {
+      document.querySelector('#layoutWrap').classList.add('scrolled');
+      document.querySelector('#logo').style.filter = "invert(0%)";
+      document.querySelector('#write>button>a').style.filter = "invert(100%)";
+      document.querySelector('input[id="menu_icon"] + label').style.filter = "invert(100%)";
+});
+document.querySelector('#layout').addEventListener('mouseout', () => {
+      document.querySelector('#layoutWrap').classList.remove('scrolled');
+      document.querySelector('#logo').style.filter = "invert(100%)";
+      document.querySelector('#write>button>a').style.filter = "invert(0%)";
+      document.querySelector('input[id="menu_icon"] + label').style.filter = "invert(0%)";
+});
+
+
+
+document.querySelector('#menu_icon').addEventListener('click', () => {
     document.querySelector('#userMenu').classList.toggle('clicked');
 });
 
