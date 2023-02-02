@@ -14,7 +14,6 @@ route.get("/", (req, res) => {
 route.post("/", async (req, res) => {
     const { userid } = req.user;
     const { hashtag: text } = req.body;
-    console.log(req.body);
     const respone = text.split(",");
     const body = {
         ...req.body,
@@ -28,8 +27,11 @@ route.post("/", async (req, res) => {
 route.get("/write", (req, res) => {
     res.render("board/write.html");
 });
-route.get("/:id/:idx", (req, res) => {
-    res.render("board/view.html");
+route.get("/:id/:idx", async (req, res) => {
+    const { id, idx } = req.params;
+    const respone = await request.get(`/boards/${id}/${idx}`);
+    const data = respone.data;
+    res.render("board/view.html", { data });
 });
 
 route.get("/:id/:idx/modify", (req, res) => {
