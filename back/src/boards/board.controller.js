@@ -12,6 +12,8 @@ class BoardController {
     }
     async getView(req, res, next) {
         try {
+            const { userid } = req.body;
+            console.log(userid);
             const { id, idx } = req.params;
             const response = await this.boardService.getView(id, idx);
             res.json(response);
@@ -23,7 +25,6 @@ class BoardController {
         try {
             if (!req.body.subject) throw new Error("제목이 없습니다");
             if (!req.body.content) throw new Error("내용이 없습니다");
-            req.body.userid = "qjel216";
             const { userid, subject, content, hashtag } = req.body;
             const response = await this.boardService.postWrite({
                 userid,
@@ -88,9 +89,9 @@ class BoardController {
     }
 
     async postLike(req, res, next) {
-        console.log(`postCon:`, req.params.id, req.user.userid);
+        console.log(`postCon:`, req.params.idx, req.body.userid);
         try {
-            const response = await this.boardService.postLike(req.params.id, req.body.userid);
+            const response = await this.boardService.postLike(req.params.idx, req.body.userid);
             res.status(201).json(response);
         } catch (e) {
             next(e);
