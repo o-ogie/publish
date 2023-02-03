@@ -11,7 +11,7 @@ class Kakao {
     }
 
 
-    async getToken({code}){
+    async getToken(code){
         const headers = {
             "Content-type" : "application/x-www-form-urlencoded;charset=utf-8"
         }
@@ -24,30 +24,44 @@ class Kakao {
             client_secret: this.CLIENT_SERCRET,
         })
 
-        const {data} = await this.axios.post(host,body, headers)
+        const {data} = await this.axios.post(host, body, headers)
         return data
     }
 
     async kakaoSignup({data}){
-
         const payload = {
-            userid: data.id,
-            userpw: this.jwt.crypto.createHmac('sha256',jwt.SALT).update(data.id).digest('hex'),
+            userid: `${data.id}`,
+            userpw: this.jwt.crypto.createHmac('sha256',this.jwt.salt).update(`${data.id}`).digest('hex'),
             username: data.kakao_account.profile.nickname,
             nickname: data.kakao_account.profile.nickname,
             gender: data.kakao_account.gender,
+            email: data.kakao_account.email,
             userImg: data.kakao_account.profile.profile_image_url,
             provider:'kakao'
         }
-        const result = this.User.create(payload, {raw:true})
-        console.log(result)
+        await this.User.findOrCreate({raw:true,where:payload})
+        const me = await this.me({userid:data.id})
+        return me
     }
 
+    async me({userid}){
+        const user = await this.User.findOne({
+            raw: true,
+            attribute: {
+                exclude: ['userpw']
+            },
+            where: {
+                userid,
+            }
+        })
+
+        return user
+    }
 
     async login(req, res, next) {
         try {
             const {code} = req.query
-            const {access_token} = await this.getToken({code})
+            const {access_token} = await this.getToken(code)
             const host = `https://kapi.kakao.com/v2/user/me`
             const {data} = await this.axios.post(host, null, {
                 headers: {
@@ -56,8 +70,10 @@ class Kakao {
                 }
             })
 
-            await this.kakaoSignup({data})
-            res.cookie()
+
+            const user = await this.kakaoSignup({data})
+            console.log(user)
+            res.cookie("token",this.jwt.createToken(user),{maxAge:3600})
             res.redirect("http://localhost:3005")
             
         } catch (e) {
