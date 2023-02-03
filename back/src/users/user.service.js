@@ -7,7 +7,8 @@ class UserService {
 
   async signup(userData) {
     try {
-      if (!userData.userImg) userData.userImg = "default-image.png";
+      if (userData.userImg.indexOf(`http://`) === -1) userData.userImg = `http://localhost:3000/${userData.userImg}`
+      if (!userData.userImg) userData.userImg = "http://localhost:3000/default-image.png";
       const {userid, username, userpw, ...rest} = userData
       if (!userid || !userpw || !username) throw "내용이 없습니다";
       const hash = this.crypto
@@ -57,10 +58,11 @@ class UserService {
         userpw: hash, 
         ...rest
       });
-      console.log(`jwt ::::::::`, this.jwt)
       if (user === 1) {
+        console.log(`user :::::::`, 1)
         const modified = await this.userRepository.getUserById(userData.userid)
         const token = await this.jwt.createToken(modified)
+        console.log(`token :::::::`, token)
         return token
       } else {
         const error = new Error("수정 실패");

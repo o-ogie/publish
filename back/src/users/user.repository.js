@@ -43,22 +43,25 @@ class UserRepository {
   }
 
   async updateProfile(userData) {
-    console.log(`repo : `, userData);
-    const user = await this.User.update(
-      {
-        userImg: userData.userImg,
-        username: userData.username,
-        userpw: userData.userpw,
-        phoneNumber: userData.phoneNumber,
-        email: userData.email,
-      },
-      {
-        where: { userid: userData.userid },
-        returning: true
-      }
-    );
-    console.log(`repo2 : `, user[1])
-    return user[1];
+    try {
+      console.log(`repo userData : `, userData);
+      const user = await this.User.update(
+        {
+          userImg: userData.userImg,
+          nickname: userData.nickname,
+          username: userData.username,
+          userpw: userData.userpw,
+          phoneNumber: userData.phoneNumber,
+          email: userData.email,
+        },
+        {
+          where: { userid: userData.userid },
+          returning: true
+        }
+      );
+      console.log(`repo2 : `, user[1])
+      return user[1];
+    } catch (e) { throw new Error(e); }
   }
 }
 
