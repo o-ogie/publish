@@ -80,21 +80,23 @@ document.querySelector("#pwcheck").addEventListener("keyup", () => {
 });
 
 // 아바타 등록
-document.querySelector("#photoFrm").addEventListener("submit", async (e) => {
+document.querySelector("#fileChoice").addEventListener("change", e => {
   e.preventDefault();
-
+  document.querySelector('#photoFrm button').click();
+});
+document.querySelector("#photoFrm").addEventListener("submit", async e => {
+  e.preventDefault();
   const body = new FormData(e.target);
   const response = await request.post("/users/single", body, {
-    headers: {
-      ["Content-Type"]: "multipart/form-data",
-    },
+    headers: { "Content-Type": "multipart/form-data" }
   });
-  document.querySelector("#inputImg").value = response.data.filename;
-  document.querySelector(
-    "#previewImg"
-  ).src = `http://127.0.0.1:3000/${response.data.filename}`;
-  console.log(document.querySelector("#imageBox > img").src);
+  const inputImg = document.querySelector("#inputImg");
+  const previewImg = document.querySelector("#previewImg");
+  inputImg.value = response.data.filename;
+  previewImg.src = `http://127.0.0.1:3000/${response.data.filename}`;
+  console.log(previewImg.src);
 });
+
 
 // CSS
 document.querySelectorAll(".inputContainer input").forEach((input) => {

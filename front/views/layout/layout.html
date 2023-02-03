@@ -9,7 +9,6 @@
         <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
         <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
         <link rel="stylesheet" href="/css/layout.css" />
-        <!-- <link rel="stylesheet" href="/css/index.css" /> -->
     </head>
 <head>
     <meta charset="UTF-8">
@@ -92,9 +91,10 @@
             </ul>
         </div>
     </div>
+    {% block content %}
 
-    {% block content %} {% endblock %}
-    <script type="module" src="/js/module/layout.js"></script>
+    {% endblock %}
+        <script type="module" src="/js/module/layout.js"></script>
     </body>
 </html>
 

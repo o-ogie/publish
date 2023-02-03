@@ -1,52 +1,44 @@
 const express = require("express");
 const router = express.Router();
-const qs = require('qs')
-const { authController: controller, kakao } = require("./auth.module");
+const { authController } = require("./auth.module");
+
+// find pw
+const { userRepository } = require("../users/user.module")
+const mailer = require("../../mail")
+const JWT = require("../../lib/jwt")
+const crypto = require("crypto")
+const jwt = new JWT({ crypto })
+
+router.post("/", (req, res, next) => authController.postLogin(req, res, next));
+
+// node mailer
+router.post('/mail', async(req, res, next) => {
+    console.log(`req ::::`, req.body.data)
+    try {
+        const { email } = req.body.data;
+        const tempPw = Math.random().toString(36).slice(-6);
+        let emailParams = {
+          toEmail: email,
+          subject: "임시 비밀번호 안내",
+          text: `임시 비밀번호는 ${tempPw} 입니다.`
+        };
+        mailer.sendGmail(emailParams);
+
+        const hash = jwt.crypto
+        .createHmac("sha256", "web7722")
+        .update(tempPw)
+        .digest("hex");
+        updateData = { 
+            userid : req.body.data.userid,
+            userpw : hash
+        }
+        userRepository.updateProfile(updateData)
+        res.status(200).send("메일 전송 성공");
+    } catch (e) {
+        next(e);
+    }
+});
 
 router.post("/", (req, res, next) => controller.postLogin(req, res, next));
-
-router.get('/kakao',(req,res,next)=> kakao.login(req,res,next))
-
-// const KKO_HOST = `https://kauth.kakao.com`
-// const REST_API_KEY = `e6dfa1b635337a7d85d3ef92c885670c`
-// const REDIRECT_URI = `http://localhost:3000/auths/kakao`
-// const CLIENT_SERCRET = `liSNdnbPh4yEOm9ZqSuocwothsK1tbKa`
-// const axios = require('axios')
-
-// router.get('/kakao',async(req,res)=>{
-//     const {code} = req.query
-    // const headers = {
-    //     "Content-type" : "application/x-www-form-urlencoded;charset=utf-8"
-    // }
-
-    // const host = `${KKO_HOST}/oauth/token`
-    // const body = qs.stringify({
-    //     grant_type:'authorization_code',
-    //     client_id: REST_API_KEY,
-    //     redirect_uri: REDIRECT_URI,
-    //     code,
-    //     client_secret: CLIENT_SERCRET,
-    // })
-
-    // const response = await axios.post(host,body, headers)
-    // console.log(response.data)
-
-    // try{
-    //     const {access_token} = response.data
-    //     const host = `https://kapi.kakao.com/v2/user/me`
-    //     const user = await axios.post(host, null, {
-    //         headers: {
-    //             "COntent-type" : "application/x-www-form-urlencoded",
-    //             Authorization: `Bearer ${access_token}`
-    //         }
-    //     })
-
-    //     console.log(user)
-    // }catch(e){
-
-    // }
-
-    // res.redirect("http://localhost:3005")
-// })
 
 module.exports = router;

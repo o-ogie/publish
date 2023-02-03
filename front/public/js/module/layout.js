@@ -138,17 +138,17 @@ document.querySelector("#layout").addEventListener("mouseout", () => {
     "invert(0%)";
 });
 
-document.querySelector("#menu_icon").addEventListener("click", () => {
-  document.querySelector("#userMenu").classList.toggle("clicked");
+const xBtn = document.querySelector('#menu_icon')
+const userMenu = document.querySelector('#userMenu')
+xBtn.addEventListener("click", (e) => {
+  userMenu.classList.toggle("clicked");
 });
-// document.addEventListener("click", (e) => {
-//   if (document.querySelector("#userMenu").className === "clicked" && e.target != document.querySelector("#layout")) {
-//       document.querySelector("#userMenu").classList.remove("clicked");
-//     }
-//   }
-// );
-
-
+document.addEventListener("click", (e) => {
+  if (!e.target.closest('#userMenu') && userMenu.className === "clicked" && e.target !== xBtn) {
+      // if (e.target !== userMenu && userMenu.className === "clicked" && e.target !== xBtn) {
+    xBtn.click();
+  }
+});
 
 // 로그아웃
 document.querySelector("#logout").addEventListener("click", (e) => {
