@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { authController } = require("./auth.module");
+const { authController, kakao } = require("./auth.module");
 
 // find pw
 const { userRepository } = require("../users/user.module")
 const mailer = require("../../mail")
 const JWT = require("../../lib/jwt")
-const crypto = require("crypto")
+const crypto = require("crypto");
 const jwt = new JWT({ crypto })
 
 router.post("/", (req, res, next) => authController.postLogin(req, res, next));
@@ -39,6 +39,6 @@ router.post('/mail', async(req, res, next) => {
     }
 });
 
-router.post("/", (req, res, next) => controller.postLogin(req, res, next));
+router.get('/kakao',(req,res,next)=>kakao.login(req,res,next))
 
 module.exports = router;
