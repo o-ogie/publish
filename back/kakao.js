@@ -8,7 +8,7 @@ module.exports = () => {
     // KAKAO LOGIN
 const KKO_HOST = `https://kauth.kakao.com`;
 const REST_API_KEY = `1fe7ae4bf45bdf9bd6fc758bd63e9e0f`;
-const REDIRECT_URI = `http://localhost:3000/oauth/kakao`;
+const REDIRECT_URI = `http://localhost:3000/auths/kakao`;
 const CLIENT_SERCRET = `1NLiTnJ7OOm09XyI4PrGAgIPwKispRor`;
 
 app.get("/oauth/kakao", async (req, res, next) => {
