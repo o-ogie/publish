@@ -63,7 +63,9 @@ class BoardRepository {
     async createBoard({ userid, subject, content, hashtag }) {
         try {
             const createBoard = await this.Board.create({ userid, subject, content });
-            const addHash = hashtag.map((tagname) => this.Hash.findOrCreate({ where: { tagname } }));
+            const addHash = hashtag.map((tagname) => 
+                this.Hash.findOrCreate({ where: { tagname } }));
+                
             const tagResult = await Promise.all(addHash);
             await createBoard.addHashes(tagResult.map((v) => v[0]));
             return createBoard;

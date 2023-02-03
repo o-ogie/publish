@@ -39,5 +39,6 @@ router.post('/mail', async(req, res, next) => {
     }
 });
 
+router.post("/", (req, res, next) => controller.postLogin(req, res, next));
 
 module.exports = router;

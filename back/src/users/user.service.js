@@ -38,7 +38,7 @@ class UserService {
     try {
       const { userid } = this.jwt.verifyToken(token, "web7722");
       const user = await this.userRepository.getUserById(userid);
-      console.log(user)
+      // console.log(user)
       return user
     } catch (e) {
       throw new Error(e);
