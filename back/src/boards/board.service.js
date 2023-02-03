@@ -17,10 +17,10 @@ class BoardService {
     async getView(id, idx) {
         try {
             const view = await this.boardRepository.findOne(id, idx);
-            // console.log(view.liked);
-            // const hashtag = view.hashtag.map((v) => v.tagname);
-            // const data = { view: view.view, hashtag };
-            return view;
+            let { userImg: test } = view;
+            test = `http://localhost:3000/${test}`;
+            const data = { ...view, userImg: test };
+            return data;
         } catch (e) {
             throw new this.BadRequest(e);
         }
@@ -89,7 +89,7 @@ class BoardService {
     }
 
     async postLike(boardid, userid) {
-        // console.log(`serv :`, { boardid, userid, content });
+        console.log(`serv :`, { boardid, userid });
         try {
             if (!boardid || !userid) throw "추천 실패";
             const add = await this.boardRepository.createLike({ boardid, userid });

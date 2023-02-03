@@ -29,7 +29,6 @@ const inserthandler = (e) => {
 const hash = document.querySelector("#hashtag");
 const hashs = document.querySelector("#hash");
 
-console.log(hash.value);
 const hashhandler = (e) => {
     if (e.key === "Enter") {
         let hashtags = document.createElement("p");
@@ -61,6 +60,10 @@ const submithandler = async (e) => {
         hashs.push(hashtags[i].innerHTML);
     }
     hash.value = hashs;
+
+    if (frm.subject.value === "" || frm.content.value === "") {
+        alert("제목과 내용을 채워주세요");
+    }
 
     frm.submit();
 };
