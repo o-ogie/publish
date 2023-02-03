@@ -50,7 +50,7 @@ a {
     margin: 0 auto;
 }
 
-#loginFrm .inputContainer {
+.inputContainer {
     width: 100%;
     height: 48px;
     border-radius: 4px;
@@ -59,7 +59,7 @@ a {
     position: relative;
     background: #f5f4f4;
 }
-#loginFrm .inputContainer.focused {
+.inputContainer.focused {
     border: none;
     box-shadow: 0 0 4px #00337C;
     animation: pulse 1.5s infinite;
@@ -76,7 +76,7 @@ a {
     }
   }
 
-  #loginFrm .inputContainer iconify-icon {
+  .inputContainer iconify-icon {
     font-size: 1.15rem;
     top: 15px;
     right: 15px;
@@ -190,4 +190,110 @@ a {
 }
 label {
     cursor: pointer;
+}
+
+
+
+
+#findUser {
+    position: absolute;
+    background-color: #fff;
+    width: 430px;
+    height: 430px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 2px 20px rgba(0,0,0,0.7);
+    border-radius: 6px;
+    z-index: -2;
+    opacity: 0;
+}
+
+#findUser.switchOn {
+    z-index: 2;
+    opacity: 1;
+}
+
+.tabHeadLine {
+    border-radius: 6px 6px 0 0;
+    width: 100%;
+    height: 50px;
+    background: url(https://cdn.dribbble.com/users/113499/screenshots/7146093/space-cat.png) no-repeat;
+    background-color: rgb(35, 76, 166);
+    background-size: 45%;
+    background-position: right 35%;
+}
+.switchType {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    margin-bottom: 5%;
+    color: #333;
+}
+.switchType li:first-child {
+    width: 50%;
+    height: 55px;
+    border-right: 1px solid #ececec;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+}
+.switchType li:last-child {
+    width: 50%;
+    height: 55px;
+    border-left: 1px solid #ececec;
+    border-radius: 8px 8px 0 0;
+    background-color: #ececec;
+    text-align: center;
+}
+
+
+#findId form, #findPw form {
+    padding: 0 15%;
+    text-align: center;
+}
+#findId form.switchOff, #findPw form.switchOff {
+    display: none;
+}
+
+#findId form span, #findPw form span {
+    display: block;
+    margin: 3% 0;
+    font-size: 12px;
+    color: #333;
+}
+#findId input, #findPw input {
+    width: 90%;
+    height: 46px;
+    border: transparent;
+    outline: none;
+    background: transparent;
+    padding-left: 10px;
+}
+#findId input, #findPw input::placeholder {
+    font-size: 1rem;
+    color: rgb(200, 200, 200);
+}
+#findId button, #findPw button {
+    width: 100%;
+    height: 45px;
+    border: none;
+    font-size: 16px;
+    border-radius: 4px;
+    background-color: rgb(50, 97, 198);
+    color: #fff;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+}
+#findUser .result {
+    opacity: 0;
+    font-size: 12px;
+    transition: all 0.3s ease-out;
+}
+#findUser .result span {
+    font-size: 16px;
+    color:rgb(50, 97, 198);
 }

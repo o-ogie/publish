@@ -15,6 +15,7 @@ window.addEventListener("load", () => {
 });
 
 frm.addEventListener("submit", async (e) => {
+  e.preventDefault();
   try {
     const { userid, userpw } = e.target;
     if (remember.checked) {
@@ -52,6 +53,63 @@ frm.addEventListener("submit", async (e) => {
 //   console.log(response)
 //   document.cookie = `token="${response};`
 // })
+
+
+
+// find id & pw
+const findUserBtn = document.querySelector('.findUserBtn')
+const findUser = document.querySelector("#findUser")
+const findId = document.querySelector("#findIdFrm");
+const findPw = document.querySelector("#findPwFrm");
+const tabSwitch = document.querySelectorAll(".switchType li")
+
+findUserBtn.addEventListener("click", ()=> {
+  findUser.classList.toggle("switchOn")
+})
+// document.addEventListener("click", (e) => {
+//   if(!e.target.closest('#findUser')) {
+//     findUser.classList.remove("switchOn")
+//     console.log(2)
+//   }
+// })
+
+
+tabSwitch.forEach((li)=> {
+  li.addEventListener("click", async () => {
+    li.style.backgroundColor = "#ececec";
+    findId.classList.add("switchOff")
+    findPw.classList.remove("switchOff")
+  })
+})
+findId.addEventListener("submit", async (e) => {
+  e.preventDefault()
+  const { username, email } = e.target;
+  console.log(username.value, email.value)
+  const response = await request.post("/users/usercheck", {
+      email: email.value,
+  });
+  document.querySelector(".result span").innerHTML = response.data.userid
+  document.querySelector(".result").style.opacity = 1
+})
+findPw.addEventListener("submit", async (e) => {
+  try {
+    e.preventDefault()
+    const { userid, email } = e.target;
+    console.log(userid.value, email.value)
+    const response = await request.post("/users/usercheck", {
+      userid: userid.value,
+    });
+    const tempPw = await request.post("/auths/mail", {
+      data : {
+        userid: response.data.userid,
+        email: response.data.email,
+      }
+    });
+    console.log(tempPw.data)
+    document.querySelectorAll(".result")[1].style.opacity = 1
+  } catch (e) {
+  }
+})
 
 
 
