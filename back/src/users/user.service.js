@@ -46,6 +46,7 @@ class UserService {
   }
   async putProfile(userData) {
     try {
+      console.log(`userData ::::`, userData)
       const {userpw, ...rest} = userData
       const hash = this.crypto
         .createHmac("sha256", "web7722")
@@ -56,9 +57,10 @@ class UserService {
         userpw: hash, 
         ...rest
       });
+      console.log(`jwt ::::::::`, this.jwt)
       if (user === 1) {
         const modified = await this.userRepository.getUserById(userData.userid)
-        const token = this.jwt.createToken(modified)
+        const token = await this.jwt.createToken(modified)
         return token
       } else {
         const error = new Error("수정 실패");

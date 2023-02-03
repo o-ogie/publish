@@ -11,7 +11,7 @@ const UserController = require("./user.controller")
 const JWT = require("../../lib/jwt")
 const crypto = require("crypto")
 
-const jwt = new JWT({ crypto })
+const jwt = new JWT({ crypto, SALT : "web7722" })
 
 const userRepository = new UserRepository({ User })
 const userService = new UserService({ userRepository, jwt })

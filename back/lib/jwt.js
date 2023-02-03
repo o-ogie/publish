@@ -1,7 +1,3 @@
-// const salt = crypto.randomBytes(16).toString('hex')
-// const salt = require('../config')
-
-
 class JWT {
     constructor({ crypto, SALT }) {
         this.crypto = crypto
