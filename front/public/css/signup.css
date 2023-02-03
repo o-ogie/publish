@@ -28,7 +28,7 @@ a {
     transform: translate(-50%, -50%);
     background-color: #fff;
     box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 6px;
+    border-radius: 12px;
     border: 4px solid rgb(35, 76, 166);
     z-index: 3;
     opacity: 1;
@@ -40,7 +40,7 @@ a {
 }
 
 #logo {
-    border-radius: 6px 6px 0 0;
+    border-radius: 12px 12px 0 0;
     width: 800px;
     height: 70px;
     background: url(https://cdn.dribbble.com/users/113499/screenshots/7146093/space-cat.png) no-repeat;
@@ -140,13 +140,13 @@ label {
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 6px;
+    border-radius: 12px;
 }
 
 .leftContainer {
     width: 340px;
     background: linear-gradient(135deg, #4654d6, #8b4ca3);
-    border-radius: 6px 0 0 6px;
+    border-radius: 12px 0 0 12px;
 }
 
 #photoFrm {
@@ -164,34 +164,25 @@ label {
 
 #photoFrm .choiceBtn {
     display: block;
-    width: 140px;
-    height: 40px;
-    line-height: 40px;
-    background: #eee;
-    border-radius: 4px 0 0 4px;
-    padding-left: 10px;
-    color: rgb(160, 160, 160);
+    margin: 0 auto;
+    text-align: center;
+    width: 120px;
+    height: 36px;
+    border: 1px solid #FFF;
+    border-radius: 12px;
+    line-height: 36px;
+    color: #fff;
     font-size: 14px;
     cursor: pointer;
 }
 
-#photoFrm button {
-    width: 80px;
-    border: none;
-    background-color: #00337C;
-    border-radius: 0 4px 4px 0;
-    color: #ddd;
-    font-size: 16px;
-    cursor: pointer;
-}
-
 #imageBox {
-    margin: 40px;
+    margin: 16% 16% 6% 16%;
 }
 
 #previewImg {
-    height: 16rem;
-    width: 16rem;
+    height: 14rem;
+    width: 14rem;
     border-radius: 50%;
     object-fit: cover;
 }

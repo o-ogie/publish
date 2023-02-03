@@ -18,5 +18,6 @@ const userService = new UserService({ userRepository, jwt })
 const userController = new UserController({ userService })
 
 module.exports = {
-    userController
+    userController,
+    userRepository
 }

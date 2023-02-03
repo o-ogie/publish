@@ -9,12 +9,11 @@
         </div>
         <form method="post" action="/single" id="photoFrm">
           <input type="file" name="filename" id="fileChoice">
-          <label for="fileChoice" class="choiceBtn">프로필 사진 선택</label>
-          <button type="submit">등록</button>
+          <label for="fileChoice" class="choiceBtn">프로필 사진 변경</label>
+          <button type="submit" style="display: none;">등록</button>
       </form>
     </div>
     <div class="bottomContainer">
-        <h2 id="bannerText">{{userid}}</h2>
         <form method="post" action="/user/modify" id="profileFrm">
             <ul class="container">
                 <input type="hidden" name="userid" id="userid" value="{{userid}}">
@@ -64,8 +63,8 @@
                 </li>
             </ul>
             <div id="btnBox">
-                <button class="button" type="button"><a href="/user/profile">뒤로가기</a></button>
                 <button class="button" type="submit">수정완료</a></button>
+                <button class="button" type="button"><a href="/user/profile">뒤로가기</a></button>
             </div>    
         </form>
     </div>

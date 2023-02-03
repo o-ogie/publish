@@ -7,7 +7,7 @@ const {
 const AuthRepository = require("./auth.repository")
 const AuthService = require("./auth.service")
 const AuthController = require("./auth.controller")
-const config =require("../../config")
+const config = require("../../config")
 
 const JWT = require("../../lib/jwt")
 const crypto = require("crypto")

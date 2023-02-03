@@ -3,8 +3,8 @@
     /* margin: 5vh 0; */
     position: absolute;
     background-color: #fff;
-    width: 24vw;
-    height: 70vh;
+    min-width: 24vw;
+    min-height: 75vh;
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -14,8 +14,8 @@
 
 .topContainer {
     width: 24vw;
-    height: 13vh;
-    background: #4b6fec;
+    height: 15vh;
+    background-color: #7414f5;
     border-radius: 16px 16px 0 0;
     position: absolute;
 }
@@ -30,50 +30,42 @@
 
 #photoFrm input {
     opacity: 0;
-    width: 10px;
+    width: 1px;
 }
 
 #photoFrm .choiceBtn {
     display: block;
-    width: 140px;
-    height: 40px;
-    line-height: 40px;
-    background: #eee;
-    border-radius: 4px 0 0 4px;
-    padding-left: 10px;
-    color: rgb(160, 160, 160);
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 6px;
+    color: #666;
     font-size: 14px;
     cursor: pointer;
 }
 
-#photoFrm button {
-    width: 80px;
-    border: none;
-    background-color: #00337C;
-    border-radius: 0 4px 4px 0;
-    color: #ddd;
-    font-size: 16px;
-    cursor: pointer;
-}
 
 #imageBox {
-    margin: 40px;
+    margin-top: 50%;
 }
 
 #previewImg {
-    height: 8rem;
-    width: 8rem;
+    height: 7rem;
+    width: 7rem;
     position: absolute;;
-    top: 80%;
+    top: 100%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    border: 6px solid #4b6fec;
+    border: 4px solid #fff;
     object-fit: cover;
 }
 
 .bottomContainer {
-    margin-top: 20vh;
+    margin-top: 23vh;
+    position: absolute;
 }
 
 #bannerText {
@@ -155,6 +147,9 @@
     font-size: 16px;
     border-radius: 8px;
 }
+#profileFrm input:active {
+    background-color: #fff;
+}
 
 #profileFrm input::placeholder {
     font-size: 1rem;
@@ -182,21 +177,24 @@
 #btnBox {
     display: flex;
     justify-content: space-between;
-    position: absolute;
+    position: fixed;
     width: 80%;
     bottom: 5%;
     left: 10%;
 }
 
 #profileFrm button {
-    width: 15vh;
-    height: 5vh;
+    min-width: 15vh;
+    min-height: 5vh;
     border: none;
     font-size: 16px;
     border-radius: 16px;
-    background-color: #5161f4;
+    background-color: #7414f5;
     color: #fff;
     cursor: pointer;
+}
+#profileFrm button:last-child {
+    background-color: #645775;
 }
 #profileFrm button iconify-icon {
     font-size: 1.2rem;
