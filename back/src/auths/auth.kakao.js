@@ -5,9 +5,9 @@ class Kakao {
         this.User = User
         this.jwt = jwt
         this.KKO_HOST = `https://kauth.kakao.com`
-        this.REST_API_KEY = `1fe7ae4bf45bdf9bd6fc758bd63e9e0f`
+        this.REST_API_KEY = `e6dfa1b635337a7d85d3ef92c885670c`
         this.REDIRECT_URI = `http://localhost:3000/auths/kakao`
-        this.CLIENT_SERCRET = `1NLiTnJ7OOm09XyI4PrGAgIPwKispRor`
+        this.CLIENT_SERCRET = `liSNdnbPh4yEOm9ZqSuocwothsK1tbKa`
     }
 
 
@@ -39,8 +39,10 @@ class Kakao {
             userImg: data.kakao_account.profile.profile_image_url,
             provider:'kakao'
         }
-        await this.User.findOrCreate({raw:true,where:payload})
-        const me = await this.me({userid:data.id})
+        // await this.User.findOrCreate({raw:true,where:payload})
+        console.log('data:::::::',payload)
+        const [me] = await this.User.findOrCreate({raw:true, where:payload})
+        console.log('me:::::',me)
         return me
     }
 

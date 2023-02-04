@@ -86,6 +86,7 @@ document.querySelector("#fileChoice").addEventListener("change", e => {
 });
 document.querySelector("#photoFrm").addEventListener("submit", async e => {
   e.preventDefault();
+  console.log(e.target)
   const body = new FormData(e.target);
   const response = await request.post("/users/single", body, {
     headers: { "Content-Type": "multipart/form-data" }
