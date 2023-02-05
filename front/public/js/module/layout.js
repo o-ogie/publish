@@ -155,3 +155,88 @@ document.querySelector("#logout").addEventListener("click", (e) => {
   document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
   location.href = "/";
 });
+
+
+
+
+
+
+
+
+// 채팅
+const chatBtn = document.querySelector('#chatToggle')
+const chatterBox = document.querySelector('#chatterBox')
+chatBtn.addEventListener("click", (e) => {
+  chatterBox.classList.toggle("clicked");
+});
+
+
+const socket = io.connect('http://localhost:3000',{
+  path:'/socket.io',
+  transports:['websocket']
+})
+
+// User 명단 List 받기
+socket.on('users',(data)=>{
+  console.log(data)
+  const toUser = document.querySelector('#toUser')
+  const userList = document.querySelector('#participant')
+  const userCount = document.querySelector('#userCount')
+  userList.innerHTML = ''
+
+  // 채팅 참여자 명단, 대화 대상 select 생성
+  data.participant.forEach((nickname)=>{
+      const user = document.createElement('p')
+      const to = document.createElement('option')
+      user.innerHTML = nickname
+      userList.append(user)
+  
+      if ( nickname !== data.nickname ){
+          to.value = `${nickname}`
+          to.text = nickname
+          toUser.append(to)
+      }
+      
+  })
+  userCount.innerHTML = data.participant.length
+
+})
+
+socket.on('hello',(data)=>{
+
+})
+
+/* 채팅 대답 */
+socket.on('reply', (data)=>{
+  const response = JSON.parse(data)
+  console.log(response)
+  const li = document.createElement('li')
+  li.innerHTML = response.message.message
+  chat.append(li)
+})
+
+// 단체방 귓속말
+socket.on('privateMessage',(data)=>{
+  const response = JSON.parse(data)
+  const li = document.createElement('li')
+  li.innerHTML = "귓속말:"+response.message
+  chat.append(li)
+})
+
+
+// 채팅 보내기
+const frm = document.querySelector('#frm')
+frm.addEventListener('submit',(e)=>{
+  e.preventDefault()
+  const {toUser, message} = e.target
+  if(toUser.value === 'default') socket.emit('message', {message:message.value})
+  else socket.emit('private', {toUser:toUser.value, message:message.value})
+  const li = document.createElement('li')
+  li.classList.add('right')
+  li.innerHTML = message.value+`>>to..${toUser.value}`
+  chat.append(li)
+
+  frm.reset()
+
+
+})

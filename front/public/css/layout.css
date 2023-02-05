@@ -273,15 +273,23 @@ input[id="menu_icon"] {
 #chatToggle:hover {
     height: 3.8rem;
     width: 3.8rem;
+    background-color: #ffac26;
 }
 
 #chatterBox {
     background-color: #f2f2f2;
     border-radius: 10px;
-    width: 38vh;
-    height: 50vh;
+    width: 50vh;
+    height: 60vh;
     position: absolute;
     bottom: 10%;
-    right: 8%;
-    display: none;
+    right: 9%;
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.3s;
+}
+#chatterBox.clicked {
+    opacity: 1;
+    z-index: 3;
+    transition: all 0.3s;
 }
