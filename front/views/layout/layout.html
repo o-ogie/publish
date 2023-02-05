@@ -42,7 +42,7 @@
                 <button><a href="/board/write">글쓰기</a></button>
             </li>
             <li id="userImg">
-                <a href="/user/profile"><img src='http://localhost:3000/{{userImg}}' alt=""></a>
+                <a href="/user/profile"><img src='{{userImg}}' alt=""></a>
             </li>
             <li id="userTab">
                 <input type="checkbox" id="menu_icon" />
@@ -75,20 +75,19 @@
         </div>
         <div id="chatterBox">
             <div id="userList">
-                <div>현재 참가자 <span id="userCount"></span>명</div>
+                <div>현재 접속자 <span id="userCount"></span>명</div>
                 <div id="participant"></div>
             </div>
-            <form action="" id='frm'>
-                <span>To:</span>
-                <select id="toUser" class="inbox" name="nickname">
-                    <option value="default">모두</option>
-                </select>
-                <input type="text" name="message">
-                <button type="submit">submit</button>
-            </form>
             <ul id="chat">
     
             </ul>
+            <form action="" id='chatFrm'>
+                <select id="toUser" class="inbox" name="nickname">
+                    <option value="default">모두</option>
+                </select>
+                <input type="text" name="message" class="messageInput" placeholder="메세지를 입력해주세요">
+                <button type="submit">전송</button>
+            </form>
         </div>
     </div>
     {% block content %}

@@ -11,8 +11,8 @@ router.put("/", (req, res, next) => controller.putProfile(req, res, next));
 router.post("/single", upload.single("filename"), (req, res) => {
     res.send(req.file);
   });
-router.post("/array", upload.array("filename"), (req, res) => {
-    res.send(req.files);
-  });
+// router.post("/array", upload.array("filename"), (req, res) => {
+//     res.send(req.files);
+//   });
 
 module.exports = router;

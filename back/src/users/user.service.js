@@ -1,14 +1,18 @@
 class UserService {
-  constructor({ userRepository, jwt }) {
+  constructor({ userRepository, jwt, config }) {
     this.userRepository = userRepository;
     this.jwt = jwt;
     this.crypto = jwt.crypto;
+    this.config = config;
   }
 
   async signup(userData) {
+    // console.log(this.config)
     try {
-      if (userData.userImg.indexOf(`http://`) === -1) userData.userImg = `http://localhost:3000/${userData.userImg}`
-      if (!userData.userImg) userData.userImg = "http://localhost:3000/default-image.png";
+      const defaultUrl = `http://${this.config.db.development.host}:${this.config.port}/`
+      if (userData.userImg.indexOf(`http://`) === -1) userData.userImg = defaultUrl + `${userData.userImg}`
+      if (userData.userImg === defaultUrl) userData.userImg = defaultUrl + `default-image.png`;      
+      // console.log(`userImg :::`, userData.userImg);
       const {userid, username, userpw, ...rest} = userData
       if (!userid || !userpw || !username) throw "내용이 없습니다";
       const hash = this.crypto
@@ -47,7 +51,11 @@ class UserService {
   }
   async putProfile(userData) {
     try {
+      const defaultUrl = `http://${this.config.db.development.host}:${this.config.port}/`
+      if (userData.userImg.indexOf(`http://`) === -1) userData.userImg = defaultUrl + `${userData.userImg}`
+      if (userData.userImg === defaultUrl) userData.userImg = defaultUrl + `default-image.png`;   
       console.log(`userData ::::`, userData)
+      
       const {userpw, ...rest} = userData
       const hash = this.crypto
         .createHmac("sha256", "web7722")
