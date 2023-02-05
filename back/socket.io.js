@@ -9,6 +9,8 @@ module.exports = (server,app)=>{
     io.on('connection',(socket)=>{
 
         const cookie = socket.handshake.headers.cookie
+        if (!cookie) return
+
         const payload = cookie.split('=')[1].split('.')[1]
         const {userImg, nickname} = JSON.parse(Buffer.from(payload, "base64").toString("utf-8"));
 

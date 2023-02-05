@@ -232,10 +232,12 @@ label {
     font-size: 14px;
     margin-bottom: 5%;
     color: #333;
+    cursor: pointer;
 }
 .switchType li:first-child {
     width: 50%;
     height: 55px;
+    background-color: #ececec;
     border-right: 1px solid #ececec;
     border-radius: 8px 8px 0 0;
     text-align: center;
@@ -243,9 +245,9 @@ label {
 .switchType li:last-child {
     width: 50%;
     height: 55px;
+        background-color: #ececec;
     border-left: 1px solid #ececec;
     border-radius: 8px 8px 0 0;
-    background-color: #ececec;
     text-align: center;
 }
 
@@ -253,9 +255,16 @@ label {
 #findId form, #findPw form {
     padding: 0 15%;
     text-align: center;
-}
-#findId form.switchOff, #findPw form.switchOff {
     display: none;
+}
+#findId form.switchOn, #findPw form.switchOn {
+    display: block;
+}
+.switchType li.switchOn {
+    background-color: #fff;
+}
+.switchType li:not(.switchOn) {
+    background-color: #ececec;
 }
 
 #findId form span, #findPw form span {
@@ -272,7 +281,7 @@ label {
     background: transparent;
     padding-left: 10px;
 }
-#findId input, #findPw input::placeholder {
+input::placeholder {
     font-size: 1rem;
     color: rgb(200, 200, 200);
 }

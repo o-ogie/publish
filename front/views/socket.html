@@ -17,6 +17,9 @@
         <div>현재 참가자 <span id="userCount"></span>명</div>
         <div id="participant"></div>
     </div>
+    <ul id="chat">
+
+    </ul>
     <form action="" id='frm'>
         <span>To:</span>
         <select id="toUser" class="inbox" name="nickname">
@@ -25,10 +28,6 @@
         <input type="text" name="message">
         <button type="submit">submit</button>
     </form>
-
-    <ul id="chat">
-
-    </ul>
     <script type="text/javascript">
 
         const socket = io.connect('http://localhost:3000',{
