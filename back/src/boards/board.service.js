@@ -1,8 +1,9 @@
 class BoardService {
-    constructor({ boardRepository, config }) {
+    constructor({ boardRepository, config, jwt }) {
         this.boardRepository = boardRepository;
         this.config = config;
         this.BadRequest = config.exception.BadRequest;
+        this.jwt = jwt;
     }
 
     async getList() {
@@ -19,6 +20,7 @@ class BoardService {
             const view = await this.boardRepository.findOne(id, idx);
             let { userImg: test } = view;
             test = `http://localhost:3000/${test}`;
+            console.log(test);
             const data = { ...view, userImg: test };
             return data;
         } catch (e) {
@@ -92,8 +94,8 @@ class BoardService {
         console.log(`serv :`, { boardid, userid });
         try {
             if (!boardid || !userid) throw "추천 실패";
-            const add = await this.boardRepository.createLike({ boardid, userid });
-            return add;
+            const [count, check] = await this.boardRepository.createLike({ boardid, userid });
+            return [count, check];
         } catch (e) {
             throw new this.BadRequest(e);
         }
@@ -104,6 +106,23 @@ class BoardService {
             if (!boardid || !userid) throw "추천 취소 실패";
             const remove = await this.boardRepository.destroyLike({ boardid, userid });
             return remove;
+        } catch (e) {
+            throw new this.BadRequest(e);
+        }
+    }
+    async decoded(payload) {
+        try {
+            const user = this.jwt.decode(payload);
+            return user;
+        } catch (e) {
+            throw new this.BadRequest(e);
+        }
+    }
+
+    async checked({ userid, boardid }) {
+        try {
+            const checkdata = this.boardRepository.likecheck({ userid, boardid });
+            return checkdata;
         } catch (e) {
             throw new this.BadRequest(e);
         }

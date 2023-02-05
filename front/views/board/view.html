@@ -1,5 +1,6 @@
 {% extends "layout/layout.html" %}{% block content %}
 <link rel="stylesheet" href="/css/board/view.css" />
+<input type="hidden" name="nowme" id="nowme" value="{{me.userid}}" />
 <div id="viewwrap">
     <div id="board">
         <div id="boardSubject">
@@ -13,6 +14,7 @@
                     <iconify-icon class="like" icon="mdi:cards-heart"></iconify-icon>
                 </div>
                 <p>{{data.likeCount}}</p>
+                <input type="hidden" class="likewho" value="{{data.likeidlist}}" />
             </div>
             <div id="boardcontent">{{data.content}}</div>
         </div>

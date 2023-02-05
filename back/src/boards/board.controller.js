@@ -91,8 +91,8 @@ class BoardController {
     async postLike(req, res, next) {
         console.log(`postCon:`, req.params.idx, req.body.userid);
         try {
-            const response = await this.boardService.postLike(req.params.idx, req.body.userid);
-            res.status(201).json(response);
+            const [count, check] = await this.boardService.postLike(req.params.idx, req.body.userid);
+            res.status(201).json({ count, check });
         } catch (e) {
             next(e);
         }
@@ -105,6 +105,24 @@ class BoardController {
         } catch (e) {
             next(e);
         }
+    }
+
+    async decode(req, res, next) {
+        try {
+            const { payload } = req.body;
+            const userdata = await this.boardService.decoded(payload);
+            res.json(userdata);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async getcheck(req, res, next) {
+        try {
+            const { id: userid, idx: boardid } = req.params;
+            const data = await this.boardService.checked({ userid, boardid });
+            res.json(data);
+        } catch (e) {}
     }
 }
 
