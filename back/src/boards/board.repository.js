@@ -30,7 +30,7 @@ class BoardRepository {
       ON A.userid = B.userid
       JOIN Hashtag AS C
       ON A.id = C.boardid
-      Where A.id = 31
+      Where A.id = ${where}
       GROUP BY A.id
       ORDER BY A.id DESC;`;
             const [findAll] = await this.sequelize.query(query);
@@ -63,9 +63,8 @@ class BoardRepository {
     async createBoard({ userid, subject, content, hashtag }) {
         try {
             const createBoard = await this.Board.create({ userid, subject, content });
-            const addHash = hashtag.map((tagname) => 
-                this.Hash.findOrCreate({ where: { tagname } }));
-                
+            const addHash = hashtag.map((tagname) => this.Hash.findOrCreate({ where: { tagname } }));
+
             const tagResult = await Promise.all(addHash);
             await createBoard.addHashes(tagResult.map((v) => v[0]));
             return createBoard;
@@ -139,14 +138,21 @@ class BoardRepository {
         }
     }
 
-    async createLike(likeData) {
-        console.log("repo :", likeData);
+    async createLike({ boardid, userid }) {
+        console.log("repo :", boardid, userid);
         try {
-            const create = await this.Liked.create({
-                boardid: likeData.boardid,
-                userid: likeData.userid,
+            const check = await this.Liked.findOne({ where: { boardid, userid } });
+            console.log(check);
+            if (check === null) {
+                await this.Liked.create({ boardid, userid });
+            } else {
+                await this.Liked.destroy({ where: { boardid, userid } });
+            }
+            const count = await this.Liked.findAndCountAll({
+                where: { boardid },
             });
-            return create;
+            const recheck = await this.Liked.findOne({ raw: true, where: { boardid, userid } });
+            return [count.count, recheck];
         } catch (e) {
             throw new Error(e);
         }
@@ -164,6 +170,12 @@ class BoardRepository {
         } catch (e) {
             throw new Error(e);
         }
+    }
+
+    async likecheck({ userid, boardid }) {
+        try {
+            const respone = await this.Liked.findAll();
+        } catch (e) {}
     }
 }
 
