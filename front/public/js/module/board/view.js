@@ -14,18 +14,18 @@ const createhash = (strhash) => {
     strhash.innerHTML = values;
 };
 
-// const payload = () => {
-//     const cookie = document.cookie.split(";");
-//     const token = cookie
-//         .reduce((acc, val, idx) => {
-//             let [key, values] = val.split("=");
-//             acc[key] = values;
-//             return acc;
-//         }, {})
-//         .token.split(".")[1];
+const payload = () => {
+    const cookie = document.cookie.split(";");
+    const token = cookie
+        .reduce((acc, val, idx) => {
+            let [key, values] = val.split("=");
+            acc[key] = values;
+            return acc;
+        }, {})
+        .token.split(".")[1];
 
-//     return token;
-// };
+    return token;
+};
 
 createhash(hashs);
 
