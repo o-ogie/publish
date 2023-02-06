@@ -11,7 +11,7 @@ class UserController {
     }
   }
   async postUserCheck(req, res, next) {
-    // console.log(`con :`, req.body);
+    console.log(`con :`, req.body);
     try {
       // const { userid } = req.body;
       const user = await this.userService.userCheck(req.body);
