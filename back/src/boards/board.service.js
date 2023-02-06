@@ -17,14 +17,13 @@ class BoardService {
     }
     async getView(id, idx) {
         try {
-            const view = await this.boardRepository.findOne(id, idx);
+            const [view, comment] = await this.boardRepository.findOne(id, idx);
             let { userImg: test } = view;
             if (test.indexOf("http") === -1) {
                 test = `http://localhost:3000/${test}`;
             }
-            console.log(test);
             const data = { ...view, userImg: test };
-            return data;
+            return [data, comment];
         } catch (e) {
             throw new this.BadRequest(e);
         }
@@ -60,11 +59,17 @@ class BoardService {
         }
     }
 
-    async postComment(boardid, userid, content) {
-        // console.log(`serv :`, { boardid, userid, content });
+    async postComment(boardid, comment) {
+        // console.log(`serv :`, { boardid, comment });
         try {
-            if (!boardid || !userid || !content) throw "내용이 없습니다";
-            const write = await this.boardRepository.createComment({ boardid, userid, content });
+            if (!boardid || !comment.userid || !comment.content) throw "내용이 없습니다";
+            if (!comment.group) comment.group = boardid;
+            const data = {
+                boardid,
+                ...comment,
+            };
+
+            const write = await this.boardRepository.createComment(data);
             console.log(`serv :`, { write });
             return write;
         } catch (e) {

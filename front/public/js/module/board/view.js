@@ -6,6 +6,7 @@ const heart = document.querySelector(".img > iconify-icon");
 const nowme = document.querySelector("#nowme");
 const likecount = document.querySelector("#likes > p");
 const likelist = document.querySelector(".likewho");
+const commentfrm = document.querySelector("#commentfrm");
 
 const createhash = (strhash) => {
     if (strhash.innerHTML === "") return;
@@ -67,4 +68,21 @@ likecheck(array[0]);
 // };
 
 img.addEventListener("click", likeHandler);
+
+const commentHandler = async (e) => {
+    e.preventDefault();
+    const group = commentfrm.group.value;
+    const comment = commentfrm.comment.value;
+    const userid = nowme.value;
+    const body = {
+        userid,
+        group,
+        content: comment,
+    };
+    const path = document.location.pathname;
+    // const [emptyval, board, id, idx] = path.split("/");
+    // const respone = await request.post(`/boards/${idx}/comments`, body);
+};
+
+commentfrm.addEventListener("submit", commentHandler);
 

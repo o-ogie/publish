@@ -23,7 +23,8 @@ const inserthandler = (e) => {
         content = value;
     }
     preview.innerHTML = `<h2>${subject}</h2>
-    <textarea class="pre" disabled>${content}</textarea>`;
+    <textarea class="pre" disabled>${content}</textarea>
+    `;
 };
 
 const hash = document.querySelector("#hashtag");
@@ -63,9 +64,9 @@ const submithandler = async (e) => {
 
     if (frm.subject.value === "" || frm.content.value === "") {
         alert("제목과 내용을 채워주세요");
+    } else {
+        frm.submit();
     }
-
-    frm.submit();
 };
 
 const imghandler = async (e) => {
