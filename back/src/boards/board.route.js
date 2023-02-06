@@ -17,7 +17,7 @@ router.post("/decode", (req, res, next) => controller.decode(req, res, next));
 router.put("/:id", (req, res, next) => controller.putView(req, res, next));
 router.delete("/:id", (req, res, next) => controller.deleteView(req, res, next));
 
-router.post("/:id/comments", (req, res, next) => controller.postComment(req, res, next));
+router.post("/:id/:idx/comments", (req, res, next) => controller.postComment(req, res, next));
 router.put("/:id/comments/:idx", (req, res, next) => controller.putComment(req, res, next));
 router.delete("/:id/comments/:idx", (req, res, next) => controller.deleteComment(req, res, next));
 
