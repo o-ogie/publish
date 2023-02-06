@@ -1,4 +1,6 @@
 {% extends "layout/layout-alter.html" %}{% block content %}
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <link rel="stylesheet" href="/css/board/board.css" />
 <body>
     <div id="boardwrap">
@@ -17,22 +19,24 @@
                             <img class="labelimg" src="https://cdn.icon-icons.com/icons2/2483/PNG/512/image_file_icon_149928.png" alt="" />
                         </label>
                         <input type="file" name="upload1" id="upload1" class="imgs" />
-                        <label for="upload2">
+                        <!-- <label for="upload2">
                             <img class="labelimg" src="https://cdn.icon-icons.com/icons2/2483/PNG/512/image_file_icon_149928.png" alt="" />
                         </label>
                         <input type="file" name="upload2" id="upload2" class="imgs" />
                         <label for="upload3">
                             <img class="labelimg" src="https://cdn.icon-icons.com/icons2/2483/PNG/512/image_file_icon_149928.png" alt="" />
                         </label>
-                        <input type="file" name="upload3" id="upload3" class="imgs" />
+                        <input type="file" name="upload3" id="upload3" class="imgs" /> -->
                         <button type="submit" id="inputimg">전송</button>
                     </li>
                     <li>
-                        <textarea name="content" id="content" cols="30" rows="10" placeholder="내용을 입력해주세요"></textarea>
+                        <!-- <textarea name="content" id="content" cols="30" rows="10" placeholder="내용을 입력해주세요"></textarea> -->
+                        <div id="content"></div>
+                        <textarea name="content" id="content" class="contentText" cols="10" rows="10"></textarea>
                     </li>
                 </ul>
                 <div id="btns">
-                    <button id="back" class="btns">← 나가기</button>
+                    <button id="back" class="btns"><a href="/">← 나가기</a></button>
                     <button id="temporarily" class="btns" type="submit">임시저장</button>
                     <button id="insertBtn" class="btns" type="submit">등록하기</button>
                 </div>
@@ -43,6 +47,18 @@
             <div id="img"></div>
         </div>
     </div>
+    <script>
+        document.querySelector('.contentText').style.display = 'none';
+        document.querySelector('#preview').style.display = 'none';
+        const Editor = toastui.Editor;
+        const editor = new Editor({
+            el: document.querySelector('#content'),
+            height: '50vh',
+            initialEditType: 'markdown',
+            previewStyle: 'vertical',
+            // placeholder: "내용을 입력해주세요"
+        });
+    </script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="/js/lib/request.js"></script>
     <script type="module" src="/js/module/board/board.js"></script>
