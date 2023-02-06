@@ -18,16 +18,17 @@ router.use("/user", user);
 router.use("/board", board);
 // router.use("/admin", admin);
 
+
 // 카카오 API 로그인 
 KKO_HOST = `https://kauth.kakao.com`
 REST_API_KEY = `e6dfa1b635337a7d85d3ef92c885670c`
 REDIRECT_URI = `http://localhost:3000/auths/kakao`
 CLIENT_SERCRET = `liSNdnbPh4yEOm9ZqSuocwothsK1tbKa`
 
-router.get('/kakao/login', (req, res) => {
-    const redirectURI = `${KKO_HOST}/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
-    res.redirect(redirectURI)
-})
-
+router.get("/kakao/login", (req, res) => {
+    const redirectURI = `${KKO_HOST}/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    res.redirect(redirectURI);
+});
 
 module.exports = router;
+

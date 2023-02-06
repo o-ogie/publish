@@ -10,7 +10,9 @@
     </div>
     <div class="bottomContainer">
         <h2 id="bannerText">{{userid}}</h2>
-        <form method="post" action="/user/signup" id="profileFrm">
+        <form method="post" action="/user/delete" id="profileFrm">
+            <input type="hidden" name="userid" id="userid" value="{{userid}}">
+            <input type="hidden" name="provider" id="provider" value="{{provider}}">
             <ul class="container">
                 <input type="hidden" name="userImg" id="inputImg">
                 <li id="nicknameBox">
@@ -57,10 +59,11 @@
             </ul>
             <div id="btnBox">
                 <button class="button" type="button"><a href="/user/modify">회원정보 수정</a></button>
-                <button class="button" type="submit">회원탈퇴</a></button>
+                <button class="button" type="submit" id="userDelete">회원탈퇴</button>
             </div>    
         </form>
     </div>
 </div>
 
+<script type="module" src="/js/module/user/profile.js"></script>
 {% endblock%}

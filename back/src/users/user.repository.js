@@ -63,6 +63,17 @@ class UserRepository {
       return user[1];
     } catch (e) { throw new Error(e); }
   }
+  async destroyUser(userid) {
+    console.log(`deleting user:::`, userid);
+    try {
+      const destroy = await this.User.destroy({
+        where: { userid: userid },
+    });
+    return destroy;
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
 }
 
 module.exports = UserRepository;
