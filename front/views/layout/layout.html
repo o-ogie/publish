@@ -1,87 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
-    <link rel="stylesheet" href="/css/layout.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+        <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+        <link rel="stylesheet" href="/css/layout.css" />
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+            body {
+                font-family: "Noto Sans KR", sans-serif;
+            }
+        </style>
+    </head>
 
-<body id="particles-js">
-    <div id="layoutWrap">
-        <ul id="layout">
-            <li id="logo">
-                <h1>
-                    <a href="/"><img src="https://img.freepik.com/free-icon/sleep_318-876856.jpg?w=2000"> {{nickname}}.LOG</a>
-                </h1>
-            </li>
-            {% if userid %}
-            <li id="write">
-                <button><a href="/board/write">글쓰기</a></button>
-            </li>
-            <li id="userImg">
-                <a href="/user/profile"><img src='{{userImg}}' alt=""></a>
-            </li>
-            <li id="userTab">
-                <input type="checkbox" id="menu_icon" />
-                <label for="menu_icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </label>
-                <div id="userMenu">
-                    <ul>
-                        <li>내 블로그</li>
-                        <li>보관함</li>
-                        <li>설정</li>
-                        <li id="logout">로그아웃</li>
-                    </ul>
-                </div>
-            </li>
-            {% else %}
-            <li id="login">
-                <button><a href="/user/signin">로그인</a></button>
-            </li>
-            {% endif %}
-        </ul>
-    </div>
-    <div id="chatterWrap">
-        <div id="chatToggle">
-            <button><iconify-icon icon="ph:chats-bold"></iconify-icon></button>
-            <span class="messageAlert"><iconify-icon icon="humbleicons:exclamation"></iconify-icon>
-            </span>
-        </div>
-        <div id="chatterBox">
-            <div id="userList">
-                <div>현재 접속자 <span id="userCount"></span>명</div>
-                <div id="participant"></div>
-            </div>
-            <ul id="chat">
-    
+    <body id="particles-js">
+        <div id="layoutWrap">
+            <ul id="layout">
+                <li id="logo">
+                    <h1>
+                        <a href="/"><img src="https://img.freepik.com/free-icon/sleep_318-876856.jpg?w=2000" /> {{user.nickname}}.LOG</a>
+                    </h1>
+                </li>
+                {% if user.userid %}
+                <li id="write">
+                    <button><a href="/board/write">글쓰기</a></button>
+                </li>
+                <li id="userImg">
+                    <a href="/user/profile"><img src="{{user.userImg}}" alt="" /></a>
+                </li>
+                <li id="userTab">
+                    <input type="checkbox" id="menu_icon" />
+                    <label for="menu_icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                    <div id="userMenu">
+                        <ul>
+                            <li>내 블로그</li>
+                            <li>보관함</li>
+                            <li>설정</li>
+                            <li id="logout">로그아웃</li>
+                        </ul>
+                    </div>
+                </li>
+                {% else %}
+                <li id="login">
+                    <button><a href="/user/signin">로그인</a></button>
+                </li>
+                {% endif %}
             </ul>
-            <form action="" id='chatFrm'>
-                <select id="toUser" class="inbox" name="nickname">
-                    <option value="default">모두</option>
-                </select>
-                <input type="text" name="message" class="messageInput" placeholder="메세지를 입력해주세요">
-                <button type="submit">전송</button>
-            </form>
         </div>
-    </div>
-    {% block content %}
-
-    {% endblock %}
+        <div id="chatterWrap">
+            <div id="chatToggle">
+                <button><iconify-icon icon="ph:chats-bold"></iconify-icon></button>
+                <span class="messageAlert"><iconify-icon icon="humbleicons:exclamation"></iconify-icon> </span>
+            </div>
+            <div id="chatterBox">
+                <div id="userList">
+                    <div>현재 접속자 <span id="userCount"></span>명</div>
+                    <div id="participant"></div>
+                </div>
+                <ul id="chat"></ul>
+                <form action="" id="chatFrm">
+                    <select id="toUser" class="inbox" name="nickname">
+                        <option value="default">모두</option>
+                    </select>
+                    <input type="text" name="message" class="messageInput" placeholder="메세지를 입력해주세요" />
+                    <button type="submit">전송</button>
+                </form>
+            </div>
+        </div>
+        {% block content %} {% endblock %}
         <script type="module" src="/js/module/layout.js"></script>
     </body>
 </html>

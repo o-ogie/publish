@@ -67,7 +67,8 @@ class BoardRepository {
 
             const tagResult = await Promise.all(addHash);
             await createBoard.addHashes(tagResult.map((v) => v[0]));
-            return createBoard;
+            console.log(createBoard);
+            return createBoard.dataValues;
         } catch (e) {
             throw new Error(e);
         }

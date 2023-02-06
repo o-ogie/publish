@@ -34,15 +34,18 @@
         </div>
         <form method="post" action="" id="commentfrm">
             <div id="commentFrmInput">
+                <input type="hidden" name="depth" />
+                <input type="hidden" name="group" />
                 <textarea type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요"></textarea>
             </div>
             <button type="submit">댓글 등록</button>
         </form>
         <template id="commentList">
             <ul>
-                <li id="commentContent">{{content}}</li>
-                <li id="commentWriter">{{writer}}</li>
-                <li id="commnetDate">{{regesterdate}}</li>
+                <li id="commentContent">{{content}}1</li>
+                <li id="commentWriter">{{writer}}2</li>
+                <li id="commnetDate">{{regesterdate}}3</li>
+                <span id="commentRecomment">댓글달기</span>
             </ul>
         </template>
         <template id="comentBtns">
