@@ -21,7 +21,9 @@ route.post("/", async (req, res) => {
         userid,
     };
     const respones = await request.post("/boards", body);
-    res.redirect("board");
+    const { id: idx } = respones.data;
+    const { userid: id } = respones.data;
+    res.redirect(`board/@${id}/${idx}`);
 });
 
 route.get("/write", (req, res) => {

@@ -18,70 +18,65 @@
     </style>
 </head>
 
-<body id="particles-js">
-    <div id="layoutWrap">
-        <ul id="layout">
-            <li id="logo">
-                <h1>
-                    <a href="/"><img src="https://img.freepik.com/free-icon/sleep_318-876856.jpg?w=2000"> {{nickname}}.LOG</a>
-                </h1>
-            </li>
-            {% if userid %}
-            <li id="write">
-                <button><a href="/board/write">글쓰기</a></button>
-            </li>
-            <li id="userImg">
-                <a href="/user/profile"><img src='{{userImg}}' alt=""></a>
-            </li>
-            <li id="userTab">
-                <input type="checkbox" id="menu_icon" />
-                <label for="menu_icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </label>
-                <div id="userMenu">
-                    <ul>
-                        <li>내 블로그</li>
-                        <li>보관함</li>
-                        <li>설정</li>
-                        <li id="logout">로그아웃</li>
-                    </ul>
-                </div>
-            </li>
-            {% else %}
-            <li id="login">
-                <button><a href="/user/signin">로그인</a></button>
-            </li>
-            {% endif %}
-        </ul>
-    </div>
-    <div id="chatterWrap">
-        <div id="chatToggle">
-            <button><iconify-icon icon="ph:chats-bold"></iconify-icon></button>
-            <span class="messageAlert"><iconify-icon icon="humbleicons:exclamation"></iconify-icon>
-            </span>
-        </div>
-        <div id="chatterBox">
-            <div id="userList">
-                <div>현재 접속자 <span id="userCount"></span>명</div>
-                <div id="participant"></div>
-            </div>
-            <ul id="chat">
-    
+    <body id="particles-js">
+        <div id="layoutWrap">
+            <ul id="layout">
+                <li id="logo">
+                    <h1>
+                        <a href="/"><img src="https://img.freepik.com/free-icon/sleep_318-876856.jpg?w=2000" /> {{nickname}}.LOG</a>
+                    </h1>
+                </li>
+                {% if userid %}
+                <li id="write">
+                    <button><a href="/board/write">글쓰기</a></button>
+                </li>
+                <li id="userImg">
+                    <a href="/user/profile"><img src="{{userImg}}" alt="" /></a>
+                </li>
+                <li id="userTab">
+                    <input type="checkbox" id="menu_icon" />
+                    <label for="menu_icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                    <div id="userMenu">
+                        <ul>
+                            <li>내 블로그</li>
+                            <li>보관함</li>
+                            <li>설정</li>
+                            <li id="logout">로그아웃</li>
+                        </ul>
+                    </div>
+                </li>
+                {% else %}
+                <li id="login">
+                    <button><a href="/user/signin">로그인</a></button>
+                </li>
+                {% endif %}
             </ul>
-            <form action="" id='chatFrm'>
-                <select id="toUser" class="inbox" name="nickname">
-                    <option value="default">모두</option>
-                </select>
-                <input type="text" name="message" class="messageInput" placeholder="메세지를 입력해주세요">
-                <button type="submit">전송</button>
-            </form>
         </div>
-    </div>
-    {% block content %}
-
-    {% endblock %}
+        <div id="chatterWrap">
+            <div id="chatToggle">
+                <button><iconify-icon icon="ph:chats-bold"></iconify-icon></button>
+                <span class="messageAlert"><iconify-icon icon="humbleicons:exclamation"></iconify-icon> </span>
+            </div>
+            <div id="chatterBox">
+                <div id="userList">
+                    <div>현재 접속자 <span id="userCount"></span>명</div>
+                    <div id="participant"></div>
+                </div>
+                <ul id="chat"></ul>
+                <form action="" id="chatFrm">
+                    <select id="toUser" class="inbox" name="nickname">
+                        <option value="default">모두</option>
+                    </select>
+                    <input type="text" name="message" class="messageInput" placeholder="메세지를 입력해주세요" />
+                    <button type="submit">전송</button>
+                </form>
+            </div>
+        </div>
+        {% block content %} {% endblock %}
         <script type="module" src="/js/module/layout.js"></script>
     </body>
 </html>

@@ -1,3 +1,5 @@
+const { all } = require("../src/boards/board.route");
+
 module.exports = (sequelize, Sequelize) => {
   class User extends Sequelize.Model {
     static createTable() {
@@ -88,6 +90,6 @@ module.exports = (sequelize, Sequelize) => {
         foreignKey: "userid",
       });
     }
-  }
-  User.createTable();
+    User.createTable();
 };
+
