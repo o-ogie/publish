@@ -8,7 +8,6 @@ const request = axios.create({
     withCredentials: true,
 });
 
-
 route.get("/signup", (req, res) => {
     res.render("user/signup.html");
 });
@@ -25,10 +24,13 @@ route.post("/signup", async (req, res) => {
 
 route.get("/welcome", (req, res) => {
     const { userid, username, userpw } = req.query;
-    res.render("user/welcome.html", {
+    const user = {
         userid,
         username,
         userpw,
+    };
+    res.render("user/welcome.html", {
+        user,
     });
 });
 
@@ -37,12 +39,13 @@ route.get("/signin", (req, res) => {
 });
 
 route.get("/profile", (req, res) => {
-    console.log(req.user)
-    res.render("user/profile.html", { ...req.user });
+    const user = req.user;
+    res.render("user/profile.html", { user, ...req.user });
 });
 
 route.get("/modify", (req, res) => {
-    res.render("user/modify.html", { ...req.user });
+    const user = req.user;
+    res.render("user/modify.html", { user, ...req.user });
 });
 
 route.post("/modify", async (req, res) => {
@@ -54,11 +57,11 @@ route.post("/modify", async (req, res) => {
 });
 
 route.post("/delete", async (req, res) => {
-    console.log("delete:::", req.body.userid)
+    console.log("delete:::", req.body.userid);
     const response = await request.delete(`/users/${req.body.userid}`);
     res.cookie("token", response.data.token);
-    await res.redirect("/");    
-})
+    await res.redirect("/");
+});
 
 module.exports = route;
 
