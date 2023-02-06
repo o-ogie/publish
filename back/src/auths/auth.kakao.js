@@ -39,10 +39,8 @@ class Kakao {
             userImg: data.kakao_account.profile.profile_image_url,
             provider:'kakao'
         }
-        // await this.User.findOrCreate({raw:true,where:payload})
-        console.log('data:::::::',payload)
-        const [me] = await this.User.findOrCreate({raw:true, where:payload})
-        console.log('me:::::',me)
+
+        const [me] = await this.User.findOrCreate({raw:true,where:payload})
         return me
     }
 

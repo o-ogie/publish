@@ -5,7 +5,6 @@ const remember = document.querySelector("#rememberMe");
 let date = new Date();
 date.setTime(date.getTime() + 1 * 60 * 60 * 1000);
 
-
 window.addEventListener("load", () => {
   if (localStorage.getItem("userid")) {
     remember.checked = true;
@@ -31,7 +30,7 @@ frm.addEventListener("submit", async (e) => {
       userpw: userpw.value,
     });
 
-    console.log(response.data)
+    console.log(response.data);
     const status = response.data.status;
     if (status >= 400) throw new Error(e);
     else if (response.status >= 200) {
@@ -45,75 +44,66 @@ frm.addEventListener("submit", async (e) => {
   }
 });
 
-
-// // KAKAO
-// const kakao = document.querySelector("#kakaoLogin")
-// kakao.addEventListener("click", async () => {
-//   const response = await request.get("/oauth/kakao")
-//   console.log(response)
-//   document.cookie = `token="${response};`
-// })
-
-
-
 // find id & pw
-const findUserBtn = document.querySelector('.findUserBtn')
-const findUser = document.querySelector("#findUser")
+const popupBtn = document.querySelector(".findUserBtn");
+const findUser = document.querySelector("#findUser");
+const tabSwitch = document.querySelectorAll(".switchType li");
 const findId = document.querySelector("#findIdFrm");
 const findPw = document.querySelector("#findPwFrm");
-const tabSwitch = document.querySelectorAll(".switchType li")
 
-findUserBtn.addEventListener("click", ()=> {
-  findUser.classList.toggle("switchOn")
-})
-// document.addEventListener("click", (e) => {
-//   if(!e.target.closest('#findUser')) {
-//     findUser.classList.remove("switchOn")
-//     console.log(2)
-//   }
-// })
-
-
-tabSwitch.forEach((li)=> {
+popupBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  findUser.classList.add("switchOn");
+});
+document.addEventListener("mouseup", (e) => {
+  if (!e.target.closest("#findUser")) {
+    findUser.classList.remove("switchOn");
+  }
+});
+tabSwitch.forEach((li, index) => {
   li.addEventListener("click", async () => {
-    li.style.backgroundColor = "#ececec";
-    findId.classList.add("switchOff")
-    findPw.classList.remove("switchOff")
-  })
-})
-findId.addEventListener("submit", async (e) => {
-  e.preventDefault()
-  const { username, email } = e.target;
-  console.log(username.value, email.value)
-  const response = await request.post("/users/usercheck", {
-      email: email.value,
+    li.classList.add("switchOn");
+    if (index === 0) {
+      tabSwitch[1].classList.remove("switchOn");
+      findId.classList.add("switchOn");
+      findPw.classList.remove("switchOn");
+    } else {
+      tabSwitch[0].classList.remove("switchOn");
+      findPw.classList.add("switchOn");
+      findId.classList.remove("switchOn");
+    }
   });
-  document.querySelector(".result span").innerHTML = response.data.userid
-  document.querySelector(".result").style.opacity = 1
-})
+});
+
+
+findId.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const { username, email } = e.target;
+  console.log(username.value, email.value);
+  const response = await request.post("/users/usercheck", {
+    email: email.value,
+  });
+  document.querySelector(".result span").innerHTML = response.data.userid;
+  document.querySelector(".result").style.opacity = 1;
+});
 findPw.addEventListener("submit", async (e) => {
   try {
-    e.preventDefault()
+    e.preventDefault();
     const { userid, email } = e.target;
-    console.log(userid.value, email.value)
+    console.log(userid.value, email.value);
     const response = await request.post("/users/usercheck", {
       userid: userid.value,
     });
     const tempPw = await request.post("/auths/mail", {
-      data : {
+      data: {
         userid: response.data.userid,
         email: response.data.email,
-      }
+      },
     });
-    console.log(tempPw.data)
-    document.querySelectorAll(".result")[1].style.opacity = 1
-  } catch (e) {
-  }
-})
-
-
-
-
+    console.log(tempPw.data);
+    document.querySelectorAll(".result")[1].style.opacity = 1;
+  } catch (e) {}
+});
 
 // CSS
 document.querySelectorAll(".inputContainer input").forEach((input) => {

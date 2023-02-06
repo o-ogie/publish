@@ -22,7 +22,8 @@ router.put("/:id/comments/:idx", (req, res, next) => controller.putComment(req, 
 router.delete("/:id/comments/:idx", (req, res, next) => controller.deleteComment(req, res, next));
 
 router.post("/:id/:idx/likes", (req, res, next) => controller.postLike(req, res, next));
-router.delete("/:id/likes", (req, res, next) => controller.deleteLike(req, res, next));
+router.get("/:id/:idx/likes", (req, res, next) => controller.getcheck(req, res, next));
+// router.delete("/:id/likes", (req, res, next) => controller.deleteLike(req, res, next));
 
 // router.post("/single", upload.single("filename"), (req, res) => {
 //     res.send(req.file);

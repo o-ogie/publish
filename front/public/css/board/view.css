@@ -69,7 +69,7 @@
 }
 
 #board > #contents > #likes > .img > .unlike {
-    display: none;
+    color: #ececec;
 }
 
 #board > #contents > #likes > p {
