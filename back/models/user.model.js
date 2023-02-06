@@ -59,6 +59,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING(30),
             allowNull: true,
           },
+          introduce: {
+            type: Sequelize.TEXT(),
+            allowNull: true,
+          }
         },
         {
           sequelize,
@@ -73,11 +77,11 @@ module.exports = (sequelize, Sequelize) => {
       this.hasMany(models.Comment, {
         foreignKey: "userid",
       });
-      this.hasMany(models.Introduce, {
-        foreignKey: "userid",
-      });
       this.hasMany(models.PointUp, {
         foreignKey: "userid",
+      });
+      this.hasMany(models.Chat, {
+        foreignKey: "nickname",
       });
       this.belongsToMany(models.Board, {
         through: "Liked",

@@ -13,7 +13,9 @@ fs.readdirSync(__dirname)
         require(path.join(__dirname, filename))(sequelize, Sequelize);
     });
 
+
 const { models } = sequelize;
+console.log(models)
 
 for (const v in models) {
     if (typeof models[v].associate !== "function") continue;
