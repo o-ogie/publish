@@ -13,7 +13,6 @@ class BoardController {
     async getView(req, res, next) {
         try {
             const { userid } = req.body;
-            console.log(userid);
             const { id, idx } = req.params;
             const response = await this.boardService.getView(id, idx);
             res.json(response);
@@ -59,11 +58,12 @@ class BoardController {
     }
 
     async postComment(req, res, next) {
-        console.log(`postCon:`, req.params.id, req.body.userid, req.body.content);
+        console.log(`postCon:`, req.params.idx, req.body);
         try {
             if (!req.body.userid) throw new Error("작성자가 없습니다");
             if (!req.body.content) throw new Error("내용이 없습니다");
-            const response = await this.boardService.postComment(req.params.id, req.body.userid, req.body.content);
+
+            const response = await this.boardService.postComment(req.params.idx, req.body);
             res.status(201).json(response);
         } catch (e) {
             next(e);

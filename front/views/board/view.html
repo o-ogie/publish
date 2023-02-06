@@ -16,7 +16,7 @@
                 <p>{{data.likeCount}}</p>
                 <input type="hidden" class="likewho" value="{{data.likeidlist}}" />
             </div>
-            <div id="boardcontent">{{data.content}}</div>
+            <textarea id="boardcontent" readonly>{{data.content}}</textarea>
         </div>
     </div>
     <div id="profile">
@@ -34,7 +34,6 @@
         </div>
         <form method="post" action="" id="commentfrm">
             <div id="commentFrmInput">
-                <input type="hidden" name="depth" />
                 <input type="hidden" name="group" />
                 <textarea type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요"></textarea>
             </div>

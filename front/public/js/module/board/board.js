@@ -23,7 +23,8 @@ const inserthandler = (e) => {
         content = value;
     }
     preview.innerHTML = `<h2>${subject}</h2>
-    <textarea class="pre" disabled>${content}</textarea>`;
+    <textarea class="pre" disabled>${content}</textarea>
+    `;
 };
 
 const hash = document.querySelector("#hashtag");
@@ -73,8 +74,6 @@ const submithandler = async (e) => {
         alert(e)
         e.preventDefault();
     }
-
-    frm.submit();
 };
 
 
