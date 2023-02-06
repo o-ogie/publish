@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
-    <link rel="stylesheet" href="/css/layout.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+        <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+        <link rel="stylesheet" href="/css/layout.css" />
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+            body {
+                font-family: "Noto Sans KR", sans-serif;
+            }
+        </style>
+    </head>
 
     <body id="particles-js">
         <div id="layoutWrap">
             <ul id="layout">
                 <li id="logo">
                     <h1>
-                        <a href="/"><img src="https://img.freepik.com/free-icon/sleep_318-876856.jpg?w=2000" /> {{nickname}}.LOG</a>
+                        <a href="/"><img src="https://img.freepik.com/free-icon/sleep_318-876856.jpg?w=2000" /> {{user.nickname}}.LOG</a>
                     </h1>
                 </li>
-                {% if userid %}
+                {% if user.userid %}
                 <li id="write">
                     <button><a href="/board/write">글쓰기</a></button>
                 </li>
                 <li id="userImg">
-                    <a href="/user/profile"><img src="{{userImg}}" alt="" /></a>
+                    <a href="/user/profile"><img src="{{user.userImg}}" alt="" /></a>
                 </li>
                 <li id="userTab">
                     <input type="checkbox" id="menu_icon" />
