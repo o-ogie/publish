@@ -16,7 +16,8 @@
                     </li>
                     <li id="imgfile">
                         <label for="upload1">
-                            <img class="labelimg" src="https://cdn.icon-icons.com/icons2/2483/PNG/512/image_file_icon_149928.png" alt="" />
+                            <iconify-icon icon="iconoir:add-media-image" style="font-size: 1.6rem; color: #666;"></iconify-icon>
+                            <!-- <img class="labelimg" src="https://cdn.icon-icons.com/icons2/2483/PNG/512/image_file_icon_149928.png" alt="" /> -->
                         </label>
                         <input type="file" name="upload1" id="upload1" class="imgs" />
                         <!-- <label for="upload2">
@@ -56,8 +57,9 @@
             height: '50vh',
             initialEditType: 'markdown',
             previewStyle: 'vertical',
-            // placeholder: "내용을 입력해주세요"
         });
+        document.querySelector(".toastui-editor-toolbar-icons.image").style.display = 'none';
+        document.querySelector(".toastui-editor-mode-switch").style.display = 'none';
     </script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="/js/lib/request.js"></script>

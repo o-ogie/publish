@@ -9,7 +9,7 @@ li {
 }
 a {
     text-decoration: none;
-    color: #000;
+    color: #FFF;
 }
 
 input {
@@ -29,10 +29,11 @@ input {
     width: 100%;
     height: 100%;
     background: #fff;
-    padding: 5%;
+    padding: 3%;
     margin: 0 auto;
     box-sizing: border-box;
     border-radius: 10px;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.7);
 }
 
 #board > li {
@@ -110,34 +111,32 @@ input {
 }
 
 #btns > .btns {
-    color: black;
+    color: #FFF;
     font-size: 14px;
     font-weight: bold;
     padding: 5px 10px;
     width: 100px;
     height: 36px;
     box-sizing: border-box;
+    border: none;
 }
 
 #btns > #back {
-    background-color: azure;
-    border: 0.5px solid #ececec;
-    border-radius: 5px;
+    background-color: #8437e4;
+    border-radius: 8px;
     cursor: pointer;
 }
 
 #btns > #temporarily {
     margin-left: 70%;
-    background-color: #60d082;
-    border: 0.5px solid #ececec;
-    border-radius: 5px;
+    background-color: #3fac60;
+    border-radius: 8px;
     cursor: pointer;
 }
 
 #btns > #insertBtn {
-    background-color: bisque;
-    border: 0.5px solid #ececec;
-    border-radius: 5px;
+    background-color: #f4742a;
+    border-radius: 8px;
     cursor: pointer;
     margin-left: 10px;
 }
@@ -147,7 +146,7 @@ input {
     width: auto;
     height: 20px;
     font-size: 14px;
-    background-color: #60d082;
+    background-color: #34c789;
     border-radius: 7px;
     padding: 4px;
     margin: 2px 2px;

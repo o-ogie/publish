@@ -28,7 +28,7 @@ document.addEventListener("click", (e) => {
 // 로그아웃
 document.querySelector("#logout").addEventListener("click", (e) => {
   location.href = "/";
-  document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+  document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:01 GMT path=/;";
 });
 
 
