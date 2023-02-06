@@ -74,6 +74,8 @@ const submithandler = async (e) => {
         alert(e)
         e.preventDefault();
     }
+    
+    frm.submit()
 };
 
 
