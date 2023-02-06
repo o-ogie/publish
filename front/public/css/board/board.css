@@ -29,7 +29,7 @@ input {
     width: 100%;
     height: 100%;
     background: #fff;
-    padding: 5%;
+    padding: 3%;
     margin: 0 auto;
     box-sizing: border-box;
     border-radius: 10px;
@@ -118,6 +118,7 @@ input {
     width: 100px;
     height: 36px;
     box-sizing: border-box;
+    border: none;
 }
 
 #btns > #back {
