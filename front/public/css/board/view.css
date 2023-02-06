@@ -168,3 +168,14 @@
     cursor: pointer;
 }
 
+
+/* toast ui */
+.toastui-editor-md-preview-highlight:after {
+    display: none;
+}
+.toastui-editor-contents pre {
+    color: #666;
+}
+.toastui-editor-contents strong {
+    color: #000;
+}
