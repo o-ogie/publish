@@ -25,7 +25,8 @@ class UserController {
     try {
       if (!req.headers.authorization) throw new Error("No Authorization");
       const [type, token] = req.headers.authorization.split(" ");
-      if (type.toLowerCase() !== "bearer") throw new Error("Authorization Type Error");
+      if (type.toLowerCase() !== "bearer")
+        throw new Error("Authorization Type Error");
       const user = await this.userService.me(token);
       res.json(user);
     } catch (e) {
@@ -39,7 +40,18 @@ class UserController {
       console.log(`token :::::::::`, token);
       // res.cookie('token', token)
       res.json({ token });
-    } catch (e) { next(e); }
+    } catch (e) {
+      next(e);
+    }
+  }
+  async deleteUser(req, res, next) {
+    try {
+      console.log(req.params.id);
+      const result = await this.userService.deleteUser(req.params.id);
+      res.json(result);
+    } catch (e) {
+      next(e);
+    }
   }
 }
 

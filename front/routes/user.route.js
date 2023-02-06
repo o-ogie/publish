@@ -53,5 +53,12 @@ route.post("/modify", async (req, res) => {
     await res.redirect("/user/profile");
 });
 
+route.post("/delete", async (req, res) => {
+    console.log("delete:::", req.body.userid)
+    const response = await request.delete(`/users/${req.body.userid}`);
+    res.cookie("token", response.data.token);
+    await res.redirect("/");    
+})
+
 module.exports = route;
 
