@@ -81,6 +81,15 @@ class UserService {
       throw new Error(e);
     }
   }
+  async deleteUser(user) {
+    try {
+      console.log(`user :::::`, user)
+      const drop = await this.userRepository.destroyUser(user);
+      return drop
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
 }
 
 module.exports = UserService;

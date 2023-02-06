@@ -74,7 +74,7 @@ socket.on('users',(data)=>{
 })
 
 socket.on('hello',(data)=>{
-
+  console.log(data)
 })
 
 /* 채팅 대답 */
@@ -109,7 +109,7 @@ chatFrm.addEventListener('submit',(e)=>{
     }
   else { 
      li.className = 'privateMessage'
-     li.innerHTML = `>to.${toUser.value} `+ message.value
+     li.innerHTML = `${toUser.value}에게. `+ message.value
     }
   chat.append(li)
   
