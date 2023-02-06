@@ -76,8 +76,6 @@ const submithandler = async (e) => {
         e.preventDefault();
     }
     
-    frm.submit()
-
     frm.submit();
 };
 
