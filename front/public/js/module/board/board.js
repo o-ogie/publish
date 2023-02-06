@@ -62,12 +62,27 @@ const submithandler = async (e) => {
     }
     hash.value = hashs;
 
+    // toast ui
+    const contentDiv = document.querySelector(".ProseMirror");
+    const contentValue = contentDiv.innerHTML;
+    frm.content.value = contentValue;
+
+    try {
     if (frm.subject.value === "" || frm.content.value === "") {
-        alert("제목과 내용을 채워주세요");
-    } else {
-        frm.submit();
+        throw new Error("제목과 내용을 채워주세요");
+    }} catch (e) {
+        alert(e)
+        e.preventDefault();
     }
 };
+
+
+document.querySelector("#inputimg").style.display = "none";
+document.querySelector("#imgfile > input").addEventListener("change", e => {
+    e.preventDefault();
+    document.querySelector('#inputimg').click();
+});
+
 
 const imghandler = async (e) => {
     const body = new FormData(frm);
@@ -82,9 +97,13 @@ const imghandler = async (e) => {
         img.className = "previewimg";
         img.src = `http://localhost:3000/board/${imgarray[i]}`;
         preimg.append(img);
-        // console.log(imgfile[i].value);
+
+        const contentDiv = document.querySelector(".ProseMirror");
+        contentDiv.innerHTML += `${'&lt'}img src=${img.src}>`
     }
 };
+
+
 
 inputimg.addEventListener("click", imghandler);
 // const testhandler = async (e) => {
@@ -93,7 +112,7 @@ inputimg.addEventListener("click", imghandler);
 
 // imgform.addEventListener("submit", testhandler);
 
-hash.addEventListener("keydown", hashhandler);
+hash.addEventListener("keypress", hashhandler);
 insert.addEventListener("input", inserthandler);
 insertBtn.addEventListener("click", submithandler);
 
