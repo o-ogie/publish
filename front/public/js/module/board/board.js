@@ -68,23 +68,24 @@ const submithandler = async (e) => {
     frm.content.value = contentValue;
 
     try {
-    if (frm.subject.value === "" || frm.content.value === "") {
-        throw new Error("제목과 내용을 채워주세요");
-    }} catch (e) {
-        alert(e)
+        if (frm.subject.value === "" || frm.content.value === "") {
+            throw new Error("제목과 내용을 채워주세요");
+        }
+    } catch (e) {
+        alert(e);
         e.preventDefault();
     }
     
     frm.submit()
+
+    frm.submit();
 };
 
-
 document.querySelector("#inputimg").style.display = "none";
-document.querySelector("#imgfile > input").addEventListener("change", e => {
+document.querySelector("#imgfile > input").addEventListener("change", (e) => {
     e.preventDefault();
-    document.querySelector('#inputimg').click();
+    document.querySelector("#inputimg").click();
 });
-
 
 const imghandler = async (e) => {
     const body = new FormData(frm);
@@ -101,11 +102,9 @@ const imghandler = async (e) => {
         preimg.append(img);
 
         const contentDiv = document.querySelector(".ProseMirror");
-        contentDiv.innerHTML += `${'&lt'}img src=${img.src}>`
+        contentDiv.innerHTML += `${"&lt"}img src=${img.src}>`;
     }
 };
-
-
 
 inputimg.addEventListener("click", imghandler);
 // const testhandler = async (e) => {

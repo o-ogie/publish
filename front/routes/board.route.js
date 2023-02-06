@@ -30,11 +30,11 @@ route.get("/write", (req, res) => {
     res.render("board/write.html");
 });
 route.get("/:id/:idx", async (req, res) => {
-    const me = req.user;
+    const user = req.user;
     const { id, idx } = req.params;
     const respone = await request.get(`/boards/${id}/${idx}`);
     const [data, comment] = respone.data;
-    res.render("board/view.html", { data, me });
+    res.render("board/view.html", { data, user });
 });
 
 route.get("/:id/:idx/modify", (req, res) => {
