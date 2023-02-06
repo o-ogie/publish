@@ -8,7 +8,7 @@ class AuthService {
   
   async token({ userid, userpw }) {
     try {
-      if (!userid || !userpw) throw "사용자가 없습니다";
+      if (!userid || !userpw) throw "사용자 정보가 없습니다";
       const hash = this.crypto.createHmac("sha256", "web7722").update(userpw).digest("hex");
       const user = await this.authRepository.getUserByInfo({
         userid,
