@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 const BadRequest = require("./exceptions/BadRequest");
 

@@ -6,7 +6,7 @@ const board = require("./board.route");
 router.get("/", (req, res) => {
     // console.log(`req.user :`, req.user);
     if (req.user === undefined) return res.render("index.html");
-    res.render("index.html", req.user);
+    res.render("index.html", {user:req.user});
 });
 
 router.get("/socket", (req, res) => {
