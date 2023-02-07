@@ -29,7 +29,7 @@ module.exports = (server,app)=>{
         socket.on('message',(message)=>{
             const {userImg, nickname} = users[socket.nickname]
             const date = new Date();
-            const options = { hour: '2-digit', minute: '2-digit' };
+            const options = { hour: '2-digit', minute: '2-digit', hour12: false };
             const time = date.toLocaleTimeString([], options);
             const obj = {userImg, nickname, message, time}
             socket.broadcast.emit('reply',JSON.stringify(obj))
