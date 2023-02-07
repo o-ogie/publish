@@ -8,8 +8,6 @@ class UserService {
 
     async signup(userData) {
       try {
-        // if (userData.userImg.indexOf(`http://`) === -1) userData.userImg = `http://localhost:3000/${userData.userImg}`
-        // if (!userData.userImg) userData.userImg = "http://localhost:3000/default-image.png";
         userData.userImg = userData.userImg ? `http://${this.config.host}:${this.config.port}/${userData.userImg}` : undefined
         const {userid, username, userpw, ...rest} = userData
         if (!userid || !userpw || !username) throw "내용이 없습니다";

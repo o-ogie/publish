@@ -11,6 +11,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.TEXT,
             allowNull: false,
           },
+          image: {
+            type: Sequelize.TEXT(),
+            allowNull: false,
+            defaultValue: "http://localhost:3000/board/default-board.png",
+          },
           hit: {
             type: Sequelize.INTEGER,
             defaultValue: 0,
@@ -30,9 +35,6 @@ module.exports = (sequelize, Sequelize) => {
         foreignKey: "category",
       });
       this.hasMany(models.Comment, {
-        foreignKey: "boardid",
-      });
-      this.hasMany(models.BoardImage, {
         foreignKey: "boardid",
       });
       this.hasMany(models.PointUp, {
