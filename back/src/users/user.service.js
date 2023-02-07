@@ -51,7 +51,7 @@ class UserService {
     async putProfile(userData) {
         try {
             console.log(`userData ::::`, userData);
-            userData.userImg = userData.userImg ? `${this.config.host}:${this.config.port}/${userData.userImg}` : undefined
+            userData.userImg = userData.userImg ? `http://${this.config.host}:${this.config.port}/${userData.userImg}` : undefined
 
             const { userpw, ...rest } = userData;
             const hash = this.crypto.createHmac("sha256", "web7722").update(userpw).digest("hex");

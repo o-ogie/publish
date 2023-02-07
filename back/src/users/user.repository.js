@@ -45,15 +45,22 @@ class UserRepository {
   async updateProfile(userData) {
     try {
       console.log(`repo userData : `, userData);
+      // const user = await this.User.update(
+      //   {
+      //     userImg: userData.userImg,
+      //     nickname: userData.nickname,
+      //     username: userData.username,
+      //     userpw: userData.userpw,
+      //     phoneNumber: userData.phoneNumber,
+      //     email: userData.email,
+      //   },
+      //   {
+      //     where: { userid: userData.userid },
+      //     returning: true
+      //   }
+      // );
       const user = await this.User.update(
-        {
-          userImg: userData.userImg,
-          nickname: userData.nickname,
-          username: userData.username,
-          userpw: userData.userpw,
-          phoneNumber: userData.phoneNumber,
-          email: userData.email,
-        },
+        userData,
         {
           where: { userid: userData.userid },
           returning: true

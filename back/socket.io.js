@@ -10,7 +10,6 @@ module.exports = (server,app)=>{
 
         const cookie = socket.handshake.headers.cookie
         if (!cookie) return
-        console.log('socket.handshake.....',socket.handshake)
         const payload = cookie.split('=')[1].split('.')[1]
         const {userImg, nickname} = JSON.parse(Buffer.from(payload, "base64").toString("utf-8"));
 
@@ -31,6 +30,8 @@ module.exports = (server,app)=>{
             const {userImg, nickname} = users[socket.nickname]
             const obj = {userImg, nickname, message}
             socket.broadcast.emit('reply',JSON.stringify(obj))
+            console.log('socket.time::::::::::::::::',Date())
+            console.log('message:::::::::',message)
         })
 
         socket.on('private', (message)=>{
