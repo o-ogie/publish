@@ -28,12 +28,11 @@ module.exports = (server,app)=>{
          */
         socket.on('message',(message)=>{
             const {userImg, nickname} = users[socket.nickname]
-            const obj = {userImg, nickname, message}
+            const obj = {userImg, nickname, message, time: new Date().toLocaleTimeString()}
             socket.broadcast.emit('reply',JSON.stringify(obj))
-            console.log('socket.time::::::::::::::::',Date())
-            console.log('message:::::::::',message)
         })
 
+        /**귓속말기능 (아직 미구현) */
         socket.on('private', (message)=>{
             const {userImg, nickname} = users[socket.nickname]
             const obj = {userImg, nickname, message}
