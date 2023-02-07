@@ -44,6 +44,13 @@
                                     src='{{item.image}}'
                                     alt=""></div>
                             <span class="boardTitle">{{item.subject}}</span>
+                            {% if item.tagname %}
+                            <ul class="tagList">
+                              {% for tag in item.tagname.split(',').slice(0,3) %}
+                                <li>{{ tag }}</li>
+                              {% endfor %}
+                            </ul>
+                          {% endif %}
                         </div>
                         <div class="itemPartB">
                             <span style="color: #999; font-size: 0.9em; "><iconify-icon
@@ -55,8 +62,7 @@
                                     icon="mdi:message-processing"></iconify-icon><span class="innerText">{{item.commentCount}}</span></span>
                         </div>
                         <div class="itemPartC">
-                            <span style="color: #999; font-size: 1.1em; "><iconify-icon
-                                    icon="mdi:user-circle"></iconify-icon><span class="innerText">{{item.nickname}}</span></span>
+                            <div><img class="userImg" src='{{item.userImg}}' alt=""><span class="nickName">{{item.nickname}}</span></div>
                             <span style="font-size: 1.1em; "><iconify-icon
                                     icon="flat-color-icons:like"></iconify-icon><span class="innerText">{{item.likeCount}}</span></span>
                         </div>

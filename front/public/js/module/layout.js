@@ -1,4 +1,5 @@
 import particle from "/js/lib/particle.js";
+// import chat from "/js/lib/chat.js";
 
 
 
@@ -38,11 +39,18 @@ document.querySelector("#logout").addEventListener("click", (e) => {
 
 
 
-// 채팅
+
+
+
+// chat
+
 const chatBtn = document.querySelector('#chatToggle')
+const chatAlert = document.querySelector('.messageAlert')
+console.log(chatAlert)
 const chatterBox = document.querySelector('#chatterBox')
 chatBtn.addEventListener("click", (e) => {
   chatterBox.classList.toggle("clicked");
+  if (chatterBox.classList.contains("clicked")) chatAlert.style.display = "none";
 });
 
 
@@ -89,6 +97,7 @@ socket.on('reply', (data)=>{
   li.className = 'otherMessage'
 
   const userDiv = document.createElement('div')
+  userDiv.className = 'userDiv'
   const nickname = document.createElement('span')
   nickname.innerHTML = response.nickname
   userDiv.append(nickname)
@@ -100,18 +109,22 @@ socket.on('reply', (data)=>{
 
   li.append(userDiv)
   
-  const div = document.createElement('div')
   const msgDiv = document.createElement('div')
-  msgDiv.innerHTML = response.message.message
-  div.append(msgDiv)
+  msgDiv.className = 'msgDiv'
+  const msgBalloon = document.createElement('div')
+  msgBalloon.className = 'messageBox'
+  msgBalloon.innerHTML = response.message.message
+  msgDiv.append(msgBalloon)
 
-  const time = document.createElement('span')
-  time.innerHTML = response.time
-  div.append(time)
+  const timeSpan = document.createElement('span')
+  timeSpan.className = 'timeAt'
+  timeSpan.innerHTML = response.time
+  msgDiv.append(timeSpan)
 
-  li.append(div)
+  li.append(msgDiv)
   
   chat.append(li)
+  chatAlert.style.display = 'block';
 })
 
 // 단체방 귓속말
@@ -128,7 +141,7 @@ const chatFrm = document.querySelector('#chatFrm')
 chatFrm.addEventListener('submit',(e)=>{
   e.preventDefault()
   const date = new Date();
-  const options = { hour: '2-digit', minute: '2-digit' };
+  const options = { hour: '2-digit', minute: '2-digit', hour12: false };
   const time = date.toLocaleTimeString([], options);
 
   const {toUser, message} = e.target
@@ -138,30 +151,24 @@ chatFrm.addEventListener('submit',(e)=>{
   if (toUser.value === 'default') {
      li.className = 'myMessage'
 
-     const div = document.createElement('div')
      const msgDiv = document.createElement('div')
-     msgDiv.innerHTML = message.value 
-     div.append(msgDiv)
+     const msgBalloon = document.createElement('div')
+     msgBalloon.className = 'messageBox'
+     msgBalloon.innerHTML = message.value 
+     msgDiv.append(msgBalloon)
    
      const timeSpan = document.createElement('span')
+     timeSpan.className = 'timeAt'
      timeSpan.innerHTML = time
-     div.append(timeSpan)
+     msgDiv.append(timeSpan)
 
-     li.append(div)
+     li.append(msgDiv)
     }
   else { 
      li.className = 'privateMessage'
      li.innerHTML = `${toUser.value}에게. `+ message.value
     }
   chat.append(li)
-  
 
   chatFrm.reset()
 })
-
-
-
-
-
-
-

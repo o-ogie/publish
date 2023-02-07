@@ -1,7 +1,6 @@
-
-/* canvas {
-    background: goldenrod;
-} */
+* {
+    letter-spacing: -0.0525em;
+}
 
 body {
     height: 100%;
@@ -44,7 +43,7 @@ body {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 
@@ -72,6 +71,7 @@ body {
     color: #e5e5e5;
     padding-left: 10px;
     border: none;
+    outline: none;
     width: 96px;
     height: 32px;
     border-radius: 4px;
@@ -85,35 +85,42 @@ body {
 
 #searchBox > form {
     width: 100%;
-    height: 32px;
-    border-radius: 4px;
-    background: #fff;
+    height: 38px;
+    overflow: hidden;
+    background: transparent;
+    border: 1px solid #ddd;
     box-shadow: rgb(0 0 0 / 0.4) 0px 4px 8px;
 }
 
 #searchBox select {
     border: none;
     outline: none;
-    padding-left: 4px;
+    color: #fff;
+    font-size: 12px;
+    background: transparent;
+    padding-left: 8px;
 }
 
 #searchBox input {
+    width: 80px;
     border: none;
     outline: none;
+    color: #fff;
+    background: transparent;
     padding-left: 4px;
 }
 
 #searchBox button {
     width: 42px;
-    height: 32px;
+    height: 36px;
     border: none;
-    border-radius: 0 4px 4px 0;
-    line-height: 12px;
+    line-height: 10px;
     text-align: center;
-    background: #333;
+    /* background: #333; */
+    background: transparent;
 }
 #searchBox button:hover {
-    background: #666;
+    background: #333;
     cursor: pointer;
 }
 
@@ -130,14 +137,19 @@ body {
 
 .boardItem {
     width: 320px;
-    height: 370px;
+    height: 390px;
+    transition: all 0.2s ease-in-out;
+}
+.boardItem:hover {
+   transform: translateY(-8px);
 }
 
 .itemWrap {
     width: 320px;
-    height: 320px;
+    height: 350px;
     background-color: #fff;
-    border-radius: 6px;
+    border-radius: 8px;
+    overflow: hidden;
     box-shadow: rgb(0 0 0 / 0.5) 0px 6px 12px;
 }
 
@@ -145,21 +157,40 @@ body {
     margin: 10px 0px 0 10px;
 }
 
+.itemPartA {
+    height: 270px;
+}
 .itemPartA .boardThumbnail img {
     display: block;
-    height: 175px;
+    height: 200px;
     width: 320px;
     object-fit: cover;
-    border-radius: 6px 6px 0 0;
 }
 .itemPartA .boardTitle {
     display: block;
-    padding: 10px 0px 20px 0;
+    padding: 0 0 5px 0;
     color: #333;
     font-size: 1.4rem;
 }
-.itemPartB {
+.itemPartA .tagList {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    overflow: hidden;
+    }
+    
+.itemPartA .tagList li {
+    display: inline-block;
+    background-color: #65c48e;
+    padding: 2px 6px;
+    margin-left: 10px;
     margin-bottom: 15px;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.itemPartB {
+    margin: 5px 0 10px 0;
 }
 
 .itemPartB span {
@@ -175,13 +206,36 @@ body {
 .itemPartC {
     border-top: 1px solid #ececec;
     width: 320px;
+    height: 45px;
     display: flex;
     justify-content: space-between;
-    padding-right: 15px;
+    padding: 0 15px 0 10px;
 }
+.itemPartC .userImg {
+    height: 1.8rem;
+    width: 1.8rem;
+    line-height: 1.8rem;
+    vertical-align: middle;
+    margin-top: 6px;
+    border: 0.15rem solid #fff;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.itemPartC .nickName {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 6px;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    line-height: 10px;
+    font-weight: 500;
+    color: #222;
+}
+
 .itemPartC .innerText {
     margin-left: 6px;
     font-size: 1.1rem;
+    line-height: 10px;
     font-weight: 500;
     color: #222;
 }
