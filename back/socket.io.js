@@ -17,7 +17,7 @@ module.exports = (server,app)=>{
         socket.nickname = nickname
         users[socket.nickname]={socket:socket.id,userImg,nickname}
         participant.push(nickname)
-        socket.emit('users',{participant,nickname})
+        socket.emit('users',{participant,nickname, users})
 
 
         /**Client 접속시 현재 접속자들에게 누가 들어왔는지 알려줌. */
