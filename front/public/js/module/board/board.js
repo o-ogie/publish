@@ -31,7 +31,9 @@ const hash = document.querySelector("#hashtag");
 const hashs = document.querySelector("#hash");
 
 const hashhandler = (e) => {
-    if (e.key === "Enter") {
+    console.dir(e.target.parentElement.className);
+    if (e.target.parentElement.className === "createHash" && e.key === "Enter") {
+        imghandler(e);
         let hashtags = document.createElement("p");
         hashtags.className = "hashtags";
         const dele = document.querySelectorAll("#hash > p");
@@ -73,9 +75,10 @@ const submithandler = async (e) => {
         }
     } catch (e) {
         alert(e);
+        console.log(frm.content);
         e.preventDefault();
     }
-    
+
     frm.submit();
 };
 
@@ -86,21 +89,25 @@ document.querySelector("#imgfile > input").addEventListener("change", (e) => {
 });
 
 const imghandler = async (e) => {
-    const body = new FormData(frm);
-    const respone = await request.post("/boards/array", body, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-        },
-    });
-    const imgarray = respone.data;
-    for (let i = 0; i < imgarray.length; i++) {
-        const img = document.createElement("img");
-        img.className = "previewimg";
-        img.src = `http://localhost:3000/board/${imgarray[i]}`;
-        preimg.append(img);
+    e.preventDefault();
+    console.log(e.target.parentElement.className);
+    if (e.target.parentElement.className === "imgs") {
+        const body = new FormData(frm);
+        const respone = await request.post("/boards/array", body, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        const imgarray = respone.data;
+        for (let i = 0; i < imgarray.length; i++) {
+            const img = document.createElement("img");
+            img.className = "previewimg";
+            img.src = `http://localhost:3000/board/${imgarray[i]}`;
+            preimg.append(img);
 
-        const contentDiv = document.querySelector(".ProseMirror");
-        contentDiv.innerHTML += `${"&lt"}img src=${img.src}>`;
+            const contentDiv = document.querySelector(".ProseMirror");
+            contentDiv.innerHTML += `${"&lt"}img src=${img.src}>`;
+        }
     }
 };
 
@@ -114,4 +121,9 @@ inputimg.addEventListener("click", imghandler);
 hash.addEventListener("keypress", hashhandler);
 insert.addEventListener("input", inserthandler);
 insertBtn.addEventListener("click", submithandler);
+
+// const updateHandler = (e)=>{
+//     e.preventDefault()
+
+// }
 
