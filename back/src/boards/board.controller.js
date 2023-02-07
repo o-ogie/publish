@@ -37,11 +37,11 @@ class BoardController {
         }
     }
     async putView(req, res, next) {
-        console.log(`putCon:`, req.params.id, req.body.subject, req.body.content, req.body.hashtag);
+        console.log(`putCon:`, req.params.idx, req.body.subject, req.body.content, req.body.hashtag);
         try {
             if (!req.body.subject) throw new Error("제목을 입력해주세요");
             if (!req.body.content) throw new Error("수정할 내용을 입력해주세요");
-            const response = await this.boardService.putView(req.params.id, req.body.subject, req.body.content, req.body.hashtag);
+            const response = await this.boardService.putView(req.params.idx, req.body.subject, req.body.content, req.body.hashtag);
             res.status(201).json(response);
         } catch (e) {
             next(e);
