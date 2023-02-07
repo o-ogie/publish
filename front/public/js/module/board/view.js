@@ -68,6 +68,9 @@ likecheck(array[0]);
 // };
 
 img.addEventListener("click", likeHandler);
+// img.addEventListener("click", (e) => {
+//     e.target.classList.add("big");
+// });
 
 const commentHandler = async (e) => {
     e.preventDefault();

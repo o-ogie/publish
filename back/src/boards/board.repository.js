@@ -9,6 +9,33 @@ class BoardRepository {
         this.Liked = Liked;
     }
 
+    async findList() {
+        try {
+            const query = `SELECT 
+      A.id,
+      A.userid, 
+      A.subject, 
+      A.createdAt, 
+      A.hit,
+      B.userImg,
+      B.nickname,
+      GROUP_CONCAT(C.tagname SEPARATOR ', ') AS tagname,
+      (SELECT COUNT(boardid) FROM Comment WHERE boardid = A.id) AS commentCount, 
+      (SELECT COUNT(BoardId) FROM Liked WHERE BoardId = A.id) AS likeCount
+      FROM Board AS A 
+      JOIN User AS B 
+      ON A.userid = B.userid
+      JOIN Hashtag AS C
+      ON A.id = C.boardid
+      GROUP BY A.id
+      ORDER BY A.id DESC;`;
+            const [findAll] = await this.sequelize.query(query);
+            return findAll;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
     async findAll(where) {
         try {
             const query = `SELECT 
@@ -34,6 +61,7 @@ class BoardRepository {
       GROUP BY A.id
       ORDER BY A.id DESC;`;
             const [findAll] = await this.sequelize.query(query);
+            console.log(findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
@@ -43,7 +71,7 @@ class BoardRepository {
     async findOne(id, idx) {
         try {
             const [view] = await this.findAll(idx);
-
+            console.log(view);
             const comment = await this.Comment.findAll({
                 raw: true,
                 where: { boardid: idx },
