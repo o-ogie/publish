@@ -94,7 +94,7 @@ a {
     align-items: center;
     padding: 5% 3%;
     width: 100%;
-    max-height: 38.5vh;
+    max-height: 42vh;
     overflow-y: scroll;
 }
 /* 스크롤바 */
@@ -118,17 +118,22 @@ a {
 }
 
 
-
-
 #chat .myMessage {
+    max-width: 70%;
+    align-self: flex-end;
+    position: relative;
+}
+
+#chat .myMessage > div > div {
     background: linear-gradient(120deg, #248A52, #257287);
     border-radius: 10px 10px 0 10px;
     color: #fff;
-    padding: 2%;
-    max-width: 60%;
-    align-self: flex-end;
+}
+#chat .myMessage span {
+    color: #999;
+    font-size: 11px;
     margin-bottom: 10px;
-    position: relative;
+    align-self: flex-end;
 }
 
 #chat .otherMessage {
@@ -140,12 +145,12 @@ a {
     justify-content: flex-start;
 }
 
-#chat .otherMessage p {
+#chat .otherMessage div {
     display: inline-block;
     align-self: flex-start;
     font-size: 16px;
     text-align: center;
-    background: rgba(120, 120, 120, 0.8);
+    background: linear-gradient(120deg, #7e7e7e, #9d9d9d);
     border-radius: 10px 10px 10px 0;
     color: #fff;
     padding: 2%;

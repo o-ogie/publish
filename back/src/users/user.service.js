@@ -52,8 +52,7 @@ class UserService {
         try {
             console.log(`userData ::::`, userData);
             if (userData.userImg.indexOf('http://')===-1) 
-                userData.userImg = `http://${this.config.host}:${this.config.port}/${userData.userImg}`
-
+              userData.userImg = `http://${this.config.host}:${this.config.port}/${userData.userImg}`
             const { userpw, ...rest } = userData;
             const hash = this.crypto.createHmac("sha256", "web7722").update(userpw).digest("hex");
 

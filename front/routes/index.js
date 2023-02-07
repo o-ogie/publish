@@ -11,10 +11,10 @@ const request = axios.create({
 
 router.get("/", async (req, res) => {
     // console.log(`req.user :`, req.user);
-    if (req.user === undefined) return res.render("index.html");
     const respone = await request.get("/boards/");
-    console.log(respone.data);
-    res.render("index.html", { user: req.user });
+    const list = respone.data
+    if (req.user === undefined) return res.render("index.html", { list });
+    res.render("index.html", { user: req.user, list });
 });
 
 router.get("/socket", (req, res) => {
