@@ -1,0 +1,251 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #FFF;
+}
+
+#chatToggle {
+    height: 3.6rem;
+    width: 3.6rem;
+    box-shadow: rgb(0 0 0 / 50%) 0px 4px 8px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: all 0.125s ease-in 0s;
+    cursor: pointer;
+    background-color: #f5c06b;
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    z-index: 3;
+}
+
+#chatToggle button {
+    height: 3.6rem;
+    width: 3.6rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #efefef;
+    padding-top: 7px;
+}
+
+#chatToggle .messageAlert iconify-icon {
+    height: 1.1rem;
+    width: 1.1rem;
+    border-radius: 50%;
+    background-color: #e83c35;
+    color: #fff;
+    z-index: 4;
+    position: absolute;
+    font-size: 0.8rem;
+    padding: 2px;
+    top: 5%;
+    right: 0;
+}
+
+#chatToggle:hover {
+    height: 3.8rem;
+    width: 3.8rem;
+    background-color: #ffac26;
+}
+
+#chatterBox {
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    width: 40vh;
+    height: 55vh;
+    max-height: 500px;
+    position: absolute;
+    bottom: 10%;
+    right: 9%;
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.3s;
+    background: rgba(80, 80, 80, .5);
+    box-shadow: 0 5px 30px rgba(0, 0, 0, .2);
+    overflow: hidden;
+}
+
+#chatterBox.clicked {
+    opacity: 1;
+    z-index: 3;
+    transition: all 0.3s;
+}
+
+#chatFrm {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+}
+
+#chat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5% 3%;
+    width: 100%;
+    max-height: 43vh;
+    overflow-y: scroll;
+}
+/* 스크롤바 */
+#chat::-webkit-scrollbar {
+    width: 8px;
+    /* 스크롤바의 너비 */
+}
+
+#chat::-webkit-scrollbar-thumb {
+    height: 20%;
+    /* 스크롤바의 길이 */
+    background: #666;
+    /* 스크롤바의 색상 */
+
+    border-radius: 10px;
+}
+
+#chat::-webkit-scrollbar-track {
+    background: rgba(168, 168, 168, 0);
+    /*스크롤바 뒷 배경 색상*/
+}
+
+
+
+
+#chat .myMessage {
+    background: linear-gradient(120deg, #248A52, #257287);
+    border-radius: 10px 10px 0 10px;
+    color: #fff;
+    padding: 2%;
+    max-width: 70%;
+    align-self: flex-end;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+#chat .otherMessage {
+    align-self: flex-start;
+    position: relative;
+    max-width: 60%;
+    min-height: 50px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#chat .otherMessage img {
+    height: 2rem;
+    width: 2rem;
+    border: 0.15rem solid #fff;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+#chat .otherMessage span {
+    font-size: 13px;
+    color: #fff;
+    cursor: pointer;
+    position: absolute;
+    top: -50%;
+}
+
+#chat .otherMessage p {
+    display: block;
+    min-height: 50px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 50%;
+    background: rgba(120, 120, 120, 0.8);
+    border-radius: 10px 10px 10px 0;
+    color: #fff;
+    padding: 2%;
+    margin-left: 10px;
+}
+
+
+#userList {
+    width: 100%;
+    max-height: 10%;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    font-size: 10px;
+    color: #fff;
+}
+
+#userList #participant {
+    font-size: 12px;
+    color: #e9b35b;
+    display: flex;
+    align-items: flex-start;
+}
+
+#userList #participant p {
+    margin-right: 2%;
+}
+
+
+
+#chatFrm {
+    flex: 0 1 40px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.inbox {
+    color: #fff;
+    border: none;
+    background-color: rgba(243, 176, 72);
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 4px 4px;
+    border-radius: 10px;
+    /* outline: none!important; */
+}
+
+.messageInput {
+    background: none;
+    border: none;
+    outline: none !important;
+    resize: none;
+    color: rgba(255, 255, 255, .8);
+    font-size: 12px;
+    height: 17px;
+    margin: 0;
+    padding-right: 20px;
+    width: 70%;
+}
+
+.messageInput:focus:-webkit-placeholder {
+    color: transparent;
+}
+
+#chatFrm button {
+    position: absolute;
+    z-index: 1;
+    top: 9px;
+    right: 10px;
+    color: #fff;
+    border: none;
+    background: #248A52;
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 10px;
+    outline: none !important;
+}
+
+#chatFrm button:hover {
+    background: #1D7745;
+}
