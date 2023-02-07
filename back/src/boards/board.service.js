@@ -8,8 +8,10 @@ class BoardService {
 
     async getList() {
         try {
-            const list = await this.boardRepository.findAll();
+            console.log("sersrsesrses");
+            const list = await this.boardRepository.findList();
             if (list.length === 0) throw "내용이 없습니다";
+            console.log("serv", list);
             return list;
         } catch (e) {
             throw new this.BadRequest(e);

@@ -1,5 +1,3 @@
-
-
 #viewwrap {
     width: 1000px;
     height: 100%;
@@ -59,6 +57,7 @@
     border-radius: 30px;
     border: 1px solid #fff;
 }
+
 #board > #contents > #likes > .img > iconify-icon {
     position: absolute;
     font-size: 40px;
@@ -69,10 +68,24 @@
 
 #board > #contents > #likes > .img > .like {
     color: red;
+    animation-name: likee;
+    animation-duration: 1s;
 }
 
 #board > #contents > #likes > .img > .unlike {
     color: #ececec;
+}
+
+@-webkit-keyframes likee {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(2, 2);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
 }
 
 #board > #contents > #likes > p {
@@ -171,7 +184,6 @@
     cursor: pointer;
 }
 
-
 /* toast ui */
 .toastui-editor-md-preview-highlight:after {
     display: none;
@@ -182,3 +194,4 @@
 .toastui-editor-contents strong {
     color: #000;
 }
+

@@ -14,11 +14,11 @@
                     <li>
                         <input type="text" name="subject" id="subject" placeholder="" value="{{data.subject}}" />
                     </li>
-                    <li id="hash"></li>
-                    <li>
-                        <input type="text" name="hashtag" id="hashtag" placeholder="" value="{{data.hashtag}}" />
+                    <li id="hash">{{data.tagname}}</li>
+                    <li class="createHash">
+                        <input type="text" name="hashtag" id="hashtag" placeholder="태그를 입력해주세요" />
                     </li>
-                    <li id="imgfile">
+                    <li id="imgfile" class="imgs">
                         <label for="upload1">
                             <iconify-icon icon="iconoir:add-media-image" style="font-size: 1.6rem; color: #666"></iconify-icon>
                             <!-- <img class="labelimg" src="https://cdn.icon-icons.com/icons2/2483/PNG/512/image_file_icon_149928.png" alt="" /> -->
@@ -36,7 +36,7 @@
                     </li>
                     <li>
                         <div id="content">
-                            <span id="parsedText"></span>
+                            <span id="parsedText"> </span>
                         </div>
                         <textarea name="content" id="content" class="contentText" cols="10" rows="10">{{data.content}}</textarea>
                     </li>
