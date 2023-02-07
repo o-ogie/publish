@@ -17,6 +17,7 @@ class BoardRepository {
       A.subject, 
       A.createdAt, 
       A.hit,
+      A.image,
       B.userImg,
       B.nickname,
       GROUP_CONCAT(C.tagname SEPARATOR ', ') AS tagname,
