@@ -31,7 +31,6 @@ const hash = document.querySelector("#hashtag");
 const hashs = document.querySelector("#hash");
 
 const hashhandler = (e) => {
-    console.dir(e.target.parentElement.className);
     if (e.target.parentElement.className === "createHash" && e.key === "Enter") {
         imghandler(e);
         let hashtags = document.createElement("p");
@@ -90,7 +89,6 @@ document.querySelector("#imgfile > input").addEventListener("change", (e) => {
 
 const imghandler = async (e) => {
     e.preventDefault();
-    console.log(e.target.parentElement.className);
     if (e.target.parentElement.className === "imgs") {
         const body = new FormData(frm);
         const respone = await request.post("/boards/array", body, {
