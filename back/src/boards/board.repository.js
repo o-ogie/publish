@@ -43,19 +43,17 @@ class BoardRepository {
     async findOne(id, idx) {
         try {
             const [view] = await this.findAll(idx);
-            console.log(view);
-            // const comments = await view.getComments({ raw: true });
-            // const liked = await this.Liked.findAll({
-            //     raw: true,
-            //     attributes: ["userid"],
-            //     where: { boardid: idx },
-            // });
+
+            const comment = await this.Comment.findAll({
+                raw: true,
+                where: { boardid: idx },
+            });
             // const hashtag = await this.Hashtag.findAll({
             //     attributes: ["tagname"],
             //     raw: true,
             //     where: { boardid: idx },
             // });
-            return view;
+            return [view, comment];
         } catch (e) {
             throw new Error(e);
         }
@@ -107,8 +105,9 @@ class BoardRepository {
     async createComment(commentData) {
         console.log("repo :", commentData);
         try {
+            console.log(typeof commentData.group);
             const create = await this.Comment.create(commentData);
-            return create;
+            return create.dataValues;
         } catch (e) {
             throw new Error(e);
         }

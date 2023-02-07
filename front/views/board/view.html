@@ -1,6 +1,10 @@
 {% extends "layout/layout.html" %}{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/marked@3.0.7/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/he@1.2.0/he.min.js"></script>
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <link rel="stylesheet" href="/css/board/view.css" />
-<input type="hidden" name="nowme" id="nowme" value="{{me.userid}}" />
+<input type="hidden" name="nowme" id="nowme" value="{{user.userid}}" />
 <div id="viewwrap">
     <div id="board">
         <div id="boardSubject">
@@ -16,7 +20,10 @@
                 <p>{{data.likeCount}}</p>
                 <input type="hidden" class="likewho" value="{{data.likeidlist}}" />
             </div>
-            <div id="boardcontent">{{data.content}}</div>
+            <!-- <textarea id="boardcontent" readonly>{{data.content}}</textarea> -->
+            <div id="boardcontent">
+                <span id="parsedText"></span>
+            </div>
         </div>
     </div>
     <div id="profile">
@@ -34,7 +41,6 @@
         </div>
         <form method="post" action="" id="commentfrm">
             <div id="commentFrmInput">
-                <input type="hidden" name="depth" />
                 <input type="hidden" name="group" />
                 <textarea type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요"></textarea>
             </div>
@@ -54,6 +60,25 @@
         </template>
     </div>
 </div>
+<script>
+    const Editor = toastui.Editor;
+    const editor = new Editor({
+        el: document.querySelector('#boardcontent'),
+        height: 'auto',
+        initialEditType: 'markdown',
+        previewStyle: 'horizontal',
+    });
+    document.querySelector(".ProseMirror").innerHTML = he.decode('{{data.content}}');
+    document.querySelector(".toastui-editor-toolbar").style.display = 'none';
+    document.querySelector(".md-mode").style.display = 'none';
+    document.querySelector(".toastui-editor-mode-switch").style.display = 'none';
+    const mdViewer = document.querySelector(".toastui-editor-md-preview")
+    const mdContent = document.querySelector(".toastui-editor-contents")
+    mdContent.style.width = '100%';
+    mdViewer.style.background = '#fff';
+</script>
+
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="module" src="/js/lib/request.js"></script>
 <script type="module" src="/js/module/board/view.js"></script>

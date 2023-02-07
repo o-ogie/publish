@@ -7,6 +7,197 @@ ul,
 li {
     list-style: none;
 }
+a {
+    text-decoration: none;
+    color: #FFF;
+}
+
+input {
+    border: none;
+    outline: none;
+}
+
+#boardwrap {
+    width: 75vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#board {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    padding: 3%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.7);
+}
+
+#board > li {
+    padding: 5px 0;
+}
+
+#board > li > #subject {
+    padding: 5px 10px;
+    width: 50%;
+    height: 50px;
+    font-size: 30px;
+    box-sizing: border-box;
+    border-bottom: 3px solid #ececec;
+}
+#board > li > #hashtag {
+    padding: 5px 10px;
+    width: 90%;
+    height: 20px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+::placeholder {
+    color: #bbb;
+}
+
+#board > #imgfile {
+    padding: 5px 10px;
+    width: 90%;
+}
+
+#board > #imgfile > .imgs {
+    display: none;
+}
+
+#board > #imgfile > #inputimg {
+    float: right;
+    width: 40px;
+    height: 40px;
+    border: none;
+    font-size: 16px;
+    border-radius: 8px;
+    color: black;
+    cursor: pointer;
+}
+
+#board > #imgfile > label > .labelimg {
+    width: 40px;
+    height: 40px;
+}
+
+#board > li > #content {
+    padding: 5px 10px;
+    width: 100%;
+    height: 360px;
+    resize: none;
+    background: none;
+    border: none;
+    box-sizing: border-box;
+}
+
+.pre {
+    margin-top: 20px;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    background: none;
+    border: none;
+}
+
+#btns {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#btns > .btns {
+    color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 10px;
+    width: 100px;
+    height: 36px;
+    box-sizing: border-box;
+    border: none;
+}
+
+#btns > #back {
+    background-color: #8437e4;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#btns > #temporarily {
+    margin-left: 70%;
+    background-color: #3fac60;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#btns > #insertBtn {
+    background-color: #f4742a;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#hash > .hashtags {
+    display: inline-block;
+    width: auto;
+    height: 20px;
+    font-size: 14px;
+    background-color: #34c789;
+    border-radius: 7px;
+    padding: 4px;
+    margin: 2px 2px;
+    cursor: pointer;
+    position: relative;
+}
+#hash > .hashtags:hover::after {
+    content: "x";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    line-height: 12px;
+    background-color: #e15241;
+    color: #fff;
+    z-index: 2;
+    top: -15%;
+    right: -15%;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.previewimg {
+    width: 100px;
+    height: 100px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* * {
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+li {
+    list-style: none;
+}
 
 #boardwrap {
     padding-top: 50px;
@@ -167,5 +358,5 @@ input {
 .previewimg {
     width: 100px;
     height: 100px;
-}
+} */
 
