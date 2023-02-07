@@ -84,7 +84,7 @@ socket.on('hello',(data)=>{
 /* 채팅 대답 */
 socket.on('reply', (data)=>{
   const response = JSON.parse(data)
-  console.log(response)
+  console.log('response::::::',response)
   const li = document.createElement('li')
   li.className = 'otherMessage'
 
