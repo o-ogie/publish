@@ -33,65 +33,6 @@
         </div>
     </div>
     <div id="content">
-        <!-- <ul>
-                {% for item in list %}
-                <li>
-                    <div id="item">
-                        <div><input type="hidden" value="{{item.idx}}"></div>
-                        <div>
-                            <span><img src='{{item.image}}' alt=""></span>
-                            <a href="/board/view?index={{item.idx}}">{{item.subject}}</a>
-                        </div>
-                        <div>
-                            <span style="color: #999; font-size: 0.8em; ">{{item.register_date}}</span>
-                            <span style="color: #999; font-size: 0.8em; ">조회수 : {{item.hit}}</span>
-                            <span style="color: #999; font-size: 0.8em; ">{{item.comment_count}}개의 댓글</span>
-                        </div>
-                        <div>
-                            <span>by {{item.writer}}</span>
-                            <span>❤︎ {{item.like_count}}</span>
-                        </div>
-                    </div>
-                    <div id="item">
-                        <div><input type="hidden" value="{{item.idx}}"></div>
-                        <div>
-                            <span><img src='{{item.image}}' alt=""></span>
-                            <a href="/board/view?index={{item.idx}}">{{item.subject}}</a>
-                        </div>
-                        <div>
-                            <span style="color: #999; font-size: 0.8em; ">{{item.register_date}}</span>
-                            <span style="color: #999; font-size: 0.8em; ">조회수 : {{item.hit}}</span>
-                            <span style="color: #999; font-size: 0.8em; ">{{item.comment_count}}개의 댓글</span>
-                        </div>
-                        <div>
-                            <span>by {{item.writer}}</span>
-                            <span>❤︎ {{item.like_count}}</span>
-                        </div>
-                    </div>
-                    <div id="item">
-                        <div><input type="hidden" value="{{item.idx}}"></div>
-                        <div>
-                            <span><img src='{{item.image}}' alt=""></span>
-                            <a href="/board/view?index={{item.idx}}">{{item.subject}}</a>
-                        </div>
-                        <div>
-                            <span style="color: #999; font-size: 0.8em; ">{{item.register_date}}</span>
-                            <span style="color: #999; font-size: 0.8em; ">조회수 : {{item.hit}}</span>
-                            <span style="color: #999; font-size: 0.8em; ">{{item.comment_count}}개의 댓글</span>
-                        </div>
-                        <div>
-                            <span>by {{item.writer}}</span>
-                            <span>❤︎ {{item.like_count}}</span>
-                        </div>
-                    </div>
-                </li>
-                {% endfor %}
-            </ul> -->
-
-
-
-
-
         <ul id="boardList">
             {% for item in list %}
             <li class="boardItem">
@@ -100,25 +41,24 @@
                     <div class="itemWrap">
                         <div class="itemPartA">
                             <div class="boardThumbnail"><img
-                                    src='https://velog.velcdn.com/images/joshuara7235/post/4ff77ade-f802-4cb1-99be-d732433eed1b/image.jpeg'
+                                    src='{{item.image}}'
                                     alt=""></div>
-                            <span class="boardTitle">테스트 테스트 테스트 테스트</span>
+                            <span class="boardTitle">{{item.subject}}</span>
                         </div>
                         <div class="itemPartB">
                             <span style="color: #999; font-size: 0.9em; "><iconify-icon
-                                    icon="ic:baseline-access-time-filled"></iconify-icon><span class="innerText">2일
-                                    전</span></span>
+                                    icon="ic:baseline-access-time-filled"></iconify-icon><span class="innerText">{{item.createdAt}}</span></span>
                             <span style="color: #999; font-size: 0.9em; "><iconify-icon
                                     icon="ic:baseline-remove-red-eye"></iconify-icon><span
-                                    class="innerText">0</span></span>
+                                    class="innerText">{{item.hit}}</span></span>
                             <span style="color: #999; font-size: 0.9em; "><iconify-icon
-                                    icon="mdi:message-processing"></iconify-icon><span class="innerText">0</span></span>
+                                    icon="mdi:message-processing"></iconify-icon><span class="innerText">{{item.commentCount}}</span></span>
                         </div>
                         <div class="itemPartC">
                             <span style="color: #999; font-size: 1.1em; "><iconify-icon
-                                    icon="mdi:user-circle"></iconify-icon><span class="innerText">web7722</span></span>
+                                    icon="mdi:user-circle"></iconify-icon><span class="innerText">{{item.nickname}}</span></span>
                             <span style="font-size: 1.1em; "><iconify-icon
-                                    icon="flat-color-icons:like"></iconify-icon><span class="innerText">1</span></span>
+                                    icon="flat-color-icons:like"></iconify-icon><span class="innerText">{{item.likeCount}}</span></span>
                         </div>
                     </div>
                 </a>
