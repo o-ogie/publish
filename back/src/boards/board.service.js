@@ -32,7 +32,20 @@ class BoardService {
         console.log(`serv :`, { userid, subject, content, hashtag });
         try {
             if (!userid || !subject || !content) throw "내용이 없습니다";
-            const write = await this.boardRepository.createBoard({ userid, subject, content, hashtag });
+            const imgs = content
+                .split("img src=")
+                .filter((v) => v.indexOf("http") !== -1)
+                .map((v) => v.split("&gt")[0]);
+            console.log(imgs[0]);
+            const boarddata = {
+                userid,
+                subject,
+                content,
+                hashtag,
+                image: imgs[0],
+            };
+            if (!imgs[0]) delete boarddata.image;
+            const write = await this.boardRepository.createBoard(boarddata);
             return write;
         } catch (e) {
             // throw new this.BadRequest(e);
