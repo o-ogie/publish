@@ -52,11 +52,8 @@ class UserService {
     
     async putProfile(userData) {
         try {
-            // const defaultUrl = `http://localhost:${this.config.port}/`;
-            // if (userData.userImg.indexOf(`http://`) === -1) userData.userImg = defaultUrl + `${userData.userImg}`;
-            // if (userData.userImg === defaultUrl) userData.userImg = defaultUrl + `default-image.png`;
             console.log(`userData ::::`, userData);
-            userData.userImg = userData.userImg ? `${config.host}:${config.port}/${userData.userImg}` : undefined
+            userData.userImg = userData.userImg ? `http://${this.config.host}:${this.config.port}/${userData.userImg}` : undefined
 
             const { userpw, ...rest } = userData;
             const hash = this.crypto.createHmac("sha256", "web7722").update(userpw).digest("hex");
