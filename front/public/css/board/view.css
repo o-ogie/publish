@@ -1,11 +1,13 @@
-* {
-    color: white;
-}
+
 
 #viewwrap {
     width: 1000px;
-    height: 2000px;
-    margin: 0 auto;
+    height: 100%;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
 }
 
 #board > #boardSubject {
@@ -45,9 +47,10 @@
 
 #board > #contents > #likes {
     position: fixed;
-    left: 10%;
+    left: -10%;
     width: 60px;
     height: 90px;
+    z-index: 1;
 }
 #board > #contents > #likes > .img {
     position: relative;
@@ -83,7 +86,7 @@
 
 #board > #contents > #boardcontent {
     padding: 10px 10px;
-    border: 1px solid #ececec;
+    /* border: 1px solid #ececec; */
     margin-top: 20px;
     width: 100%;
     height: 1000px;
