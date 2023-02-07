@@ -1,0 +1,10 @@
+.hidden {
+    display: none;
+}
+
+#btns > #updateBtn {
+    background-color: #f4742a;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 10px;
+}

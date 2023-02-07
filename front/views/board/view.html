@@ -10,7 +10,11 @@
         <div id="boardSubject">
             <h2>{{data.subject}}</h2>
         </div>
-        <div id="boardInfo"><span id="userid">{{data.userid}}</span><span id="date">{{data.regesterdate}}1900.00.01</span></div>
+        <div id="boardInfo">
+            <span id="userid">{{data.userid}}</span><span id="date">{{data.regesterdate}}1900.00.01</span>{% if user.userid === data.userid %}
+            <span><a href="/board/@{{user.userid}}/{{data.id}}/modify">수정</a></span> <span><a href="#">삭제</a></span
+            >{% endif %}
+        </div>
         <div id="hashs">{{data.tagname}}</div>
         <div id="contents">
             <div id="likes">
@@ -63,21 +67,20 @@
 <script>
     const Editor = toastui.Editor;
     const editor = new Editor({
-        el: document.querySelector('#boardcontent'),
-        height: 'auto',
-        initialEditType: 'markdown',
-        previewStyle: 'horizontal',
+        el: document.querySelector("#boardcontent"),
+        height: "auto",
+        initialEditType: "markdown",
+        previewStyle: "horizontal",
     });
-    document.querySelector(".ProseMirror").innerHTML = he.decode('{{data.content}}');
-    document.querySelector(".toastui-editor-toolbar").style.display = 'none';
-    document.querySelector(".md-mode").style.display = 'none';
-    document.querySelector(".toastui-editor-mode-switch").style.display = 'none';
-    const mdViewer = document.querySelector(".toastui-editor-md-preview")
-    const mdContent = document.querySelector(".toastui-editor-contents")
-    mdContent.style.width = '100%';
-    mdViewer.style.background = '#fff';
+    document.querySelector(".ProseMirror").innerHTML = he.decode("{{data.content}}");
+    document.querySelector(".toastui-editor-toolbar").style.display = "none";
+    document.querySelector(".md-mode").style.display = "none";
+    document.querySelector(".toastui-editor-mode-switch").style.display = "none";
+    const mdViewer = document.querySelector(".toastui-editor-md-preview");
+    const mdContent = document.querySelector(".toastui-editor-contents");
+    mdContent.style.width = "100%";
+    mdViewer.style.background = "#fff";
 </script>
-
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="module" src="/js/lib/request.js"></script>
