@@ -1,7 +1,7 @@
 {% extends 'layout/layout-alter.html' %}
 {% block content %}
 <link rel="stylesheet" href="/css/signup.css">
-
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <div id="agreeFrm">
     <div>
         <div id="logo"></div>
@@ -76,6 +76,7 @@
                     </div>
                     <p class="alertMessage" style="opacity: 0; color: red">영문, 숫자, 특수문자를 모두 혼합하여 8자 이상으로 써주세요</p>
                 </li>
+                
                 <li>
                     <div class="inputContainer"><input type="password" id="pwcheck" placeholder="비밀번호 확인"
                             maxlength="16"><iconify-icon icon="mdi:password-check"></iconify-icon>
@@ -88,6 +89,19 @@
                     </div>
                     <p class="alertMessage" style="opacity: 0; color: red">"-"를 제외한 11자리의 숫자로 입력해주세요</p>
                 </li>
+
+                <!-- 주소 API -->
+                <li>
+                    <div class="inputContainer">
+                        <input type="text" id="postcode" placeholder="우편번호">
+                        <input type="button" value="우편번호 찾기" id="find"><br>
+                        <input type="text" id="address" placeholder="주소"><br>
+                        <input type="text" id="detailAddress" placeholder="상세주소">
+                        <input type="hidden" id="extraAddress" placeholder="참고항목">
+                    </div>
+                </li>
+                <!--  -->
+
                 <li id="emailBox">
                     <div class="inputContainer"><input type="email" name="email" id="email" required maxlength="30"
                             placeholder="이메일 주소"><iconify-icon icon="ic:round-email"></iconify-icon>
