@@ -11,12 +11,12 @@
                         <input type="text" name="subject" id="subject" placeholder="제목을 입력해주세요" />
                     </li>
                     <li id="hash"></li>
-                    <li>
+                    <li class="createHash">
                         <input type="text" name="hashtag" id="hashtag" placeholder="태그를 입력해주세요" />
                     </li>
-                    <li id="imgfile">
+                    <li id="imgfile" class="imgs">
                         <label for="upload1">
-                            <iconify-icon icon="iconoir:add-media-image" style="font-size: 1.6rem; color: #666;"></iconify-icon>
+                            <iconify-icon icon="iconoir:add-media-image" style="font-size: 1.6rem; color: #666"></iconify-icon>
                             <!-- <img class="labelimg" src="https://cdn.icon-icons.com/icons2/2483/PNG/512/image_file_icon_149928.png" alt="" /> -->
                         </label>
                         <input type="file" name="upload1" id="upload1" class="imgs" />
@@ -28,7 +28,7 @@
                             <img class="labelimg" src="https://cdn.icon-icons.com/icons2/2483/PNG/512/image_file_icon_149928.png" alt="" />
                         </label>
                         <input type="file" name="upload3" id="upload3" class="imgs" /> -->
-                        <button type="submit" id="inputimg">전송</button>
+                        <button type="click" id="inputimg">전송</button>
                     </li>
                     <li>
                         <!-- <textarea name="content" id="content" cols="30" rows="10" placeholder="내용을 입력해주세요"></textarea> -->
@@ -49,17 +49,17 @@
         </div>
     </div>
     <script>
-        document.querySelector('.contentText').style.display = 'none';
-        document.querySelector('#preview').style.display = 'none';
+        document.querySelector(".contentText").style.display = "none";
+        document.querySelector("#preview").style.display = "none";
         const Editor = toastui.Editor;
         const editor = new Editor({
-            el: document.querySelector('#content'),
-            height: '50vh',
-            initialEditType: 'markdown',
-            previewStyle: 'vertical',
+            el: document.querySelector("#content"),
+            height: "50vh",
+            initialEditType: "markdown",
+            previewStyle: "vertical",
         });
-        document.querySelector(".toastui-editor-toolbar-icons.image").style.display = 'none';
-        document.querySelector(".toastui-editor-mode-switch").style.display = 'none';
+        document.querySelector(".toastui-editor-toolbar-icons.image").style.display = "none";
+        document.querySelector(".toastui-editor-mode-switch").style.display = "none";
     </script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="/js/lib/request.js"></script>

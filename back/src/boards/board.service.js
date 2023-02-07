@@ -38,10 +38,10 @@ class BoardService {
             // throw new this.BadRequest(e);
         }
     }
-    async putView(id, subject, content, hashtag) {
-        console.log(`serv :`, { id, subject, content, hashtag });
+    async putView(idx, subject, content, hashtag) {
+        console.log(`serv :`, { idx, subject, content, hashtag });
         try {
-            const view = await this.boardRepository.updateBoard({ id, subject, content, hashtag });
+            const view = await this.boardRepository.updateBoard({ idx, subject, content, hashtag });
             if (view < 1) throw "수정할 게시글이 없습니다";
             return view;
         } catch (e) {

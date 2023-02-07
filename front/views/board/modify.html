@@ -4,21 +4,23 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <link rel="stylesheet" href="/css/board/board.css" />
+<link rel="stylesheet" href="/css/board/modify.css" />
 <body>
     <div id="boardwrap">
+        <input type="hidden" name="nowme" id="nowme" value="{{user.userid}}" />
         <div id="insert">
-            <form id="frm" method="post" action="/board">
+            <form id="frm" method="post" action="/board/{{user.userid}}/{{data.id}}/modify">
                 <ul id="board">
                     <li>
-                        <input type="text" name="subject" id="subject" placeholder="제목을 입력해주세요" />
+                        <input type="text" name="subject" id="subject" placeholder="" value="{{data.subject}}" />
                     </li>
                     <li id="hash"></li>
                     <li>
-                        <input type="text" name="hashtag" id="hashtag" placeholder="태그를 입력해주세요" />
+                        <input type="text" name="hashtag" id="hashtag" placeholder="" value="{{data.hashtag}}" />
                     </li>
                     <li id="imgfile">
                         <label for="upload1">
-                            <iconify-icon icon="iconoir:add-media-image" style="font-size: 1.6rem; color: #666;"></iconify-icon>
+                            <iconify-icon icon="iconoir:add-media-image" style="font-size: 1.6rem; color: #666"></iconify-icon>
                             <!-- <img class="labelimg" src="https://cdn.icon-icons.com/icons2/2483/PNG/512/image_file_icon_149928.png" alt="" /> -->
                         </label>
                         <input type="file" name="upload1" id="upload1" class="imgs" />
@@ -36,13 +38,14 @@
                         <div id="content">
                             <span id="parsedText"></span>
                         </div>
-                        <textarea name="content" id="content" class="contentText" cols="10" rows="10"></textarea>
+                        <textarea name="content" id="content" class="contentText" cols="10" rows="10">{{data.content}}</textarea>
                     </li>
                 </ul>
                 <div id="btns">
                     <button id="back" class="btns"><a href="/">← 나가기</a></button>
                     <button id="temporarily" class="btns" type="submit">임시저장</button>
-                    <button id="insertBtn" class="btns" type="submit">수정완료</button>
+                    <button id="insertBtn" class="btns hidden" type="hidden">등록하기</button>
+                    <button id="updateBtn" class="btns" type="submit">수정완료</button>
                 </div>
             </form>
         </div>
@@ -52,23 +55,25 @@
         </div>
     </div>
     <script>
-        document.querySelector('.contentText').style.display = 'none';
-        document.querySelector('#preview').style.display = 'none';
+        document.querySelector(".contentText").style.display = "none";
+        document.querySelector("#preview").style.display = "none";
         const Editor = toastui.Editor;
         const editor = new Editor({
-            el: document.querySelector('#content'),
-            height: '50vh',
-            initialEditType: 'markdown',
-            previewStyle: 'vertical',
+            el: document.querySelector("#content"),
+            height: "50vh",
+            initialEditType: "markdown",
+            previewStyle: "vertical",
         });
-        document.querySelector(".ProseMirror").innerHTML = he.decode('{{data.content}}');
-        console.log(document.querySelector(".ProseMirror"))
+        document.querySelector(".ProseMirror").innerHTML = he.decode("{{data.content}}");
+        console.log(document.querySelector(".ProseMirror"));
 
-        document.querySelector(".toastui-editor-toolbar-icons.image").style.display = 'none';
-        document.querySelector(".toastui-editor-mode-switch").style.display = 'none';
+        document.querySelector(".toastui-editor-toolbar-icons.image").style.display = "none";
+        document.querySelector(".toastui-editor-mode-switch").style.display = "none";
     </script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="/js/lib/request.js"></script>
     <script type="module" src="/js/module/board/board.js"></script>
+    <script type="module" src="/js/module/board/modify.js"></script>
 </body>
 {% endblock %}
+

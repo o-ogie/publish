@@ -14,7 +14,7 @@ router.post("/array", upload.fields([{ name: "upload1" }, { name: "upload2" }, {
 });
 
 router.post("/decode", (req, res, next) => controller.decode(req, res, next));
-router.put("/:id", (req, res, next) => controller.putView(req, res, next));
+router.put("/:idx", (req, res, next) => controller.putView(req, res, next));
 router.delete("/:id", (req, res, next) => controller.deleteView(req, res, next));
 
 router.post("/:id/:idx/comments", (req, res, next) => controller.postComment(req, res, next));
