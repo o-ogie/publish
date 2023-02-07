@@ -7,26 +7,28 @@ class UserService {
     }
 
     async signup(userData) {
-        // console.log(this.config)
-        try {
-            const defaultUrl = `http://localhost:${this.config.port}/`;
-            if (userData.userImg.indexOf(`http://`) === -1) userData.userImg = defaultUrl + `${userData.userImg}`;
-            if (userData.userImg === defaultUrl) userData.userImg = defaultUrl + `default-image.png`;
-            // console.log(`userImg :::`, userData.userImg);
-            const { userid, username, userpw, ...rest } = userData;
-            if (!userid || !userpw || !username) throw "내용이 없습니다";
-            const hash = this.crypto.createHmac("sha256", "web7722").update(userpw).digest("hex");
-            const user = await this.userRepository.addUser({
-                userid,
-                username,
-                userpw: hash,
-                ...rest,
-            });
-            return user;
-        } catch (e) {
-            throw new Error(e);
-        }
+      try {
+        // if (userData.userImg.indexOf(`http://`) === -1) userData.userImg = `http://localhost:3000/${userData.userImg}`
+        // if (!userData.userImg) userData.userImg = "http://localhost:3000/default-image.png";
+        userData.userImg = userData.userImg ? `http://${this.config.host}:${this.config.port}/${userData.userImg}` : undefined
+        const {userid, username, userpw, ...rest} = userData
+        if (!userid || !userpw || !username) throw "내용이 없습니다";
+        const hash = this.crypto
+          .createHmac("sha256", "web7722")
+          .update(userpw)
+          .digest("hex");
+        const user = await this.userRepository.addUser({
+          userid,
+          username,
+          userpw: hash, 
+          ...rest
+        });
+        return user;
+      } catch (e) {
+        throw new Error(e);
+      }
     }
+
     async userCheck(user) {
         // console.log(`serv :`, user)
         try {
@@ -36,22 +38,25 @@ class UserService {
             throw new Error(e);
         }
     }
+    
     async me(token) {
-        try {
-            const { userid } = this.jwt.verifyToken(token, "web7722");
-            const user = await this.userRepository.getUserById(userid);
-            // console.log(user)
-            return user;
-        } catch (e) {
-            throw new Error(e);
-        }
+      try {
+          const { userid } = this.jwt.verifyToken(token, "web7722");
+          const user = await this.userRepository.getUserById(userid);
+          // console.log(user)
+          return user;
+      } catch (e) {
+          throw new Error(e);
+      }
     }
+    
     async putProfile(userData) {
         try {
-            const defaultUrl = `http://localhost:${this.config.port}/`;
-            if (userData.userImg.indexOf(`http://`) === -1) userData.userImg = defaultUrl + `${userData.userImg}`;
-            if (userData.userImg === defaultUrl) userData.userImg = defaultUrl + `default-image.png`;
+            // const defaultUrl = `http://localhost:${this.config.port}/`;
+            // if (userData.userImg.indexOf(`http://`) === -1) userData.userImg = defaultUrl + `${userData.userImg}`;
+            // if (userData.userImg === defaultUrl) userData.userImg = defaultUrl + `default-image.png`;
             console.log(`userData ::::`, userData);
+            userData.userImg = userData.userImg ? `${config.host}:${config.port}/${userData.userImg}` : undefined
 
             const { userpw, ...rest } = userData;
             const hash = this.crypto.createHmac("sha256", "web7722").update(userpw).digest("hex");

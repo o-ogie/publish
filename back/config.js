@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 const BadRequest = require("./exceptions/BadRequest");
 
@@ -12,6 +11,7 @@ const config = {
     user: process.env.MAIL_USER || "",
     password: process.env.MAIL_USERPW || "",
   },
+  host: process.env.HOST || "127.0.0.1",
   env: process.env.NODE_ENV || "development",
   port: process.env.PORT || "",
   db: {

@@ -10,7 +10,7 @@ module.exports = (server,app)=>{
 
         const cookie = socket.handshake.headers.cookie
         if (!cookie) return
-
+        console.log('socket.handshake.....',socket.handshake)
         const payload = cookie.split('=')[1].split('.')[1]
         const {userImg, nickname} = JSON.parse(Buffer.from(payload, "base64").toString("utf-8"));
 

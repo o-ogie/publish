@@ -16,10 +16,10 @@ route.post("/signup", async (req, res) => {
     const response = await request.post("/users", {
         ...req.body,
     });
-    // console.log(`response :`, response);
     const { userid, username, userpw } = response.data;
 
-    res.redirect(`/user/welcome?userid=${userid}&username=${username}&userpw=${userpw}`);
+    // res.redirect(`/user/welcome?userid=${userid}&username=${username}&userpw=${userpw}`);
+    res.redirect('/')
 });
 
 route.get("/welcome", (req, res) => {
