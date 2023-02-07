@@ -6,7 +6,7 @@ const SocketIO = require('./socket.io')
 console.log(config);
 
 const server = app.listen(PORT, async () => {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
     console.log(`backend server listening on port ${PORT}`);
 });
 
