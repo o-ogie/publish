@@ -8,8 +8,6 @@ class UserService {
 
     async signup(userData) {
       try {
-        // if (userData.userImg.indexOf(`http://`) === -1) userData.userImg = `http://localhost:3000/${userData.userImg}`
-        // if (!userData.userImg) userData.userImg = "http://localhost:3000/default-image.png";
         userData.userImg = userData.userImg ? `http://${this.config.host}:${this.config.port}/${userData.userImg}` : undefined
         const {userid, username, userpw, ...rest} = userData
         if (!userid || !userpw || !username) throw "내용이 없습니다";
@@ -52,11 +50,8 @@ class UserService {
     
     async putProfile(userData) {
         try {
-            // const defaultUrl = `http://localhost:${this.config.port}/`;
-            // if (userData.userImg.indexOf(`http://`) === -1) userData.userImg = defaultUrl + `${userData.userImg}`;
-            // if (userData.userImg === defaultUrl) userData.userImg = defaultUrl + `default-image.png`;
             console.log(`userData ::::`, userData);
-            userData.userImg = userData.userImg ? `${config.host}:${config.port}/${userData.userImg}` : undefined
+            userData.userImg = userData.userImg ? `${this.config.host}:${this.config.port}/${userData.userImg}` : undefined
 
             const { userpw, ...rest } = userData;
             const hash = this.crypto.createHmac("sha256", "web7722").update(userpw).digest("hex");
