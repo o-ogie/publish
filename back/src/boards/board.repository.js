@@ -58,14 +58,14 @@ class BoardRepository {
             throw new Error(e);
         }
     }
-    async createBoard({ userid, subject, content, hashtag }) {
+    async createBoard(boarddata) {
         try {
-            const createBoard = await this.Board.create({ userid, subject, content });
+            console.log(boarddata);
+            const { userid, subject, content, hashtag, imgs } = boarddata;
+            const createBoard = await this.Board.create(boarddata);
             const addHash = hashtag.map((tagname) => this.Hash.findOrCreate({ where: { tagname } }));
-
             const tagResult = await Promise.all(addHash);
             await createBoard.addHashes(tagResult.map((v) => v[0]));
-            console.log(createBoard);
             return createBoard.dataValues;
         } catch (e) {
             throw new Error(e);

@@ -6,7 +6,8 @@ const upload = require("../../middlewares/boardup");
 router.get("/", (req, res, next) => controller.getList(req, res, next));
 router.get("/:id/:idx", (req, res, next) => controller.getView(req, res, next));
 router.post("/", (req, res, next) => controller.postWrite(req, res, next));
-router.post("/array", upload.fields([{ name: "upload1" }, { name: "upload2" }, { name: "upload3" }]), (req, res) => {
+router.post("/array", upload.fields([{ name: "upload1" }, { name: "mainimg" }]), (req, res) => {
+    console.log(req.files);
     const { files } = req;
     const file = Object.values(files).map((v) => v[0].filename);
     // const files = req.files.map((v) => v.filename);
