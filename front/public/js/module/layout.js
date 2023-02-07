@@ -88,18 +88,28 @@ socket.on('reply', (data)=>{
   const li = document.createElement('li')
   li.className = 'otherMessage'
 
+  const userDiv = document.createElement('div')
+  const nickname = document.createElement('span')
+  nickname.innerHTML = response.nickname
+  userDiv.append(nickname)
+
   const userImg = document.createElement('img')
   userImg.src = response.userImg
   userImg.alt = "User Image"
-  li.append(userImg)
+  userDiv.append(userImg)
+
+  li.append(userDiv)
   
-  const nickname = document.createElement('span')
-  nickname.innerHTML = response.nickname
-  li.append(nickname)
-  
-  const message = document.createElement('p')
-  message.innerHTML = response.message.message
-  li.append(message)
+  const div = document.createElement('div')
+  const msgDiv = document.createElement('div')
+  msgDiv.innerHTML = response.message.message
+  div.append(msgDiv)
+
+  const time = document.createElement('span')
+  time.innerHTML = response.time
+  div.append(time)
+
+  li.append(div)
   
   chat.append(li)
 })
@@ -117,13 +127,27 @@ socket.on('privateMessage',(data)=>{
 const chatFrm = document.querySelector('#chatFrm')
 chatFrm.addEventListener('submit',(e)=>{
   e.preventDefault()
+  const date = new Date();
+  const options = { hour: '2-digit', minute: '2-digit' };
+  const time = date.toLocaleTimeString([], options);
+
   const {toUser, message} = e.target
   if(toUser.value === 'default') socket.emit('message', {message:message.value})
   else socket.emit('private', {toUser:toUser.value, message:message.value})
   const li = document.createElement('li')
   if (toUser.value === 'default') {
      li.className = 'myMessage'
-     li.innerHTML = message.value 
+
+     const div = document.createElement('div')
+     const msgDiv = document.createElement('div')
+     msgDiv.innerHTML = message.value 
+     div.append(msgDiv)
+   
+     const timeSpan = document.createElement('span')
+     timeSpan.innerHTML = time
+     div.append(timeSpan)
+
+     li.append(div)
     }
   else { 
      li.className = 'privateMessage'

@@ -65,7 +65,7 @@
             previewStyle: "vertical",
         });
         document.querySelector(".ProseMirror").innerHTML = he.decode("{{data.content}}");
-        console.log(document.querySelector(".ProseMirror"));
+        console.log(document.querySelector(".ProseMirror").innerText);
 
         document.querySelector(".toastui-editor-toolbar-icons.image").style.display = "none";
         document.querySelector(".toastui-editor-mode-switch").style.display = "none";
