@@ -6,10 +6,17 @@ class BoardService {
         this.jwt = jwt;
     }
 
-    async getList() {
+    async getList(where) {
         try {
-            console.log("sersrsesrses");
-            const list = await this.boardRepository.findList();
+            let list
+            console.log(where)
+            if(where.searchType){
+                console.log('findAll')
+                list = await this.boardRepository.findAll(where)
+            }else{
+                console.log('findlist')
+                list = await this.boardRepository.findList();
+            }
             if (list.length === 0) throw "내용이 없습니다";
             console.log("serv", list);
             return list;
