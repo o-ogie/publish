@@ -1,5 +1,5 @@
 class BoardRepository {
-    constructor({ sequelize, Board, Hashtag, Comment, User, Hash, Liked, Sequelize }) {
+    constructor({ sequelize, Board, Hashtag, Comment, User, Hash, Liked }) {
         this.sequelize = sequelize;
         this.Board = Board;
         this.Hashtag = Hashtag;
@@ -7,7 +7,6 @@ class BoardRepository {
         this.User = User;
         this.Hash = Hash;
         this.Liked = Liked;
-        this.Sequelize = Sequelize;
     }
 
     async findList(sort) {
@@ -63,7 +62,6 @@ class BoardRepository {
       GROUP BY A.id
       ORDER BY A.id DESC;`;
             const [findAll] = await this.sequelize.query(query);
-            console.log(findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
@@ -103,7 +101,6 @@ class BoardRepository {
     async findOne(id, idx) {
         try {
             const [view] = await this.findAll(idx);
-            console.log(view);
             const comment = await this.Comment.findAll({
                 raw: true,
                 where: { boardid: idx },
@@ -120,7 +117,6 @@ class BoardRepository {
     }
     async createBoard(boarddata) {
         try {
-            console.log(boarddata);
             const { userid, subject, content, hashtag, imgs } = boarddata;
             const createBoard = await this.Board.create(boarddata);
             const addHash = hashtag.map((tagname) => this.Hash.findOrCreate({ where: { tagname } }));
@@ -243,9 +239,7 @@ class BoardRepository {
 
     async updatehit(id) {
         try {
-            console.log(id);
-            const respone = await this.Board.update({ hit: Sequelize.literal("hit + 1") }, { where: { id: id } });
-            console.log(respone);
+            await this.sequelize.query(`UPDATE Board SET hit= hit + 1 WHERE id=${id}`);
         } catch (error) {
             throw new Error(e);
         }

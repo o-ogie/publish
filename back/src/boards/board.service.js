@@ -4,6 +4,7 @@ class BoardService {
         this.config = config;
         this.BadRequest = config.exception.BadRequest;
         this.jwt = jwt;
+        this.viewObj = new Object();
     }
 
     async getList({ sort }) {
@@ -11,7 +12,7 @@ class BoardService {
             if (sort === "id" || sort === "hit") sort = `A.${sort}`;
 
             const list = await this.boardRepository.findList(sort);
-            if (list.length === 0) throw "내용이 없습니다";
+            // if (list.length === 0) throw "내용이 없습니다";
             // console.log("serv", list);
             return list;
         } catch (e) {
@@ -28,17 +29,15 @@ class BoardService {
     }
     async getView(id, idx, userid) {
         try {
-            const viewObj = new Object();
-            viewObj["hit"] = [];
-            if (viewObj["hit"].indexOf(`${userid}+${idx}`) === -1) {
-                viewObj["hit"].push(`${userid}+${idx}`);
+            if (!this.viewObj["hit"]) this.viewObj["hit"] = [];
+            if (this.viewObj["hit"].indexOf(`${userid}+${idx}`) === -1 && id !== `@${userid}`) {
+                this.viewObj["hit"].push(`${userid}+${idx}`);
                 await this.boardRepository.updatehit(idx);
-                console.log(viewObj["hit"]);
             }
 
             setTimeout(() => {
-                viewObj["hit"].splice(viewObj["hit"].indexOf(`${userid}+${idx}`), 1);
-            }, 2000);
+                this.viewObj["hit"].splice(this.viewObj["hit"].indexOf(`${userid}+${idx}`), 1);
+            }, 200000);
 
             const [view, comment] = await this.boardRepository.findOne(id, idx);
             let { userImg: test } = view;
@@ -66,8 +65,10 @@ class BoardService {
                 content,
                 hashtag,
                 image: imgs[0],
+                state: "public",
             };
             if (!imgs[0]) delete boarddata.image;
+            console.log(boarddata);
             const write = await this.boardRepository.createBoard(boarddata);
             return write;
         } catch (e) {

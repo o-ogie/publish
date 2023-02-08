@@ -11,7 +11,7 @@
             <h2>{{data.subject}}</h2>
         </div>
         <div id="boardInfo">
-            <span id="userid">{{data.userid}}</span><span id="date">{{data.regesterdate}}1900.00.01</span><span>{{data.hit}}</span>>{% if user.userid === data.userid %}
+            <span id="userid">{{data.userid}}</span><span id="date">{{data.regesterdate}}1900.00.01</span><span> 조회수 = {{data.hit}} </span>{% if user.userid === data.userid %}
             <span><a href="/board/@{{user.userid}}/{{data.id}}/modify">수정</a></span> <span><a href="#">삭제</a></span
             >{% endif %}
         </div>
