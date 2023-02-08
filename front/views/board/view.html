@@ -11,7 +11,7 @@
             <h2>{{data.subject}}</h2>
         </div>
         <div id="boardInfo">
-            <span id="userid">{{data.userid}}</span><span id="date">{{data.regesterdate}}1900.00.01</span>{% if user.userid === data.userid %}
+            <span id="userid">{{data.userid}}</span><span id="date">{{data.regesterdate}}1900.00.01</span><span>{{data.hit}}</span>>{% if user.userid === data.userid %}
             <span><a href="/board/@{{user.userid}}/{{data.id}}/modify">수정</a></span> <span><a href="#">삭제</a></span
             >{% endif %}
         </div>
@@ -50,6 +50,14 @@
             </div>
             <button type="submit">댓글 등록</button>
         </form>
+        <div id="dlatl">
+            <ul>
+                <li id="commentContent">{{content}}1</li>
+                <li id="commentWriter">{{writer}}2</li>
+                <li id="commnetDate">{{regesterdate}}3</li>
+                <span id="commentRecomment">댓글달기</span>
+            </ul>
+        </div>
         <template id="commentList">
             <ul>
                 <li id="commentContent">{{content}}1</li>

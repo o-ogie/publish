@@ -6,9 +6,9 @@ class BoardService {
         this.jwt = jwt;
     }
 
-    async getList({sort}) {
+    async getList({ sort }) {
         try {
-            if (sort === 'id' || sort === 'hit') sort = `A.${sort}`;
+            if (sort === "id" || sort === "hit") sort = `A.${sort}`;
 
             const list = await this.boardRepository.findList(sort);
             if (list.length === 0) throw "내용이 없습니다";
@@ -18,8 +18,20 @@ class BoardService {
             throw new this.BadRequest(e);
         }
     }
-    async getView(id, idx) {
+    async getView(id, idx, userid) {
         try {
+            const viewObj = new Object();
+            viewObj["hit"] = [];
+            if (viewObj["hit"].indexOf(`${userid}+${idx}`) === -1) {
+                viewObj["hit"].push(`${userid}+${idx}`);
+                await this.boardRepository.updatehit(idx);
+                console.log(viewObj["hit"]);
+            }
+
+            setTimeout(() => {
+                viewObj["hit"].splice(viewObj["hit"].indexOf(`${userid}+${idx}`), 1);
+            }, 2000);
+
             const [view, comment] = await this.boardRepository.findOne(id, idx);
             let { userImg: test } = view;
             if (test.indexOf("http") === -1) {

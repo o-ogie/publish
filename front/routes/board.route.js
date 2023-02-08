@@ -32,8 +32,10 @@ route.get("/write", (req, res) => {
 });
 route.get("/:id/:idx", async (req, res) => {
     const user = req.user;
+    let userid = req.userid;
+    if (!user) userid = "guest";
     const { id, idx } = req.params;
-    const respone = await request.get(`/boards/${id}/${idx}`);
+    const respone = await request.get(`/boards/${id}/${idx}/${userid}`);
     const [data, comment] = respone.data;
     res.render("board/view.html", { data, user });
 });

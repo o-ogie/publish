@@ -1,5 +1,5 @@
 class BoardRepository {
-    constructor({ sequelize, Board, Hashtag, Comment, User, Hash, Liked }) {
+    constructor({ sequelize, Board, Hashtag, Comment, User, Hash, Liked, Sequelize }) {
         this.sequelize = sequelize;
         this.Board = Board;
         this.Hashtag = Hashtag;
@@ -7,6 +7,7 @@ class BoardRepository {
         this.User = User;
         this.Hash = Hash;
         this.Liked = Liked;
+        this.Sequelize = Sequelize;
     }
 
     async findList(sort) {
@@ -208,6 +209,16 @@ class BoardRepository {
         try {
             const respone = await this.Liked.findAll();
         } catch (e) {}
+    }
+
+    async updatehit(id) {
+        try {
+            console.log(id);
+            const respone = await this.Board.update({ hit: Sequelize.literal("hit + 1") }, { where: { id: id } });
+            console.log(respone);
+        } catch (error) {
+            throw new Error(e);
+        }
     }
 }
 
