@@ -9,7 +9,7 @@ class BoardRepository {
         this.Liked = Liked;
     }
 
-    async findList() {
+    async findList(sort) {
         try {
             const query = `SELECT 
       A.id,
@@ -29,7 +29,7 @@ class BoardRepository {
       JOIN Hashtag AS C
       ON A.id = C.boardid
       GROUP BY A.id
-      ORDER BY A.id DESC;`;
+      ORDER BY ${sort} DESC;`;
             const [findAll] = await this.sequelize.query(query);
             return findAll;
         } catch (e) {

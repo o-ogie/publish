@@ -1,6 +1,22 @@
+// 셀렉트 옵션값 유지
+const sortSwitch = document.querySelector("#sortSwitch");
+let sort = "id";
+if (location.search.indexOf("sort")) sort = location.search.split("=")[1];
+
+for (const option of sortSwitch.options) {
+  if (sort === option.value) {
+    document.addEventListener("DOMContentLoaded", () => {
+      sortSwitch.value = sort;
+    });
+  }
+}
+
+
+
+
 // 글작성 시간
 const timeStamps = document.querySelectorAll(".timeStamp .innerText");
-const timeStrings = Array.from(timeStamps).map(v => v.innerText);
+const timeStrings = Array.from(timeStamps).map((v) => v.innerText);
 
 // 현재 시간
 const thisTime = new Date()
@@ -10,7 +26,6 @@ const thisTime = new Date()
   .join(".")
   .split(":")
   .join(".");
-
 
 // 방금전 몇분전
 timeStrings.forEach((timeStamp, index) => {
