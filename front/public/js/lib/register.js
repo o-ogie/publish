@@ -1,18 +1,5 @@
-
-const getTimeNow = (date) => {
-  let mm = date.getMonth() + 1;
-  mm = (mm > 9 ? "" : "0") + mm;
-  let dd = date.getDate();
-  dd = (dd > 9 ? "" : "0") + dd;
-  let yy = date.getFullYear();
-
-  let hr = date.getHours();
-  let mn = date.getMinutes();
-  let sc = date.getSeconds();
-  return [yy, mm, dd].join("-") + "." + [hr, mn, sc].join(".");
-};
-const thisTime = getTimeNow(new Date());
-console.log(thisTime);
+const thisTime = new Date().toISOString().slice(0,-5).split('T').toString();
+console.log(`thisTime:::`, thisTime)
 
 
 // 방금전 몇분전

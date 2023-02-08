@@ -11,6 +11,7 @@ const request = axios.create({
 
 router.get("/", async (req, res) => {
     // console.log(`req.user :`, req.user);
+
     const respone = await request.get("/boards/");
     const list = respone.data
     console.log(list)
