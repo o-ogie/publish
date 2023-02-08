@@ -38,8 +38,9 @@ route.get("/signin", (req, res) => {
     res.render("user/signin.html");
 });
 
-route.get("/profile", (req, res) => {
+route.get("/profile", async (req, res) => {
     const user = req.user;
+    const response = await request.get("/users", { ...req.body });
     res.render("user/profile.html", { user, ...req.user });
 });
 

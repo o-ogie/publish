@@ -11,9 +11,9 @@ const request = axios.create({
 
 router.get("/", async (req, res) => {
     // console.log(`req.user :`, req.user);
-    const respone = await request.get("/boards/");
-    const list = respone.data
-    if (req.user === undefined) return res.render("index.html", { list });
+    const response = await request.get("/boards/");
+    const list = response.data
+    // if (req.user === undefined) return res.render("index.html", { list });
     res.render("index.html", { user: req.user, list });
 });
 

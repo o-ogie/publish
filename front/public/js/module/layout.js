@@ -125,6 +125,7 @@ socket.on('reply', (data)=>{
   
   chat.append(li)
   chatAlert.style.display = 'block';
+  if (chatterBox.classList.contains("clicked")) chatAlert.style.display = "none";
 })
 
 // 단체방 귓속말
