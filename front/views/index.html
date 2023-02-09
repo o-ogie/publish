@@ -42,7 +42,7 @@
                         <div class="itemPartA">
                             <div class="boardThumbnail"><img
                                     src='{{item.image}}'
-                                    alt=""></div>
+                                    alt="" loading="lazy"></div>
                             <span class="boardTitle">{{item.subject}}</span>
                             {% if item.tagname %}
                             <ul class="tagList">
@@ -62,7 +62,7 @@
                                     icon="mdi:message-processing"></iconify-icon><span class="innerText">{{item.commentCount}}</span></span>
                         </div>
                         <div class="itemPartC">
-                            <div><img class="userImg" src='{{item.userImg}}' alt=""><span class="nickName">{{item.nickname}}</span></div>
+                            <div><img class="userImg" src='{{item.userImg}}' alt="" loading="lazy"><span class="nickName">{{item.nickname}}</span></div>
                             <span style="font-size: 1.1em; "><iconify-icon
                                     icon="flat-color-icons:like"></iconify-icon><span class="innerText">{{item.likeCount}}</span></span>
                         </div>
@@ -74,4 +74,5 @@
     </div>
 </div>
 <script type="module" src="/js/module/index.js"></script>
+<script type="module" src="/js/lib/timestamp.js"></script>
 {% endblock%}

@@ -68,7 +68,37 @@ class BoardRepository {
             throw new Error(e);
         }
     }
-
+    async findMain(id) {
+        try {
+            const query = `SELECT 
+      A.id,
+      A.userid, 
+      A.subject, 
+      A.content,
+      A.createdAt, 
+      A.hit,
+      A.image,
+      B.userImg,
+      B.nickname,
+      (SELECT GROUP_CONCAT(D.userid SEPARATOR ', ') FROM Liked AS D WHERE A.id = D.boardid) AS likeidlist,
+      GROUP_CONCAT(C.tagname SEPARATOR ', ') AS tagname,
+      (SELECT COUNT(boardid) FROM Comment WHERE boardid = A.id) AS commentCount, 
+      (SELECT COUNT(BoardId) FROM Liked WHERE BoardId = A.id) AS likeCount
+      FROM Board AS A 
+      JOIN User AS B 
+      ON A.userid = B.userid
+      JOIN Hashtag AS C
+      ON A.id = C.boardid
+      Where A.userid = '${id}'
+      GROUP BY A.id
+      ORDER BY A.id DESC;`;
+            const [findAll] = await this.sequelize.query(query);
+            console.log(findAll);
+            return findAll;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
     async findOne(id, idx) {
         try {
             const [view] = await this.findAll(idx);

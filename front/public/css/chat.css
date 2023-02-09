@@ -22,7 +22,7 @@ a {
     transition: all 0.125s ease-in 0s;
     cursor: pointer;
     background-color: #f5c06b;
-    position: absolute;
+    position: fixed;
     bottom: 5%;
     right: 5%;
     z-index: 3;
@@ -64,7 +64,7 @@ a {
     width: 38vh;
     height: 56vh;
     max-height: 500px;
-    position: absolute;
+    position: fixed;
     bottom: 10%;
     right: 9%;
     opacity: 0;

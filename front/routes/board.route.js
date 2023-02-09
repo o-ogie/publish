@@ -30,6 +30,14 @@ route.post("/", async (req, res) => {
 route.get("/write", (req, res) => {
     res.render("board/write.html");
 });
+route.get("/:id", async (req, res) => {
+    const user = req.user;
+    const { id } = req.params;
+    const response = await request.get(`/boards/${id}`);
+    console.log(user)
+    res.render("board/main.html", { user, list: response.data });
+});
+
 route.get("/:id/:idx", async (req, res) => {
     const user = req.user;
     const { id, idx } = req.params;
