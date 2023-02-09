@@ -23,7 +23,7 @@ route.post("/", async (req, res) => {
     const respones = await request.post("/boards", body);
     const { id: idx } = respones.data;
     const { userid: id } = respones.data;
-    res.redirect(`board/@${id}/${idx}`);
+    res.redirect(`board/${id}/${idx}`);
 });
 
 route.get("/write", (req, res) => {
@@ -55,7 +55,7 @@ route.get("/:id/:idx", async (req, res) => {
 route.get("/:id/:idx/modify", async (req, res) => {
     const { id, idx } = req.params;
     const user = req.user;
-    const respone = await request.get(`/boards/${id}/${idx}`);
+    const respone = await request.get(`/boards/${id}/${idx}/${user.userid}`);
     const [data, comment] = respone.data;
     res.render("board/modify.html", { data, user });
 });
