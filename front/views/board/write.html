@@ -42,15 +42,20 @@
                     <button id="insertBtn" class="btns" type="submit">등록하기</button>
                 </div>
                 <div id="previewWrap">
+                    <div class="bannerText">
+                        <p>포스트 미리보기</p>
+                    </div>
                     <div class="itemPartA">
                         <p>카테고리 선택</p>
-                        <select id="category" class="inbox" name="category">
-                            <option value="default">없음</option>
-                            <option value="tech">기술</option>
-                            <option value="food">음식</option>
-                            <option value="travel">여행</option>
-                            <option value="life">일상</option>
-                        </select>
+                        <div id="categoryBox">
+                            <select id="category" class="sortSwitch" name="category">
+                                <option value="default">없음</option>
+                                <option value="tech">기술</option>
+                                <option value="food">음식</option>
+                                <option value="travel">여행</option>
+                                <option value="life">일상</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="itemPartB"> 
                         <div id="thumbnail">
@@ -58,7 +63,7 @@
                         </div>
                     </div>
                     <div class="itemPartC">
-                        <div id="introduce"><textarea name="introduce" class="introText" cols="10" rows="10"></textarea></div>
+                        <div id="introduce"><textarea name="introduce" class="introText" cols="10" rows="10" placeholder="당신의 글을 소개해주세요"></textarea></div>
                     </div>    
                     <div class="itemPartD">
                         <button id="cancelBtn" class="btns">등록 취소</button>
