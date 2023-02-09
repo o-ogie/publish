@@ -72,7 +72,6 @@ class BoardRepository {
     async findOne(id, idx) {
         try {
             const [view] = await this.findAll(idx);
-            console.log(view);
             const comment = await this.Comment.findAll({
                 raw: true,
                 where: { boardid: idx },
@@ -89,7 +88,6 @@ class BoardRepository {
     }
     async createBoard(boarddata) {
         try {
-            console.log(boarddata);
             const { userid, subject, content, hashtag, imgs } = boarddata;
             const createBoard = await this.Board.create(boarddata);
             const addHash = hashtag.map((tagname) => this.Hash.findOrCreate({ where: { tagname } }));
@@ -208,6 +206,14 @@ class BoardRepository {
         try {
             const respone = await this.Liked.findAll();
         } catch (e) {}
+    }
+
+    async updatehit(id) {
+        try {
+            await this.sequelize.query(`UPDATE Board SET hit= hit + 1 WHERE id=${id}`);
+        } catch (error) {
+            throw new Error(e);
+        }
     }
 }
 

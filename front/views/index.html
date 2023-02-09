@@ -1,5 +1,4 @@
-{% extends 'layout/layout.html' %}
-{% block content %}
+{% extends 'layout/layout.html' %} {% block content %}
 <link rel="stylesheet" href="/css/index.css" />
 
 <div id="wrap">
@@ -22,12 +21,16 @@
                         <option value="userid">글쓴이</option>
                         <option value="subject">제목</option>
                         <option value="content">내용</option>
+<<<<<<< HEAD
                         <option value="tagname">태그</option>
                         <input name="search" type="text">
+=======
+                        <option value="hash">태그</option>
+                        <input name="search" type="text" />
+>>>>>>> main
                     </select>
                     <button type="submit">
-                        <img src="https://www.think-lab.com/ko/wp_2021/wp-content/themes/think-lab2021/img/search.png"
-                            width=14px alt="">
+                        <img src="https://www.think-lab.com/ko/wp_2021/wp-content/themes/think-lab2021/img/search.png" width="14px" alt="" />
                     </button>
                 </form>
             </div>
@@ -37,35 +40,35 @@
         <ul id="boardList">
             {% for item in list %}
             <li class="boardItem">
-                <input type="hidden" value="{{item.id}}">
-                <a href="/board/{{item.nickname}}/{{item.id}}">
+                <input type="hidden" value="{{item.id}}" />
+                <a href="/board/{{item.userid}}/{{item.id}}">
                     <div class="itemWrap">
                         <div class="itemPartA">
-                            <div class="boardThumbnail"><img
-                                    src='{{item.image}}'
-                                    alt="" loading="lazy"></div>
+                            <div class="boardThumbnail"><img src="{{item.image}}" alt="" loading="lazy" /></div>
                             <span class="boardTitle">{{item.subject}}</span>
                             {% if item.tagname %}
                             <ul class="tagList">
-                              {% for tag in item.tagname.split(',').slice(0,3) %}
+                                {% for tag in item.tagname.split(',').slice(0,3) %}
                                 <li>{{ tag }}</li>
-                              {% endfor %}
+                                {% endfor %}
                             </ul>
-                          {% endif %}
+                            {% endif %}
                         </div>
                         <div class="itemPartB">
-                            <span class="timeStamp" style="color: #999; font-size: 0.9em; "><iconify-icon
-                                    icon="ic:baseline-access-time-filled"></iconify-icon><span class="innerText">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span></span>
-                            <span class="hitCount" style="color: #999; font-size: 0.9em; "><iconify-icon
-                                    icon="ic:baseline-remove-red-eye"></iconify-icon><span
-                                    class="innerText">{{item.hit}}</span></span>
-                            <span class="commentCount" style="color: #999; font-size: 0.9em; "><iconify-icon
-                                    icon="mdi:message-processing"></iconify-icon><span class="innerText">{{item.commentCount}}</span></span>
+                            <span class="timeStamp" style="color: #999; font-size: 0.9em"
+                                ><iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon
+                                ><span class="innerText">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span></span
+                            >
+                            <span class="hitCount" style="color: #999; font-size: 0.9em"
+                                ><iconify-icon icon="ic:baseline-remove-red-eye"></iconify-icon><span class="innerText">{{item.hit}}</span></span
+                            >
+                            <span class="commentCount" style="color: #999; font-size: 0.9em"
+                                ><iconify-icon icon="mdi:message-processing"></iconify-icon><span class="innerText">{{item.commentCount}}</span></span
+                            >
                         </div>
                         <div class="itemPartC">
-                            <div><img class="userImg" src='{{item.userImg}}' alt="" loading="lazy"><span class="nickName">{{item.nickname}}</span></div>
-                            <span style="font-size: 1.1em; "><iconify-icon
-                                    icon="flat-color-icons:like"></iconify-icon><span class="innerText">{{item.likeCount}}</span></span>
+                            <div><img class="userImg" src="{{item.userImg}}" alt="" loading="lazy" /><span class="nickName">{{item.nickname}}</span></div>
+                            <span style="font-size: 1.1em"><iconify-icon icon="flat-color-icons:like"></iconify-icon><span class="innerText">{{item.likeCount}}</span></span>
                         </div>
                     </div>
                 </a>
