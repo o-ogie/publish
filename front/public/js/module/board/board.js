@@ -105,6 +105,9 @@ const imghandler = async (e) => {
 
             const contentDiv = document.querySelector(".ProseMirror");
             contentDiv.innerHTML += `${"&lt"}img src=${img.src}>`;
+
+            const thumbnail = document.querySelector("#thumbnail");
+            thumbnail.append(img);
         }
     }
 };

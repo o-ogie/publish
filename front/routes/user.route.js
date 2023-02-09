@@ -13,6 +13,7 @@ route.get("/signup", (req, res) => {
 });
 
 route.post("/signup", async (req, res) => {
+    console.log(`req:::` ,req.body)
     const response = await request.post("/users", {
         ...req.body,
     });
