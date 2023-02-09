@@ -8,15 +8,10 @@ class BoardService {
     }
 
 
-    async getList({searchType, search, sort, content}) {
+    async getList({searchType, search, sort}) {
         try {
-
-            const obj = {
-                searchType : !searchType ? '' :  `WHERE ${searchType}="${search}"`, 
-                sort : sort || 'A.id',
-            }
-            console.log('sev where:::::',obj)
-            const list = await this.boardRepository.findAll(obj)
+            console.log('scht, sch, srt',searchType, search, sort)
+            const list = await this.boardRepository.findAll({searchType,search,sort})
             // if (list.length === 0) throw "내용이 없습니다";
             // console.log("serv", list);
             return list;
