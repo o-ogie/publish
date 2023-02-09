@@ -4,7 +4,13 @@
 <div id="wrap">
     <div id="blogWrap">
         <div id="subContainer">
-            <div id="category"></div>
+            <div id="category">
+                <ul>
+                    {% for item in list %}
+                    <li>{{item.category}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
             <div id="hashTag"></div>
         </div>
         <div id="mainContainer">

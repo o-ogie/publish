@@ -13,7 +13,7 @@ route.get("/", (req, res) => {
 
 route.post("/", async (req, res) => {
     const { userid } = req.user;
-    console.log(req.body);
+    console.log('req.body:::', req.body);
     const { hashtag: text } = req.body;
     const respone = text.split(",");
     const body = {
