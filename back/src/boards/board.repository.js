@@ -9,59 +9,30 @@ class BoardRepository {
         this.Liked = Liked;
     }
 
-    async findList(sort) {
+    async findAll({searchType, sort}) {
         try {
             const query = `SELECT 
-      A.id,
-      A.userid, 
-      A.subject, 
-      A.createdAt, 
-      A.hit,
-      A.image,
-      B.userImg,
-      B.nickname,
-      GROUP_CONCAT(C.tagname SEPARATOR ', ') AS tagname,
-      (SELECT COUNT(boardid) FROM Comment WHERE boardid = A.id) AS commentCount, 
-      (SELECT COUNT(BoardId) FROM Liked WHERE BoardId = A.id) AS likeCount
-      FROM Board AS A 
-      JOIN User AS B 
-      ON A.userid = B.userid
-      JOIN Hashtag AS C
-      ON A.id = C.boardid
-      GROUP BY A.id
-      ORDER BY ${sort} DESC;`;
+        A.id,
+        A.userid, 
+        A.subject, 
+        A.createdAt, 
+        A.hit,
+        A.image,
+        B.userImg,
+        B.nickname,
+        GROUP_CONCAT(C.tagname SEPARATOR ', ') AS tagname,
+        (SELECT COUNT(boardid) FROM Comment WHERE boardid = A.id) AS commentCount, 
+        (SELECT COUNT(BoardId) FROM Liked WHERE BoardId = A.id) AS likeCount
+        FROM Board AS A 
+        JOIN User AS B 
+        ON A.userid = B.userid
+        JOIN Hashtag AS C
+        ON A.id = C.boardid
+        ${searchType}
+        GROUP BY A.id
+        ORDER BY ${sort} DESC;`;
             const [findAll] = await this.sequelize.query(query);
-            return findAll;
-        } catch (e) {
-            throw new Error(e);
-        }
-    }
-
-    async findAll(where) {
-        try {
-            const query = `SELECT 
-      A.id,
-      A.userid, 
-      B.username, 
-      A.subject, 
-      A.content,
-      A.createdAt, 
-      A.hit,
-      B.userImg,
-      B.nickname,
-      (SELECT GROUP_CONCAT(D.userid SEPARATOR ', ') FROM Liked AS D WHERE A.id = D.boardid) AS likeidlist,
-      GROUP_CONCAT(C.tagname SEPARATOR ', ') AS tagname,
-      (SELECT COUNT(boardid) FROM Comment WHERE boardid = A.id) AS commentCount, 
-      (SELECT COUNT(BoardId) FROM Liked WHERE BoardId = A.id) AS likeCount
-      FROM Board AS A 
-      JOIN User AS B 
-      ON A.userid = B.userid
-      JOIN Hashtag AS C
-      ON A.id = C.boardid
-      Where A.id = ${where}
-      GROUP BY A.id
-      ORDER BY A.id DESC;`;
-            const [findAll] = await this.sequelize.query(query);
+            console.log('findAll::::',findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);

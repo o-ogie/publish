@@ -11,13 +11,17 @@ const request = axios.create({
 
 router.get("/", async (req, res) => {
     // console.log(`req.user :`, req.user);
-
-    let sort = 'id'
-    if (req.query.sort) sort = req.query.sort
-
-    const response = await request.get(`/boards/?sort=${sort}`);
-    const list = response.data
-
+    const {searchType, search, sort} = req.query
+    console.log('index::::: st sch srt',searchType,search,sort)
+    const respone = await request.get("/boards/",{data:{searchType,search, sort}});
+    const list = respone.data
+    // console.log(list)
+    // if( req.query.searchType){
+    //     const {searchType, search} = req.query
+        
+    //     res.render("index.html",{list:searchList})
+    //     return
+    // }
     // if (req.user === undefined) return res.render("index.html", { list });
     res.render("index.html", { user: req.user, list });
 });
