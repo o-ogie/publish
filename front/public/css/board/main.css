@@ -31,6 +31,33 @@ body {
     backdrop-filter: blur(6px);
 }
 
+#subContainer {
+    position: fixed;
+    top: 20%;
+    left: 5%;
+    width: 260px;
+    height: 600px;
+    color: #fff;
+    box-shadow: rgb(0 0 0 / 0.5) 0px 6px 12px;
+    background: rgba(50, 50, 50, 0.4);
+    backdrop-filter: blur(6px);
+    border-radius: 12px;
+    padding: 1%;
+}
+#subContainer #hashtag {
+    padding-top: 30px;
+}
+#subContainer #hashtag .bannerText {
+    display: block;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+#subContainer #hashtag ul {
+    padding: 5%;
+}
+
+
 
 #blogWrap {
     margin: 0 auto;

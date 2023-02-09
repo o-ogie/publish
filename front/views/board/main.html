@@ -1,18 +1,18 @@
 {% extends "layout/layout.html" %}{% block content %}
 <link rel="stylesheet" href="/css/board/main.css" />
 
+<div id="subContainer">
+    <div id="hashtag">
+        <span class="bannerText"><p>태그 리스트</p></span>
+        <ul>
+            {% for item in list %}
+            <li>{{item.tagname}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 <div id="wrap">
     <div id="blogWrap">
-        <div id="subContainer">
-            <div id="category">
-                <ul>
-                    {% for item in list %}
-                    <li>{{item.category}}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div id="hashTag"></div>
-        </div>
         <div id="mainContainer">
             <div id="profile">
                 <div id="writerImg">
@@ -31,7 +31,7 @@
                                 <div class="boardThumbnail">
                                     <a href="/board/{{item.nickname}}/{{item.id}}">
                                         <img src='{{item.image}}' alt="" loading="lazy">
-                                        <span class="boardTitle">{{item.subject}}</span>
+                                        <span class="category">{{item.category}}</span><span class="boardTitle">{{item.subject}}</span>
                                     </a>
                                 </div>
                                 <span class="prevContent">{{item.introduce}}</span>
