@@ -4,26 +4,28 @@
 <div id="wrap">
     <div id="header">
         <div id="gnb">
-            <div id="sortBox">
-                <form action="" method="get">
-                    <select onchange="this.form.submit()" name="sort" id="sortSwitch" class="switch">
-                        <option value="A.id">최신순</option>
-                        <option value="A.hit">조회순</option>
-                        <option value="commentCount">댓글많은순</option>
-                        <option value="likeCount">추천순</option>
-                    </select>
-                </form>
-            </div>
-            <div id="categoryBox">
-                <form action="" method="get">
-                    <select onchange="this.form.submit()" name="category" id="categorySwitch" class="switch" >
-                        <option value="default">카테고리</option>
-                        <option value="tech">기술</option>
-                        <option value="food">음식</option>
-                        <option value="travel">여행</option>
-                        <option value="life">일상</option>
-                    </select>
-                </form>
+            <div class="switchBox">
+                <div id="sortBox">
+                    <form action="" method="get">
+                        <select onchange="this.form.submit()" name="sort" id="sortSwitch" class="switch">
+                            <option value="A.id">최신순</option>
+                            <option value="A.hit">조회순</option>
+                            <option value="commentCount">댓글많은순</option>
+                            <option value="likeCount">추천순</option>
+                        </select>
+                    </form>
+                </div>
+                <div id="categoryBox">
+                    <form action="" method="get">
+                        <select onchange="this.form.submit()" name="category" id="categorySwitch" class="switch">
+                            <option value="default">카테고리</option>
+                            <option value="tech">기술</option>
+                            <option value="food">음식</option>
+                            <option value="travel">여행</option>
+                            <option value="life">일상</option>
+                        </select>
+                    </form>
+                </div>
             </div>
             <div id="searchBox">
                 <form action="" method="get">
@@ -36,7 +38,8 @@
                         <input name="search" type="text">
                     </select>
                     <button type="submit">
-                        <img src="https://www.think-lab.com/ko/wp_2021/wp-content/themes/think-lab2021/img/search.png" width="14px" alt="" />
+                        <img src="https://www.think-lab.com/ko/wp_2021/wp-content/themes/think-lab2021/img/search.png"
+                            width="14px" alt="" />
                     </button>
                 </form>
             </div>
@@ -61,20 +64,22 @@
                             {% endif %}
                         </div>
                         <div class="itemPartB">
-                            <span class="timeStamp" style="color: #999; font-size: 0.9em"
-                                ><iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon
-                                ><span class="innerText">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span></span
-                            >
-                            <span class="hitCount" style="color: #999; font-size: 0.9em"
-                                ><iconify-icon icon="ic:baseline-remove-red-eye"></iconify-icon><span class="innerText">{{item.hit}}</span></span
-                            >
-                            <span class="commentCount" style="color: #999; font-size: 0.9em"
-                                ><iconify-icon icon="mdi:message-processing"></iconify-icon><span class="innerText">{{item.commentCount}}</span></span
-                            >
+                            <span class="timeStamp" style="color: #999; font-size: 0.9em"><iconify-icon
+                                    icon="ic:baseline-access-time-filled"></iconify-icon><span
+                                    class="innerText">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span></span>
+                            <span class="hitCount" style="color: #999; font-size: 0.9em"><iconify-icon
+                                    icon="ic:baseline-remove-red-eye"></iconify-icon><span
+                                    class="innerText">{{item.hit}}</span></span>
+                            <span class="commentCount" style="color: #999; font-size: 0.9em"><iconify-icon
+                                    icon="mdi:message-processing"></iconify-icon><span
+                                    class="innerText">{{item.commentCount}}</span></span>
                         </div>
                         <div class="itemPartC">
-                            <div><img class="userImg" src="{{item.userImg}}" alt="" loading="lazy" /><span class="nickName">{{item.nickname}}</span></div>
-                            <span style="font-size: 1.1em"><iconify-icon icon="flat-color-icons:like"></iconify-icon><span class="innerText">{{item.likeCount}}</span></span>
+                            <div><img class="userImg" src="{{item.userImg}}" alt="" loading="lazy" /><span
+                                    class="nickName">{{item.nickname}}</span></div>
+                            <span style="font-size: 1.1em"><iconify-icon
+                                    icon="flat-color-icons:like"></iconify-icon><span
+                                    class="innerText">{{item.likeCount}}</span></span>
                         </div>
                     </div>
                 </a>
