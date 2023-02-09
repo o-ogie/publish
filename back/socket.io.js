@@ -32,16 +32,23 @@ module.exports = (server,app)=>{
             const options = { hour: '2-digit', minute: '2-digit', hour12: false };
             const time = date.toLocaleTimeString([], options);
             const obj = {userImg, nickname, message, time}
-            socket.broadcast.emit('reply',JSON.stringify(obj))
+            socket.broadcast.emit('reply',obj)
         })
 
         /**귓속말기능 (아직 미구현) */
-        socket.on('private', (message)=>{
-            const {userImg, nickname} = users[socket.nickname]
-            const obj = {userImg, nickname, message}
-            socket.socket(users[socket.nickname].socket).emit('privateMessage',JSON.stringify(obj))
-            }
-        )
+        socket.on('private', (msg)=>{
+            console.log("msg::::",msg)
+            const {toUser, message} = msg
+            // console.log(io.sockets.sockets)
+            // console.log(toUser, message)
+            // console.log(users[toUser].socket)
+            const date = new Date();
+            const options = { hour: '2-digit', minute: '2-digit', hour12: false };
+            const time = date.toLocaleTimeString([], options);
+            const obj = {userImg, nickname, message, time}
+            socket.to(users[toUser].socket).emit('privateMessage',obj)
+            // io.sockets.sockets(users[toUser].socket).emit('privateMessage',msg)
+        })
 
         
         /**Client가 대화방을 나가면 남은 Client들에게 누가 나갔는지 알려줌. */

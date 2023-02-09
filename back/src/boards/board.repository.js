@@ -76,7 +76,7 @@ class BoardRepository {
     }
     async findOne(id, idx) {
         try {
-            const [view] = await this.findAll(idx);
+            const [view] = await this.findAll({searchType:"A.id",search:idx});
             const comment = await this.Comment.findAll({
                 raw: true,
                 where: { boardid: idx },
