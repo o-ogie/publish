@@ -4,7 +4,7 @@ class UserRepository {
   }
 
   async addUser(payload) {
-    console.log(payload);
+    console.log(`payload::::`, payload);
     try {
       const user = await this.User.create(payload, { raw: true });
       return user;

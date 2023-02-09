@@ -11,7 +11,7 @@ class BoardService {
             if (sort === 'id' || sort === 'hit') sort = `A.${sort}`;
 
             const list = await this.boardRepository.findList(sort);
-            if (list.length === 0) throw "내용이 없습니다";
+            // if (list.length === 0) throw "내용이 없습니다";
             // console.log("serv", list);
             return list;
         } catch (e) {

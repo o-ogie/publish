@@ -26,6 +26,7 @@ module.exports = (sequelize, Sequelize) => {
           },
           state: {
             type: Sequelize.ENUM("blind", "temp", "public"),
+            defaultValue: "public",
             allowNull: false,
           }
         },

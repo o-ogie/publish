@@ -45,7 +45,7 @@ module.exports = (sequelize, Sequelize) => {
                         isEmail: true,
                     },
                 },
-                adress: {
+                address: {
                   type: Sequelize.TEXT(),
                   allowNull: true,
                 },
