@@ -9,12 +9,16 @@ class BoardRepository {
         this.Liked = Liked;
     }
 
-    async findAll({searchType, sort}) {
+    async findAll({searchType, search, sort}) {
         try {
+            const where = !searchType ? '' :  `WHERE ${searchType}="${search}"` 
+            const sortKey = !sort ? `ORDER BY A.id DESC;` : `ORDER BY ${sort}`
+            console.log('repo',where, sortKey)
             const query = `SELECT 
         A.id,
         A.userid, 
         A.subject, 
+        A.content,
         A.createdAt, 
         A.hit,
         A.image,
@@ -28,9 +32,9 @@ class BoardRepository {
         ON A.userid = B.userid
         JOIN Hashtag AS C
         ON A.id = C.boardid
-        ${searchType}
+        ${where}
         GROUP BY A.id
-        ORDER BY ${sort} DESC;`;
+        ${sortKey};`
             const [findAll] = await this.sequelize.query(query);
             console.log('findAll::::',findAll);
             return findAll;
