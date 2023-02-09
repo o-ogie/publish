@@ -4,9 +4,10 @@ let sort = "id";
 if (location.search.indexOf("sort")) sort = location.search.split("=")[1];
 
 for (const option of sortSwitch.options) {
-  if (sort === option.value) {
-    document.addEventListener("DOMContentLoaded", () => {
-      sortSwitch.value = sort;
-    });
-  }
+    if (sort === option.value) {
+        document.addEventListener("DOMContentLoaded", () => {
+            sortSwitch.value = sort;
+        });
+    }
 }
+

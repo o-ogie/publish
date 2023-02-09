@@ -34,14 +34,20 @@ route.get("/:id", async (req, res) => {
     const user = req.user;
     const { id } = req.params;
     const response = await request.get(`/boards/${id}`);
-    console.log(user)
+    console.log(user);
     res.render("board/main.html", { user, list: response.data });
 });
 
 route.get("/:id/:idx", async (req, res) => {
     const user = req.user;
+    let userid = "";
+    if (!user) {
+        userid = "guest";
+    } else {
+        userid = req.user.userid;
+    }
     const { id, idx } = req.params;
-    const respone = await request.get(`/boards/${id}/${idx}`);
+    const respone = await request.get(`/boards/${id}/${idx}/${userid}`);
     const [data, comment] = respone.data;
     res.render("board/view.html", { data, user });
 });
