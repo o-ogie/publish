@@ -46,6 +46,11 @@ body {
     margin-bottom: 25px;
 }
 
+.switchBox {
+    display: flex;
+    width: 230px;
+    justify-content: space-between;
+}
 
 #sortBox {
     display: flex;
@@ -80,6 +85,44 @@ body {
     -moz-appearance: none;
     position: relative;
 }
+
+
+#categoryBox {
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    width: 110px;
+    height: 32px;
+    color: #079850;
+    font-size: 1.1em;
+    position: relative;
+    box-shadow: rgb(0 0 0 / 0.4) 0px 4px 8px;
+}
+
+#categoryBox::after {
+    content: "▾";
+    position: absolute;
+    top: 4px;
+    right: 8px;
+}
+
+#categorySwitch {    
+    background: rgb(55, 55, 60);
+    color: #e5e5e5;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+    width: 110px;
+    height: 32px;
+    border-radius: 4px;
+    font-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: relative;
+}
+
+
+
 
 
 
