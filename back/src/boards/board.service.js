@@ -15,20 +15,11 @@ class BoardService {
             }
             console.log('sev where:::::',obj)
             const list = await this.boardRepository.findAll(obj)
-            // if(where.searchType){
-            //     console.log('findAll')
-            //     list = await this.boardRepository.findAll(where)
-            // }else{
-            //     console.log('findlist')
-            //     list = await this.boardRepository.findList();
-            // }
-            // if (sort === 'id' || sort === 'hit') sort = `A.${sort}`
-            // list = await this.boardRepository.findList(sort);
             if (list.length === 0) throw "내용이 없습니다";
             // console.log("serv", list);
             return list;
         } catch (e) {
-            // throw new this.BadRequest(e);
+            throw new this.BadRequest(e);
         }
     }
     async getView(id, idx) {
