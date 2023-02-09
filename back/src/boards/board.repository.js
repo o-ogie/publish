@@ -12,7 +12,7 @@ class BoardRepository {
     async findAll({searchType, search, sort}) {
         try {
             const where = !searchType ? '' :  `WHERE ${searchType}="${search}"` 
-            const sortKey = !sort ? `ORDER BY A.id DESC;` : `ORDER BY ${sort}`
+            const sortKey = !sort ? `ORDER BY A.id DESC;` : `ORDER BY ${sort} DESC`
             console.log('repo',where, sortKey)
             const query = `SELECT 
         A.id,
@@ -75,7 +75,7 @@ class BoardRepository {
     }
     async findOne(id, idx) {
         try {
-            const [view] = await this.findAll(idx);
+            const [view] = await this.findAll({searchType:"A.id",search:idx});
             const comment = await this.Comment.findAll({
                 raw: true,
                 where: { boardid: idx },
