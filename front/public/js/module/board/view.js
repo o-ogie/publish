@@ -8,6 +8,7 @@ const likecount = document.querySelector("#likes > p");
 const likelist = document.querySelector(".likewho");
 const commentfrm = document.querySelector("#commentfrm");
 const boarddel = document.querySelector(".delete");
+const commetadd = document.querySelectorAll("#commentRecomment");
 
 const createhash = (strhash) => {
     if (strhash.innerHTML === "") return;
@@ -15,31 +16,30 @@ const createhash = (strhash) => {
     const values = hash.map((v) => `<p class="hashtags">${v}</p>`).join(" ");
     strhash.innerHTML = values;
 };
-
-const payload = () => {
-    const cookie = document.cookie.split(";");
-    const token = cookie
-        .reduce((acc, val, idx) => {
-            let [key, values] = val.split("=");
-            acc[key] = values;
-            return acc;
-        }, {})
-        .token.split(".")[1];
-
-    return token;
-};
-
 createhash(hashs);
 
-const myprofile = async () => {
-    let token = payload();
-    const body = { payload: token };
+// const payload = () => {
+//     const cookie = document.cookie.split(";");
+//     const token = cookie
+//         .reduce((acc, val, idx) => {
+//             let [key, values] = val.split("=");
+//             acc[key] = values;
+//             return acc;
+//         }, {})
+//         .token.split(".")[1];
 
-    const respone = await request.post(`boards/decode`, body);
-    return respone.data;
-};
+//     return token;
+// };
 
-myprofile();
+// const myprofile = async () => {
+//     let token = payload();
+//     const body = { payload: token };
+
+//     const respone = await request.post(`boards/decode`, body);
+//     return respone.data;
+// };
+
+// myprofile();
 
 const likeHandler = async () => {
     const userid = nowme.value;
@@ -74,12 +74,12 @@ img.addEventListener("click", likeHandler);
 const commentHandler = async (e) => {
     e.preventDefault();
     try {
-        const group = commentfrm.group.value;
+        const parentid = commentfrm.parentid.value;
         const comment = commentfrm.comment.value;
         const userid = nowme.value;
         const body = {
             userid,
-            group,
+            parentid,
             content: comment,
         };
         const path = document.location.pathname;
@@ -88,12 +88,41 @@ const commentHandler = async (e) => {
         const respone = await request.post(`/boards/${idx}/comments`, body);
         commentfrm.reset();
         location.href = `/board/${id}/${idx}`;
+        console.log(body);
     } catch (error) {
         alert(error);
     }
 };
 
 commentfrm.addEventListener("submit", commentHandler);
+
+const addcommentHandler = (e) => {
+    const array = e.target.parentNode.children;
+    if (array["commentfrm"]) return;
+    const clone = commentfrm.cloneNode(true);
+    const parent = e.target.parentNode;
+    const groupindex = parent.dataset.index;
+    parent.append(clone);
+    clone.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const comment = clone.comment.value;
+        const userid = nowme.value;
+        const body = {
+            userid,
+            parentid: groupindex,
+            content: comment,
+        };
+        const path = document.location.pathname;
+        const [emptyval, board, id, idx] = path.split("/");
+        const respone = await request.post(`/boards/${idx}/comments`, body);
+        console.log(body);
+        location.href = `/board/${id}/${idx}`;
+    });
+};
+
+commetadd.forEach((v) => {
+    v.addEventListener("click", addcommentHandler);
+});
 
 const deleteHandler = async (e) => {
     e.preventDefault();

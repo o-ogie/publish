@@ -74,10 +74,10 @@ class BoardService {
             // throw new this.BadRequest(e);
         }
     }
-    async putView(idx, subject, content, hashtag, category, introduce ) {
-        console.log(`serv :`, { idx, subject, content, hashtag, category, introduce  });
+    async putView(idx, subject, content, hashtag, category, introduce) {
+        console.log(`serv :`, { idx, subject, content, hashtag, category, introduce });
         try {
-            const view = await this.boardRepository.updateBoard({ idx, subject, content, hashtag, category, introduce  });
+            const view = await this.boardRepository.updateBoard({ idx, subject, content, hashtag, category, introduce });
             if (view < 1) throw "수정할 게시글이 없습니다";
             return view;
         } catch (e) {
@@ -99,7 +99,7 @@ class BoardService {
         // console.log(`serv :`, { boardid, comment });
         try {
             if (!boardid || !comment.userid || !comment.content) throw "내용이 없습니다";
-            if (!comment.group) comment.group = boardid;
+            if (!comment.parentid) comment.parentid = 0;
             const data = {
                 boardid,
                 ...comment,
