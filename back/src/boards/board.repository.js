@@ -92,9 +92,11 @@ class BoardRepository {
         }
     }
     async createBoard(boarddata) {
+        console.log(`boarddata::::`, boarddata)
         try {
-            const { userid, subject, content, hashtag, imgs } = boarddata;
+            const { userid, subject, content, hashtag, category, introduce, image } = boarddata;
             const createBoard = await this.Board.create(boarddata);
+            console.log(`boarddata222::::`, createBoard)
             const addHash = hashtag.map((tagname) => this.Hash.findOrCreate({ where: { tagname } }));
             const tagResult = await Promise.all(addHash);
             await createBoard.addHashes(tagResult.map((v) => v[0]));
@@ -103,8 +105,8 @@ class BoardRepository {
             throw new Error(e);
         }
     }
-    async updateBoard({ idx, subject, content, hashtag }) {
-        console.log("update :", idx, subject, content, hashtag);
+    async updateBoard({ idx, subject, content, hashtag, category, introduce }) {
+        console.log("update :", idx, subject, content, hashtag, category, introduce );
         try {
             const updateBoard = await this.Board.update(
                 {
