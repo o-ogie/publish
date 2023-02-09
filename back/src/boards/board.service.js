@@ -7,11 +7,10 @@ class BoardService {
         this.viewObj = new Object();
     }
 
-
-    async getList({searchType, search, sort}) {
+    async getList({ searchType, search, sort }) {
         try {
-            console.log('scht, sch, srt',searchType, search, sort)
-            const list = await this.boardRepository.findAll({searchType,search,sort})
+            console.log("scht, sch, srt", searchType, search, sort);
+            const list = await this.boardRepository.findAll({ searchType, search, sort });
             // if (list.length === 0) throw "내용이 없습니다";
             // console.log("serv", list);
             return list;
@@ -30,11 +29,11 @@ class BoardService {
     async getView(id, idx, userid) {
         try {
             if (!this.viewObj["hit"]) this.viewObj["hit"] = [];
-            if (this.viewObj["hit"].indexOf(`${userid}+${idx}`) === -1 && id !== `@${userid}`) {
+            if (this.viewObj["hit"].indexOf(`${userid}+${idx}`) === -1 && id !== userid) {
                 this.viewObj["hit"].push(`${userid}+${idx}`);
                 await this.boardRepository.updatehit(idx);
             }
-
+            console.log(this.viewObj["hit"]);
             setTimeout(() => {
                 this.viewObj["hit"].splice(this.viewObj["hit"].indexOf(`${userid}+${idx}`), 1);
             }, 200000);
@@ -58,7 +57,6 @@ class BoardService {
                 .split("img src=")
                 .filter((v) => v.indexOf("http") !== -1)
                 .map((v) => v.split("&gt")[0]);
-            console.log(imgs[0]);
             const boarddata = {
                 userid,
                 subject,
@@ -68,7 +66,6 @@ class BoardService {
                 state: "public",
             };
             if (!imgs[0]) delete boarddata.image;
-            console.log(boarddata);
             const write = await this.boardRepository.createBoard(boarddata);
             return write;
         } catch (e) {
@@ -85,10 +82,10 @@ class BoardService {
             throw new this.BadRequest(e);
         }
     }
-    async deleteView(id) {
+    async deleteView(idx) {
         // console.log(`serv :`, id);
         try {
-            const view = await this.boardRepository.destroyBoard(id);
+            const view = await this.boardRepository.destroyBoard(idx);
             if (view < 1) throw "삭제할 게시글이 없습니다";
             return view;
         } catch (e) {

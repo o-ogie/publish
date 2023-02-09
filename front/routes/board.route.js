@@ -13,7 +13,6 @@ route.get("/", (req, res) => {
 
 route.post("/", async (req, res) => {
     const { userid } = req.user;
-    console.log(req.body);
     const { hashtag: text } = req.body;
     const respone = text.split(",");
     const body = {
@@ -49,7 +48,8 @@ route.get("/:id/:idx", async (req, res) => {
     const { id, idx } = req.params;
     const respone = await request.get(`/boards/${id}/${idx}/${userid}`);
     const [data, comment] = respone.data;
-    res.render("board/view.html", { data, user });
+    console.log(comment);
+    res.render("board/view.html", { data, user, comment });
 });
 
 route.get("/:id/:idx/modify", async (req, res) => {
