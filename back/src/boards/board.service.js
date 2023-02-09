@@ -49,8 +49,8 @@ class BoardService {
             throw new this.BadRequest(e);
         }
     }
-    async postWrite({ userid, subject, content, hashtag }) {
-        console.log(`serv :`, { userid, subject, content, hashtag });
+    async postWrite({ userid, subject, content, hashtag, category, introduce }) {
+        console.log(`serv :`, { userid, subject, content, hashtag, category, introduce });
         try {
             if (!userid || !subject || !content) throw "내용이 없습니다";
             const imgs = content
@@ -62,6 +62,8 @@ class BoardService {
                 subject,
                 content,
                 hashtag,
+                category,
+                introduce,
                 image: imgs[0],
                 state: "public",
             };
@@ -72,10 +74,10 @@ class BoardService {
             // throw new this.BadRequest(e);
         }
     }
-    async putView(idx, subject, content, hashtag) {
-        console.log(`serv :`, { idx, subject, content, hashtag });
+    async putView(idx, subject, content, hashtag, category, introduce ) {
+        console.log(`serv :`, { idx, subject, content, hashtag, category, introduce  });
         try {
-            const view = await this.boardRepository.updateBoard({ idx, subject, content, hashtag });
+            const view = await this.boardRepository.updateBoard({ idx, subject, content, hashtag, category, introduce  });
             if (view < 1) throw "수정할 게시글이 없습니다";
             return view;
         } catch (e) {

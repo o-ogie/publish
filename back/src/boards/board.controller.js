@@ -33,11 +33,13 @@ class BoardController {
         try {
             if (!req.body.subject) throw new Error("제목이 없습니다");
             if (!req.body.content) throw new Error("내용이 없습니다");
-            const { userid, subject, content, hashtag } = req.body;
+            const { userid, subject, content, hashtag, category, introduce } = req.body;
             const response = await this.boardService.postWrite({
                 userid,
                 subject,
                 content,
+                category,
+                introduce,
                 hashtag,
             });
             res.status(201).json(response);
@@ -50,7 +52,7 @@ class BoardController {
         try {
             if (!req.body.subject) throw new Error("제목을 입력해주세요");
             if (!req.body.content) throw new Error("수정할 내용을 입력해주세요");
-            const response = await this.boardService.putView(req.params.idx, req.body.subject, req.body.content, req.body.hashtag);
+            const response = await this.boardService.putView(req.params.idx, req.body.subject, req.body.content, req.body.hashtag, req.body.category, req.body.introduce );
             res.status(201).json(response);
         } catch (e) {
             next(e);
