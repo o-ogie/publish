@@ -48,7 +48,7 @@ class BoardController {
         }
     }
     async putView(req, res, next) {
-        console.log(`putCon:`, req.params.idx, req.body.subject, req.body.content, req.body.hashtag);
+        console.log(`putCon:`, req.params.idx, req.body.subject, req.body.content, req.body.hashtag, req.body.category, req.body.introduce);
         try {
             if (!req.body.subject) throw new Error("제목을 입력해주세요");
             if (!req.body.content) throw new Error("수정할 내용을 입력해주세요");
