@@ -3,6 +3,7 @@ class AuthController {
         this.authService = authService;
     }
     async postLogin(req, res, next) {
+        console.log(req.body);
         try {
             const { userid, userpw } = req.body;
             const token = await this.authService.token({ userid, userpw });

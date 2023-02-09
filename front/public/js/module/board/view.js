@@ -7,6 +7,7 @@ const nowme = document.querySelector("#nowme");
 const likecount = document.querySelector("#likes > p");
 const likelist = document.querySelector(".likewho");
 const commentfrm = document.querySelector("#commentfrm");
+const boarddel = document.querySelector(".delete");
 
 const createhash = (strhash) => {
     if (strhash.innerHTML === "") return;
@@ -35,7 +36,6 @@ const myprofile = async () => {
     const body = { payload: token };
 
     const respone = await request.post(`boards/decode`, body);
-    console.log(respone.data);
     return respone.data;
 };
 
@@ -47,7 +47,6 @@ const likeHandler = async () => {
     const [emptyval, board, id, idx] = path.split("/");
     const body = { userid };
     const respone = await request.post(`/boards/${id}/${idx}/likes`, body);
-    console.log(respone.data);
     likecount.innerHTML = respone.data.count;
     likecheck(respone.data.check);
 };
@@ -74,18 +73,43 @@ img.addEventListener("click", likeHandler);
 
 const commentHandler = async (e) => {
     e.preventDefault();
-    const group = commentfrm.group.value;
-    const comment = commentfrm.comment.value;
-    const userid = nowme.value;
-    const body = {
-        userid,
-        group,
-        content: comment,
-    };
-    const path = document.location.pathname;
-    // const [emptyval, board, id, idx] = path.split("/");
-    // const respone = await request.post(`/boards/${idx}/comments`, body);
+    try {
+        const group = commentfrm.group.value;
+        const comment = commentfrm.comment.value;
+        const userid = nowme.value;
+        const body = {
+            userid,
+            group,
+            content: comment,
+        };
+        const path = document.location.pathname;
+        const [emptyval, board, id, idx] = path.split("/");
+        if (comment === "") throw "내용이 없습니다.";
+        const respone = await request.post(`/boards/${idx}/comments`, body);
+        commentfrm.reset();
+        location.href = `/board/${id}/${idx}`;
+    } catch (error) {
+        alert(error);
+    }
 };
 
 commentfrm.addEventListener("submit", commentHandler);
+
+const deleteHandler = async (e) => {
+    e.preventDefault();
+    if (confirm("삭제하시겠습니까")) {
+        if (confirm("정말로 삭제하시겠습니까")) {
+            const path = document.location.pathname;
+            const [emptyval, board, id, idx] = path.split("/");
+            await request.delete(`/boards/${idx}`);
+            location.href = `/`;
+        } else {
+            return;
+        }
+    } else {
+        return;
+    }
+};
+
+boarddel.addEventListener("click", deleteHandler);
 

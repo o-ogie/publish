@@ -4,7 +4,7 @@ class BoardController {
     }
     async getList(req, res, next) {
         try {
-            console.log("req.body",req.body);
+            console.log("req.body", req.body);
             const response = await this.boardService.getList(req.body);
             res.json(response);
         } catch (e) {
@@ -61,7 +61,7 @@ class BoardController {
     async deleteView(req, res, next) {
         try {
             // if (!req.params.id) throw new Error("삭제할 글이 없습니다");
-            const response = await this.boardService.deleteView(req.params.id);
+            const response = await this.boardService.deleteView(req.params.idx);
             res.status(201).json(response);
         } catch (e) {
             next(e);
