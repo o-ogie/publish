@@ -5,6 +5,7 @@ const {
     sequelize,
 } = require("../../models/index");
 
+const { Sequelize } = require("sequelize");
 const BoardRepository = require("./board.repository");
 const BoardService = require("./board.service");
 const BoardController = require("./board.controller");
@@ -14,7 +15,7 @@ const config = require("../../config");
 
 const jwt = new JWT({ crypto });
 
-const repository = new BoardRepository({ sequelize, Board, Hashtag, Comment, User, Hash, Liked });
+const repository = new BoardRepository({ sequelize, Board, Hashtag, Comment, User, Hash, Liked, Sequelize });
 const service = new BoardService({ boardRepository: repository, config, jwt });
 const controller = new BoardController({ boardService: service });
 
