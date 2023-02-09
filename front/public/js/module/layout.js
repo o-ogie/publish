@@ -91,19 +91,18 @@ socket.on('hello',(data)=>{
 
 /* 채팅 대답 */
 socket.on('reply', (data)=>{
-  const response = JSON.parse(data)
-  console.log('response::::::',response)
+  console.log('response::::::',data)
   const li = document.createElement('li')
   li.className = 'otherMessage'
 
   const userDiv = document.createElement('div')
   userDiv.className = 'userDiv'
   const nickname = document.createElement('span')
-  nickname.innerHTML = response.nickname
+  nickname.innerHTML = data.nickname
   userDiv.append(nickname)
 
   const userImg = document.createElement('img')
-  userImg.src = response.userImg
+  userImg.src = data.userImg
   userImg.alt = "User Image"
   userDiv.append(userImg)
 
@@ -113,12 +112,12 @@ socket.on('reply', (data)=>{
   msgDiv.className = 'msgDiv'
   const msgBalloon = document.createElement('div')
   msgBalloon.className = 'messageBox'
-  msgBalloon.innerHTML = response.message.message
+  msgBalloon.innerHTML = data.message.message
   msgDiv.append(msgBalloon)
 
   const timeSpan = document.createElement('span')
   timeSpan.className = 'timeAt'
-  timeSpan.innerHTML = response.time
+  timeSpan.innerHTML = data.time
   msgDiv.append(timeSpan)
 
   li.append(msgDiv)
@@ -130,10 +129,41 @@ socket.on('reply', (data)=>{
 
 // 단체방 귓속말
 socket.on('privateMessage',(data)=>{
-  const response = JSON.parse(data)
+  console.log(data)
+  console.log('response::::::',data)
   const li = document.createElement('li')
-  li.innerHTML = "귓속말:"+response.message
+  li.className = 'otherMessage'
+
+  const userDiv = document.createElement('div')
+  userDiv.className = 'userDiv'
+  const nickname = document.createElement('span')
+  nickname.innerHTML = 'From:'+data.nickname
+  userDiv.append(nickname)
+
+  const userImg = document.createElement('img')
+  userImg.src = data.userImg
+  userImg.alt = "User Image"
+  userDiv.append(userImg)
+
+  li.append(userDiv)
+  
+  const msgDiv = document.createElement('div')
+  msgDiv.className = 'msgDiv'
+  const msgBalloon = document.createElement('div')
+  msgBalloon.className = 'messageBox'
+  msgBalloon.innerHTML = data.message
+  msgDiv.append(msgBalloon)
+
+  const timeSpan = document.createElement('span')
+  timeSpan.className = 'timeAt'
+  timeSpan.innerHTML = data.time
+  msgDiv.append(timeSpan)
+
+  li.append(msgDiv)
+  
   chat.append(li)
+  chatAlert.style.display = 'block';
+  if (chatterBox.classList.contains("clicked")) chatAlert.style.display = "none";
 })
 
 
@@ -146,6 +176,7 @@ chatFrm.addEventListener('submit',(e)=>{
   const time = date.toLocaleTimeString([], options);
 
   const {toUser, message} = e.target
+  console.log('toUser.value::::',message.value)
   if(toUser.value === 'default') socket.emit('message', {message:message.value})
   else socket.emit('private', {toUser:toUser.value, message:message.value})
   const li = document.createElement('li')
@@ -166,8 +197,27 @@ chatFrm.addEventListener('submit',(e)=>{
      li.append(msgDiv)
     }
   else { 
-     li.className = 'privateMessage'
-     li.innerHTML = `${toUser.value}에게. `+ message.value
+    li.className = 'myMessage'
+
+    const userDiv = document.createElement('div')
+    userDiv.className = 'userDiv'
+    const nickname = document.createElement('span')
+    nickname.innerHTML = 'To:'+toUser.value
+    userDiv.append(nickname)
+    li.append(userDiv)
+
+    const msgDiv = document.createElement('div')
+    const msgBalloon = document.createElement('div')
+    msgBalloon.className = 'messageBox'
+    msgBalloon.innerHTML = message.value 
+    msgDiv.append(msgBalloon)
+  
+    const timeSpan = document.createElement('span')
+    timeSpan.className = 'timeAt'
+    timeSpan.innerHTML = time
+    msgDiv.append(timeSpan)
+
+    li.append(msgDiv)
     }
   chat.append(li)
 
