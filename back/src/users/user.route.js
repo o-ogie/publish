@@ -12,8 +12,5 @@ router.delete("/:id", (req, res, next) => controller.deleteUser(req, res, next))
 router.post("/single", upload.single("filename"), (req, res) => {
     res.send(req.file);
   });
-// router.post("/array", upload.array("filename"), (req, res) => {
-//     res.send(req.files);
-//   });
 
 module.exports = router;

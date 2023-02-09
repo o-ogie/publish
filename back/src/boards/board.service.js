@@ -22,6 +22,14 @@ class BoardService {
             throw new this.BadRequest(e);
         }
     }
+    async getMain(id) {
+        try {
+            const view = await this.boardRepository.findMain(id);
+            return view
+        } catch (e) {
+            throw new this.BadRequest(e);
+        }
+    }
     async getView(id, idx) {
         try {
             const [view, comment] = await this.boardRepository.findOne(id, idx);

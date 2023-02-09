@@ -20,6 +20,14 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             defaultValue: 0,
           },
+          introduce: {
+            type: Sequelize.STRING(255),
+            allowNull: true,
+          },
+          state: {
+            type: Sequelize.ENUM("blind", "temp", "public"),
+            allowNull: false,
+          }
         },
         {
           sequelize,

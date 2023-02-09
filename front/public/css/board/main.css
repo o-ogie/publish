@@ -1,0 +1,118 @@
+body {
+    height: 100%;
+}
+
+/* 스크롤바 */
+#wrap::-webkit-scrollbar {
+    width: 8px;  /* 스크롤바의 너비 */
+}
+#wrap::-webkit-scrollbar-thumb {
+    height: 20%; /* 스크롤바의 길이 */
+    background: #666; /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+}
+#wrap::-webkit-scrollbar-track {
+    background: rgba(168, 168, 168, 0.1);  /*스크롤바 뒷 배경 색상*/
+}
+
+
+
+#wrap {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    height: 100%;
+    max-width: 780px;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    box-shadow: rgb(0 0 0 / 0.5) 0px 6px 12px;
+    background: rgba(50, 50, 50, 0.4);
+    backdrop-filter: blur(6px);
+}
+
+
+#blogWrap {
+    margin: 0 auto;
+    width: 780px;
+    height: 100%;
+    border-radius: 12px;
+}
+
+#profile {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(to right, rgba(94, 25, 230, 0.6), rgba(41, 0, 123, 0.6));
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 12px 12px 0 0;
+    align-items: center;
+    padding-left: 20px;
+    margin-bottom: 100px;
+}
+#profile #writerImg img {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+#profile #writerInfo p {
+    margin-left: 20px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+
+#prevBoard {
+    width: 100%;
+    height: 100%;
+    background: rgba(50, 50, 50, 0.4);
+    backdrop-filter: blur(6px);
+}
+
+
+.boardThumbnail img {
+    display: block;
+    height: 400px;
+    width: 780px;
+    object-fit: cover;
+}
+.boardThumbnail .boardTitle {
+    display: block;
+    height: 80px;
+    line-height: 80px;
+    font-size: 40px;
+    font-weight: 600;
+    margin-left: 20px;
+}
+
+.itemPartB .tagList {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    overflow: hidden;
+    margin-left: 10px;
+}
+.itemPartB .tagList li {
+    display: inline-block;
+    background-color: #65c48e;
+    padding: 3px 8px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    font-size: 1.2rem;
+}
+.itemPartC {
+    margin: 10px 0 70px 0;
+    padding: 0 0 50px 20px;
+}
+
+.itemPartC span {
+    margin-right: 6px;
+}
+
+.itemPartC .innerText {
+    margin-left: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+}

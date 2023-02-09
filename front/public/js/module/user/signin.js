@@ -44,6 +44,21 @@ frm.addEventListener("submit", async (e) => {
   }
 });
 
+
+// show pw 
+let eyeButton = document.querySelector(".eye");
+
+eyeButton.addEventListener("click", () => {
+  eyeButton.classList.toggle("switchOn");
+  if (eyeButton.classList.contains("switchOn")) {
+    document.querySelector("#userpw").type = "text";
+  } else {
+    document.querySelector("#userpw").type = "password";
+  }
+});
+
+
+
 // find id & pw
 const popupBtn = document.querySelector(".findUserBtn");
 const findUser = document.querySelector("#findUser");

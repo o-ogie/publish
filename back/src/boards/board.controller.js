@@ -11,6 +11,15 @@ class BoardController {
             next(e);
         }
     }
+    async getMain(req, res, next) {
+        try {
+            const { id } = req.params;
+            const response = await this.boardService.getMain(id);
+            res.json(response);
+        } catch (e) {
+            next(e);
+        }
+    }
     async getView(req, res, next) {
         try {
             const { userid } = req.body;
