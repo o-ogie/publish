@@ -40,6 +40,11 @@ route.get("/signin", (req, res) => {
 
 route.get("/profile", async (req, res) => {
     const user = req.user;
+    // const response = await request.post("/users", {
+    //     ...req.body,
+    // });
+    // console.log(response.data)
+
     res.render("user/profile.html", { user, ...req.user });
 });
 

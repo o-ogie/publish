@@ -45,6 +45,10 @@ module.exports = (sequelize, Sequelize) => {
                         isEmail: true,
                     },
                 },
+                adress: {
+                  type: Sequelize.TEXT(),
+                  allowNull: true,
+                },
                 userImg: {
                     type: Sequelize.TEXT(),
                     allowNull: false,
@@ -63,6 +67,11 @@ module.exports = (sequelize, Sequelize) => {
                     type: Sequelize.TEXT(),
                     allowNull: true,
                 },
+                level: {
+                  type: Sequelize.ENUM("user", "admin"),
+                  allowNull: false,
+                  defaultValue: "user",
+                }
             },
             {
                 sequelize,

@@ -4,6 +4,7 @@ const { controller } = require("./board.module");
 const upload = require("../../middlewares/boardup");
 
 router.get("/", (req, res, next) => controller.getList(req, res, next));
+router.get("/:id", (req, res, next) => controller.getMain(req, res, next));
 router.get("/:id/:idx", (req, res, next) => controller.getView(req, res, next));
 router.post("/", (req, res, next) => controller.postWrite(req, res, next));
 router.post("/array", upload.fields([{ name: "upload1" }, { name: "mainimg" }]), (req, res) => {
