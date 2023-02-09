@@ -7,10 +7,10 @@ class BoardService {
         this.viewObj = new Object();
     }
 
-    async getList({ searchType, search, sort }) {
+    async getList({ searchType, search, sort, category }) {
         try {
             console.log("scht, sch, srt", searchType, search, sort);
-            const list = await this.boardRepository.findAll({ searchType, search, sort });
+            const list = await this.boardRepository.findAll({ searchType, search, sort, category});
             // if (list.length === 0) throw "내용이 없습니다";
             // console.log("serv", list);
             return list;
