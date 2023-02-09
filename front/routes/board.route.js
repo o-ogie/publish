@@ -13,7 +13,7 @@ route.get("/", (req, res) => {
 
 route.post("/", async (req, res) => {
     const { userid } = req.user;
-    console.log('req.body:::', req.body);
+    console.log("req.body:::", req.body);
     const { hashtag: text } = req.body;
     const respone = text.split(",");
     const body = {
@@ -24,7 +24,7 @@ route.post("/", async (req, res) => {
     const respones = await request.post("/boards", body);
     const { id: idx } = respones.data;
     const { userid: id } = respones.data;
-    res.redirect(`board/@${id}/${idx}`);
+    res.redirect(`board/${id}/${idx}`);
 });
 
 route.get("/write", (req, res) => {
@@ -49,13 +49,14 @@ route.get("/:id/:idx", async (req, res) => {
     const { id, idx } = req.params;
     const respone = await request.get(`/boards/${id}/${idx}/${userid}`);
     const [data, comment] = respone.data;
-    res.render("board/view.html", { data, user });
+    console.log(comment);
+    res.render("board/view.html", { data, user, comment });
 });
 
 route.get("/:id/:idx/modify", async (req, res) => {
     const { id, idx } = req.params;
     const user = req.user;
-    const respone = await request.get(`/boards/${id}/${idx}`);
+    const respone = await request.get(`/boards/${id}/${idx}/${user.userid}`);
     const [data, comment] = respone.data;
     res.render("board/modify.html", { data, user });
 });

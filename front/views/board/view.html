@@ -11,8 +11,9 @@
             <h2>{{data.subject}}</h2>
         </div>
         <div id="boardInfo">
-            <span id="userid">{{data.userid}}</span><span id="date">{{data.regesterdate}}1900.00.01</span><span> 조회수 = {{data.hit}} </span>{% if user.userid === data.userid %}
-            <span><a href="/board/@{{user.userid}}/{{data.id}}/modify">수정</a></span> <span><a href="#">삭제</a></span
+            <span id="userid">{{data.userid}}</span><span id="date" class="innerText">{{data.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span
+            ><span> 조회수 = {{data.hit}} </span>{% if user.userid === data.userid %} <span><a href="/board/@{{user.userid}}/{{data.id}}/modify">수정</a></span>
+            <span class="delete"><a href="/board/@{{user.userid}}/{{data.id}}/delete">삭제</a></span
             >{% endif %}
         </div>
         <div id="hashs">{{data.tagname}}</div>
@@ -41,7 +42,7 @@
     </div>
     <div id="comments">
         <div id="total">
-            <h3>{{asdasd}}개의 댓글이 있습니다</h3>
+            <h3>{{data.commentCount}} 개의 댓글이 있습니다</h3>
         </div>
         <form method="post" action="" id="commentfrm">
             <div id="commentFrmInput">
@@ -50,12 +51,22 @@
             </div>
             <button type="submit">댓글 등록</button>
         </form>
-        <div id="dlatl">
+        <div id="temp">
             <ul>
-                <li id="commentContent">{{content}}1</li>
-                <li id="commentWriter">{{writer}}2</li>
-                <li id="commnetDate">{{regesterdate}}3</li>
-                <span id="commentRecomment">댓글달기</span>
+                {% for item in comment %}
+                <li id="commentContent">
+                    <div class="writeData">
+                        <span id="commentUser" class="writer">{{item.userid}}</span>
+                        <span id="commnetDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
+                    </div>
+                    <p>{{item.content}}</p>
+                    <div id="btns">
+                        <button id="updateBtn" class="commentBtn">수정</button>
+                        <button id="deleteBtn" class="commentBtn">삭제</button>
+                    </div>
+                    <span id="commentRecomment">➕댓글달기</span>
+                </li>
+                {% endfor %}
             </ul>
         </div>
         <template id="commentList">
@@ -93,6 +104,7 @@
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="module" src="/js/lib/request.js"></script>
+<script type="module" src="/js/lib/timestamp.js"></script>
 <script type="module" src="/js/module/board/view.js"></script>
 {% endblock %}
 
