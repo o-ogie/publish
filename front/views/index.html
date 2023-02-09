@@ -6,11 +6,22 @@
         <div id="gnb">
             <div id="sortBox">
                 <form action="" method="get">
-                    <select onchange="this.form.submit()" name="sort" id="sortSwitch">
+                    <select onchange="this.form.submit()" name="sort" id="sortSwitch" class="switch">
                         <option value="A.id">최신순</option>
                         <option value="A.hit">조회순</option>
                         <option value="commentCount">댓글많은순</option>
                         <option value="likeCount">추천순</option>
+                    </select>
+                </form>
+            </div>
+            <div id="categoryBox">
+                <form action="" method="get">
+                    <select onchange="this.form.submit()" name="category" id="categorySwitch" class="switch" >
+                        <option value="default">카테고리</option>
+                        <option value="tech">기술</option>
+                        <option value="food">음식</option>
+                        <option value="travel">여행</option>
+                        <option value="life">일상</option>
                     </select>
                 </form>
             </div>
