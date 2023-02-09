@@ -15,7 +15,7 @@ class BoardService {
             }
             console.log('sev where:::::',obj)
             const list = await this.boardRepository.findAll(obj)
-            if (list.length === 0) throw "내용이 없습니다";
+            // if (list.length === 0) throw "내용이 없습니다";
             // console.log("serv", list);
             return list;
         } catch (e) {
