@@ -70,11 +70,14 @@ class BoardController {
         }
     }
     async putView(req, res, next) {
-        console.log(`putCon:`, req.params.idx, req.body.subject, req.body.content, req.body.hashtag, req.body.category, req.body.introduce);
+        // console.log(`putCon:`, req.params.idx, req.body.subject, req.body.content, req.body.hashtag, req.body.category, req.body.introduce);
         try {
+            const putdata = req.body;
+            const data = { id: req.params.idx, ...putdata };
             if (!req.body.subject) throw new Error("제목을 입력해주세요");
             if (!req.body.content) throw new Error("수정할 내용을 입력해주세요");
-            const [view] = await this.boardService.putView(req.params.idx, req.body.subject, req.body.content, req.body.hashtag, req.body.category, req.body.introduce);
+            const view = await this.boardService.putView(data);
+            console.log("con respone", view);
             res.status(201).json(view);
         } catch (e) {
             next(e);
@@ -164,7 +167,17 @@ class BoardController {
         try {
             const userid = req.params.id;
             const respone = await this.boardService.checkTemp(userid);
+            console.log(respone);
             res.json(respone);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async delTemp(req, res, next) {
+        try {
+            const userid = req.params.id;
+            await this.boardService.deleteTemp(userid);
         } catch (e) {
             next(e);
         }

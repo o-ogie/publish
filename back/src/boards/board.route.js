@@ -8,6 +8,8 @@ router.get("/:id", (req, res, next) => controller.getMain(req, res, next));
 router.get("/:id/:idx/:userid", (req, res, next) => controller.getView(req, res, next));
 router.get("/:id/favorites", (req, res, next) => controller.getFavor(req, res, next));
 router.get("/:id/temp", (req, res, next) => controller.getTemp(req, res, next));
+
+router.delete("/:id/temp", (req, res, next) => controller.delTemp(req, res, next));
 router.post("/", (req, res, next) => controller.postWrite(req, res, next));
 router.post("/temp", (req, res, next) => controller.postTemp(req, res, next));
 router.post("/array", upload.fields([{ name: "upload1" }, { name: "mainimg" }]), (req, res) => {

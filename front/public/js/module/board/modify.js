@@ -2,6 +2,9 @@ const update = document.querySelector("#updateBtn");
 const frm = document.querySelector("#frm");
 const mirror = document.querySelector(".ProseMirror");
 const hash = document.querySelector("#hash");
+const prevFrm = document.querySelector("#previewWrap");
+const cancelBtn = document.querySelector("#cancelBtn");
+console.log(update);
 
 const createhash = (strhash) => {
     if (strhash.innerHTML === "") return;
@@ -18,23 +21,30 @@ const createhash = (strhash) => {
 
 createhash(hash);
 
-const updateHandler = (e) => {
-    e.preventDefault();
-    const contentValue = mirror.innerHTML;
-    frm.content.value = contentValue;
-    const hashs = [];
-    const hashtags = document.querySelectorAll("#hash > p");
-    for (let i = 0; i < hashtags.length; i++) {
-        hashs.push(hashtags[i].innerHTML);
-    }
-    hash.value = hashs;
-    if (frm.subject.value === "") {
-        alert("내용을 입력해주세요");
-    } else {
-        console.log("됨");
-        frm.submit();
-    }
-};
+// const updateHandler = (e) => {
+//     e.preventDefault();
+//     const contentValue = mirror.innerHTML;
+//     frm.content.value = contentValue;
+//     const hashs = [];
+//     const hashtags = document.querySelectorAll("#hash > p");
+//     for (let i = 0; i < hashtags.length; i++) {
+//         hashs.push(hashtags[i].innerHTML);
+//     }
+//     hash.value = hashs;
+//     if (frm.subject.value === "") {
+//         alert("내용을 입력해주세요");
+//     } else {
+//         console.log("됨");
+//         frm.submit();
+//     }
+// };
 
-update.addEventListener("click", updateHandler);
+update.addEventListener("click", (e) => {
+    prevFrm.classList.add("on");
+});
+cancelBtn.addEventListener("click", (e) => {
+    prevFrm.classList.remove("on");
+});
+
+// update.addEventListener("click", updateHandler);
 

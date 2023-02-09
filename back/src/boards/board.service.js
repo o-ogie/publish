@@ -105,13 +105,36 @@ class BoardService {
             // throw new this.BadRequest(e);
         }
     }
-    async putView(idx, subject, content, hashtag, category, introduce) {
-        console.log(`serv :`, { idx, subject, content, hashtag, category, introduce });
+    async putView(putdata) {
+        console.log(`serv :`, putdata);
         try {
-            const temp = "1";
-            const view = await this.boardRepository.updateBoard({ idx, subject, content, hashtag, category, introduce });
-            if (view < 1) throw "수정할 게시글이 없습니다";
-            return [temp, view];
+            const { id, subject, content, hashtag, category, introduce, userid } = putdata;
+            console.log(id === "temp");
+            if (id === "temp") {
+                if (!userid || !subject || !content) throw "내용이 없습니다";
+                const imgs = content
+                    .split("img src=")
+                    .filter((v) => v.indexOf("http") !== -1)
+                    .map((v) => v.split("&gt")[0]);
+                const boarddata = {
+                    userid,
+                    subject,
+                    content,
+                    hashtag,
+                    category,
+                    introduce,
+                    image: imgs[0],
+                };
+                if (!imgs[0]) delete boarddata.image;
+                const view = await this.boardRepository.createBoard(boarddata);
+                await this.boardRepository.tempDestroy(userid);
+                return view;
+            } else {
+                const view = await this.boardRepository.updateBoard({ id, subject, content, hashtag, category, introduce });
+
+                if (view < 1) throw "수정할 게시글이 없습니다";
+                return view;
+            }
         } catch (e) {
             throw new this.BadRequest(e);
         }
@@ -206,7 +229,16 @@ class BoardService {
     async checkTemp(userid) {
         try {
             const checked = this.boardRepository.tempCheck(userid);
+            console.log(checked);
             return checked;
+        } catch (e) {
+            throw new this.BadRequest(e);
+        }
+    }
+
+    async deleteTemp(userid) {
+        try {
+            await this.boardRepository.tempDestroy(userid);
         } catch (e) {
             throw new this.BadRequest(e);
         }

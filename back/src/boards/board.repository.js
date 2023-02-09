@@ -122,6 +122,9 @@ class BoardRepository {
             const addHash = hashtag.map((tagname) => this.Hash.findOrCreate({ where: { tagname } }));
             const tagResult = await Promise.all(addHash);
             await createBoard.addHashes(tagResult.map((v) => v[0]));
+            const temp = await this.Temp.findOne({ raw: true, where: { userid } });
+            await this.Temp.destroy({ where: { userid } });
+
             return createBoard.dataValues;
         } catch (e) {
             throw new Error(e);
@@ -136,15 +139,15 @@ class BoardRepository {
             throw new Error(e);
         }
     }
-    async updateBoard({ idx, subject, content, hashtag, category, introduce }) {
-        console.log("update :", idx, subject, content, hashtag, category, introduce);
+    async updateBoard({ id, subject, content, hashtag, category, introduce }) {
+        console.log("update :", id, subject, content, hashtag, category, introduce);
         try {
             const updateBoard = await this.Board.update(
                 {
                     subject: subject,
                     content: content,
                 },
-                { where: { id: idx } }
+                { where: { id: id } }
             );
             if (hashtag[0]) {
                 const addHash = hashtag.map((tagname) => this.Hash.findOrCreate({ where: { tagname } }));
@@ -259,6 +262,15 @@ class BoardRepository {
     async tempCheck(userid) {
         try {
             const respone = await this.Temp.findOne({ raw: true, where: { userid } });
+            return respone;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async tempDestroy(userid) {
+        try {
+            const respone = await this.Temp.destroy({ raw: true, where: { userid } });
             return respone;
         } catch (e) {
             throw new Error(e);
