@@ -9,6 +9,7 @@ const likelist = document.querySelector(".likewho");
 const commentfrm = document.querySelector("#commentfrm");
 const boarddel = document.querySelector(".delete");
 const commetadd = document.querySelectorAll("#commentRecomment");
+const commentbtn = document.querySelectorAll("#btns");
 
 const createhash = (strhash) => {
     if (strhash.innerHTML === "") return;
@@ -97,27 +98,29 @@ const commentHandler = async (e) => {
 commentfrm.addEventListener("submit", commentHandler);
 
 const addcommentHandler = (e) => {
-    const array = e.target.parentNode.children;
-    if (array["commentfrm"]) return;
-    const clone = commentfrm.cloneNode(true);
-    const parent = e.target.parentNode;
-    const groupindex = parent.dataset.index;
-    parent.append(clone);
-    clone.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const comment = clone.comment.value;
-        const userid = nowme.value;
-        const body = {
-            userid,
-            parentid: groupindex,
-            content: comment,
-        };
-        const path = document.location.pathname;
-        const [emptyval, board, id, idx] = path.split("/");
-        const respone = await request.post(`/boards/${idx}/comments`, body);
-        console.log(body);
-        location.href = `/board/${id}/${idx}`;
-    });
+    const array = e.target.parentNode.parentNode.children;
+    if (array["commentfrm"]) document.querySelector("#commentContent > form").remove();
+    else {
+        const clone = commentfrm.cloneNode(true);
+        const parent = e.target.parentNode.parentNode;
+
+        const groupindex = parent.dataset.index;
+        parent.append(clone);
+        clone.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const comment = clone.comment.value;
+            const userid = nowme.value;
+            const body = {
+                userid,
+                parentid: groupindex,
+                content: comment,
+            };
+            const path = document.location.pathname;
+            const [emptyval, board, id, idx] = path.split("/");
+            const respone = await request.post(`/boards/${idx}/comments`, body);
+            location.href = `/board/${id}/${idx}`;
+        });
+    }
 };
 
 commetadd.forEach((v) => {
@@ -141,4 +144,60 @@ const deleteHandler = async (e) => {
 };
 
 boarddel.addEventListener("click", deleteHandler);
+
+const commentDelete = async (e) => {
+    switch (e.target.id) {
+        case "deleteBtn":
+            const commentidx = e.target.parentNode.parentNode.dataset.index;
+            const path = document.location.pathname;
+            const [emptyval, board, id, idx] = path.split("/");
+            if (confirm("삭제하시겠습니까")) {
+                if (confirm("정말로 삭제하시겠습니까")) {
+                    await request.delete(`/boards/${id}/comments/${commentidx}`);
+                    location.href = `/board/${id}/${idx}`;
+                } else {
+                    return;
+                }
+            }
+            break;
+        case "updateBtn":
+            const target = e.target.parentNode.parentNode;
+            const input = target.querySelector("input");
+            const span = document.createElement("span");
+            const btndiv = target.querySelector("#btns");
+            input.disabled = false;
+            input.focus();
+            span.id = "submitbtn";
+            span.innerHTML = "완료";
+            btndiv.append(span);
+            const update = target.querySelector("#updateBtn");
+            update.remove();
+            break;
+        case "submitbtn":
+            if (confirm("수정하시겠습니까")) {
+                const commentidx = e.target.parentNode.parentNode.dataset.index;
+
+                const target = e.target.parentNode.parentNode;
+                const input = target.querySelector("input");
+                const comment = input.value;
+                const userid = nowme.value;
+                const body = {
+                    userid,
+                    content: comment,
+                };
+                const path = document.location.pathname;
+                const [emptyval, board, id, idx] = path.split("/");
+                const respone = await request.put(`/boards/${id}/comments/${commentidx}`, body);
+                location.href = `/board/${id}/${idx}`;
+            } else {
+                return;
+            }
+
+            break;
+    }
+};
+
+for (let i = 0; i < commentbtn.length; i++) {
+    commentbtn[i].addEventListener("click", commentDelete);
+}
 
