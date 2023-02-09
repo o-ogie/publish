@@ -11,10 +11,11 @@ const request = axios.create({
 
 router.get("/", async (req, res) => {
     // console.log(`req.user :`, req.user);
-    const {searchType, search} = req.query
-    const respone = await request.get("/boards/",{data:{searchType,search}});
+    const {searchType, search, sort} = req.query
+    console.log('index::::: st sch srt',searchType,search,sort)
+    const respone = await request.get("/boards/",{data:{searchType,search, sort}});
     const list = respone.data
-    console.log(list)
+    // console.log(list)
     // if( req.query.searchType){
     //     const {searchType, search} = req.query
         

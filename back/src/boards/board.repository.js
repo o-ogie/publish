@@ -9,7 +9,7 @@ class BoardRepository {
         this.Liked = Liked;
     }
 
-    async findList() {
+    async findList(sort) {
         try {
             const query = `SELECT 
       A.id,
@@ -29,7 +29,7 @@ class BoardRepository {
       JOIN Hashtag AS C
       ON A.id = C.boardid
       GROUP BY A.id
-      ORDER BY A.id DESC;`;
+      ORDER BY id DESC;`;
             const [findAll] = await this.sequelize.query(query);
             return findAll;
         } catch (e) {
@@ -37,7 +37,7 @@ class BoardRepository {
         }
     }
 
-    async findAll({searchType, search}) {
+    async findAll({searchType, sort}) {
         try {
             const query = `SELECT 
         A.id,
@@ -56,9 +56,9 @@ class BoardRepository {
         ON A.userid = B.userid
         JOIN Hashtag AS C
         ON A.id = C.boardid
-        Where ${searchType}= "${search}"
+        ${searchType}
         GROUP BY A.id
-        ORDER BY A.id DESC;`;
+        ORDER BY ${sort} DESC;`;
             const [findAll] = await this.sequelize.query(query);
             console.log('findAll::::',findAll);
             return findAll;

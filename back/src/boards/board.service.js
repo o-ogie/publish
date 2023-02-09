@@ -6,22 +6,29 @@ class BoardService {
         this.jwt = jwt;
     }
 
-    async getList(where) {
+    async getList({searchType, search, sort, content}) {
         try {
-            let list
-            console.log(where)
-            if(where.searchType){
-                console.log('findAll')
-                list = await this.boardRepository.findAll(where)
-            }else{
-                console.log('findlist')
-                list = await this.boardRepository.findList();
+
+            const obj = {
+                searchType : !searchType ? '' :  `WHERE ${searchType}="${search}"`, 
+                sort : sort || 'A.id',
             }
+            console.log('sev where:::::',obj)
+            const list = await this.boardRepository.findAll(obj)
+            // if(where.searchType){
+            //     console.log('findAll')
+            //     list = await this.boardRepository.findAll(where)
+            // }else{
+            //     console.log('findlist')
+            //     list = await this.boardRepository.findList();
+            // }
+            // if (sort === 'id' || sort === 'hit') sort = `A.${sort}`
+            // list = await this.boardRepository.findList(sort);
             if (list.length === 0) throw "내용이 없습니다";
-            console.log("serv", list);
+            // console.log("serv", list);
             return list;
         } catch (e) {
-            throw new this.BadRequest(e);
+            // throw new this.BadRequest(e);
         }
     }
     async getView(id, idx) {
