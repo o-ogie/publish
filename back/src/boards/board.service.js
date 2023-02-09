@@ -13,7 +13,7 @@ class BoardService {
 
             const obj = {
                 searchType : !searchType ? '' :  `WHERE ${searchType}="${search}"`, 
-                sort : `A.${sort}` || 'A.id',
+                sort : sort || 'A.id',
             }
             console.log('sev where:::::',obj)
             const list = await this.boardRepository.findAll(obj)

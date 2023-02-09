@@ -187,17 +187,31 @@ input {
     z-index: 3;
     display: flex;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     flex-wrap: wrap;
+    overflow: hidden;
 }
+#previewWrap > .bannerText {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background: url(https://cdn.dribbble.com/users/113499/screenshots/7146093/space-cat.png) no-repeat;
+    background-color: rgb(35, 76, 166);
+    background-size: 40%;
+    background-position: right 30%;
+    color: #fff;
+    font-size: 20px;
+}
+
 #previewWrap .itemPartA {
     width: 200px;
-    height: 200px;
+    height: 140px;
 }
 #previewWrap .itemPartB {
     width: 200px;
-    height: 200px;
+    height: 140px;
 }
-
 #previewWrap .itemPartC {
     width: 400px;
     height: 200px;
