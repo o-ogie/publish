@@ -52,7 +52,10 @@
                 <a href="/board/{{item.userid}}/{{item.id}}">
                     <div class="itemWrap">
                         <div class="itemPartA">
-                            <div class="boardThumbnail"><img src="{{item.image}}" alt="" loading="lazy" /></div>
+                            <div class="boardThumbnail">
+                                <img src="{{item.image}}" alt="" loading="lazy" />
+                                <span class="category">{{item.category}}</span>
+                            </div>
                             <span class="boardTitle">{{item.subject}}</span>
                             {% if item.tagname %}
                             <ul class="tagList">
@@ -89,4 +92,10 @@
 </div>
 <script type="module" src="/js/module/index.js"></script>
 <script type="module" src="/js/lib/timestamp.js"></script>
+<script>
+    const category = document.querySelectorAll(".category");
+    for (item of category) {
+        item.className = `category ${item.innerHTML}`
+    }
+</script>
 {% endblock%}
