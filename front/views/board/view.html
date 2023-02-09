@@ -12,8 +12,8 @@
         </div>
         <div id="boardInfo">
             <span id="userid">{{data.userid}}</span><span id="date" class="innerText">{{data.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span
-            ><span> 조회수 = {{data.hit}} </span>{% if user.userid === data.userid %} <span><a href="/board/@{{user.userid}}/{{data.id}}/modify">수정</a></span>
-            <span class="delete"><a href="/board/@{{user.userid}}/{{data.id}}/delete">삭제</a></span
+            ><span> 조회수 = {{data.hit}} </span>{% if user.userid === data.userid %} <span><a href="/board/{{user.userid}}/{{data.id}}/modify">수정</a></span>
+            <span class="delete"><a href="/board/{{user.userid}}/{{data.id}}/delete">삭제</a></span
             >{% endif %}
         </div>
         <div id="hashs">{{data.tagname}}</div>

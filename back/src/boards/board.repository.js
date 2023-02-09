@@ -10,17 +10,16 @@ class BoardRepository {
         this.Liked = Liked;
     }
 
-
     async findAll({ searchType, search, sort, category }) {
         try {
             let where;
-            if (searchType === 'A.subject'){
-                where = `WHERE ${searchType} LIKE '%${search}%'`
-            }else{
+            if (searchType === "A.subject") {
+                where = `WHERE ${searchType} LIKE '%${search}%'`;
+            } else {
                 where = !searchType ? "" : `WHERE ${searchType}="${search}"`;
             }
             const sortKey = !sort ? `ORDER BY A.id DESC` : `ORDER BY ${sort} DESC`;
-            const categoryKey = !category ? `` : `WHERE category="${category}"`
+            const categoryKey = !category ? `` : `WHERE category="${category}"`;
 
             const query = `SELECT 
         A.id,
@@ -43,15 +42,15 @@ class BoardRepository {
         ON A.id = C.boardid
         ${where}${categoryKey}
         GROUP BY A.id
-        ${sortKey};`
+        ${sortKey};`;
             const [findAll] = await this.sequelize.query(query);
-            console.log('findAll::::',findAll);
+            console.log("findAll::::", findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
         }
     }
-    async findMain({id, sql}) {
+    async findMain({ id, sql }) {
         try {
             const query = `SELECT 
       A.id,
@@ -120,7 +119,6 @@ class BoardRepository {
         try {
             const { userid, subject, content, hashtag, category, introduce, image } = boarddata;
             const createBoard = await this.Board.create(boarddata);
-            console.log(`boarddata222::::`, createBoard);
             const addHash = hashtag.map((tagname) => this.Hash.findOrCreate({ where: { tagname } }));
             const tagResult = await Promise.all(addHash);
             await createBoard.addHashes(tagResult.map((v) => v[0]));
@@ -131,8 +129,8 @@ class BoardRepository {
     }
     async createTemp(boarddata) {
         try {
-            let result = await this.Temp.findOrCreate({ where: { userid: boarddata.userid } })
-            if (result) await this.Temp.update(boarddata, { where : { userid: boarddata.userid }});
+            let result = await this.Temp.findOrCreate({ where: { userid: boarddata.userid } });
+            if (result) await this.Temp.update(boarddata, { where: { userid: boarddata.userid } });
             return result;
         } catch (e) {
             throw new Error(e);
@@ -245,13 +243,24 @@ class BoardRepository {
     async likecheck({ userid, boardid }) {
         try {
             const respone = await this.Liked.findAll();
-        } catch (e) {}
+        } catch (e) {
+            throw new Error(e);
+        }
     }
 
     async updatehit(id) {
         try {
             await this.Board.increment({ hit: 1 }, { where: { id: id } });
-        } catch (error) {
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async tempCheck(userid) {
+        try {
+            const respone = await this.Temp.findOne({ raw: true, where: { userid } });
+            return respone;
+        } catch (e) {
             throw new Error(e);
         }
     }

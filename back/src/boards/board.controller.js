@@ -74,8 +74,8 @@ class BoardController {
         try {
             if (!req.body.subject) throw new Error("제목을 입력해주세요");
             if (!req.body.content) throw new Error("수정할 내용을 입력해주세요");
-            const response = await this.boardService.putView(req.params.idx, req.body.subject, req.body.content, req.body.hashtag, req.body.category, req.body.introduce );
-            res.status(201).json(response);
+            const [view] = await this.boardService.putView(req.params.idx, req.body.subject, req.body.content, req.body.hashtag, req.body.category, req.body.introduce);
+            res.status(201).json(view);
         } catch (e) {
             next(e);
         }
@@ -153,9 +153,21 @@ class BoardController {
     async getcheck(req, res, next) {
         try {
             const { id: userid, idx: boardid } = req.params;
-            const data = await this.boardService.checked({ userid, boardid });
+            const data = await this.boardService.likechecked({ userid, boardid });
             res.json(data);
-        } catch (e) {}
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async getTemp(req, res, next) {
+        try {
+            const userid = req.params.id;
+            const respone = await this.boardService.checkTemp(userid);
+            res.json(respone);
+        } catch (e) {
+            next(e);
+        }
     }
 }
 

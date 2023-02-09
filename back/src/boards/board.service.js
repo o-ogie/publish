@@ -10,7 +10,7 @@ class BoardService {
     async getList({ searchType, search, sort, category }) {
         try {
             console.log("scht, sch, srt", searchType, search, sort);
-            const list = await this.boardRepository.findAll({ searchType, search, sort, category});
+            const list = await this.boardRepository.findAll({ searchType, search, sort, category });
             // if (list.length === 0) throw "내용이 없습니다";
             // console.log("serv", list);
             return list;
@@ -20,7 +20,7 @@ class BoardService {
     }
     async getMain(id) {
         try {
-            id = {id, sql : ``}
+            id = { id, sql: `` };
             const main = await this.boardRepository.findMain(id);
             return main;
         } catch (e) {
@@ -28,10 +28,10 @@ class BoardService {
         }
     }
     async getFavor(id) {
-        console.log(`id:::`, id)
+        console.log(`id:::`, id);
         try {
-            const data = { id, sql : `JOIN Liked AS D ON A.id = D.boardid ` }
-            console.log(`data ::::`, data)            
+            const data = { id, sql: `JOIN Liked AS D ON A.id = D.boardid ` };
+            console.log(`data ::::`, data);
             const favor = await this.boardRepository.findMain(data);
             return favor;
         } catch (e) {
@@ -108,9 +108,10 @@ class BoardService {
     async putView(idx, subject, content, hashtag, category, introduce) {
         console.log(`serv :`, { idx, subject, content, hashtag, category, introduce });
         try {
+            const temp = "1";
             const view = await this.boardRepository.updateBoard({ idx, subject, content, hashtag, category, introduce });
             if (view < 1) throw "수정할 게시글이 없습니다";
-            return view;
+            return [temp, view];
         } catch (e) {
             throw new this.BadRequest(e);
         }
@@ -193,10 +194,19 @@ class BoardService {
         }
     }
 
-    async checked({ userid, boardid }) {
+    async likechecked({ userid, boardid }) {
         try {
             const checkdata = this.boardRepository.likecheck({ userid, boardid });
             return checkdata;
+        } catch (e) {
+            throw new this.BadRequest(e);
+        }
+    }
+
+    async checkTemp(userid) {
+        try {
+            const checked = this.boardRepository.tempCheck(userid);
+            return checked;
         } catch (e) {
             throw new this.BadRequest(e);
         }
