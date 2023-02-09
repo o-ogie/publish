@@ -169,17 +169,12 @@ input {
     position: absolute;
 }
 
-.previewimg {
-    width: 100px;
-    height: 100px;
-}
-
 
 #previewWrap {
-    height: 500px;
+    height: 460px;
     width: 500px;
     border-radius: 16px;
-    background-color: #ccc;
+    background-color: #eee;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -206,19 +201,103 @@ input {
 
 #previewWrap .itemPartA {
     width: 200px;
-    height: 140px;
+    height: 160px;
+    position: relative;
+    padding-top: 20px;
 }
+#categoryBox {
+    width: 96px;
+    height: 32px;
+    color: #4b78ea;
+    font-size: 1.1em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#categoryBox::after {
+    content: "▾";
+    position: absolute;
+    top: 0px;
+    right: 8px;
+}
+
+.sortSwitch {    
+    background: rgb(216, 216, 216);
+    color: #333;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+    width: 96px;
+    height: 32px;
+    border-radius: 4px;
+    font-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: relative;
+}
+
 #previewWrap .itemPartB {
     width: 200px;
-    height: 140px;
+    height: 160px;
+    padding-top: 20px;
 }
+#previewWrap .itemPartB #thumbnail > p {
+    padding-bottom: 10px;
+}
+.previewimg {
+    width: 160px;
+    height: 100px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+
+
 #previewWrap .itemPartC {
     width: 400px;
-    height: 200px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+#introduce textarea {
+    height: 100px;
+    width: 320px;
+    outline: none;
+    background: #dedede;
+    border: none;
+    border-radius: 4px;
+    padding-top: 20px;
+    padding-left: 20px;
+    font-size: 16px;
+}
+
 #previewWrap .itemPartD {
-    width: 400px;
-    height: 80px;
+    width: 300px;
+    height: 60px;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+#previewWrap .itemPartD button {
+    width: 80px;
+    height: 30px;
+    border: none;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: #5161f4;
+    transition: all 0.3s ease-out;
+    color: #fff;
+    cursor: pointer;
+}
+#previewWrap .itemPartD button:hover {
+    background-color: #00337C;
+    transition: all 0.3s ease-out;
+}
+#previewWrap .itemPartD #cancelBtn {
+    background-color: #626aab;
 }
 
 

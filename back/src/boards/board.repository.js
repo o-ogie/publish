@@ -12,7 +12,7 @@ class BoardRepository {
     async findAll({searchType, search, sort}) {
         try {
             const where = !searchType ? '' :  `WHERE ${searchType}="${search}"` 
-            const sortKey = !sort ? `ORDER BY A.id DESC;` : `ORDER BY ${sort}`
+            const sortKey = !sort ? `ORDER BY A.id DESC;` : `ORDER BY ${sort} DESC`
             console.log('repo',where, sortKey)
             const query = `SELECT 
         A.id,
@@ -48,10 +48,11 @@ class BoardRepository {
       A.id,
       A.userid, 
       A.subject, 
-      A.content,
+      A.introduce,
       A.createdAt, 
       A.hit,
       A.image,
+      A.category,
       B.userImg,
       B.nickname,
       (SELECT GROUP_CONCAT(D.userid SEPARATOR ', ') FROM Liked AS D WHERE A.id = D.boardid) AS likeidlist,
