@@ -12,10 +12,15 @@ class BoardRepository {
 
     async findAll({ searchType, search, sort, category }) {
         try {
-            const where = !searchType ? "" : `WHERE ${searchType}="${search}"`;
-            const sortKey = !sort ? `ORDER BY A.id DESC;` : `ORDER BY ${sort} DESC`;
+            let where;
+            if (searchType === 'A.subject'){
+                where = `WHERE ${searchType} LIKE '%${search}%'`
+            }else{
+                where = !searchType ? "" : `WHERE ${searchType}="${search}"`;
+            }
+            const sortKey = !sort ? `ORDER BY A.id DESC` : `ORDER BY ${sort} DESC`;
             const categoryKey = !category ? `` : `WHERE category="${category}"`
-            console.log("repo", where, sortKey);
+
             const query = `SELECT 
         A.id,
         A.userid, 
@@ -37,7 +42,7 @@ class BoardRepository {
         ON A.id = C.boardid
         ${where}${categoryKey}
         GROUP BY A.id
-        ${sortKey};`;
+        ${sortKey};`
             const [findAll] = await this.sequelize.query(query);
             console.log('findAll::::',findAll);
             return findAll;
