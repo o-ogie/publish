@@ -95,17 +95,7 @@ const submithandler = async (e) => {
 
 
 // 임시 저장
-tempBtn.addEventListener("click", async ()=> {
-
-    try {
-        if (!frm.subject.value || !document.querySelector("#userid").value) {
-            throw new Error("제목을 입력해주세요");
-        }
-    } catch (e) {
-        alert(e);
-        e.preventDefault();
-    }
-
+const tempHandler = async () => {
     const contentDiv = document.querySelector(".ProseMirror");
     const contentValue = contentDiv.innerHTML;
     frm.content.value = contentValue;
@@ -117,10 +107,28 @@ tempBtn.addEventListener("click", async ()=> {
     }
     const response = await request.post("/boards/temp", body);
     if (response.data) {
-        alert("글이 임시저장되었습니다")
+        document.querySelector("#tempMessage").classList.add("on")
+        setTimeout(()=> { document.querySelector("#tempMessage").classList.remove("on")}, 4000)   
     }
-})
+}
 
+tempBtn.addEventListener("click", async ()=> {
+    try {
+        if (!frm.subject.value || !document.querySelector("#userid").value) {
+            throw new Error("제목을 입력해주세요");
+        }
+    } catch (e) {
+        alert(e);
+        e.preventDefault();
+    }
+    tempHandler()
+})
+document.addEventListener("DOMContentLoaded", () => {
+    if (frm.subject.value || document.querySelector("#userid").value)
+    setInterval(() => {
+        tempHandler();
+    }, 60000)
+})
 
 
 
