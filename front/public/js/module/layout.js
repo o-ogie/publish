@@ -59,8 +59,11 @@ const socket = io.connect('http://localhost:3000',{
   transports:['websocket']
 })
 
+
 // User 명단 List 받기
+let user;
 socket.on('users',(data)=>{
+  if (JSON.stringify(user)===JSON.stringify(data.participant)) return
   console.log(data)
   const toUser = document.querySelector('#toUser')
   const userList = document.querySelector('#participant')
@@ -68,9 +71,11 @@ socket.on('users',(data)=>{
   userList.innerHTML = ''
 
   // 채팅 참여자 명단, 대화 대상 select 생성
+  user = data.participant
   data.participant.forEach((nickname)=>{
       const user = document.createElement('p')
       const to = document.createElement('option')
+    toUser.options.length = 1
       user.innerHTML = nickname
       userList.append(user)
   
@@ -84,6 +89,7 @@ socket.on('users',(data)=>{
   userCount.innerHTML = data.participant.length
 
 })
+
 
 socket.on('hello',(data)=>{
   console.log(data)

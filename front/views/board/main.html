@@ -29,6 +29,9 @@
             <ul id="myList">
                 {% for item in list %}
                 <li class="boardItem">
+                    {% if user.level === 'admin' %}
+                    <span class="hideItem"><iconify-icon icon="mdi:hide"></iconify-icon></span>
+                    {% endif %}
                     <div class="itemWrap">
                         <div class="itemPartA">
                             <div class="boardThumbnail">
@@ -88,6 +91,7 @@
     // 태그 추출
     const text = document.querySelector("#hashtag > p").innerHTML
     const tags = text.match(/#\w+/g)
+
 
     const ul = document.querySelector("#hashtag  ul");
     tags.forEach(tag => {

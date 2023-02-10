@@ -22,6 +22,12 @@ class BoardService {
         try {
             id = { id, sql: `` };
             const main = await this.boardRepository.findMain(id);
+            if (main) {
+                const tagnames = main.map(v => v.tagname).join(', ').split(', ')
+                const tagArr = [...new Set(tagnames)]
+                console.log(tagArr)
+            }
+
             return main;
         } catch (e) {
             throw new this.BadRequest(e);
@@ -242,6 +248,10 @@ class BoardService {
         } catch (e) {
             throw new this.BadRequest(e);
         }
+        
+    async profile(userid){
+        const [[response]] = await this.boardRepository.getMyAttention(userid)
+        return response
     }
 }
 

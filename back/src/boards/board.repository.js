@@ -13,9 +13,9 @@ class BoardRepository {
     async findAll({ searchType, search, sort, category }) {
         try {
             let where;
-            if (searchType === "A.subject") {
-                where = `WHERE ${searchType} LIKE '%${search}%'`;
-            } else {
+            if (searchType === 'A.subject' | searchType === 'A.content'){
+                where = `WHERE ${searchType} LIKE '%${search}%'`
+            }else{
                 where = !searchType ? "" : `WHERE ${searchType}="${search}"`;
             }
             const sortKey = !sort ? `ORDER BY A.id DESC` : `ORDER BY ${sort} DESC`;
@@ -243,12 +243,25 @@ class BoardRepository {
         }
     }
 
-    async likecheck({ userid, boardid }) {
-        try {
-            const respone = await this.Liked.findAll();
-        } catch (e) {
-            throw new Error(e);
-        }
+    async getMyAttention(userid) {
+            const sql = `SELECT 
+            (SELECT COUNT(*) 
+            FROM Liked 
+            WHERE boardid IN( SELECT id FROM Board WHERE userid='${userid}')
+            ) AS likes, 
+            (SELECT COUNT(*) 
+            FROM Comment 
+            WHERE boardid IN( SELECT id FROM Board WHERE userid='${userid}')) 
+            AS comment, 
+            SUM(hit) 
+            AS view 
+            FROM board 
+            where userid='${userid}';`
+            
+            const result = await this.sequelize.query(sql)
+            console.log('result:::::',result)
+            return result
+
     }
 
     async updatehit(id) {

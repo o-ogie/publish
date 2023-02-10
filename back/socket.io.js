@@ -5,6 +5,8 @@ module.exports = (server,app)=>{
     const users = {}
     let participant = []
 
+    
+
     /** Client 접속 이벤트 */
     io.on('connection',(socket)=>{
 
@@ -18,10 +20,16 @@ module.exports = (server,app)=>{
         participant.push(nickname)
         socket.emit('users',{participant,nickname, users})
 
+        const setCode = setInterval(()=>{
+            socket.emit('users',{participant,nickname, users})
+        },2000)
 
         /**Client 접속시 현재 접속자들에게 누가 들어왔는지 알려줌. */
         socket.broadcast.emit('hello',`${nickname}님이 입장하셨습니다.`)
 
+        // socket.on('getUser',()=>{
+        //     socket.emit('users',{participant,nickname, users})
+        // })
 
         /**한 Client가 메세지를 날렸을시 모든 사용자에게 메세지를 전달해줌.
          * or 같은 Room의 사용자 ( 이건 되는지 모름. 추후에 Room 구현하고 코드 수정 )
