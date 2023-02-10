@@ -144,6 +144,17 @@ class BoardController {
             res.json(data);
         } catch (e) {}
     }
+
+    async attention(req,res,next){
+        try{
+            const {userid} = req.params
+            console.log('userid:::::::::::::::::',userid)
+            const response = await this.boardService.profile(userid)
+            res.json(response)
+        }catch(e){
+            next(e)
+        }
+    }
 }
 
 module.exports = BoardController;

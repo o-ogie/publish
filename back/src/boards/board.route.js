@@ -4,6 +4,7 @@ const { controller } = require("./board.module");
 const upload = require("../../middlewares/boardup");
 
 router.get("/", (req, res, next) => controller.getList(req, res, next));
+router.get("/profile/:userid", (req,res,next)=> controller.attention(req,res,next))
 router.get("/:id", (req, res, next) => controller.getMain(req, res, next));
 router.get("/:id/:idx/:userid", (req, res, next) => controller.getView(req, res, next));
 router.get("/:id/favorites", (req, res, next) => controller.getFavor(req, res, next));
@@ -31,6 +32,7 @@ router.get("/:id/:idx/likes", (req, res, next) => controller.getcheck(req, res, 
 // router.post("/single", upload.single("filename"), (req, res) => {
 //     res.send(req.file);
 // });
+
 
 module.exports = router;
 
