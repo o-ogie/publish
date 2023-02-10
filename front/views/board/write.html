@@ -5,7 +5,7 @@
 <body>
     <div id="boardwrap">
         <div id="insert">
-            <input type="hidden" value={{userid}} id="userid">
+            <input type="hidden" value="{{userid}}" id="userid" />
             <div id="tempMessage">포스트가 임시저장되었습니다</div>
             <form id="frm" method="post" action="/board">
                 <ul id="board">
@@ -49,18 +49,18 @@
                             </select>
                         </div>
                     </div>
-                    <div class="itemPartB"> 
+                    <div class="itemPartB">
                         <div id="thumbnail">
                             <p>썸네일 미리보기</p>
                         </div>
                     </div>
                     <div class="itemPartC">
                         <div id="introduce"><textarea name="introduce" class="introText" cols="10" rows="10" placeholder="당신의 글을 소개해주세요"></textarea></div>
-                    </div>    
+                    </div>
                     <div class="itemPartD">
                         <button id="cancelBtn" class="btns">등록 취소</button>
                         <button id="insertBtn" class="btns" type="submit">등록 완료</button>
-                    </div>    
+                    </div>
                 </div>
             </form>
         </div>
@@ -85,6 +85,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="/js/lib/request.js"></script>
     <script type="module" src="/js/module/board/board.js"></script>
+    <script type="module" src="/js/module/board/write.js"></script>
 </body>
 {% endblock %}
 

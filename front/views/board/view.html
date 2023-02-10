@@ -12,8 +12,8 @@
         </div>
         <div id="boardInfo">
             <span id="userid">{{data.userid}}</span><span id="date" class="innerText">{{data.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span
-            ><span> 조회수 = {{data.hit}} </span>{% if user.userid === data.userid %} <span><a href="/board/@{{user.userid}}/{{data.id}}/modify">수정</a></span>
-            <span class="delete"><a href="/board/@{{user.userid}}/{{data.id}}/delete">삭제</a></span
+            ><span> 조회수 = {{data.hit}} </span>{% if user.userid === data.userid %} <span><a href="/board/{{user.userid}}/{{data.id}}/modify">수정</a></span>
+            <span class="delete"><a href="/board/{{user.userid}}/{{data.id}}/delete">삭제</a></span
             >{% endif %}
         </div>
         <div id="hashs">{{data.tagname}}</div>
@@ -59,14 +59,16 @@
                         <span id="commentUser" class="writer">{{item.userid}}</span>
                         <span id="commnetDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
                     </div>
-                    <p>{{item.content}}</p>
+                    <input type="text" class="commentContent" value="{{item.content}}" disabled />
                     <div id="btns">
                         {% if item.userid === user.userid %}
                         <button id="updateBtn" class="commentBtn">수정</button>
                         <button id="deleteBtn" class="commentBtn">삭제</button>
                         {% endif %}
                     </div>
-                    <span id="commentRecomment">➕댓글달기</span>
+                    <div id="recommentBox">
+                        <span id="commentRecomment">➕답글달기</span>
+                    </div>
                 </li>
                 {% else %}
                 <li id="commentContent" class="child" data-index="{{item.id}}">
@@ -74,7 +76,7 @@
                         <span id="commentUser" class="writer">{{item.userid}}</span>
                         <span id="commnetDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
                     </div>
-                    <p>{{item.content}}</p>
+                    <input type="text" class="commentContent" value="{{item.content}}" disabled />
                     <div id="btns">
                         {% if item.userid === user.userid %}
                         <button id="updateBtn" class="commentBtn">수정</button>

@@ -10,7 +10,7 @@ class BoardService {
     async getList({ searchType, search, sort, category }) {
         try {
             console.log("scht, sch, srt", searchType, search, sort);
-            const list = await this.boardRepository.findAll({ searchType, search, sort, category});
+            const list = await this.boardRepository.findAll({ searchType, search, sort, category });
             // if (list.length === 0) throw "내용이 없습니다";
             // console.log("serv", list);
             return list;
@@ -20,7 +20,7 @@ class BoardService {
     }
     async getMain(id) {
         try {
-            id = {id, sql : ``}
+            id = { id, sql: `` };
             const main = await this.boardRepository.findMain(id);
             if (main) {
                 const tagnames = main.map(v => v.tagname).join(', ').split(', ')
@@ -34,10 +34,10 @@ class BoardService {
         }
     }
     async getFavor(id) {
-        console.log(`id:::`, id)
+        console.log(`id:::`, id);
         try {
-            const data = { id, sql : `JOIN Liked AS D ON A.id = D.boardid ` }
-            console.log(`data ::::`, data)            
+            const data = { id, sql: `JOIN Liked AS D ON A.id = D.boardid ` };
+            console.log(`data ::::`, data);
             const favor = await this.boardRepository.findMain(data);
             return favor;
         } catch (e) {
@@ -111,12 +111,36 @@ class BoardService {
             // throw new this.BadRequest(e);
         }
     }
-    async putView(idx, subject, content, hashtag, category, introduce) {
-        console.log(`serv :`, { idx, subject, content, hashtag, category, introduce });
+    async putView(putdata) {
+        console.log(`serv :`, putdata);
         try {
-            const view = await this.boardRepository.updateBoard({ idx, subject, content, hashtag, category, introduce });
-            if (view < 1) throw "수정할 게시글이 없습니다";
-            return view;
+            const { id, subject, content, hashtag, category, introduce, userid } = putdata;
+            console.log(id === "temp");
+            if (id === "temp") {
+                if (!userid || !subject || !content) throw "내용이 없습니다";
+                const imgs = content
+                    .split("img src=")
+                    .filter((v) => v.indexOf("http") !== -1)
+                    .map((v) => v.split("&gt")[0]);
+                const boarddata = {
+                    userid,
+                    subject,
+                    content,
+                    hashtag,
+                    category,
+                    introduce,
+                    image: imgs[0],
+                };
+                if (!imgs[0]) delete boarddata.image;
+                const view = await this.boardRepository.createBoard(boarddata);
+                await this.boardRepository.tempDestroy(userid);
+                return view;
+            } else {
+                const view = await this.boardRepository.updateBoard({ id, subject, content, hashtag, category, introduce });
+
+                if (view < 1) throw "수정할 게시글이 없습니다";
+                return view;
+            }
         } catch (e) {
             throw new this.BadRequest(e);
         }
@@ -199,7 +223,7 @@ class BoardService {
         }
     }
 
-    async checked({ userid, boardid }) {
+    async likechecked({ userid, boardid }) {
         try {
             const checkdata = this.boardRepository.likecheck({ userid, boardid });
             return checkdata;
@@ -208,6 +232,23 @@ class BoardService {
         }
     }
 
+    async checkTemp(userid) {
+        try {
+            const checked = this.boardRepository.tempCheck(userid);
+            console.log(checked);
+            return checked;
+        } catch (e) {
+            throw new this.BadRequest(e);
+        }
+    }
+
+    async deleteTemp(userid) {
+        try {
+            await this.boardRepository.tempDestroy(userid);
+        } catch (e) {
+            throw new this.BadRequest(e);
+        }
+        
     async profile(userid){
         const [[response]] = await this.boardRepository.getMyAttention(userid)
         return response

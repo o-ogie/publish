@@ -8,6 +8,8 @@
 <body>
     <div id="boardwrap">
         <input type="hidden" name="nowme" id="nowme" value="{{user.userid}}" />
+        <input type="hidden" name="userid" id="userid" value="{{user.userid}}" />
+
         <div id="insert">
             <form id="frm" method="post" action="/board/{{user.userid}}/{{data.id}}/modify">
                 <ul id="board">
@@ -44,8 +46,37 @@
                 <div id="btns">
                     <button id="back" class="btns"><a href="/">← 나가기</a></button>
                     <button id="temporarily" class="btns" type="submit">임시저장</button>
-                    <button id="insertBtn" class="btns hidden" type="hidden">등록하기</button>
-                    <button id="updateBtn" class="btns" type="submit">수정완료</button>
+                    <button id="submitBtn" class="btns hidden" type="hidden">등록하기</button>
+                    <button id="updateBtn" class="btns" type="button">등록하기</button>
+                </div>
+                <div id="previewWrap">
+                    <div class="bannerText">
+                        <p>포스트 미리보기</p>
+                    </div>
+                    <div class="itemPartA">
+                        <p>카테고리 선택</p>
+                        <div id="categoryBox">
+                            <select id="category" class="sortSwitch" name="category">
+                                <option value="default">없음</option>
+                                <option value="tech">기술</option>
+                                <option value="food">음식</option>
+                                <option value="travel">여행</option>
+                                <option value="life">일상</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="itemPartB">
+                        <div id="thumbnail">
+                            <p>썸네일 미리보기</p>
+                        </div>
+                    </div>
+                    <div class="itemPartC">
+                        <div id="introduce"><textarea name="introduce" class="introText" cols="10" rows="10" placeholder="당신의 글을 소개해주세요"></textarea></div>
+                    </div>
+                    <div class="itemPartD">
+                        <button id="cancelBtn" class="btns">등록 취소</button>
+                        <button id="insertBtn" class="btns" type="submit">등록 완료</button>
+                    </div>
                 </div>
             </form>
         </div>

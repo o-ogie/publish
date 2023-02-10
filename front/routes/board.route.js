@@ -32,7 +32,6 @@ route.post("/temp", async (req, res) => {
     const response = await request.post("/boards", body);
 });
 
-
 route.get("/write", (req, res) => {
     const { userid } = req.user;
     res.render("board/write.html", { userid });
@@ -44,6 +43,19 @@ route.get("/:id", async (req, res) => {
     console.log(user);
     res.render("board/main.html", { user, list: response.data });
 });
+
+route.get("/temp/modify", async (req, res, next) => {
+    const user = req.user;
+    const respone = await request.get(`/boards/${user.userid}/temp`);
+    const data = {
+        ...respone.data,
+        id: "temp",
+    };
+    console.log(data);
+
+    res.render("board/modify.html", { data, user });
+});
+
 route.get("/:id/favorite", async (req, res) => {
     const user = req.user;
     const { id } = req.params;
@@ -51,7 +63,6 @@ route.get("/:id/favorite", async (req, res) => {
     console.log(user);
     res.render("board/favorite.html", { user, list: response.data });
 });
-
 
 route.get("/:id/:idx", async (req, res) => {
     const user = req.user;
@@ -73,12 +84,13 @@ route.get("/:id/:idx/modify", async (req, res) => {
     const user = req.user;
     const respone = await request.get(`/boards/${id}/${idx}/${user.userid}`);
     const [data, comment] = respone.data;
+    console.log(data);
     res.render("board/modify.html", { data, user });
 });
 
 route.post("/:id/:idx/modify", async (req, res) => {
     const { userid } = req.user;
-    const { id, idx } = req.params;
+    let { id, idx } = req.params;
     const { hashtag: text } = req.body;
     const respone = text.split(",");
     const body = {
@@ -87,6 +99,7 @@ route.post("/:id/:idx/modify", async (req, res) => {
         userid,
     };
     const respones = await request.put(`/boards/${idx}`, body);
+    if (idx === "temp") idx = respones.data.id;
     res.redirect(`/board/${id}/${idx}`);
 });
 
