@@ -242,10 +242,24 @@ class BoardRepository {
         }
     }
 
-    async likecheck({ userid, boardid }) {
-        try {
-            const respone = await this.Liked.findAll();
-        } catch (e) {}
+    async getMyAttention(userid) {
+            const sql = `SELECT 
+            (SELECT COUNT(*) 
+            FROM Liked 
+            WHERE boardid IN( SELECT id FROM Board WHERE userid='${userid}')
+            ) AS likes, 
+            (SELECT COUNT(*) 
+            FROM Comment 
+            WHERE boardid IN( SELECT id FROM Board WHERE userid='${userid}')) 
+            AS comment, 
+            SUM(hit) 
+            AS view 
+            FROM board 
+            where userid='${userid}';`
+            
+            const result = await this.sequelize.query(sql)
+            console.log('result:::::',result)
+            return result
     }
 
     async updatehit(id) {

@@ -201,6 +201,11 @@ class BoardService {
             throw new this.BadRequest(e);
         }
     }
+
+    async profile(userid){
+        const [[response]] = await this.boardRepository.getMyAttention(userid)
+        return response
+    }
 }
 
 module.exports = BoardService;
