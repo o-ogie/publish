@@ -17,6 +17,3 @@ categorySwitch.value = location.search.indexOf('category') === -1 ? 'default' : 
 //     }
 // }
 
-
-
-

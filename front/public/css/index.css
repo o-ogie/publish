@@ -214,6 +214,10 @@ body {
     padding: 0 0 5px 0;
     color: #333;
     font-size: 1.4rem;
+    max-width: 260px;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .itemPartA .tagList {
     list-style: none;
