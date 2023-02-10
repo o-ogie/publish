@@ -80,7 +80,7 @@ route.post("/:id/:idx/modify", async (req, res) => {
         userid,
     };
     const respones = await request.put(`/boards/${idx}`, body);
-    res.redirect(`/board/@${id}/${idx}`);
+    res.redirect(`/board/${id}/${idx}`);
 });
 
 module.exports = route;
