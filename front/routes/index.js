@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     const {searchType, search, sort, category} = req.query
     
     console.log('index::::: st sch srt cate',searchType,search,sort, category)
-    const respone = await request.get("/boards/",{data:{searchType,search, sort}});
+    const respone = await request.get("/boards/",{data:{searchType, search, sort, category}});
     const list = respone.data
     // console.log(list)
     // if( req.query.searchType){

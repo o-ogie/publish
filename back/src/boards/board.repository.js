@@ -13,7 +13,7 @@ class BoardRepository {
         try {
             const where = !searchType ? "" : `WHERE ${searchType}="${search}"`;
             const sortKey = !sort ? `ORDER BY A.id DESC;` : `ORDER BY ${sort} DESC`;
-            const categoryKey = !category ? `` : `WHERE category="${catogory}"`
+            const categoryKey = !category ? `` : `WHERE category="${category}"`
             console.log("repo", where, sortKey);
             const query = `SELECT 
         A.id,
@@ -23,6 +23,7 @@ class BoardRepository {
         A.createdAt, 
         A.hit,
         A.image,
+        A.category,
         B.userImg,
         B.nickname,
         GROUP_CONCAT(C.tagname SEPARATOR ', ') AS tagname,
@@ -36,6 +37,7 @@ class BoardRepository {
         ${where}${categoryKey}
         GROUP BY A.id
         ${sortKey};`;
+        console.log(query)
             const [findAll] = await this.sequelize.query(query);
             console.log("findAll::::", findAll);
             return findAll;
