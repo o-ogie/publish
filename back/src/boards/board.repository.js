@@ -14,7 +14,7 @@ class BoardRepository {
     async findAll({ searchType, search, sort, category }) {
         try {
             let where;
-            if (searchType === 'A.subject'){
+            if (searchType === 'A.subject' | searchType === 'A.content'){
                 where = `WHERE ${searchType} LIKE '%${search}%'`
             }else{
                 where = !searchType ? "" : `WHERE ${searchType}="${search}"`;
