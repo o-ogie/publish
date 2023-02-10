@@ -20,19 +20,19 @@ class BoardController {
             next(e);
         }
     }
-    async getView(req, res, next) {
+    async getFavor(req, res, next) {
         try {
-            const { id, idx, userid } = req.params;
-            const response = await this.boardService.getView(id, idx, userid);
+            const { id } = req.params;
+            const response = await this.boardService.getFavor(id);
             res.json(response);
         } catch (e) {
             next(e);
         }
     }
-    async getFavor(req, res, next) {
+    async getView(req, res, next) {
         try {
-            const { id } = req.params;
-            const response = await this.boardService.getFavor(id);
+            const { id, idx, userid } = req.params;
+            const response = await this.boardService.getView(id, idx, userid);
             res.json(response);
         } catch (e) {
             next(e);
@@ -50,6 +50,19 @@ class BoardController {
                 category,
                 introduce,
                 hashtag,
+            });
+            res.status(201).json(response);
+        } catch (e) {
+            next(e);
+        }
+    }
+    async postTemp(req, res, next) {
+        try {
+            const { userid, subject, content } = req.body;
+            const response = await this.boardService.postTemp({
+                userid,
+                subject,
+                content,
             });
             res.status(201).json(response);
         } catch (e) {

@@ -5,6 +5,7 @@ const preimg = document.querySelector("#preview > #img");
 const insert = document.querySelector("#insert");
 const submitBtn = document.querySelector("#submitBtn");
 const insertBtn = document.querySelector("#insertBtn");
+const tempBtn = document.querySelector("#temporarily");
 const cancelBtn = document.querySelector("#cancelBtn");
 const imgform = document.querySelector("#imgform");
 const imgfile = document.querySelector("#imgfile");
@@ -24,7 +25,6 @@ submitBtn.addEventListener("click",()=> {
 cancelBtn.addEventListener("click",()=> {
     prevFrm.classList.remove("on");
 })
-
 
 
 const inserthandler = (e) => {
@@ -92,6 +92,37 @@ const submithandler = async (e) => {
 
     frm.submit();
 };
+
+
+// 임시 저장
+tempBtn.addEventListener("click", async ()=> {
+
+    try {
+        if (!frm.subject.value || !document.querySelector("#userid").value) {
+            throw new Error("제목을 입력해주세요");
+        }
+    } catch (e) {
+        alert(e);
+        e.preventDefault();
+    }
+
+    const contentDiv = document.querySelector(".ProseMirror");
+    const contentValue = contentDiv.innerHTML;
+    frm.content.value = contentValue;
+
+    const body = {
+        userid: document.querySelector("#userid").value,
+        subject: frm.subject.value,
+        content: frm.content.value,
+    }
+    const response = await request.post("/boards/temp", body);
+    if (response.data) {
+        alert("글이 임시저장되었습니다")
+    }
+})
+
+
+
 
 document.querySelector("#inputimg").style.display = "none";
 document.querySelector("#imgfile > input").addEventListener("change", (e) => {

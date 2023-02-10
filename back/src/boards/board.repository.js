@@ -1,7 +1,8 @@
 class BoardRepository {
-    constructor({ sequelize, Board, Hashtag, Comment, User, Hash, Liked }) {
+    constructor({ sequelize, Board, Temp, Hashtag, Comment, User, Hash, Liked }) {
         this.sequelize = sequelize;
         this.Board = Board;
+        this.Temp = Temp;
         this.Hashtag = Hashtag;
         this.Comment = Comment;
         this.User = User;
@@ -124,6 +125,15 @@ class BoardRepository {
             const tagResult = await Promise.all(addHash);
             await createBoard.addHashes(tagResult.map((v) => v[0]));
             return createBoard.dataValues;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+    async createTemp(boarddata) {
+        try {
+            let result = await this.Temp.findOrCreate({ where: { userid: boarddata.userid } })
+            if (result) await this.Temp.update(boarddata, { where : { userid: boarddata.userid }});
+            return result;
         } catch (e) {
             throw new Error(e);
         }
