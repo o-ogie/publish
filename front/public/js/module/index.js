@@ -10,4 +10,3 @@ for (const option of sortSwitch.options) {
         });
     }
 }
-
