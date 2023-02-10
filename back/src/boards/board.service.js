@@ -77,11 +77,30 @@ class BoardService {
                 category,
                 introduce,
                 image: imgs[0],
-                state: "public",
             };
             if (!imgs[0]) delete boarddata.image;
             const write = await this.boardRepository.createBoard(boarddata);
             return write;
+        } catch (e) {
+            // throw new this.BadRequest(e);
+        }
+    }
+    async postTemp({ userid, subject, content }) {
+        console.log(`serv :`, { userid, subject, content });
+        try {
+            const imgs = content
+                .split("img src=")
+                .filter((v) => v.indexOf("http") !== -1)
+                .map((v) => v.split("&gt")[0]);
+            const boarddata = {
+                userid,
+                subject,
+                content,
+                image: imgs[0],
+            };
+            if (!imgs[0]) delete boarddata.image;
+            const temp = await this.boardRepository.createTemp(boarddata);
+            return temp;
         } catch (e) {
             // throw new this.BadRequest(e);
         }
