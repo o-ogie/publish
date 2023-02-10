@@ -9,11 +9,11 @@ class BoardRepository {
         this.Liked = Liked;
     }
 
-    async findAll({ searchType, search, sort }) {
+    async findAll({searchType, search, sort}) {
         try {
-            const where = !searchType ? "" : `WHERE ${searchType}="${search}"`;
-            const sortKey = !sort ? `ORDER BY A.id DESC;` : `ORDER BY ${sort} DESC`;
-            console.log("repo", where, sortKey);
+            const where = !searchType ? '' :  `WHERE ${searchType}="${search}"` 
+            const sortKey = !sort ? `ORDER BY A.id DESC;` : `ORDER BY ${sort} DESC`
+            console.log('repo',where, sortKey)
             const query = `SELECT 
         A.id,
         A.userid, 
@@ -34,15 +34,15 @@ class BoardRepository {
         ON A.id = C.boardid
         ${where}
         GROUP BY A.id
-        ${sortKey};`;
+        ${sortKey};`
             const [findAll] = await this.sequelize.query(query);
-            console.log("findAll::::", findAll);
+            console.log('findAll::::',findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
         }
     }
-    async findMain(id) {
+    async findMain({id, sql}) {
         try {
             const query = `SELECT 
       A.id,
@@ -64,6 +64,7 @@ class BoardRepository {
       ON A.userid = B.userid
       JOIN Hashtag AS C
       ON A.id = C.boardid
+      ${sql}
       Where A.userid = '${id}'
       GROUP BY A.id
       ORDER BY A.id DESC;`;
@@ -133,7 +134,6 @@ class BoardRepository {
             const destroy = await this.Board.destroy({
                 where: { id: id },
             });
-            console.log(destroy);
             return destroy;
         } catch (e) {
             throw new Error(e);
