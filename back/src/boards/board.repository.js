@@ -9,11 +9,11 @@ class BoardRepository {
         this.Liked = Liked;
     }
 
-    async findAll({ searchType, search, sort }) {
+    async findAll({searchType, search, sort}) {
         try {
-            const where = !searchType ? "" : `WHERE ${searchType}="${search}"`;
-            const sortKey = !sort ? `ORDER BY A.id DESC;` : `ORDER BY ${sort} DESC`;
-            console.log("repo", where, sortKey);
+            const where = !searchType ? '' :  `WHERE ${searchType}="${search}"` 
+            const sortKey = !sort ? `ORDER BY A.id DESC;` : `ORDER BY ${sort} DESC`
+            console.log('repo',where, sortKey)
             const query = `SELECT 
         A.id,
         A.userid, 
@@ -34,15 +34,15 @@ class BoardRepository {
         ON A.id = C.boardid
         ${where}
         GROUP BY A.id
-        ${sortKey};`;
+        ${sortKey};`
             const [findAll] = await this.sequelize.query(query);
-            console.log("findAll::::", findAll);
+            console.log('findAll::::',findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
         }
     }
-    async findMain(id) {
+    async findMain({id, sql}) {
         try {
             const query = `SELECT 
       A.id,
@@ -64,6 +64,7 @@ class BoardRepository {
       ON A.userid = B.userid
       JOIN Hashtag AS C
       ON A.id = C.boardid
+      ${sql}
       Where A.userid = '${id}'
       GROUP BY A.id
       ORDER BY A.id DESC;`;
@@ -76,11 +77,25 @@ class BoardRepository {
     }
     async findOne(id, idx) {
         try {
-            const [view] = await this.findAll({searchType:"A.id",search:idx});
-            const comment = await this.Comment.findAll({
-                raw: true,
-                where: { boardid: idx },
-            });
+            const [view] = await this.findAll({ searchType: "A.id", search: idx });
+            // const comment = await this.Comment.findAll({
+            //     raw: true,
+            //     where: { boardid: idx },
+            // });
+            const [comment] = await this.sequelize.query(`WITH RECURSIVE comments (id, content, depth, parentid, createdAt, updatedAt, boardid, userid, PATH) AS (
+              SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, id
+              FROM Comment
+              WHERE parentid = 0
+              UNION ALL
+              SELECT t.id, t.content, comments.depth + 1, t.parentid, t.createdAt, t.updatedAt, t.boardid, t.userid, PATH
+              FROM comments
+              JOIN Comment t ON comments.id = t.parentid
+            )
+            SELECT *
+            FROM comments
+            WHERE boardid = ${idx}
+            ORDER BY PATH`);
+            console.log(comment);
             // const hashtag = await this.Hashtag.findAll({
             //     attributes: ["tagname"],
             //     raw: true,
@@ -92,11 +107,11 @@ class BoardRepository {
         }
     }
     async createBoard(boarddata) {
-        console.log(`boarddata::::`, boarddata)
+        console.log(`boarddata::::`, boarddata);
         try {
             const { userid, subject, content, hashtag, category, introduce, image } = boarddata;
             const createBoard = await this.Board.create(boarddata);
-            console.log(`boarddata222::::`, createBoard)
+            console.log(`boarddata222::::`, createBoard);
             const addHash = hashtag.map((tagname) => this.Hash.findOrCreate({ where: { tagname } }));
             const tagResult = await Promise.all(addHash);
             await createBoard.addHashes(tagResult.map((v) => v[0]));
@@ -106,7 +121,7 @@ class BoardRepository {
         }
     }
     async updateBoard({ idx, subject, content, hashtag, category, introduce }) {
-        console.log("update :", idx, subject, content, hashtag, category, introduce );
+        console.log("update :", idx, subject, content, hashtag, category, introduce);
         try {
             const updateBoard = await this.Board.update(
                 {
@@ -133,7 +148,6 @@ class BoardRepository {
             const destroy = await this.Board.destroy({
                 where: { id: id },
             });
-            console.log(destroy);
             return destroy;
         } catch (e) {
             throw new Error(e);
@@ -218,7 +232,7 @@ class BoardRepository {
 
     async updatehit(id) {
         try {
-            await this.sequelize.query(`UPDATE Board SET hit= hit + 1 WHERE id=${id}`);
+            await this.Board.increment({ hit: 1 }, { where: { id: id } });
         } catch (error) {
             throw new Error(e);
         }

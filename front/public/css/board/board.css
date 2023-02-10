@@ -129,13 +129,13 @@ input {
 
 #btns > #temporarily {
     margin-left: 70%;
-    background-color: #3fac60;
+    background-color: #33a166;
     border-radius: 8px;
     cursor: pointer;
 }
 
-#btns > #insertBtn {
-    background-color: #f4742a;
+#btns > #submitBtn {
+    background-color: #2a60f4;
     border-radius: 8px;
     cursor: pointer;
     margin-left: 10px;
@@ -179,7 +179,9 @@ input {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 3;
+    z-index: -3;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -187,6 +189,13 @@ input {
     flex-wrap: wrap;
     overflow: hidden;
 }
+#previewWrap.on {
+    z-index: 3;
+    opacity: 1;
+    transition: all 0.4s ease-in-out;
+}
+
+
 #previewWrap > .bannerText {
     width: 100%;
     height: 60px;
@@ -230,7 +239,7 @@ input {
     border: none;
     outline: none;
     width: 96px;
-    height: 32px;
+    height: 40px;
     border-radius: 4px;
     font-size: 16px;
     -webkit-appearance: none;

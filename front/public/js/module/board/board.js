@@ -3,7 +3,9 @@ import request from "/js/lib/request.js";
 const preview = document.querySelector("#preview > #text");
 const preimg = document.querySelector("#preview > #img");
 const insert = document.querySelector("#insert");
+const submitBtn = document.querySelector("#submitBtn");
 const insertBtn = document.querySelector("#insertBtn");
+const cancelBtn = document.querySelector("#cancelBtn");
 const imgform = document.querySelector("#imgform");
 const imgfile = document.querySelector("#imgfile");
 const inputimg = document.querySelector("#inputimg");
@@ -14,6 +16,16 @@ let img = "";
 const back = document.querySelector("#back");
 
 const frm = document.querySelector("#frm");
+
+const prevFrm = document.querySelector("#previewWrap");
+submitBtn.addEventListener("click",()=> {
+    prevFrm.classList.add("on");
+})
+cancelBtn.addEventListener("click",()=> {
+    prevFrm.classList.remove("on");
+})
+
+
 
 const inserthandler = (e) => {
     const value = e.target.value;
@@ -127,4 +139,10 @@ insertBtn.addEventListener("click", submithandler);
 //     e.preventDefault()
 
 // }
+
+
+
+
+
+
 

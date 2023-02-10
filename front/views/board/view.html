@@ -37,7 +37,7 @@
         </div>
         <div id="writerInfo">
             <p id="pWriter">{{data.nickname}}</p>
-            <p id="pblog">{{data.nickname}}.LOG</p>
+            <p id="pblog"><a href="http://localhost:3005/board/{{data.userid}}">{{data.nickname}}.LOG</a></p>
         </div>
     </div>
     <div id="comments">
@@ -46,27 +46,43 @@
         </div>
         <form method="post" action="" id="commentfrm">
             <div id="commentFrmInput">
-                <input type="hidden" name="group" />
-                <textarea type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요"></textarea>
+                <input type="hidden" name="parentid" />
+                <input type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요" />
             </div>
             <button type="submit">댓글 등록</button>
         </form>
         <div id="temp">
             <ul>
-                {% for item in comment %}
-                <li id="commentContent">
+                {% for item in comment %} {% if item.depth === 0 %}
+                <li id="commentContent" data-index="{{item.id}}">
                     <div class="writeData">
                         <span id="commentUser" class="writer">{{item.userid}}</span>
                         <span id="commnetDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
                     </div>
                     <p>{{item.content}}</p>
                     <div id="btns">
+                        {% if item.userid === user.userid %}
                         <button id="updateBtn" class="commentBtn">수정</button>
                         <button id="deleteBtn" class="commentBtn">삭제</button>
+                        {% endif %}
                     </div>
                     <span id="commentRecomment">➕댓글달기</span>
                 </li>
-                {% endfor %}
+                {% else %}
+                <li id="commentContent" class="child" data-index="{{item.id}}">
+                    <div class="writeData">
+                        <span id="commentUser" class="writer">{{item.userid}}</span>
+                        <span id="commnetDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
+                    </div>
+                    <p>{{item.content}}</p>
+                    <div id="btns">
+                        {% if item.userid === user.userid %}
+                        <button id="updateBtn" class="commentBtn">수정</button>
+                        <button id="deleteBtn" class="commentBtn">삭제</button>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endif %} {% endfor %}
             </ul>
         </div>
         <template id="commentList">
