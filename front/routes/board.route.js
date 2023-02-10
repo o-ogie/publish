@@ -49,7 +49,7 @@ route.get("/:id/favorite", async (req, res) => {
     const { id } = req.params;
     const response = await request.get(`/boards/${id}/favorites`);
     console.log(user);
-    res.render("board/main.html", { user, list: response.data });
+    res.render("board/favorite.html", { user, list: response.data });
 });
 
 
