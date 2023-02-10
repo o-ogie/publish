@@ -21,14 +21,21 @@ route.post("/", async (req, res) => {
         hashtag: respone,
         userid,
     };
-    const respones = await request.post("/boards", body);
-    const { id: idx } = respones.data;
-    const { userid: id } = respones.data;
+    const response = await request.post("/boards", body);
+    const { id: idx } = response.data;
+    const { userid: id } = response.data;
     res.redirect(`board/${id}/${idx}`);
 });
+route.post("/temp", async (req, res) => {
+    const { userid } = req.user;
+    console.log("req.body:::", req.body);
+    const response = await request.post("/boards", body);
+});
+
 
 route.get("/write", (req, res) => {
-    res.render("board/write.html");
+    const { userid } = req.user;
+    res.render("board/write.html", { userid });
 });
 route.get("/:id", async (req, res) => {
     const user = req.user;

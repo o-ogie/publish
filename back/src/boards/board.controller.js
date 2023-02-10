@@ -20,19 +20,19 @@ class BoardController {
             next(e);
         }
     }
-    async getView(req, res, next) {
+    async getFavor(req, res, next) {
         try {
-            const { id, idx, userid } = req.params;
-            const response = await this.boardService.getView(id, idx, userid);
+            const { id } = req.params;
+            const response = await this.boardService.getFavor(id);
             res.json(response);
         } catch (e) {
             next(e);
         }
     }
-    async getFavor(req, res, next) {
+    async getView(req, res, next) {
         try {
-            const { id } = req.params;
-            const response = await this.boardService.getFavor(id);
+            const { id, idx, userid } = req.params;
+            const response = await this.boardService.getView(id, idx, userid);
             res.json(response);
         } catch (e) {
             next(e);
@@ -56,8 +56,21 @@ class BoardController {
             next(e);
         }
     }
+    async postTemp(req, res, next) {
+        try {
+            const { userid, subject, content } = req.body;
+            const response = await this.boardService.postTemp({
+                userid,
+                subject,
+                content,
+            });
+            res.status(201).json(response);
+        } catch (e) {
+            next(e);
+        }
+    }
     async putView(req, res, next) {
-        console.log(`putCon:`, req.params.idx, req.body.subject, req.body.content, req.body.hashtag);
+        console.log(`putCon:`, req.params.idx, req.body.subject, req.body.content, req.body.hashtag, req.body.category, req.body.introduce);
         try {
             if (!req.body.subject) throw new Error("제목을 입력해주세요");
             if (!req.body.content) throw new Error("수정할 내용을 입력해주세요");
