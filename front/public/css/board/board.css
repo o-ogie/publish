@@ -310,8 +310,38 @@ input {
 }
 
 
+#tempMessage {
+    width: 260px;
+    height: 60px;
+    background-color: #e15241;
+    color: #FFF;
+    font-size: 16px;
+    position: absolute;
+    text-align: center;
+    line-height: 60px;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+    top: 5%;
+    right: 5%;
+    opacity: 0;
+}
+#tempMessage.on {
+    animation-name: fadeIn;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+}
 
-
+@keyframes fadeIn {
+	0% {
+		opacity : 0;
+	}
+    60% {
+        opacity: 1;
+    }
+	100% {
+		opacity : 0;
+	}
+}
 
 
 

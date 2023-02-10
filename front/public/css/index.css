@@ -33,7 +33,7 @@ body {
 }
 
 
-#header {
+#header { 
     width: 1200px;
     margin: 0 auto;
 }
@@ -203,6 +203,49 @@ body {
 .itemPartA {
     height: 270px;
 }
+.itemPartA .boardThumbnail {
+    position: relative;
+    overflow: hidden;
+}
+.itemPartA .boardThumbnail .category {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    z-index: 3;
+    font-size: 13px;
+    font-weight: 600;
+}
+.itemPartA .boardThumbnail .category::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: -105px;
+    right: -105px;
+    z-index: -1;
+    opacity: 0.8;
+    /* background: red; */
+    rotate: 45deg;
+}
+.category.default {
+    display: none;
+}
+.category.tech::after {
+    background-color: #8265c4;
+}
+.category.food::after {
+    background-color: #c05a56;
+}
+.category.life::after {
+    background-color: #c4af65;
+}
+.category.travel::after {
+    background-color: #93c465;
+}
+
+
+
 .itemPartA .boardThumbnail img {
     display: block;
     height: 200px;
