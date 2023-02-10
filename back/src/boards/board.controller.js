@@ -29,6 +29,15 @@ class BoardController {
             next(e);
         }
     }
+    async getFavor(req, res, next) {
+        try {
+            const { id } = req.params;
+            const response = await this.boardService.getFavor(id);
+            res.json(response);
+        } catch (e) {
+            next(e);
+        }
+    }
     async postWrite(req, res, next) {
         try {
             if (!req.body.subject) throw new Error("제목이 없습니다");

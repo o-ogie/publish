@@ -37,6 +37,14 @@ route.get("/:id", async (req, res) => {
     console.log(user);
     res.render("board/main.html", { user, list: response.data });
 });
+route.get("/:id/favorite", async (req, res) => {
+    const user = req.user;
+    const { id } = req.params;
+    const response = await request.get(`/boards/${id}/favorites`);
+    console.log(user);
+    res.render("board/main.html", { user, list: response.data });
+});
+
 
 route.get("/:id/:idx", async (req, res) => {
     const user = req.user;
