@@ -61,5 +61,29 @@
     </div>
 </div>
 <script type="module" src="/js/lib/timestamp.js"></script>
+<script>
+    const category = document.querySelectorAll(".category");
+    for (item of category) {
+        item.className = `category ${item.innerHTML}`
+    }
+
+    // 태그 추출
+    const text = document.querySelector("#hashtag > p").innerHTML
+    const tags = text.match(/#\w+/g)
+
+    const ul = document.querySelector("#hashtag  ul");
+    tags.forEach(tag => {
+        const li = document.createElement("li");
+        li.innerHTML = tag;
+        ul.appendChild(li);
+    });
+
+
+    // const tagCount = {};
+    // tags.forEach(tag => tagCount[tag] = (tagCount[tag] || 0) + 1);
+
+    // const result = Object.keys(tagCount).map(tag => tagCount[tag] > 1 ? `${tag}(${tagCount[tag]})` : tag);
+</script>
+
 
 {% endblock %}

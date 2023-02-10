@@ -49,7 +49,10 @@
         <ul id="boardList">
             {% for item in list %}
             <li class="boardItem">
-                <input type="hidden" value="{{item.id}}" />
+                {% if user.level === 'admin' %}
+                <span class="hideItem"><iconify-icon icon="mdi:hide"></iconify-icon></span>
+                {% endif %}
+                <input type="hidden" value="{{item.id}}" id="itemId"/>
                 <a href="/board/{{item.userid}}/{{item.id}}">
                     <div class="itemWrap">
                         <div class="itemPartA">
@@ -98,5 +101,6 @@
     for (item of category) {
         item.className = `category ${item.innerHTML}`
     }
+    console.log(`userLevel::::`, '{{user.level}}')
 </script>
 {% endblock%}
