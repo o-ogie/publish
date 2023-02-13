@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const user = require("./user.route");
 const board = require("./board.route");
+const admin = require("./admin.route");
 const axios = require("axios");
 
 const request = axios.create({
@@ -27,6 +28,13 @@ router.get("/", async (req, res) => {
     res.render("index.html", { user: req.user, list });
 });
 
+router.get("/forum", async (req, res) => {
+    // console.log(`req.user :`, req.user);
+
+
+    res.render("forum.html", { user: req.user });
+});
+
 router.get("/socket", (req, res) => {
     if (req.user === undefined) return res.render("index.html");
     console.log(req.user);
@@ -34,7 +42,7 @@ router.get("/socket", (req, res) => {
 });
 router.use("/user", user);
 router.use("/board", board);
-// router.use("/admin", admin);
+router.use("/admin", admin);
 
 // 카카오 API 로그인
 KKO_HOST = `https://kauth.kakao.com`;

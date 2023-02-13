@@ -12,6 +12,7 @@ const BoardController = require("./board.controller");
 const JWT = require("../../lib/jwt");
 const crypto = require("crypto");
 const config = require("../../config");
+console.log(config)
 
 const jwt = new JWT({ crypto });
 
