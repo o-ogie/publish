@@ -1,3 +1,5 @@
+import request from "/js/lib/request.js";
+
 // 셀렉트 옵션값 유지
 const sortSwitch = document.querySelector("#sortSwitch");
 const categorySwitch = document.querySelector("#categorySwitch");
@@ -5,31 +7,8 @@ const categorySwitch = document.querySelector("#categorySwitch");
 sortSwitch.value = location.search.indexOf("sort") === -1 ? "A.id" : location.search.split("=")[1];
 categorySwitch.value = location.search.indexOf("category") === -1 ? "default" : location.search.split("=")[1];
 
-// intersection observer
-// const observer = new IntersectionObserver((entries) => {
-//     entries.forEach((v) => {
-//         if (v.isIntersecting) {
-//             const target = v.target;
-//             observer.unobserve(target);
-//             // 다음 9개의 li 요소를 화면에 그리는 코드
-//         }
-//     });
-// });
 
-// const items = document.querySelectorAll(".boardItem");
-// items.forEach((target) => {
-//     observer.observe(target);
-// });
-// 글 감추기
-const blindBtn = document.querySelector(".hideItem");
-const itemId = document.querySelectorAll("#itemId");
 
-// blindBtn.addEventListener('click', async (e) => {
-//     console.log(e.target.parentNode.parentNode)
-//     // const response = await request.post(`/boards/${itemId}/blind`, {
-//     //     userid: userid.value,
-//     //   });
-// })
 // const lili = document.querySelectorAll("#boardList > li");
 
 // let lastli = lili[lili.length - 1];
@@ -104,18 +83,18 @@ const itemId = document.querySelectorAll("#itemId");
 //     console.log("hi", scroll);
 // });
 
-///observe chat
-// const button = document.querySelector("#empty");
+// // //observe chat
+// // const button = document.querySelector("#empty");
 
-// const observe = new IntersectionObserver((e) => {
-//     console.log(e[0]);
-//     if (e[0].isIntersecting) {
-//         button.click();
-//         observe.disconnect();
-//     }
-// });
+// // const observe = new IntersectionObserver((e) => {
+// //     console.log(e[0]);
+// //     if (e[0].isIntersecting) {
+// //         button.click();
+// //         observe.disconnect();
+// //     }
+// // });
 
-// observe.observe(button);
+// // observe.observe(button);
 
 // // const items = document.querySelector("", () => {});
 
@@ -123,23 +102,49 @@ const itemId = document.querySelectorAll("#itemId");
 //     count++;
 // })
 
-//Scroll Event;
-let count = 0;
-count = 0;
-const scrollfix = 600;
-let scroll = 600;
-const content = document.querySelector("#boardList");
 
-const wrap = document.querySelector("#wrap");
-wrap.addEventListener("scroll", async (e) => {
-    e.preventDefault();
-    if (wrap.scrollTop > scroll) {
+
+
+
+
+
+
+
+
+// //Scroll Event;
+// let count = 0;
+// count = 0;
+// const scrollfix = 600;
+// let scroll = 600;
+// const content = document.querySelector("#boardList");
+
+// const wrap = document.querySelector("#wrap");
+// wrap.addEventListener("scroll", async (e) => {
+//     e.preventDefault();
+//     if (wrap.scrollTop > scroll) {
+//         count++;
+//         scroll += scrollfix;
+//         const list = await request.get(`boards/?count=${count}`);
+//         paging(list.data);
+//     }
+// });
+
+
+
+
+let count = 0;
+const content = document.querySelector("#boardList");
+const more = document.querySelector("#more");
+const observer = new IntersectionObserver( async (entries) => {
+    if (entries[0].isIntersecting) {
         count++;
-        scroll += scrollfix;
-        const list = await request.get(`boards/?count=${count}`);
-        paging(list.data);
+        const response = await request.get(`boards/?count=${count}`);
+        paging(response.data);
     }
 });
+
+observer.observe(more);
+
 
 const paging = (data) => {
     data.forEach((v) => {
@@ -189,4 +194,8 @@ const paging = (data) => {
         content.append(li);
     });
 };
+
+
+
+
 
