@@ -1,5 +1,5 @@
 class BoardRepository {
-    constructor({ sequelize, Board, Temp, Hashtag, Comment, User, Hash, Liked }) {
+    constructor({ sequelize, Board, Temp, Hashtag, Comment, User, Hash, Liked, PointUp }) {
         this.sequelize = sequelize;
         this.Board = Board;
         this.Temp = Temp;
@@ -8,18 +8,20 @@ class BoardRepository {
         this.User = User;
         this.Hash = Hash;
         this.Liked = Liked;
+        this.PointUp = PointUp;
     }
 
-    async findAll({ searchType, search, sort, category }) {
+    async findAll({ searchType, search, sort, category, limit }) {
         try {
             let where;
-            if (searchType === 'A.subject' | searchType === 'A.content'){
-                where = `WHERE ${searchType} LIKE '%${search}%'`
-            }else{
+            if ((searchType === "A.subject") | (searchType === "A.content")) {
+                where = `WHERE ${searchType} LIKE '%${search}%'`;
+            } else {
                 where = !searchType ? "" : `WHERE ${searchType}="${search}"`;
             }
             const sortKey = !sort ? `ORDER BY A.id DESC` : `ORDER BY ${sort} DESC`;
             const categoryKey = !category ? `` : `WHERE category="${category}"`;
+            const limitquery = !limit ? `` : `Limit ${limit.limit}, ${limit.views}`;
 
             const query = `SELECT 
         A.id,
@@ -42,9 +44,10 @@ class BoardRepository {
         ON A.id = C.boardid
         ${where}${categoryKey}
         GROUP BY A.id
-        ${sortKey};`;
+        ${sortKey}
+        ${limitquery};`;
             const [findAll] = await this.sequelize.query(query);
-            console.log("findAll::::", findAll);
+            // console.log("findAll::::", findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
@@ -77,7 +80,7 @@ class BoardRepository {
       GROUP BY A.id
       ORDER BY A.id DESC;`;
             const [findAll] = await this.sequelize.query(query);
-            console.log(findAll);
+            // console.log(findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
@@ -90,7 +93,8 @@ class BoardRepository {
             //     raw: true,
             //     where: { boardid: idx },
             // });
-            const [comment] = await this.sequelize.query(`WITH RECURSIVE comments (id, content, depth, parentid, createdAt, updatedAt, boardid, userid, PATH) AS (
+            const [comment] = await this.sequelize.query(`
+            WITH RECURSIVE comments (id, content, depth, parentid, createdAt, updatedAt, boardid, userid, PATH) AS (
               SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, id
               FROM Comment
               WHERE parentid = 0
@@ -103,7 +107,7 @@ class BoardRepository {
             FROM comments
             WHERE boardid = ${idx}
             ORDER BY PATH`);
-            console.log(comment);
+            // console.log(comment);
             // const hashtag = await this.Hashtag.findAll({
             //     attributes: ["tagname"],
             //     raw: true,
@@ -118,13 +122,14 @@ class BoardRepository {
         console.log(`boarddata::::`, boarddata);
         try {
             const { userid, subject, content, hashtag, category, introduce, image } = boarddata;
-            const createBoard = await this.Board.create(boarddata);
+            const createBoard = await this.Board.create(boarddata, { plain: true });
             const addHash = hashtag.map((tagname) => this.Hash.findOrCreate({ where: { tagname } }));
             const tagResult = await Promise.all(addHash);
             await createBoard.addHashes(tagResult.map((v) => v[0]));
             const temp = await this.Temp.findOne({ raw: true, where: { userid } });
             await this.Temp.destroy({ where: { userid } });
-
+            const boardid = createBoard.dataValues.id;
+            await this.PointUp.findOrCreate({ where: { userid, boardid, comment: "0" } });
             return createBoard.dataValues;
         } catch (e) {
             throw new Error(e);
@@ -176,7 +181,6 @@ class BoardRepository {
     async createComment(commentData) {
         console.log("repo :", commentData);
         try {
-            console.log(typeof commentData.group);
             const create = await this.Comment.create(commentData);
             return create.dataValues;
         } catch (e) {
@@ -213,7 +217,6 @@ class BoardRepository {
         console.log("repo :", boardid, userid);
         try {
             const check = await this.Liked.findOne({ where: { boardid, userid } });
-            console.log(check);
             if (check === null) {
                 await this.Liked.create({ boardid, userid });
             } else {
@@ -244,7 +247,7 @@ class BoardRepository {
     }
 
     async getMyAttention(userid) {
-            const sql = `SELECT 
+        const sql = `SELECT 
             (SELECT COUNT(*) 
             FROM Liked 
             WHERE boardid IN( SELECT id FROM Board WHERE userid='${userid}')
@@ -256,12 +259,11 @@ class BoardRepository {
             SUM(hit) 
             AS view 
             FROM board 
-            where userid='${userid}';`
-            
-            const result = await this.sequelize.query(sql)
-            console.log('result:::::',result)
-            return result
+            where userid='${userid}';`;
 
+        const result = await this.sequelize.query(sql);
+        console.log("result:::::", result);
+        return result;
     }
 
     async updatehit(id) {
@@ -285,6 +287,14 @@ class BoardRepository {
         try {
             const respone = await this.Temp.destroy({ raw: true, where: { userid } });
             return respone;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async createPoint(data) {
+        try {
+            const respone = await this.PointUp.create(data);
         } catch (e) {
             throw new Error(e);
         }

@@ -1,6 +1,6 @@
 const {
     sequelize: {
-        models: { Board, Temp, Hashtag, Comment, User, Hash, Liked },
+        models: { Board, Temp, Hashtag, Comment, User, Hash, Liked, PointUp },
     },
     sequelize,
 } = require("../../models/index");
@@ -15,7 +15,7 @@ const config = require("../../config");
 
 const jwt = new JWT({ crypto });
 
-const repository = new BoardRepository({ sequelize, Board, Temp, Hashtag, Comment, User, Hash, Liked, Sequelize });
+const repository = new BoardRepository({ sequelize, Board, Temp, Hashtag, Comment, User, Hash, Liked, PointUp, Sequelize });
 const service = new BoardService({ boardRepository: repository, config, jwt });
 const controller = new BoardController({ boardService: service });
 

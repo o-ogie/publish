@@ -19,13 +19,12 @@ const back = document.querySelector("#back");
 const frm = document.querySelector("#frm");
 
 const prevFrm = document.querySelector("#previewWrap");
-submitBtn.addEventListener("click",()=> {
+submitBtn.addEventListener("click", () => {
     prevFrm.classList.add("on");
-})
-cancelBtn.addEventListener("click",()=> {
+});
+cancelBtn.addEventListener("click", () => {
     prevFrm.classList.remove("on");
-})
-
+});
 
 const inserthandler = (e) => {
     const value = e.target.value;
@@ -93,7 +92,6 @@ const submithandler = async (e) => {
     frm.submit();
 };
 
-
 // 임시 저장
 const tempHandler = async () => {
     const contentDiv = document.querySelector(".ProseMirror");
@@ -104,14 +102,16 @@ const tempHandler = async () => {
         userid: document.querySelector("#userid").value,
         subject: frm.subject.value,
         content: frm.content.value,
-    }
+    };
     const response = await request.post("/boards/temp", body);
     if (response.data) {
-        document.querySelector("#tempMessage").classList.add("on")
-        setTimeout(()=> { document.querySelector("#tempMessage").classList.remove("on")}, 4000)   
+        document.querySelector("#tempMessage").classList.add("on");
+        setTimeout(() => {
+            document.querySelector("#tempMessage").classList.remove("on");
+        }, 4000);
     }
-}
-tempBtn.addEventListener("click", async ()=> {
+};
+tempBtn.addEventListener("click", async () => {
     try {
         if (!frm.subject.value || !document.querySelector("#userid").value) {
             throw new Error("제목을 입력해주세요");
@@ -120,16 +120,14 @@ tempBtn.addEventListener("click", async ()=> {
         alert(e);
         e.preventDefault();
     }
-    tempHandler()
-})
+    tempHandler();
+});
 document.addEventListener("DOMContentLoaded", () => {
     if (frm.subject.value || document.querySelector("#userid").value)
-    setInterval(() => {
-        tempHandler();
-    }, 60000)
-})
-
-
+        setInterval(() => {
+            tempHandler();
+        }, 60000);
+});
 
 document.querySelector("#inputimg").style.display = "none";
 document.querySelector("#imgfile > input").addEventListener("change", (e) => {
@@ -177,10 +175,4 @@ insertBtn.addEventListener("click", submithandler);
 //     e.preventDefault()
 
 // }
-
-
-
-
-
-
 
