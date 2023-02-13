@@ -4,31 +4,195 @@
 <div id="wrap">
     <div id="blogWrap">
         <div id="mainContainer">
+            <!-- <div>
+                {% if user.level === 'admin' %}
+                <button id="write">글쓰기</button>
+                {% endif %}
+            </div> -->
             <div id="navigationTab">
                 <ul>
-                    <li class="announcement">
+                    <li class="announcement active">
                         <iconify-icon icon="ic:baseline-announcement"></iconify-icon>
                         공지사항
                     </li>
                     <li class="question">
                         <iconify-icon icon="mdi:message-question"></iconify-icon>
-                        Q & A
+                        F A Q
                     </li>
                 </ul>
             </div>
-            <ul id="showList">
+            <ul id="noticeList">
+                <li class="boardItem">
+                    <div class="itemPartA">
+                        <div class="textBoxA">
+                            <span class="boardTitle">공지사항 1</span>
+                        </div>
+                        <div class="textBoxB">
+                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
+                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
+                                <span class="innerText">2023-02-13</span>
+                            </span>
+                        </div>
+                        <div class="textBoxC">
+                            <span class="contentText">공지사항 테스트</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="boardItem">
+                    <div class="itemPartA">
+                        <div class="textBoxA">
+                            <span class="boardTitle">공지사항 2</span>
+                        </div>
+                        <div class="textBoxB">
+                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
+                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
+                                <span class="innerText">2023-02-13</span>
+                            </span>
+                        </div>
+                        <div class="textBoxC">
+                            <span class="contentText">공지사항 테스트</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="boardItem">
+                    <div class="itemPartA">
+                        <div class="textBoxA">
+                            <span class="boardTitle">공지사항 3</span>
+                        </div>
+                        <div class="textBoxB">
+                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
+                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
+                                <span class="innerText">2023-02-13</span>
+                            </span>
+                        </div>
+                        <div class="textBoxC">
+                            <span class="contentText">공지사항 테스트</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="boardItem">
+                    <div class="itemPartA">
+                        <div class="textBoxA">
+                            <span class="boardTitle">공지사항 4</span>
+                        </div>
+                        <div class="textBoxB">
+                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
+                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
+                                <span class="innerText">2023-02-13</span>
+                            </span>
+                        </div>
+                        <div class="textBoxC">
+                            <span class="contentText">공지사항 테스트</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="boardItem">
+                    <div class="itemPartA">
+                        <div class="textBoxA">
+                            <span class="boardTitle">공지사항 5</span>
+                        </div>
+                        <div class="textBoxB">
+                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
+                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
+                                <span class="innerText">2023-02-13</span>
+                            </span>
+                        </div>
+                        <div class="textBoxC">
+                            <span class="contentText">공지사항 테스트</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+
+
+            <ul id="qnaList" style="display : none;">
+                <li class="boardItem">
+                    <div class="itemPartA">
+                        <div class="textBoxA">
+                            <span class="boardTitle">FAQ 1</span>
+                        </div>
+                        <div class="textBoxB">
+                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
+                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
+                                <span class="innerText">2023-02-13</span>
+                            </span>
+                        </div>
+                        <div class="textBoxC">
+                            <span class="contentText">FAQ 테스트</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="boardItem">
+                    <div class="itemPartA">
+                        <div class="textBoxA">
+                            <span class="boardTitle">FAQ 2</span>
+                        </div>
+                        <div class="textBoxB">
+                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
+                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
+                                <span class="innerText">2023-02-13</span>
+                            </span>
+                        </div>
+                        <div class="textBoxC">
+                            <span class="contentText">FAQ 테스트</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="boardItem">
+                    <div class="itemPartA">
+                        <div class="textBoxA">
+                            <span class="boardTitle">FAQ 3</span>
+                        </div>
+                        <div class="textBoxB">
+                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
+                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
+                                <span class="innerText">2023-02-13</span>
+                            </span>
+                        </div>
+                        <div class="textBoxC">
+                            <span class="contentText">FAQ 테스트</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="boardItem">
+                    <div class="itemPartA">
+                        <div class="textBoxA">
+                            <span class="boardTitle">FAQ 4</span>
+                        </div>
+                        <div class="textBoxB">
+                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
+                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
+                                <span class="innerText">2023-02-13</span>
+                            </span>
+                        </div>
+                        <div class="textBoxC">
+                            <span class="contentText">FAQ 테스트</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="boardItem">
+                    <div class="itemPartA">
+                        <div class="textBoxA">
+                            <span class="boardTitle">FAQ 5</span>
+                        </div>
+                        <div class="textBoxB">
+                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
+                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
+                                <span class="innerText">2023-02-13</span>
+                            </span>
+                        </div>
+                        <div class="textBoxC">
+                            <span class="contentText">FAQ 테스트</span>
+                        </div>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
 </div>
 <script type="module" src="/js/lib/timestamp.js"></script>
 <script>
-    const category = document.querySelectorAll(".category");
-    for (item of category) {
-        item.className = `category ${item.innerHTML}`
-    }
-
-
     const items = document.querySelectorAll("#navigationTab li");
     items.forEach(item => {
         item.addEventListener("click", () => {
@@ -36,20 +200,16 @@
                 v.classList.remove("active");
             });
             item.classList.add("active");
+
+            if (document.querySelector('.announcement').classList.contains("active")) {
+                document.querySelector('#noticeList').style.display = 'block';
+                document.querySelector('#qnaList').style.display = 'none';
+            }
+            else if (document.querySelector('.question').classList.contains("active")) {
+            document.querySelector('#qnaList').style.display = 'block';
+            document.querySelector('#noticeList').style.display = 'none';
+            }
         });
     });
-
-    document.addEventListener("DOMContentLoaded", async () => {
-        if (document.querySelector('.announcement').classList.contains("active")) {
-            console.log(1)
-            // const response = await request.get(`/boards/${id}/favorites`);
-            // console.log(response.data);
-        }
-        // else if (document.querySelector('.history').classList.contains("active")) {
-        //     const response = await request.get(`/boards/${id}/histories`);
-        //     console.log(response.data);
-        // }
-    });
-
 </script>
 {% endblock%}

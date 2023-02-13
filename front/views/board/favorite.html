@@ -5,9 +5,9 @@
 <div id="wrap">
     <div id="blogWrap">
         <div id="mainContainer">
-            <div id="favoriteTab">
+            <div id="navigationTab">
                 <ul>
-                    <li class="favorite">
+                    <li class="favorite active">
                         <iconify-icon icon="mdi:book-heart-outline"></iconify-icon>
                         즐겨찾기
                     </li>
@@ -17,8 +17,57 @@
                     </li>
                 </ul>
             </div>
-            <ul id="myList">
-                {% for item in list %}
+            <ul id="favoriteList">
+                {% for item in favorite %}
+                <li class="boardItem">
+                    <div class="itemWrap">
+                        <div class="itemPartA">
+                            <div class="boardThumbnail">
+                                <a href="/board/{{item.nickname}}/{{item.id}}">
+                                    <img src='{{item.image}}' alt="" loading="lazy">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="itemPartB">
+                            <div class="textBoxA">
+                                <a href="/board/{{item.nickname}}/{{item.id}}"><span
+                                        class="boardTitle">{{item.subject}}</span></a>
+                                <span class="category">{{item.category}}</span>
+                            </div>
+                            <div class="textBoxB">
+                                <span class="prevContent">{{item.introduce}}</span>
+                            </div>
+                            <div class="textBoxC">
+                                <span class="timeStamp" style="color: #999; font-size: 0.9em; "><iconify-icon
+                                        icon="ic:baseline-access-time-filled"></iconify-icon><span
+                                        class="innerText">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span></span>
+                                <span class="hitCount" style="color: #999; font-size: 0.9em; "><iconify-icon
+                                        icon="ic:baseline-remove-red-eye"></iconify-icon><span
+                                        class="innerText">{{item.hit}}</span></span>
+                                <span class="commentCount" style="color: #999; font-size: 0.9em; "><iconify-icon
+                                        icon="mdi:message-processing"></iconify-icon><span
+                                        class="innerText">{{item.commentCount}}</span></span>
+                                <span class="hitCount" style="color: #999; font-size: 0.9em; ">
+                                    <iconify-icon icon="ion:heart"></iconify-icon>
+                                    <span class="innerText">{{item.likeCount}}</span>
+                                </span>
+                            </div>
+                            <div class="textBoxD">
+                                {% if item.tagname %}
+                                <ul class="tagList">
+                                    {% for tag in item.tagname.split(',').slice(0,3) %}
+                                    <li>{{ tag }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <ul id="historyList" style="display: none;">
+                {% for item in history %}
                 <li class="boardItem">
                     <div class="itemWrap">
                         <div class="itemPartA">
@@ -70,35 +119,12 @@
     </div>
 </div>
 <script type="module" src="/js/lib/timestamp.js"></script>
+<script type="module" src="/js/module/board/favorite.js"></script>
 <script>
     const category = document.querySelectorAll(".category");
     for (item of category) {
         item.className = `category ${item.innerHTML}`
     }
-
-
-    const items = document.querySelectorAll("#favoriteTab li");
-    items.forEach(item => {
-        item.addEventListener("click", () => {
-            items.forEach(v => {
-                v.classList.remove("active");
-            });
-            item.classList.add("active");
-        });
-    });
-
-    document.addEventListener("DOMContentLoaded", async () => {
-        if (document.querySelector('.favorite').classList.contains("active")) {
-            console.log(1)
-            // const response = await request.get(`/boards/${id}/favorites`);
-            // console.log(response.data);
-        }
-        // else if (document.querySelector('.history').classList.contains("active")) {
-        //     const response = await request.get(`/boards/${id}/histories`);
-        //     console.log(response.data);
-        // }
-    });
-
 </script>
 
 

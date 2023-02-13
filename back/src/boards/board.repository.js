@@ -1,8 +1,9 @@
 class BoardRepository {
-    constructor({ sequelize, Board, Temp, Hashtag, Comment, User, Hash, Liked }) {
+    constructor({ sequelize, Board, Temp, History, Hashtag, Comment, User, Hash, Liked }) {
         this.sequelize = sequelize;
         this.Board = Board;
         this.Temp = Temp;
+        this.History = History;
         this.Hashtag = Hashtag;
         this.Comment = Comment;
         this.User = User;
@@ -45,13 +46,14 @@ class BoardRepository {
         GROUP BY A.id
         ${sortKey};`;
             const [findAll] = await this.sequelize.query(query);
-            console.log("findAll::::", findAll);
+            // console.log("findAll::::", findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
         }
     }
-    async findMain({ id, sql }) {
+    async findMain({ id, sql, order }) {
+        console.log(`repo :::`, id, sql, order)
         try {
             const query = `SELECT 
       A.id,
@@ -75,9 +77,9 @@ class BoardRepository {
       JOIN Hashtag AS C
       ON A.id = C.boardid
       ${sql}
-      Where A.userid = '${id}'
+      Where ${id}
       GROUP BY A.id
-      ORDER BY A.id DESC;`;
+      ORDER BY ${order} DESC;`;
             const [findAll] = await this.sequelize.query(query);
             return findAll;
         } catch (e) {
@@ -292,6 +294,25 @@ class BoardRepository {
             throw new Error(e);
         }
     }
+        async updatehistory(userid, idx) {
+            console.log('repo history :::', userid, idx);
+            try {
+                await this.History.findOrCreate({ where: { userid, boardid : idx } });
+
+                const sql = `
+                DELETE FROM history
+                WHERE userid = '${userid}'
+                AND boardid NOT IN (SELECT boardid
+                  FROM (SELECT boardid FROM history
+                    WHERE userid = '${userid}'
+                    LIMIT 20) subquery)`;
+              
+              await this.sequelize.query(sql, { replacements: [userid, userid] });
+
+            } catch (e) {
+                throw new Error(e);
+            }
+        }
 
     async tempCheck(userid) {
         try {
