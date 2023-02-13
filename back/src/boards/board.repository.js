@@ -309,6 +309,7 @@ class BoardRepository {
                 AND boardid NOT IN (SELECT boardid
                   FROM (SELECT boardid FROM history
                     WHERE userid = '${userid}'
+                    ORDER BY createdAt DESC
                     LIMIT 20) subquery)`;
               
               await this.sequelize.query(sql, { replacements: [userid, userid] });
