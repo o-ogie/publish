@@ -3,11 +3,20 @@
 
 
 <div id="wrap">
-    <div id="subContainer">
-    </div>
-
     <div id="blogWrap">
         <div id="mainContainer">
+            <div id="favoriteTab">
+                <ul>
+                    <li class="favorite">
+                        <iconify-icon icon="mdi:book-heart-outline"></iconify-icon>
+                        즐겨찾기
+                    </li>
+                    <li class="history">
+                        <iconify-icon icon="mdi:book-time"></iconify-icon>
+                        열람기록
+                    </li>
+                </ul>
+            </div>
             <ul id="myList">
                 {% for item in list %}
                 <li class="boardItem">
@@ -67,22 +76,29 @@
         item.className = `category ${item.innerHTML}`
     }
 
-    // 태그 추출
-    const text = document.querySelector("#hashtag > p").innerHTML
-    const tags = text.match(/#\w+/g)
 
-    const ul = document.querySelector("#hashtag  ul");
-    tags.forEach(tag => {
-        const li = document.createElement("li");
-        li.innerHTML = tag;
-        ul.appendChild(li);
+    const items = document.querySelectorAll("#favoriteTab li");
+    items.forEach(item => {
+        item.addEventListener("click", () => {
+            items.forEach(v => {
+                v.classList.remove("active");
+            });
+            item.classList.add("active");
+        });
     });
 
+    document.addEventListener("DOMContentLoaded", async () => {
+        if (document.querySelector('.favorite').classList.contains("active")) {
+            console.log(1)
+            // const response = await request.get(`/boards/${id}/favorites`);
+            // console.log(response.data);
+        }
+        // else if (document.querySelector('.history').classList.contains("active")) {
+        //     const response = await request.get(`/boards/${id}/histories`);
+        //     console.log(response.data);
+        // }
+    });
 
-    // const tagCount = {};
-    // tags.forEach(tag => tagCount[tag] = (tagCount[tag] || 0) + 1);
-
-    // const result = Object.keys(tagCount).map(tag => tagCount[tag] > 1 ? `${tag}(${tagCount[tag]})` : tag);
 </script>
 
 

@@ -23,12 +23,14 @@ class BoardService {
             id = { id, sql: `` };
             const main = await this.boardRepository.findMain(id);
             if (main) {
-                const tagnames = main.map(v => v.tagname).join(', ').split(', ')
-                const tagArr = [...new Set(tagnames)]
-                console.log(tagArr)
+                const tags = main.map(v => v.tagname).join(', ').split(', ')
+                const countTags = tags.reduce((acc, tag) => {
+                    acc[tag] = (acc[tag] || 0) + 1;
+                    return acc;
+                  }, {});      
+                  console.log(`main:::`, {main: main, tagnames: countTags})  
+            return {main: main, tagnames: countTags};
             }
-
-            return main;
         } catch (e) {
             throw new this.BadRequest(e);
         }
@@ -46,6 +48,12 @@ class BoardService {
     }
     async getView(id, idx, userid) {
         try {
+            const currentState = await this.boardRepository.getState(idx);
+            if (currentState === 'blind') {
+                console.log('current state:::', currentState);
+                throw new Error('차단된 게시글입니다')
+            }
+
             if (!this.viewObj["hit"]) this.viewObj["hit"] = [];
             if (this.viewObj["hit"].indexOf(`${userid}+${idx}`) === -1 && id !== userid) {
                 this.viewObj["hit"].push(`${userid}+${idx}`);
@@ -64,7 +72,7 @@ class BoardService {
             const data = { ...view, userImg: test };
             return [data, comment];
         } catch (e) {
-            throw new this.BadRequest(e);
+        console.error(e);
         }
     }
     async postWrite({ userid, subject, content, hashtag, category, introduce }) {
@@ -107,6 +115,22 @@ class BoardService {
             if (!imgs[0]) delete boarddata.image;
             const temp = await this.boardRepository.createTemp(boarddata);
             return temp;
+        } catch (e) {
+            // throw new this.BadRequest(e);
+        }
+    }
+    async postState(id) {
+        try {
+            let state = '';
+            const currentState = await this.boardRepository.getState(id);
+            if (currentState === 'blind') {
+                state = 'public';
+            } else {
+                state = 'blind';
+            }
+            await this.boardRepository.updateState(id, state);
+            return state;
+            
         } catch (e) {
             // throw new this.BadRequest(e);
         }
@@ -248,7 +272,7 @@ class BoardService {
         } catch (e) {
             throw new this.BadRequest(e);
         }
-        
+    }    
     async profile(userid){
         const [[response]] = await this.boardRepository.getMyAttention(userid)
         return response

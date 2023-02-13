@@ -52,6 +52,11 @@
                 {% if user.level === 'admin' %}
                 <span class="hideItem"><iconify-icon icon="mdi:hide"></iconify-icon></span>
                 {% endif %}
+                {% if item.state === 'blind' %}
+                <div class="hiddenWrap">
+                    <span><iconify-icon icon="fa6-solid:ban"></iconify-icon>: 차단된 게시글입니다</span>
+                </div>
+                {% endif %}
                 <input type="hidden" value="{{item.id}}" id="itemId"/>
                 <a href="/board/{{item.userid}}/{{item.id}}">
                     <div class="itemWrap">
@@ -95,6 +100,8 @@
     </div>
 </div>
 <script type="module" src="/js/module/index.js"></script>
+<script type="module" src="/js/lib/request.js"></script>
+<script type="module" src="/js/lib/blind.js"></script>
 <script type="module" src="/js/lib/timestamp.js"></script>
 <script>
     const category = document.querySelectorAll(".category");

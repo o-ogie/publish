@@ -30,6 +30,7 @@ class BoardRepository {
         A.hit,
         A.image,
         A.category,
+        A.state,
         B.userImg,
         B.nickname,
         GROUP_CONCAT(C.tagname SEPARATOR ', ') AS tagname,
@@ -61,6 +62,7 @@ class BoardRepository {
       A.hit,
       A.image,
       A.category,
+      A.state,
       B.userImg,
       B.nickname,
       (SELECT GROUP_CONCAT(D.userid SEPARATOR ', ') FROM Liked AS D WHERE A.id = D.boardid) AS likeidlist,
@@ -77,7 +79,6 @@ class BoardRepository {
       GROUP BY A.id
       ORDER BY A.id DESC;`;
             const [findAll] = await this.sequelize.query(query);
-            console.log(findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
@@ -134,6 +135,26 @@ class BoardRepository {
         try {
             let result = await this.Temp.findOrCreate({ where: { userid: boarddata.userid } });
             if (result) await this.Temp.update(boarddata, { where: { userid: boarddata.userid } });
+            return result;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+    async getState(id) {
+        try {
+            const board = await this.Board.findOne({ where: { id: id } });
+            return board.state;
+        } catch (e) {
+            throw new Error(e);
+        }
+    } 
+    async updateState(id, state) {
+        try {
+            let result = await this.Board.update( 
+                {
+                    state: state,
+                },
+                { where: { id: id } });
             return result;
         } catch (e) {
             throw new Error(e);
