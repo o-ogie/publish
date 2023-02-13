@@ -27,7 +27,7 @@ class BoardService {
     }
     async getMain(id) {
         try {
-            id = { id, sql: `` };
+            id = { id: `A.userid = '${id}'`, sql: ``, order: `A.id` };
             const main = await this.boardRepository.findMain(id);
             if (main) {
                 const tags = main
@@ -48,16 +48,29 @@ class BoardService {
     async getFavor(id) {
         console.log(`id:::`, id);
         try {
-            const data = { id, sql: `JOIN Liked AS D ON A.id = D.boardid ` };
+            const data = { id: `D.userid = '${id}'`, sql: `JOIN Liked AS D ON A.id = D.boardid `, order: `D.createdAt` };
             console.log(`data ::::`, data);
             const favor = await this.boardRepository.findMain(data);
+            console.log(`favor ::::`, favor);
             return favor;
+        } catch (e) {
+            throw new this.BadRequest(e);
+        }
+    }
+    async getHistory(id) {
+        try {
+            const data = { id: `D.userid = '${id}'`, sql: `JOIN History AS D ON A.id = D.boardid`, order: `D.createdAt` };
+            console.log(`data ::::`, data);
+            const history = await this.boardRepository.findMain(data);
+            console.log(`history ::::`, history);
+            return history;
         } catch (e) {
             throw new this.BadRequest(e);
         }
     }
     async getView(id, idx, userid) {
         try {
+            console.log(`view::::`, id, idx, userid)
             const currentState = await this.boardRepository.getState(idx);
             if (currentState === "blind") {
                 console.log("current state:::", currentState);
@@ -73,6 +86,9 @@ class BoardService {
             setTimeout(() => {
                 this.viewObj["hit"].splice(this.viewObj["hit"].indexOf(`${userid}+${idx}`), 1);
             }, 200000);
+
+            console.log("service history :::", userid, idx)
+            await this.boardRepository.updatehistory(userid, idx);
 
             const [view, comment] = await this.boardRepository.findOne(id, idx);
             let { userImg: test } = view;

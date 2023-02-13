@@ -33,6 +33,7 @@ class BoardController {
     async getHistory(req, res, next) {
         try {
             const { id } = req.params;
+            console.log(`getHistory :::`, id)
             const response = await this.boardService.getHistory(id);
             res.json(response);
         } catch (e) {
