@@ -24,6 +24,7 @@ route.post("/", async (req, res) => {
     const response = await request.post("/boards", body);
     const { id: idx } = response.data;
     const { userid: id } = response.data;
+    console.log(response.data);
     res.redirect(`board/${id}/${idx}`);
 });
 route.post("/temp", async (req, res) => {
