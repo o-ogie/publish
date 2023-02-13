@@ -40,8 +40,8 @@ route.get("/:id", async (req, res) => {
     const user = req.user;
     const { id } = req.params;
     const response = await request.get(`/boards/${id}`);
-    console.log(user);
-    res.render("board/main.html", { user, list: response.data });
+    console.log(response.data)
+    res.render("board/main.html", { user, list: response.data.main, tags : response.data.tagnames });
 });
 
 route.get("/temp/modify", async (req, res, next) => {
@@ -63,6 +63,14 @@ route.get("/:id/favorite", async (req, res) => {
     console.log(user);
     res.render("board/favorite.html", { user, list: response.data });
 });
+route.get("/:id/history", async (req, res) => {
+    const user = req.user;
+    const { id } = req.params;
+    const response = await request.get(`/boards/${id}/histories`);
+    console.log(user);
+    res.render("board/favorite.html", { user, list: response.data });
+});
+
 
 route.get("/:id/:idx", async (req, res) => {
     const user = req.user;

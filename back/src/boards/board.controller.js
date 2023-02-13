@@ -29,6 +29,15 @@ class BoardController {
             next(e);
         }
     }
+    async getHistory(req, res, next) {
+        try {
+            const { id } = req.params;
+            const response = await this.boardService.getHistory(id);
+            res.json(response);
+        } catch (e) {
+            next(e);
+        }
+    }
     async getView(req, res, next) {
         try {
             const { id, idx, userid } = req.params;
@@ -64,6 +73,16 @@ class BoardController {
                 subject,
                 content,
             });
+            res.status(201).json(response);
+        } catch (e) {
+            next(e);
+        }
+    }
+    async postBlind(req, res, next) {
+        console.log('postBlind:', req.body.id)
+        try {
+            const response = await this.boardService.postState(req.body.id);
+            console.log(response)
             res.status(201).json(response);
         } catch (e) {
             next(e);

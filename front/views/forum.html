@@ -1,0 +1,55 @@
+{% extends 'layout/layout.html' %} {% block content %}
+<link rel="stylesheet" href="/css/forum.css" />
+
+<div id="wrap">
+    <div id="blogWrap">
+        <div id="mainContainer">
+            <div id="navigationTab">
+                <ul>
+                    <li class="announcement">
+                        <iconify-icon icon="ic:baseline-announcement"></iconify-icon>
+                        공지사항
+                    </li>
+                    <li class="question">
+                        <iconify-icon icon="mdi:message-question"></iconify-icon>
+                        Q & A
+                    </li>
+                </ul>
+            </div>
+            <ul id="showList">
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="module" src="/js/lib/timestamp.js"></script>
+<script>
+    const category = document.querySelectorAll(".category");
+    for (item of category) {
+        item.className = `category ${item.innerHTML}`
+    }
+
+
+    const items = document.querySelectorAll("#navigationTab li");
+    items.forEach(item => {
+        item.addEventListener("click", () => {
+            items.forEach(v => {
+                v.classList.remove("active");
+            });
+            item.classList.add("active");
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        if (document.querySelector('.announcement').classList.contains("active")) {
+            console.log(1)
+            // const response = await request.get(`/boards/${id}/favorites`);
+            // console.log(response.data);
+        }
+        // else if (document.querySelector('.history').classList.contains("active")) {
+        //     const response = await request.get(`/boards/${id}/histories`);
+        //     console.log(response.data);
+        // }
+    });
+
+</script>
+{% endblock%}
