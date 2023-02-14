@@ -49,14 +49,14 @@ class BoardRepository {
         ${sortKey}
         ${limitquery};`;
             const [findAll] = await this.sequelize.query(query);
-            // console.log("findAll::::", findAll);
+            console.log("findAll::::", findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
         }
     }
     async findMain({ id, sql, order }) {
-        console.log(`repo :::`, id, sql, order)
+        console.log(`repo :::`, id, sql, order);
         try {
             const query = `SELECT 
       A.id,
@@ -97,6 +97,7 @@ class BoardRepository {
             //     raw: true,
             //     where: { boardid: idx },
             // });
+            // console.log("view", view);
             const [comment] = await this.sequelize.query(`
             WITH RECURSIVE comments (id, content, depth, parentid, createdAt, updatedAt, boardid, userid, PATH) AS (
               SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, id
@@ -298,26 +299,25 @@ class BoardRepository {
             throw new Error(e);
         }
     }
-        async updatehistory(userid, idx) {
-            console.log('repo history :::', userid, idx);
-            try {
-                await this.History.findOrCreate({ where: { userid, boardid : idx } });
+    async updatehistory(userid, idx) {
+        console.log("repo history :::", userid, idx);
+        try {
+            await this.History.findOrCreate({ where: { userid, boardid: idx } });
 
-                const sql = `
-                DELETE FROM history
+            const sql = `
+                DELETE FROM History
                 WHERE userid = '${userid}'
                 AND boardid NOT IN (SELECT boardid
-                  FROM (SELECT boardid FROM history
+                  FROM (SELECT boardid FROM History
                     WHERE userid = '${userid}'
                     ORDER BY createdAt DESC
                     LIMIT 20) subquery)`;
-              
-              await this.sequelize.query(sql, { replacements: [userid, userid] });
 
-            } catch (e) {
-                throw new Error(e);
-            }
+            await this.sequelize.query(sql, { replacements: [userid, userid] });
+        } catch (e) {
+            throw new Error(e);
         }
+    }
 
     async tempCheck(userid) {
         try {
