@@ -58,12 +58,6 @@
     background-color: #93c465;
 }
 
-
-
-
-
-
-
 #board > #hashs {
     padding: 10px 16px;
     box-sizing: border-box;
@@ -83,7 +77,7 @@
 #board > #boardInfo ul {
     width: 100%;
     display: flex;
-    justify-content:flex-end;
+    justify-content: flex-end;
 }
 
 #board > #boardInfo ul > li {
@@ -107,7 +101,6 @@
 #board > #contents {
     position: relative;
 }
-
 
 #likes {
     position: fixed;
@@ -297,7 +290,7 @@
 }
 
 #commentContent > .writeData > .writer {
-    display: block;
+    display: inline-block;
     margin-bottom: 7px;
 }
 
@@ -308,6 +301,11 @@
 
 #commentContent > .writeData > #commnetDate {
     font-size: 12px;
+}
+
+#comments > #temp > ul > #commentContent > .writeData > #userimg > img {
+    width: 30px;
+    border-radius: 15px;
 }
 
 #commentContent > .commentContent {
@@ -326,7 +324,7 @@
 }
 
 #commentContent > #btns > .commentBtn {
-    width: 50px;
+    width: 70px;
     height: 20px;
     background: none;
     border: none;
@@ -392,7 +390,7 @@
 }
 
 .child > #btns > .commentBtn {
-    width: 50px;
+    width: 70px;
     height: 20px;
     background: none;
     border: none;
@@ -411,3 +409,4 @@
 .toastui-editor-contents strong {
     color: #000;
 }
+

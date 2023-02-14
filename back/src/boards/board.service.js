@@ -70,7 +70,7 @@ class BoardService {
     }
     async getView(id, idx, userid) {
         try {
-            console.log(`view::::`, id, idx, userid)
+            console.log(`view::::`, id, idx, userid);
             const currentState = await this.boardRepository.getState(idx);
             if (currentState === "blind") {
                 console.log("current state:::", currentState);
@@ -87,7 +87,7 @@ class BoardService {
                 this.viewObj["hit"].splice(this.viewObj["hit"].indexOf(`${userid}+${idx}`), 1);
             }, 200000);
 
-            console.log("service history :::", userid, idx)
+            console.log("service history :::", userid, idx);
             await this.boardRepository.updatehistory(userid, idx);
 
             const [view, comment] = await this.boardRepository.findOne(id, idx);
@@ -313,8 +313,12 @@ class BoardService {
         }
     }
     async profile(userid) {
-        const [[response]] = await this.boardRepository.getMyAttention(userid);
-        return response;
+        try {
+            const [[response]] = await this.boardRepository.getMyAttention(userid);
+            return response;
+        } catch (e) {
+            throw new this.BadRequest(e);
+        }
     }
 }
 

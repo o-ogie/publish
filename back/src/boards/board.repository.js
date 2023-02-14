@@ -100,18 +100,20 @@ class BoardRepository {
             // console.log("view", view);
             const [comment] = await this.sequelize.query(`
             WITH RECURSIVE comments (id, content, depth, parentid, createdAt, updatedAt, boardid, userid, PATH) AS (
-              SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, id
-              FROM Comment
-              WHERE parentid = 0
-              UNION ALL
-              SELECT t.id, t.content, comments.depth + 1, t.parentid, t.createdAt, t.updatedAt, t.boardid, t.userid, PATH
-              FROM comments
-              JOIN Comment t ON comments.id = t.parentid
-            )
-            SELECT *
-            FROM comments
-            WHERE boardid = ${idx}
-            ORDER BY PATH`);
+SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, id
+FROM Comment
+WHERE parentid = 0
+UNION ALL
+SELECT t.id, t.content, comments.depth + 1, t.parentid, t.createdAt, t.updatedAt, t.boardid, t.userid, comments.PATH || '.' || t.id
+FROM comments
+JOIN Comment t ON comments.id = t.parentid
+)
+SELECT comments.*, B.userimg
+FROM comments
+JOIN User AS B
+ON comments.userid = B.userid
+WHERE comments.boardid = ${idx}
+ORDER BY PATH`);
             // console.log(comment);
             // const hashtag = await this.Hashtag.findAll({
             //     attributes: ["tagname"],
@@ -340,6 +342,15 @@ class BoardRepository {
     async createPoint(data) {
         try {
             const respone = await this.PointUp.create(data);
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async findPoint(userid) {
+        try {
+            const respone = await this.PointUp.findAll({ raw: true, where: { userid } });
+            return respone;
         } catch (e) {
             throw new Error(e);
         }
