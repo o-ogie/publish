@@ -12,15 +12,22 @@ route.get("/signup", (req, res) => {
     res.render("user/signup.html");
 });
 
-route.post("/signup", async (req, res) => {
-    console.log(`req:::`, req.body);
-    const response = await request.post("/users", {
-        ...req.body,
-    });
-    const { userid, username, userpw } = response.data;
+route.post("/signup", async (req, res, next) => {
+    try {
+        console.log(`req:::`, req.body);
+        const response = await request.post("/users", {
+            ...req.body,
+        });
+        const { userid, username, userpw } = response.data;
+        if (response.data.status >= 400) {
+            throw response.data;
+        }
+        res.redirect("/");
+    } catch (e) {
+        next(e);
+    }
 
     // res.redirect(`/user/welcome?userid=${userid}&username=${username}&userpw=${userpw}`);
-    res.redirect("/");
 });
 
 route.get("/welcome", (req, res) => {
@@ -40,12 +47,16 @@ route.get("/signin", (req, res) => {
 });
 
 route.get("/profile", async (req, res) => {
-    const user = req.user;
-    const response = await request.get(`/users/point/${user.userid}`);
-    console.log(response.data.length);
-    // console.log(response.data)
+    try {
+        const user = req.user;
+        const response = await request.get(`/users/point/${user.userid}`);
+        console.log(response.data.length);
+        // console.log(response.data)
 
-    res.render("user/profile.html", { user, ...req.user });
+        res.render("user/profile.html", { user, ...req.user });
+    } catch (e) {
+        next(e);
+    }
 });
 
 route.get("/modify", (req, res) => {
@@ -54,18 +65,26 @@ route.get("/modify", (req, res) => {
 });
 
 route.post("/modify", async (req, res) => {
-    // console.log("modify:::", req.body)
-    const response = await request.put("/users", { ...req.body });
-    console.log("response :", response.data.token);
-    res.cookie("token", response.data.token);
-    await res.redirect("/user/profile");
+    try {
+        // console.log("modify:::", req.body)
+        const response = await request.put("/users", { ...req.body });
+        console.log("response :", response.data.token);
+        res.cookie("token", response.data.token);
+        await res.redirect("/user/profile");
+    } catch (e) {
+        next(e);
+    }
 });
 
 route.post("/delete", async (req, res) => {
-    console.log("delete:::", req.body.userid);
-    const response = await request.delete(`/users/${req.body.userid}`);
-    res.cookie("token", response.data.token);
-    await res.redirect("/");
+    try {
+        console.log("delete:::", req.body.userid);
+        const response = await request.delete(`/users/${req.body.userid}`);
+        res.cookie("token", response.data.token);
+        await res.redirect("/");
+    } catch (e) {
+        next(e);
+    }
 });
 
 module.exports = route;

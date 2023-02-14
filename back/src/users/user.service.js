@@ -2,6 +2,7 @@ class UserService {
     constructor({ userRepository, jwt, config }) {
         this.userRepository = userRepository;
         this.jwt = jwt;
+        this.BadRequest = config.exception.BadRequest;
         this.crypto = jwt.crypto;
         this.config = config;
     }
@@ -21,7 +22,7 @@ class UserService {
             });
             return user;
         } catch (e) {
-            throw new Error(e);
+            throw new this.BadRequest(e);
         }
     }
 
