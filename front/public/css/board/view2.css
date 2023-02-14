@@ -1,16 +1,16 @@
 #viewwrap {
-    width: 900px;
+    width: 800px;
     height: 100%;
     position: absolute;
     top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #eee;
+    color: #fff;
 }
 
 #board {
     min-height: 600px;
-    background: #fff;
+    background: rgba(80, 80, 80, 0.4);
     box-shadow: rgb(0 0 0 / 0.5) 0px 6px 12px;
     backdrop-filter: blur(6px);
     border-radius: 12px;
@@ -19,10 +19,8 @@
 }
 
 #board > #boardSubject {
-    background: url(https://cdn.dribbble.com/users/113499/screenshots/7146093/space-cat.png) no-repeat;
-    background-color: rgb(35, 76, 166);
-    background-size: 35%;
-    background-position: right 40%;
+    border-radius: 12px 12px 0 0;
+    background-color: #121212;
     margin: 0 auto;
     padding: 20px 30px;
     font-size: 30px;
@@ -31,13 +29,15 @@
     justify-content: flex-start;
 }
 
+#board > #boardSubject > h2 {
+    width: 800px;
+}
 #board > #boardSubject .category {
     display: inline-block;
-    height: 28px;
-    font-size: 18px;
+    height: 32px;
     width: 60px;
-    line-height: 28px;
-    margin-left: 20px;
+    font-size: 18px;
+    line-height: 32px;
     /* background-color: #7665c4; */
     border-radius: 16px;
     text-align: center;
@@ -73,28 +73,25 @@
     padding: 10px 30px;
     margin-top: 20px;
     box-sizing: border-box;
-    color: #888;
-    font-size: 14px;
+    font-size: 16px;
+    color: #aaa;
 }
-#board > #boardInfo ul {
-    padding-bottom: 6px;
-    border-bottom: 2px solid #ececec;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+#board > #boardInfo a {
+    color: #fff;
 }
 
-#board > #boardInfo a {
-    color: #333;
-    font-weight: 600;
+#board > #boardInfo ul {
+    width: 100%;
+    display: flex;
+    justify-content:flex-end;
 }
 
 #board > #boardInfo ul > li {
     margin-left: 12px;
 }
 
-#board > #boardInfo ul > li:nth-child(2) > span {
-    margin-right: 16px;
+#board > #boardInfo ul > li:nth-child(4) {
+    margin-left: 20px;
 }
 
 #board > #boardInfo #userid {
@@ -103,7 +100,7 @@
 
 #board > #boardInfo #userid::after {
     content: "•";
-    margin-left: 10px;
+    margin-left: 15px;
     box-sizing: border-box;
 }
 
@@ -175,7 +172,7 @@
 }
 
 #board > #contents > #boardcontent {
-    padding: 0 16px;
+    padding: 10px 16px;
     margin-top: 10px;
     width: 100%;
     height: 1000px;
@@ -212,15 +209,12 @@
 
 #profile > #writerInfo > #pWriter {
     font-size: 16px;
-    color: #666;
+    color: #ccc;
 }
 
 #profile > #writerInfo > #pblog {
     margin-top: 15px;
     font-size: 30px;
-}
-#profile > #writerInfo > #pblog > a {
-    color: #333;
 }
 
 /*comment */
@@ -264,10 +258,6 @@
     transition: all 0.2s;
 }
 
-#hashs {
-    margin-left: 10px;
-}
-
 #hashs > .hashtags {
     display: inline-block;
     width: auto;
@@ -290,7 +280,7 @@
 }
 
 #commentContent {
-    width: 900px;
+    width: 800px;
     margin-top: 20px;
     padding: 10px;
     box-sizing: border-box;
@@ -298,7 +288,7 @@
 }
 
 #commentContent.child {
-    width: 840px;
+    width: 740px;
 }
 
 #commentContent > .writeData {
@@ -420,11 +410,4 @@
 }
 .toastui-editor-contents strong {
     color: #000;
-}
-.toastui-editor-defaultUI {
-    border: none;
-}
-.toastui-editor-contents p {
-    font-size: 16px;
-    margin: 5px 0;
 }

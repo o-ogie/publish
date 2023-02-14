@@ -66,15 +66,17 @@ body {
 
 #subContainer #hashtag ul {
     padding: 7%;
+    max-height: 240px;
+    overflow-y: scroll;
 }
 #hashtag ul li {
     display: inline-block;
     background-color: #7c7c7c;
-    padding: 2px 4px;
+    padding: 2px 3px;
     margin-right: 6px;
     margin-bottom: 8px;
     border-radius: 4px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     text-overflow: ellipsis;
     overflow: hidden;
 }
