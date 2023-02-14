@@ -37,6 +37,7 @@ class BoardRepository {
         B.userImg,
         B.nickname,
         B.introduce,
+        (SELECT GROUP_CONCAT(D.userid SEPARATOR ', ') FROM Liked AS D WHERE A.id = D.boardid) AS likeidlist,
         GROUP_CONCAT(C.tagname SEPARATOR ', ') AS tagname,
         (SELECT COUNT(boardid) FROM Comment WHERE boardid = A.id) AS commentCount, 
         (SELECT COUNT(BoardId) FROM Liked WHERE BoardId = A.id) AS likeCount
@@ -307,7 +308,7 @@ ORDER BY PATH`);
         try {
             await this.History.findOrCreate({ where: { userid, boardid: idx } });
 
-                const sql = `
+            const sql = `
                 DELETE FROM History
                 WHERE userid = '${userid}'
                 AND boardid NOT IN (SELECT boardid
@@ -343,15 +344,6 @@ ORDER BY PATH`);
     async createPoint(data) {
         try {
             const respone = await this.PointUp.create(data);
-        } catch (e) {
-            throw new Error(e);
-        }
-    }
-
-    async findPoint(userid) {
-        try {
-            const respone = await this.PointUp.findAll({ raw: true, where: { userid } });
-            return respone;
         } catch (e) {
             throw new Error(e);
         }
