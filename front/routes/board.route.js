@@ -87,17 +87,6 @@ route.get("/:id/favorite", async (req, res) => {
         next(e);
     }
 });
-<<<<<<< HEAD
-=======
-// route.get("/:id/history", async (req, res) => {
-//     const user = req.user;
-//     const { id } = req.params;
-//     const response = await request.get(`/boards/${id}/histories`);
-//     console.log(user);
-//     res.render("board/favorite.html", { user, list: response.data });
-// });
->>>>>>> 2d6899e9f89bddbac175157a908b77c14b300ec3
-
 route.get("/:id/:idx", async (req, res) => {
     try {
         const user = req.user;
