@@ -95,6 +95,7 @@ class BoardRepository {
             //     raw: true,
             //     where: { boardid: idx },
             // });
+            console.log("repo", view);
             const [comment] = await this.sequelize.query(`
             WITH RECURSIVE comments (id, content, depth, parentid, createdAt, updatedAt, boardid, userid, PATH) AS (
               SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, id
