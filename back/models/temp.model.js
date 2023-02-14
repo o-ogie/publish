@@ -1,3 +1,4 @@
+const {host, port} = require('../config')
 module.exports = (sequelize, Sequelize) => {
     class Temp extends Sequelize.Model {
       static createTable() {
@@ -18,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
             image: {
               type: Sequelize.TEXT(),
               allowNull: true,
-              defaultValue: "http://localhost:3000/board/default-board.png",
+              defaultValue: `http://${host}:${port}/board/default-board.png`,
             },
           },
           {

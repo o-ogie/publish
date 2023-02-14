@@ -1,7 +1,7 @@
 const express = require("express");
 const route = express.Router();
 const axios = require("axios");
-const config = require("../config");
+const config = require("../config.js");
 
 const request = axios.create({
     baseURL: `http://${config.BACK_HOST}:${config.PORT}`,

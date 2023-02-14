@@ -1,3 +1,4 @@
+const {host, port} = require('../config')
 module.exports = (sequelize, Sequelize) => {
   class User extends Sequelize.Model {
     static createTable() {
@@ -52,7 +53,7 @@ module.exports = (sequelize, Sequelize) => {
                 userImg: {
                     type: Sequelize.TEXT(),
                     allowNull: false,
-                    defaultValue: "http://localhost:3000/default-image.png",
+                    defaultValue: `http://${host}:${port}/default-image.png`,
                 },
                 provider: {
                     type: Sequelize.ENUM("local", "kakao"),
