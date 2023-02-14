@@ -306,7 +306,7 @@ ORDER BY PATH`);
         try {
             await this.History.findOrCreate({ where: { userid, boardid: idx } });
 
-            const sql = `
+                const sql = `
                 DELETE FROM History
                 WHERE userid = '${userid}'
                 AND boardid NOT IN (SELECT boardid

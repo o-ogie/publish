@@ -17,12 +17,9 @@ li {
 }
 ::-webkit-scrollbar-thumb {
     height: 20%; /* 스크롤바의 길이 */
-    background: #666; /* 스크롤바의 색상 */
+    background: #444; /* 스크롤바의 색상 */
     
     border-radius: 10px;
-}
-::-webkit-scrollbar-track {
-    background: rgba(168, 168, 168, 0.1);  /*스크롤바 뒷 배경 색상*/
 }
 
 

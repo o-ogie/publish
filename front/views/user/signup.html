@@ -96,17 +96,18 @@
                     </div>
                     <p class="alertMessage" style="opacity: 0; color: red">이메일 형식에 맞게 입력해주세요</p>
                 </li>
-                <li id="adressBox">
+                <li id="addressBox">
                     <div class="inputContainer">
-                        <input type="text" id="postcode" placeholder="우편번호">
-                        <input type="button" value="우편번호 찾기" id="find"><br>
-                        <input type="text" id="address" name="address" placeholder="주소"><br>
+                        <input type="button" value="우편번호 찾기" id="find">
+                        <iconify-icon icon="entypo:address"></iconify-icon>
+                        <input type="text" id="postcode">
+                        <input type="text" id="address" name="address" placeholder="주소">
                         <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
                         <input type="hidden" id="extraAddress" placeholder="참고항목">
                     </div>
                 </li>
                 <li id="introBox">
-                    <input type="hidden" name="introduce" id="introduce">
+                    <input type="text" name="introduce" id="introduce" placeholder="한 줄 소개"  maxlength="30">
                 </li>
             </ul>
 

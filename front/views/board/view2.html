@@ -20,20 +20,14 @@
         </div>
         <div id="boardInfo">
             <ul>
-                <li>
-                    <span><iconify-icon icon="fa-solid:user-edit" style="margin-right: 5px"></iconify-icon></span><span id="userid">{{data.userid}}</span>
-                </li>
-                <li>
-                    <span id="date" class="innerText"><iconify-icon icon="ic:baseline-access-time-filled" style="margin-right: 3px"></iconify-icon> {{data.createdAt}}</span>
-                </li>
-                <li>
-                    <span><iconify-icon icon="ic:baseline-remove-red-eye" style="margin-right: 3px"></iconify-icon> {{data.hit}} </span>
-                </li>
-                {% if user.userid === data.userid %}
+                <li><span id="userid"><iconify-icon icon="fa-solid:user-edit" style="margin-right: 5px;"></iconify-icon>{{data.userid}}</span></li>
+                <li><span id="date" class="innerText"><iconify-icon icon="ic:baseline-access-time-filled" style="margin-right: 3px;"></iconify-icon> {{data.createdAt}}</span></li>
+                <li><span><iconify-icon icon="ic:baseline-remove-red-eye" style="margin-right: 3px;"></iconify-icon> {{data.hit}} </span></li>
+                {% if user.userid === data.userid %} 
                 <li>
                     <span><a href="/board/{{user.userid}}/{{data.id}}/modify">수정</a></span>
                 </li>
-                <li>
+                <li>                    
                     <span class="delete"><a href="/board/{{user.userid}}/{{data.id}}/delete">삭제</a></span>
                 </li>
                 {% endif %}
@@ -73,19 +67,16 @@
                 {% for item in comment %} {% if item.depth === 0 %}
                 <li id="commentContent" data-index="{{item.id}}">
                     <div class="writeData">
-                        <span id="userimg">
-                            <img src="{{item.userimg}}" alt="" />
-                        </span>
                         <span id="commentUser" class="writer">{{item.userid}}</span>
-                        <span class="timeStamp" style="color: #999; font-size: 0.9em">
+                        <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
                             <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
                         </span>
                     </div>
                     <input type="text" class="commentContent" value="{{item.content}}" disabled />
                     <div id="btns">
                         {% if item.userid === user.userid %}
-                        <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon>수정</button>
-                        <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>
+                        <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px;"></iconify-icon>수정</button>
+                        <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px;"></iconify-icon> 삭제</button>
                         {% endif %}
                     </div>
                     <div id="recommentBox">
@@ -95,19 +86,16 @@
                 {% else %}
                 <li id="commentContent" class="child" data-index="{{item.id}}">
                     <div class="writeData">
-                        <span id="userimg">
-                            <img src="{{item.userimg}}" alt="" />
-                        </span>
                         <span id="commentUser" class="writer">{{item.userid}}</span>
-                        <span class="timeStamp" style="color: #999; font-size: 0.9em">
+                        <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
                             <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
                         </span>
                     </div>
                     <input type="text" class="commentContent" value="{{item.content}}" disabled />
                     <div id="btns">
                         {% if item.userid === user.userid %}
-                        <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon> 수정</button>
-                        <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>
+                        <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px;"></iconify-icon> 수정</button>
+                        <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px;"></iconify-icon> 삭제</button>
                         {% endif %}
                     </div>
                 </li>
@@ -147,9 +135,10 @@
     mdContent.style.width = "100%";
     mdViewer.style.background = "#fff";
 
+
     const category = document.querySelectorAll(".category");
     for (item of category) {
-        item.className = `category ${item.innerHTML}`;
+        item.className = `category ${item.innerHTML}`
     }
 </script>
 
@@ -158,6 +147,4 @@
 <script type="module" src="/js/lib/timestamp.js"></script>
 <script type="module" src="/js/module/board/view.js"></script>
 {% endblock %}
-
-
 

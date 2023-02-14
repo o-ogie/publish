@@ -33,6 +33,9 @@ const duplicateCheck = async (inputId) => {
     check.style.color = "green";
   }
   check.style.opacity = 1;
+  setTimeout(()=>{
+  check.style.opacity = 0;
+  }, 2000)
 };
 
 const config = {
@@ -68,15 +71,19 @@ for (const key in config) {
 
 // 패스워드 재확인
 document.querySelector("#pwcheck").addEventListener("keyup", () => {
+  const check = document.querySelector(".checkMessage")
   if (
     document.querySelector("#userpw").value !==
     document.querySelector("#pwcheck").value
-  )
-    document.querySelector(".checkMessage").style.opacity = 1;
+    )
+    check.style.opacity = 1;
   else {
-    document.querySelector(".checkMessage").innerHTML = "비밀번호가 일치합니다";
-    document.querySelector(".checkMessage").style.color = "green";
-  }
+    check.innerHTML = "비밀번호가 일치합니다";
+    check.style.color = "green";
+    setTimeout(()=>{
+      check.style.opacity = 0;
+      }, 2000)
+    }
 });
 
 // 아바타 등록
