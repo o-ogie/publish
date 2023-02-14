@@ -93,7 +93,7 @@ class BoardService {
             const [view, comment] = await this.boardRepository.findOne(id, idx);
             let { userImg: test } = view;
             if (test.indexOf("http") === -1) {
-                test = `http://localhost:3000/${test}`;
+                test = `http://${config.host}:${config.port}/${test}`;
             }
             console.log("asdasdasd", view, comment);
             const data = { ...view, userImg: test };
@@ -312,6 +312,7 @@ class BoardService {
             throw new this.BadRequest(e);
         }
     }
+
     async profile(userid) {
         try {
             const [[response]] = await this.boardRepository.getMyAttention(userid);

@@ -1,7 +1,7 @@
 const express = require("express");
 const route = express.Router();
 const axios = require("axios");
-const config = require("../config");
+const config = require("../config.js");
 
 const request = axios.create({
     baseURL: `http://${config.BACK_HOST}:${config.PORT}`,
@@ -50,8 +50,7 @@ route.get("/profile", async (req, res) => {
     try {
         const user = req.user;
         const response = await request.get(`/users/point/${user.userid}`);
-        console.log(response.data.length);
-        // console.log(response.data)
+        console.log(response.data);
 
         res.render("user/profile.html", { user, ...req.user });
     } catch (e) {

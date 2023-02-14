@@ -13,7 +13,7 @@ class UserService {
             userData.userImg = userData.userImg ? `http://${this.config.host}:${this.config.port}/${userData.userImg}` : undefined;
             const { userid, username, userpw, ...rest } = userData;
             if (!userid || !userpw || !username) throw "내용이 없습니다";
-            const hash = this.crypto.createHmac("sha256", "web7722").update(userpw).digest("hex");
+            const hash = this.crypto.createHmac("sha256", this.config.SALT).update(userpw).digest("hex");
             const user = await this.userRepository.addUser({
                 userid,
                 username,
@@ -37,22 +37,30 @@ class UserService {
     }
 
     async me(token) {
-        try {
-            const { userid } = this.jwt.verifyToken(token, "web7722");
-            const user = await this.userRepository.getUserById(userid);
-            // console.log(user)
-            return user;
-        } catch (e) {
-            throw new Error(e);
-        }
+      try {
+          const { userid } = this.jwt.verifyToken(token, this.config.SALT);
+          const user = await this.userRepository.getUserById(userid);
+          // console.log(user)
+          return user;
+      } catch (e) {
+          throw new Error(e);
+      }
     }
 
+    async All(token){
+        const { level } = this.jwt.verifyToken(token, this.config.SALT);
+        if(level !== "admin") throw new Error("Access denied")
+        const list = await this.userRepository.getUsers();
+        console.log(list)
+        // return list;
+  }
+    
     async putProfile(userData) {
         try {
             console.log(`userData ::::`, userData);
             if (userData.userImg.indexOf("http://") === -1) userData.userImg = `http://${this.config.host}:${this.config.port}/${userData.userImg}`;
             const { userpw, ...rest } = userData;
-            const hash = this.crypto.createHmac("sha256", "web7722").update(userpw).digest("hex");
+            const hash = this.crypto.createHmac("sha256", this.config.SALT).update(userpw).digest("hex");
 
             const user = await this.userRepository.updateProfile({
                 userpw: hash,

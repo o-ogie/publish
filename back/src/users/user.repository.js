@@ -43,7 +43,20 @@ class UserRepository {
         }
     }
 
-    async updateProfile(userData) {
+    async getUsers(){
+    const [user] = await this.User.findAll({
+      raw:true,
+      attributes: { exclude: ["userpw"]},
+      where:{
+        level:{
+          [Op.not]:"user"
+        }
+      }
+    })
+    console.log(user)
+  }
+
+  async updateProfile(userData) {
         try {
             console.log(`repo userData : `, userData);
             // const user = await this.User.update(
