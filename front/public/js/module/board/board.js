@@ -1,5 +1,6 @@
 import request from "/js/lib/request.js";
 
+
 const preview = document.querySelector("#preview > #text");
 const preimg = document.querySelector("#preview > #img");
 const insert = document.querySelector("#insert");
@@ -150,7 +151,7 @@ const imghandler = async (e) => {
         for (let i = 0; i < imgarray.length; i++) {
             const img = document.createElement("img");
             img.className = "previewimg";
-            img.src = `http://localhost:3000/board/${imgarray[i]}`;
+            img.src = `http://${BACK_HOST}:${BACK_PORT}/board/${imgarray[i]}`;
             preimg.append(img);
 
             const contentDiv = document.querySelector(".ProseMirror");

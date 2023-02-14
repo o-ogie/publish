@@ -13,7 +13,9 @@ const config = {
   },
   host: process.env.HOST || "127.0.0.1",
   env: process.env.NODE_ENV || "development",
-  port: process.env.PORT || "",
+  port: process.env.PORT || "3000",
+  redirect_host: process.env.REDIRECT_HOST || 'localhost',
+  redirect_port: process.env.REDIRECT_PORT || '3005',
   db: {
     development: {
       username: process.env.DB_USER || "",
@@ -22,6 +24,11 @@ const config = {
       port: process.env.DB_PORT || "",
       host: process.env.DB_HOST || "",
       dialect: "mysql",
+      timezone: "Asia/Seoul",
+      dialectOptions: {
+        dataStrings: true,
+        typeCast:true,
+      },
       define: { freezeTableName: true, timestamp: false },
     },
     test: {

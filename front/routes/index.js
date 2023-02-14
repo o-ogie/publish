@@ -4,9 +4,10 @@ const user = require("./user.route");
 const board = require("./board.route");
 const admin = require("./admin.route");
 const axios = require("axios");
+const config = require("../config");
 
 const request = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: `http://${config.BACK_HOST}:${config.PORT}`,
     withCredentials: true,
 });
 
