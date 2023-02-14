@@ -211,3 +211,40 @@ for (let i = 0; i < commentbtn.length; i++) {
     commentbtn[i].addEventListener("click", commentDelete);
 }
 
+
+
+
+const openRecomment = document.querySelectorAll('#openRecomment');
+const child = document.querySelectorAll('#commentContent')
+
+const openCommentHandler = (e) => {
+    const box = e.target.parentNode
+    const parentId = box.querySelector('#parentId');
+
+                  
+}
+
+openRecomment.forEach((v) => {
+    v.addEventListener("click", openCommentHandler);
+}); 
+
+
+
+
+
+
+// showTag.addEventListener("click", (e) => {
+//     const target = e.target;
+//     if (target.nodeName === "LI") {
+//         const tagname = target.textContent.split(" ")[0];
+
+//         const boardList = document.querySelectorAll('.boardItem');
+//         boardList.forEach(item => {
+//             item.style.display = 'none';
+//             const tagList = item.querySelectorAll('.tagList li');
+//             tagList.forEach(tag => {
+//                 if (tag.textContent.trim() == tagname) item.style.display = 'block';
+//             });
+//         });
+//     }
+// })

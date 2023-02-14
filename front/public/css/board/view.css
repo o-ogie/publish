@@ -191,21 +191,23 @@
 }
 
 #profile {
-    padding-left: 50px;
+    margin: 0 auto;
     margin-top: 100px;
+    padding-top: 30px;
+    border-top: 1px solid #ccc;
     display: flex;
     width: 800px;
-    height: 150px;
+    height: 180px;
 }
 
-#profile > #img {
+#profile #img {
     width: 150px;
     height: 150px;
     border-radius: 75px;
     overflow: hidden;
 }
 
-#profile > #img > img {
+#profile #img img {
     width: 150px;
     height: 150px;
 }

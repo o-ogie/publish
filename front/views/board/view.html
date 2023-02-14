@@ -42,10 +42,10 @@
             </div>
             <div id="profile">
                 <div id="img">
-                    <img src="{{data.userImg}}" alt="" />
+                    <a href="http://localhost:3005/board/{{data.userid}}"><img src="{{data.userImg}}" alt="" /></a>
                 </div>
                 <div id="writerInfo">
-                    <p id="pblog"><a href="http://localhost:3005/board/{{data.userid}}">{{data.nickname}}.LOG</a></p>
+                    <p id="pblog"><a href="http://localhost:3005/board/{{data.userid}}">{{data.nickname}}</a></p>
                     <p id="pIntroduce">{{data.introduce}}</p>
                 </div>
             </div>
@@ -87,6 +87,7 @@
                                 {% endif %}
                             </div>
                             <div id="recommentBox">
+                                <input type="hidden" value="{{item.PATH}}" id="parentId">
                                 <span id="openRecomment"><iconify-icon icon="octicon:triangle-down-24"></iconify-icon></iconify-icon>답글 열기</span>
                             </div>
                         </li>
