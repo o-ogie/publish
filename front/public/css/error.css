@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#wrap {
+    width: 100%;
+}
+
+#wrap > #messageWrap {
+    width: 800px;
+    height: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#wrap > #messageWrap > #stauts {
+    font-size: 70px;
+}
+
+#wrap > #messageWrap > #img > img {
+    width: 600px;
+    height: 500px;
+}
+
+#wrap > #messageWrap > #message {
+    font-size: 24px;
+    font-weight: bolder;
+}
+

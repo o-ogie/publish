@@ -2,30 +2,28 @@ class UserService {
     constructor({ userRepository, jwt, config }) {
         this.userRepository = userRepository;
         this.jwt = jwt;
+        this.BadRequest = config.exception.BadRequest;
         this.crypto = jwt.crypto;
         this.config = config;
     }
 
     async signup(userData) {
-      try {
-        userData.address = `${userData.address} ${userData.detailAddress}`
-        userData.userImg = userData.userImg ? `http://${this.config.host}:${this.config.port}/${userData.userImg}` : undefined
-        const {userid, username, userpw, ...rest} = userData
-        if (!userid || !userpw || !username) throw "내용이 없습니다";
-        const hash = this.crypto
-          .createHmac("sha256", this.config.SALT)
-          .update(userpw)
-          .digest("hex");
-        const user = await this.userRepository.addUser({
-          userid,
-          username,
-          userpw: hash, 
-          ...rest
-        });
-        return user;
-      } catch (e) {
-        throw new Error(e);
-      }
+        try {
+            userData.address = `${userData.address} ${userData.detailAddress}`;
+            userData.userImg = userData.userImg ? `http://${this.config.host}:${this.config.port}/${userData.userImg}` : undefined;
+            const { userid, username, userpw, ...rest } = userData;
+            if (!userid || !userpw || !username) throw "내용이 없습니다";
+            const hash = this.crypto.createHmac("sha256", this.config.SALT).update(userpw).digest("hex");
+            const user = await this.userRepository.addUser({
+                userid,
+                username,
+                userpw: hash,
+                ...rest,
+            });
+            return user;
+        } catch (e) {
+            throw new this.BadRequest(e);
+        }
     }
 
     async userCheck(user) {

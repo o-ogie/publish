@@ -48,6 +48,7 @@ const likeHandler = async () => {
     const [emptyval, board, id, idx] = path.split("/");
     const body = { userid };
     const respone = await request.post(`/boards/${id}/${idx}/likes`, body);
+    console.log(respone.data.check);
     likecount.innerHTML = respone.data.count;
     likecheck(respone.data.check);
 };
@@ -59,8 +60,10 @@ const likecheck = (check) => {
         heart.className = "like";
     }
 };
+console.log(likelist.value);
 const array = likelist.value.split(", ").filter((v) => v === nowme.value);
 likecheck(array[0]);
+console.log(array[0]);
 
 // const likecheck = async ({ id, idx }) => {
 //     const respone = await request.get(`/boards/${id}/${idx}/likes`);

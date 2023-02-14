@@ -8,6 +8,7 @@ class UserController {
             const user = await this.userService.signup(req.body);
             res.status(201).json(user);
         } catch (e) {
+            console.log("contntntn", e);
             next(e);
         }
     }
