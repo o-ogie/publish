@@ -7,22 +7,6 @@ body {
     background-color: #222431;
 }
 
-/* 스크롤바 */
-::-webkit-scrollbar {
-    width: 8px;  /* 스크롤바의 너비 */
-}
-::-webkit-scrollbar-thumb {
-    height: 20%; /* 스크롤바의 길이 */
-    background: #666; /* 스크롤바의 색상 */
-    
-    border-radius: 10px;
-}
-::-webkit-scrollbar-track {
-    background: rgba(168, 168, 168, 0.1);  /*스크롤바 뒷 배경 색상*/
-}
-
-
-
 #wrap {
     position: absolute;
     top: 5%;
@@ -115,27 +99,31 @@ body {
     height: 100%;
     padding-top: 160px;
 }
+#mainContainer > ul {
+    padding-bottom: 60px;
+}
 
-#favoriteTab {
+
+#navigationTab {
     width: 780px;
     height: 60px;
     margin: 0 auto;
     margin-bottom: 20px;
 }
 
-#favoriteTab ul {
+#navigationTab ul {
     display: flex;
     justify-content: space-around;
     width: 400px;
     margin: 0 auto;
     font-size: 24px;
 }
-#favoriteTab ul li {
+#navigationTab ul li {
     display: inline-block;
     position: relative;
     cursor: pointer;
 }
-#favoriteTab ul li:after {
+#navigationTab ul li:after {
     content: "";
     display: block;
     position: absolute;
@@ -148,7 +136,7 @@ body {
     transition: 0.3s ease-in-out;
     transform: scaleX(0);
   }
-  #favoriteTab ul li.active:after {
+  #navigationTab ul li.active:after {
     transform: scaleX(1);
   }
 

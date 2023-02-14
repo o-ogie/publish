@@ -87,6 +87,9 @@ module.exports = (sequelize, Sequelize) => {
         this.hasMany(models.Comment, {
             foreignKey: "userid",
         });
+        this.hasMany(models.History, {
+            foreignKey: "userid",
+          });
         this.hasMany(models.PointUp, {
             foreignKey: "userid",
         });

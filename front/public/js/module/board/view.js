@@ -75,6 +75,7 @@ img.addEventListener("click", likeHandler);
 const commentHandler = async (e) => {
     e.preventDefault();
     try {
+        const boardWirterid = document.querySelector("#userid");
         const parentid = commentfrm.parentid.value;
         const comment = commentfrm.comment.value;
         const userid = nowme.value;
@@ -82,6 +83,7 @@ const commentHandler = async (e) => {
             userid,
             parentid,
             content: comment,
+            boardWirterid: boardWirterid.innerHTML,
         };
         const path = document.location.pathname;
         const [emptyval, board, id, idx] = path.split("/");
@@ -89,7 +91,6 @@ const commentHandler = async (e) => {
         const respone = await request.post(`/boards/${idx}/comments`, body);
         commentfrm.reset();
         location.href = `/board/${id}/${idx}`;
-        console.log(body);
     } catch (error) {
         alert(error);
     }
@@ -104,16 +105,21 @@ const addcommentHandler = (e) => {
         const clone = commentfrm.cloneNode(true);
         const parent = e.target.parentNode.parentNode;
 
-        const groupindex = parent.dataset.index;
+        const groupIndex = parent.dataset.index;
+        const pointUserid = parent.querySelector("#commentUser");
         parent.append(clone);
         clone.addEventListener("submit", async (e) => {
             e.preventDefault();
+            const boardWirterid = document.querySelector("#userid");
+
             const comment = clone.comment.value;
             const userid = nowme.value;
             const body = {
                 userid,
-                parentid: groupindex,
+                parentid: groupIndex,
                 content: comment,
+                pointUp: pointUserid.innerHTML,
+                boardWirterid: boardWirterid.innerHTML,
             };
             const path = document.location.pathname;
             const [emptyval, board, id, idx] = path.split("/");

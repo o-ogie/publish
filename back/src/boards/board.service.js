@@ -7,10 +7,17 @@ class BoardService {
         this.viewObj = new Object();
     }
 
-    async getList({ searchType, search, sort, category }) {
+    async getList({ searchType, search, sort, category }, { count }) {
         try {
-            console.log("scht, sch, srt", searchType, search, sort);
-            const list = await this.boardRepository.findAll({ searchType, search, sort, category });
+            console.log("scht, sch, srt", searchType, search, sort, count);
+            const views = 9;
+            if (!count) count = 0;
+            let limitval = views * count;
+            const limit = {
+                limit: limitval,
+                views,
+            };
+            const list = await this.boardRepository.findAll({ searchType, search, sort, category, limit });
             // if (list.length === 0) throw "내용이 없습니다";
             // console.log("serv", list);
             return list;
@@ -20,16 +27,19 @@ class BoardService {
     }
     async getMain(id) {
         try {
-            id = { id, sql: `` };
+            id = { id: `A.userid = '${id}'`, sql: ``, order: `A.id` };
             const main = await this.boardRepository.findMain(id);
             if (main) {
-                const tags = main.map(v => v.tagname).join(', ').split(', ')
+                const tags = main
+                    .map((v) => v.tagname)
+                    .join(", ")
+                    .split(", ");
                 const countTags = tags.reduce((acc, tag) => {
                     acc[tag] = (acc[tag] || 0) + 1;
                     return acc;
-                  }, {});      
-                  console.log(`main:::`, {main: main, tagnames: countTags})  
-            return {main: main, tagnames: countTags};
+                }, {});
+                console.log(`main:::`, { main: main, tagnames: countTags });
+                return { main: main, tagnames: countTags };
             }
         } catch (e) {
             throw new this.BadRequest(e);
@@ -38,20 +48,33 @@ class BoardService {
     async getFavor(id) {
         console.log(`id:::`, id);
         try {
-            const data = { id, sql: `JOIN Liked AS D ON A.id = D.boardid ` };
+            const data = { id: `D.userid = '${id}'`, sql: `JOIN Liked AS D ON A.id = D.boardid `, order: `D.createdAt` };
             console.log(`data ::::`, data);
             const favor = await this.boardRepository.findMain(data);
+            console.log(`favor ::::`, favor);
             return favor;
+        } catch (e) {
+            throw new this.BadRequest(e);
+        }
+    }
+    async getHistory(id) {
+        try {
+            const data = { id: `D.userid = '${id}'`, sql: `JOIN History AS D ON A.id = D.boardid`, order: `D.createdAt` };
+            console.log(`data ::::`, data);
+            const history = await this.boardRepository.findMain(data);
+            console.log(`history ::::`, history);
+            return history;
         } catch (e) {
             throw new this.BadRequest(e);
         }
     }
     async getView(id, idx, userid) {
         try {
+            console.log(`view::::`, id, idx, userid)
             const currentState = await this.boardRepository.getState(idx);
-            if (currentState === 'blind') {
-                console.log('current state:::', currentState);
-                throw new Error('차단된 게시글입니다')
+            if (currentState === "blind") {
+                console.log("current state:::", currentState);
+                throw new Error("차단된 게시글입니다");
             }
 
             if (!this.viewObj["hit"]) this.viewObj["hit"] = [];
@@ -64,15 +87,19 @@ class BoardService {
                 this.viewObj["hit"].splice(this.viewObj["hit"].indexOf(`${userid}+${idx}`), 1);
             }, 200000);
 
+            console.log("service history :::", userid, idx)
+            await this.boardRepository.updatehistory(userid, idx);
+
             const [view, comment] = await this.boardRepository.findOne(id, idx);
             let { userImg: test } = view;
             if (test.indexOf("http") === -1) {
                 test = `http://${config.host}:${config.port}/${test}`;
             }
+            console.log("asdasdasd", view, comment);
             const data = { ...view, userImg: test };
             return [data, comment];
         } catch (e) {
-        console.error(e);
+            console.error(e);
         }
     }
     async postWrite({ userid, subject, content, hashtag, category, introduce }) {
@@ -121,16 +148,15 @@ class BoardService {
     }
     async postState(id) {
         try {
-            let state = '';
+            let state = "";
             const currentState = await this.boardRepository.getState(id);
-            if (currentState === 'blind') {
-                state = 'public';
+            if (currentState === "blind") {
+                state = "public";
             } else {
-                state = 'blind';
+                state = "blind";
             }
             await this.boardRepository.updateState(id, state);
             return state;
-            
         } catch (e) {
             // throw new this.BadRequest(e);
         }
@@ -181,18 +207,31 @@ class BoardService {
     }
 
     async postComment(boardid, comment) {
-        // console.log(`serv :`, { boardid, comment });
+        console.log(`serv :`, { boardid, comment });
         try {
+            let { userid, parentid, content, boardWirterid } = comment;
             if (!boardid || !comment.userid || !comment.content) throw "내용이 없습니다";
-            if (!comment.parentid) comment.parentid = 0;
+            if (!parentid) parentid = 0;
             const data = {
                 boardid,
-                ...comment,
+                parentid,
+                userid,
+                content,
             };
-
             const write = await this.boardRepository.createComment(data);
-            console.log(`serv :`, { write });
-            return write;
+            console.log("write", write);
+
+            if (parentid === 0 && userid !== boardWirterid) {
+                let point = { boardid, userid: boardWirterid, comment: "1", commentid: write.id };
+                const pointrespone = await this.boardRepository.createPoint(point);
+                return point;
+            } else if (parentid > 0 && userid !== comment.pointUp) {
+                let point = { boardid, userid: comment.pointUp, comment: "1", commentid: write.id };
+                const pointrespone = await this.boardRepository.createPoint(point);
+                return point;
+            } else {
+                return write;
+            }
         } catch (e) {
             throw new this.BadRequest(e);
         }
@@ -272,12 +311,11 @@ class BoardService {
         } catch (e) {
             throw new this.BadRequest(e);
         }
-
     }
 
-    async profile(userid){
-        const [[response]] = await this.boardRepository.getMyAttention(userid)
-        return response
+    async profile(userid) {
+        const [[response]] = await this.boardRepository.getMyAttention(userid);
+        return response;
     }
 }
 

@@ -11,6 +11,8 @@
         <input type="hidden" name="userid" id="userid" value="{{user.userid}}" />
 
         <div id="insert">
+            <div id="tempMessage">포스트가 임시저장되었습니다</div>
+
             <form id="frm" method="post" action="/board/{{user.userid}}/{{data.id}}/modify">
                 <ul id="board">
                     <li>
