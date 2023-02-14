@@ -22,18 +22,11 @@
             <ul>
                 <li>
                     <span><iconify-icon icon="fa-solid:user-edit" style="margin-right: 5px"></iconify-icon></span><span id="userid">{{data.userid}}</span>
-                </li>
-                <li>
-                    <span id="date" class="innerText"><iconify-icon icon="ic:baseline-access-time-filled" style="margin-right: 3px"></iconify-icon> {{data.createdAt}}</span>
-                </li>
-                <li>
-                    <span><iconify-icon icon="ic:baseline-remove-red-eye" style="margin-right: 3px"></iconify-icon> {{data.hit}} </span>
+                    <span class="timeStamp"><iconify-icon icon="ic:baseline-access-time-filled" style="margin-right: 3px"></iconify-icon><span class="innerText">{{data.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span></span>
                 </li>
                 {% if user.userid === data.userid %}
                 <li>
                     <span><a href="/board/{{user.userid}}/{{data.id}}/modify">수정</a></span>
-                </li>
-                <li>
                     <span class="delete"><a href="/board/{{user.userid}}/{{data.id}}/delete">삭제</a></span>
                 </li>
                 {% endif %}
@@ -51,8 +44,8 @@
                 <img src="{{data.userImg}}" alt="" />
             </div>
             <div id="writerInfo">
-                <p id="pWriter">{{data.nickname}}</p>
                 <p id="pblog"><a href="http://localhost:3005/board/{{data.userid}}">{{data.nickname}}.LOG</a></p>
+                <p id="pIntroduce">{{data.introduce}}</p>
             </div>
         </div>
     </div>

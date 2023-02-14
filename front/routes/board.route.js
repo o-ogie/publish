@@ -65,14 +65,6 @@ route.get("/:id/favorite", async (req, res) => {
     const history = await request.get(`/boards/${id}/histories`);
     res.render("board/favorite.html", { user, favorite: favorite.data, history: history.data });
 });
-// route.get("/:id/history", async (req, res) => {
-//     const user = req.user;
-//     const { id } = req.params;
-//     const response = await request.get(`/boards/${id}/histories`);
-//     console.log(user);
-//     res.render("board/favorite.html", { user, list: response.data });
-// });
-
 
 route.get("/:id/:idx", async (req, res) => {
     const user = req.user;

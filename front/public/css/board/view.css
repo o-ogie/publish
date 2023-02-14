@@ -177,8 +177,8 @@
 }
 
 #profile {
-    padding-left: 30px;
-    margin-top: 50px;
+    padding-left: 50px;
+    margin-top: 100px;
     display: flex;
     width: 800px;
     height: 150px;
@@ -198,14 +198,9 @@
 
 #profile > #writerInfo {
     margin-left: 30px;
-    padding: 30px 10px;
+    padding: 20px 10px;
     width: 600px;
     height: 150px;
-}
-
-#profile > #writerInfo > #pWriter {
-    font-size: 16px;
-    color: #666;
 }
 
 #profile > #writerInfo > #pblog {
@@ -215,6 +210,11 @@
 #profile > #writerInfo > #pblog > a {
     color: #333;
 }
+#profile > #writerInfo > #pIntroduce {
+    margin-top: 5px;
+    color: #999;
+}
+
 
 /*comment */
 
@@ -258,7 +258,7 @@
 }
 
 #hashs {
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 #hashs > .hashtags {
