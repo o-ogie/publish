@@ -4,7 +4,6 @@ const nunjucks = require("nunjucks");
 const cookieParser = require("cookie-parser");
 const router = require("./routes");
 
-
 app.set("view engine", "html");
 nunjucks.configure("views", {
     express: app,
@@ -32,6 +31,9 @@ app.use((req, res, next) => {
 });
 app.use(router);
 
+app.use((error, req, res, next) => {
+    res.render("error.html", { error });
+});
 
 app.listen(3005, () => {
     console.log(`front server listening on 3005`);
