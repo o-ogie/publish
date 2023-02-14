@@ -37,7 +37,7 @@ class UserService {
             throw new Error(e);
         }
     }
-    
+
     async me(token) {
       try {
           const { userid } = this.jwt.verifyToken(token, this.config.SALT);
@@ -60,8 +60,7 @@ class UserService {
     async putProfile(userData) {
         try {
             console.log(`userData ::::`, userData);
-            if (userData.userImg.indexOf('http://')===-1) 
-              userData.userImg = `http://${this.config.host}:${this.config.port}/${userData.userImg}`
+            if (userData.userImg.indexOf("http://") === -1) userData.userImg = `http://${this.config.host}:${this.config.port}/${userData.userImg}`;
             const { userpw, ...rest } = userData;
             const hash = this.crypto.createHmac("sha256", this.config.SALT).update(userpw).digest("hex");
 
@@ -91,6 +90,15 @@ class UserService {
             return drop;
         } catch (e) {
             throw new Error(e);
+        }
+    }
+
+    async findPoint(userid) {
+        try {
+            const point = await this.userRepository.findPoint(userid);
+            return point;
+        } catch (e) {
+            throw new this.BadRequest(e);
         }
     }
 }

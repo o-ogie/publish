@@ -33,7 +33,7 @@ class BoardController {
     async getHistory(req, res, next) {
         try {
             const { id } = req.params;
-            console.log(`getHistory :::`, id)
+            console.log(`getHistory :::`, id);
             const response = await this.boardService.getHistory(id);
             res.json(response);
         } catch (e) {
@@ -81,10 +81,10 @@ class BoardController {
         }
     }
     async postBlind(req, res, next) {
-        console.log('postBlind:', req.body.id)
+        console.log("postBlind:", req.body.id);
         try {
             const response = await this.boardService.postState(req.body.id);
-            console.log(response)
+            console.log(response);
             res.status(201).json(response);
         } catch (e) {
             next(e);
@@ -210,6 +210,16 @@ class BoardController {
             console.log("userid:::::::::::::::::", userid);
             const response = await this.boardService.profile(userid);
             res.json(response);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async getPoint(req, res, next) {
+        try {
+            const { userid } = req.params;
+            const point = await this.boardService.findPoint(userid);
+            res.json(point);
         } catch (e) {
             next(e);
         }

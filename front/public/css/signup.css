@@ -15,6 +15,18 @@ a {
     text-decoration: none;
 }
 
+/* 스크롤바 */
+::-webkit-scrollbar {
+    width: 8px;  /* 스크롤바의 너비 */
+}
+::-webkit-scrollbar-thumb {
+    height: 20%; /* 스크롤바의 길이 */
+    background: #eee; /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+}
+
+
 
 #agreeFrm {
     text-align: center;
@@ -22,7 +34,7 @@ a {
     justify-content: center;
     position: absolute;
     width: 800px;
-    height: 660px;
+    height: 600px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -67,13 +79,13 @@ a {
 }
 
 .textBox {
-    margin-top: 80px;
+    margin-top: 20px;
     font-size: 18px;
     color: #666;
 }
 
 .checkBox {
-    margin: 120px auto;
+    margin: 80px auto;
     height: 100px;
     width: 580px;
     display: flex;
@@ -136,7 +148,7 @@ label {
     justify-content: space-between;
     background-color: #fff;
     width: 800px;
-    height: 660px;
+    height: 600px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -193,7 +205,7 @@ label {
 
 #bannerText {
     text-align: center;
-    margin-top: 100px;
+    margin-top: 60px;
     font-size: 2rem;
     color: #fff;
 }
@@ -211,13 +223,15 @@ label {
 .signupIcon + h3 {
     text-align: center;
     color: #666;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 
 .container {
     width: 400px;
-    /* height: 300px; */
+    height: 350px;
+    background: #fff;
+    overflow-y: scroll;
     margin-right: 30px;
     /* padding-top: 100px; */
     display: flex;
@@ -228,14 +242,14 @@ label {
 .container .inputContainer {
     width: 180px;
     height: 48px;
-    margin-top: 30px;
+    margin-top: 24px;
     border-bottom: solid 1px rgb(220, 220, 220);
     flex-basis: calc(50% - 10px);
 }
 .li_gender {
     width: 180px;
     height: 48px;
-    margin-top: 30px;
+    margin-top: 24px;
     border-bottom: solid 1px rgb(220, 220, 220);
     position: relative;
 }
@@ -251,15 +265,47 @@ label {
     font-size: 1rem;
     color: #333;
 }
-.addressBox #find {
+#introBox {
+    margin-top: 70px;
+    width: 390px;
+}
+#introBox #introduce {
+    padding-left: 10px;
 }
 
 
+#addressBox .inputContainer {
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    border: none;
+}
+
+#addressBox .inputContainer input {
+    width: 180px;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    border-bottom: solid 1px rgb(220, 220, 220);
+}
+#addressBox #find {
+    color: #333;
+    font-size: 1rem;
+    text-align: left;
+}
+#addressBox #postcode, #addressBox #detailAddress {
+    margin-left: 20px;
+}
+#addressBox iconify-icon {
+    right: 20px;
+}
 
 .container .inputContainer.focused {
-    box-shadow: 0 6px 3px -5px rgba(31, 33, 67, 0.5)
+    box-shadow: 0 6px 4px -5px rgba(31, 33, 67, 0.5)
 }
-
+#addressBox .inputContainer.focused {
+    box-shadow: none;
+}
 
 .container li>p {
     font-size: 9px;
@@ -315,7 +361,7 @@ label {
     cursor: pointer;
     position: absolute;
     right: 0;
-    bottom: 10px;
+    bottom: 0px;
 }
 #signupFrm button iconify-icon {
     font-size: 1.2rem;

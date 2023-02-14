@@ -49,14 +49,14 @@ class BoardRepository {
         ${sortKey}
         ${limitquery};`;
             const [findAll] = await this.sequelize.query(query);
-            // console.log("findAll::::", findAll);
+            console.log("findAll::::", findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
         }
     }
     async findMain({ id, sql, order }) {
-        console.log(`repo :::`, id, sql, order)
+        console.log(`repo :::`, id, sql, order);
         try {
             const query = `SELECT 
       A.id,
@@ -97,20 +97,23 @@ class BoardRepository {
             //     raw: true,
             //     where: { boardid: idx },
             // });
+            // console.log("view", view);
             const [comment] = await this.sequelize.query(`
             WITH RECURSIVE comments (id, content, depth, parentid, createdAt, updatedAt, boardid, userid, PATH) AS (
-              SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, id
-              FROM Comment
-              WHERE parentid = 0
-              UNION ALL
-              SELECT t.id, t.content, comments.depth + 1, t.parentid, t.createdAt, t.updatedAt, t.boardid, t.userid, PATH
-              FROM comments
-              JOIN Comment t ON comments.id = t.parentid
-            )
-            SELECT *
-            FROM comments
-            WHERE boardid = ${idx}
-            ORDER BY PATH`);
+SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, id
+FROM Comment
+WHERE parentid = 0
+UNION ALL
+SELECT t.id, t.content, comments.depth + 1, t.parentid, t.createdAt, t.updatedAt, t.boardid, t.userid, comments.PATH || '.' || t.id
+FROM comments
+JOIN Comment t ON comments.id = t.parentid
+)
+SELECT comments.*, B.userimg
+FROM comments
+JOIN User AS B
+ON comments.userid = B.userid
+WHERE comments.boardid = ${idx}
+ORDER BY PATH`);
             // console.log(comment);
             // const hashtag = await this.Hashtag.findAll({
             //     attributes: ["tagname"],
@@ -298,10 +301,10 @@ class BoardRepository {
             throw new Error(e);
         }
     }
-        async updatehistory(userid, idx) {
-            console.log('repo history :::', userid, idx);
-            try {
-                await this.History.findOrCreate({ where: { userid, boardid : idx } });
+    async updatehistory(userid, idx) {
+        console.log("repo history :::", userid, idx);
+        try {
+            await this.History.findOrCreate({ where: { userid, boardid: idx } });
 
                 const sql = `
                 DELETE FROM History
@@ -311,13 +314,12 @@ class BoardRepository {
                     WHERE userid = '${userid}'
                     ORDER BY createdAt DESC
                     LIMIT 20) subquery)`;
-              
-              await this.sequelize.query(sql, { replacements: [userid, userid] });
 
-            } catch (e) {
-                throw new Error(e);
-            }
+            await this.sequelize.query(sql, { replacements: [userid, userid] });
+        } catch (e) {
+            throw new Error(e);
         }
+    }
 
     async tempCheck(userid) {
         try {
@@ -340,6 +342,15 @@ class BoardRepository {
     async createPoint(data) {
         try {
             const respone = await this.PointUp.create(data);
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async findPoint(userid) {
+        try {
+            const respone = await this.PointUp.findAll({ raw: true, where: { userid } });
+            return respone;
         } catch (e) {
             throw new Error(e);
         }

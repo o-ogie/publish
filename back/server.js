@@ -13,6 +13,9 @@ const server = app.listen(PORT, async () => {
     // await sequelize.models.Category.create({ category: "default" });
     // await sequelize.models.Category.create({ category: "travel" });
     // await sequelize.models.Category.create({ category: "life" });
+    // for (let i = 0; i < 30; i++) {
+    //     await sequelize.models.Board.create({ userid: "qjel216", subject: `test${i}`, content: "<div>test</div>", category: "default", introduce:"" });
+    // }
 
     console.log(`backend server listening on port ${PORT}`);
 });

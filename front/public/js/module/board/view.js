@@ -111,6 +111,7 @@ const addcommentHandler = (e) => {
         clone.addEventListener("submit", async (e) => {
             e.preventDefault();
             const boardWirterid = document.querySelector("#userid");
+            console.log(boardWirterid.innerHTML);
 
             const comment = clone.comment.value;
             const userid = nowme.value;

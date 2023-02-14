@@ -13,14 +13,14 @@ route.get("/signup", (req, res) => {
 });
 
 route.post("/signup", async (req, res) => {
-    console.log(`req:::` ,req.body)
+    console.log(`req:::`, req.body);
     const response = await request.post("/users", {
         ...req.body,
     });
     const { userid, username, userpw } = response.data;
 
     // res.redirect(`/user/welcome?userid=${userid}&username=${username}&userpw=${userpw}`);
-    res.redirect('/')
+    res.redirect("/");
 });
 
 route.get("/welcome", (req, res) => {
@@ -41,9 +41,8 @@ route.get("/signin", (req, res) => {
 
 route.get("/profile", async (req, res) => {
     const user = req.user;
-    // const response = await request.post("/users", {
-    //     ...req.body,
-    // });
+    const response = await request.get(`/users/point/${user.userid}`);
+    console.log(response.data.length);
     // console.log(response.data)
 
     res.render("user/profile.html", { user, ...req.user });
