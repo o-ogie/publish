@@ -304,10 +304,10 @@ class BoardRepository {
                 await this.History.findOrCreate({ where: { userid, boardid : idx } });
 
                 const sql = `
-                DELETE FROM history
+                DELETE FROM History
                 WHERE userid = '${userid}'
                 AND boardid NOT IN (SELECT boardid
-                  FROM (SELECT boardid FROM history
+                  FROM (SELECT boardid FROM History
                     WHERE userid = '${userid}'
                     ORDER BY createdAt DESC
                     LIMIT 20) subquery)`;
