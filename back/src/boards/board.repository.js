@@ -105,7 +105,7 @@ SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, id
 FROM Comment
 WHERE parentid = 0
 UNION ALL
-SELECT t.id, t.content, comments.depth + 1, t.parentid, t.createdAt, t.updatedAt, t.boardid, t.userid, comments.PATH || '.' || t.id
+SELECT t.id, t.content, comments.depth + 1, t.parentid, t.createdAt, t.updatedAt, t.boardid, t.userid, PATH
 FROM comments
 JOIN Comment t ON comments.id = t.parentid
 )
