@@ -34,6 +34,20 @@ class UserController {
       next(e);
     }
   }
+
+  async getAll(req, res, next){
+    try {
+      if (!req.headers.authorization) throw new Error("No Authorization");
+      const [type, token] = req.headers.authorization.split(" ");
+      if (type.toLowerCase() !== "bearer")
+        throw new Error("Authorization Type Error");
+      const list = await this.userService.All(token);
+      res.json(list);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async putProfile(req, res, next) {
     try {
       console.log("req.body:", req.body);
