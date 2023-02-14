@@ -1,3 +1,4 @@
+const {host, port, redirect_host, redirect_port} = require('../../config')
 class Kakao {
     constructor({ axios, qs, jwt, User }) {
         this.axios = axios;
@@ -6,7 +7,7 @@ class Kakao {
         this.jwt = jwt
         this.KKO_HOST = `https://kauth.kakao.com`
         this.REST_API_KEY = `e6dfa1b635337a7d85d3ef92c885670c`
-        this.REDIRECT_URI = `http://localhost:3000/auths/kakao`
+        this.REDIRECT_URI = `http://${host}:${port}/auths/kakao`
         this.CLIENT_SERCRET = `liSNdnbPh4yEOm9ZqSuocwothsK1tbKa`
     }
 
@@ -73,8 +74,8 @@ class Kakao {
 
             const user = await this.kakaoSignup({data})
             console.log(user)
-            res.cookie("token",this.jwt.createToken(user),{maxAge:60000})
-            res.redirect("http://localhost:3005")
+            res.cookie("token",this.jwt.createToken(user),{maxAge:600000})
+            res.redirect(`http://${redirect_host}:${redirect_port}`)
             
         } catch (e) {
             next(e);
