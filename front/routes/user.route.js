@@ -50,8 +50,7 @@ route.get("/profile", async (req, res) => {
     try {
         const user = req.user;
         const response = await request.get(`/users/point/${user.userid}`);
-        console.log(response.data.length);
-        // console.log(response.data)
+        console.log(response.data);
 
         res.render("user/profile.html", { user, ...req.user });
     } catch (e) {
