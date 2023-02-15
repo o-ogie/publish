@@ -324,8 +324,8 @@ ORDER BY PATH`);
 
     async tempCheck(userid) {
         try {
-            const respone = await this.Temp.findOne({ raw: true, where: { userid } });
-            return respone;
+            const response = await this.Temp.findOne({ raw: true, where: { userid } });
+            return response;
         } catch (e) {
             throw new Error(e);
         }
@@ -333,8 +333,8 @@ ORDER BY PATH`);
 
     async tempDestroy(userid) {
         try {
-            const respone = await this.Temp.destroy({ raw: true, where: { userid } });
-            return respone;
+            const response = await this.Temp.destroy({ raw: true, where: { userid } });
+            return response;
         } catch (e) {
             throw new Error(e);
         }
@@ -342,11 +342,12 @@ ORDER BY PATH`);
 
     async createPoint(data) {
         try {
-            const respone = await this.PointUp.create(data);
+            const response = await this.PointUp.create(data);
         } catch (e) {
             throw new Error(e);
         }
     }
+
 }
 
 module.exports = BoardRepository;

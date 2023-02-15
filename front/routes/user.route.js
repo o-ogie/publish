@@ -46,7 +46,7 @@ route.get("/signin", (req, res) => {
     res.render("user/signin.html");
 });
 
-route.get("/profile", async (req, res) => {
+route.get("/profile", async (req, res, next) => {
     try {
         const user = req.user;
         const response = await request.get(`/users/point/${user.userid}`);
