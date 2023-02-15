@@ -16,6 +16,7 @@ const observer = new IntersectionObserver(async (entries) => {
     if (entries[0].isIntersecting) {
         count++;
         const response = await request.get(`boards/?count=${count}&&sort=${sort}&&category=${category}`);
+        console.log(response.data);
         paging(response.data);
     }
 });
@@ -76,7 +77,7 @@ const paging = (data) => {
         li.className = "boardItem";
         const levelspan = level === "admin" ? `<span class="hideItem"><iconify-icon icon="mdi:hide"></iconify-icon></span>` : " ";
         const tag = !v.tagname
-            ? `<li></li>`
+            ? ``
             : v.tagname
                   .split(",")
                   .slice(0, 3)
