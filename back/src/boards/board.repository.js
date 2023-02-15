@@ -36,6 +36,7 @@ class BoardRepository {
         A.state,
         B.userImg,
         B.nickname,
+        B.introduce,
         (SELECT GROUP_CONCAT(D.userid SEPARATOR ', ') FROM Liked AS D WHERE A.id = D.boardid) AS likeidlist,
         GROUP_CONCAT(C.tagname SEPARATOR ', ') AS tagname,
         (SELECT COUNT(boardid) FROM Comment WHERE boardid = A.id) AS commentCount, 

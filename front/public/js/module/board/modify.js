@@ -41,9 +41,11 @@ createhash(hash);
 
 update.addEventListener("click", (e) => {
     prevFrm.classList.add("on");
+    prevFrm.parentNode.classList.add("on");
 });
 cancelBtn.addEventListener("click", (e) => {
     prevFrm.classList.remove("on");
+    prevFrm.parentNode.classList.remove("on");
 });
 
 // update.addEventListener("click", updateHandler);

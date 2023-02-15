@@ -76,8 +76,3 @@ const paging = (data) => {
         }
     });
 };
-
-
-
-
-
