@@ -10,6 +10,13 @@ document.querySelector('#userDelete').addEventListener('click', (e) => {
     }
 )
 
+document.querySelector("#point").addEventListener("click", ()=> {
+    document.querySelector("#details").classList.toggle("on");
+})
+
+
+
+
 const like = document.querySelector('#total_Like')
 const comment = document.querySelector('#total_Comment')
 const view = document.querySelector('#total_View')
