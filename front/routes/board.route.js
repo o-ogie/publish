@@ -42,8 +42,10 @@ route.post("/temp", async (req, res, next) => {
 
 route.get("/write", (req, res, next) => {
     try {
+        console.log(req.user);
         const { userid } = req.user;
-        res.render("board/write.html", { userid });
+        const user = req.user;
+        res.render("board/write.html", { userid, user });
     } catch (e) {
         next(e);
     }

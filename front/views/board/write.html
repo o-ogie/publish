@@ -46,6 +46,9 @@
                                 <option value="food">음식</option>
                                 <option value="travel">여행</option>
                                 <option value="life">일상</option>
+                                {% if user.level === 'admin' %}
+                                <option value="notice">공지사항</option>
+                                {% endif %}
                             </select>
                         </div>
                     </div>
