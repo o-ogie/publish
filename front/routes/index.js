@@ -13,15 +13,15 @@ const request = axios.create({
 
 router.get("/", async (req, res) => {
     // console.log(`req.user :`, req.user);
-    const {searchType, search, sort, category} = req.query
-    
-    console.log('index::::: st sch srt cate',searchType,search,sort, category)
-    const respone = await request.get("/boards/",{data:{searchType, search, sort, category}});
-    const list = respone.data
+    const { searchType, search, sort, category } = req.query;
+
+    console.log("index::::: st sch srt cate", searchType, search, sort, category);
+    const respone = await request.get("/boards/", { data: { searchType, search, sort, category } });
+    const list = respone.data;
     // console.log(list)
     // if( req.query.searchType){
     //     const {searchType, search} = req.query
-        
+
     //     res.render("index.html",{list:searchList})
     //     return
     // }
@@ -31,9 +31,10 @@ router.get("/", async (req, res) => {
 
 router.get("/forum", async (req, res) => {
     // console.log(`req.user :`, req.user);
+    const list = await request.get("/forum");
+    const notice = list.data;
 
-
-    res.render("forum.html", { user: req.user });
+    res.render("forum.html", { user: req.user, notice });
 });
 
 router.get("/socket", (req, res) => {

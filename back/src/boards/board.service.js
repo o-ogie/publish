@@ -17,7 +17,8 @@ class BoardService {
                 limit: limitval,
                 views,
             };
-            const list = await this.boardRepository.findAll({ searchType, search, sort, category, limit });
+            const data = await this.boardRepository.findAll({ searchType, search, sort, category, limit });
+            const list = data.filter((v) => v.category !== "notice" || v.category !== "QnA");
             // if (list.length === 0) throw "내용이 없습니다";
             // console.log("serv", list);
             return list;
@@ -39,6 +40,7 @@ class BoardService {
                     return acc;
                 }, {});
                 console.log(`main:::`, { main: main, tagnames: countTags });
+
                 return { main: main, tagnames: countTags };
             }
         } catch (e) {

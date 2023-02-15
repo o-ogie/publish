@@ -217,9 +217,10 @@ const openRecomment = document.querySelectorAll("#openRecomment");
 openRecomment.forEach((v) => {
     const children = document.querySelectorAll(".child input[value]");
     const parentId = v.parentNode.querySelector("#parentId").value;
+
     let count = 0;
     for (const input of children) {
-        if (input.value === parentId) {
+        if (input.value.split("-")[0] === parentId) {
             count++;
         }
     }
@@ -234,7 +235,7 @@ openRecomment.forEach((v) => {
         else v.innerHTML = `답글 열기(${count})`;
 
         for (const input of children) {
-            if (input.value === parentId) {
+            if (input.value.split("-")[0] === parentId) {
                 let child = input.parentNode;
                 child.classList.toggle("open");
             }

@@ -51,7 +51,6 @@ class BoardRepository {
         ${sortKey}
         ${limitquery};`;
             const [findAll] = await this.sequelize.query(query);
-            console.log("findAll::::", findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
@@ -86,7 +85,6 @@ class BoardRepository {
       GROUP BY A.id
       ORDER BY ${order} DESC;`;
             const [findAll] = await this.sequelize.query(query);
-            console.log(findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
@@ -102,11 +100,11 @@ class BoardRepository {
             // console.log("view", view);
             const [comment] = await this.sequelize.query(`
             WITH RECURSIVE comments (id, content, depth, parentid, createdAt, updatedAt, boardid, userid, PATH) AS (
-SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, id
+SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, CAST(id AS CHAR(100))
 FROM Comment
 WHERE parentid = 0
 UNION ALL
-SELECT t.id, t.content, comments.depth + 1, t.parentid, t.createdAt, t.updatedAt, t.boardid, t.userid, PATH
+SELECT t.id, t.content, comments.depth + 1, t.parentid, t.createdAt, t.updatedAt, t.boardid, t.userid, concat(comments.PATH, '-', t.id)
 FROM comments
 JOIN Comment t ON comments.id = t.parentid
 )
@@ -115,8 +113,8 @@ FROM comments
 JOIN User AS B
 ON comments.userid = B.userid
 WHERE comments.boardid = ${idx}
-ORDER BY PATH`);
-            // console.log(comment);
+ORDER BY PATH;`);
+            console.log("asdaksljflsdkjglkasjglasdjglksdjg", comment);
             // const hashtag = await this.Hashtag.findAll({
             //     attributes: ["tagname"],
             //     raw: true,

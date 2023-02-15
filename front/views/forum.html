@@ -23,92 +23,27 @@
                 </ul>
             </div>
             <ul id="noticeList">
+                {% for item in notice %}
                 <li class="boardItem">
                     <div class="itemPartA">
                         <div class="textBoxA">
-                            <span class="boardTitle">공지사항 1</span>
+                            <span class="boardTitle">{{item.subject}}</span>
                         </div>
                         <div class="textBoxB">
-                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
+                            <span class="timeStamp" style="color: #999; font-size: 0.9em">
                                 <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
-                                <span class="innerText">2023-02-13</span>
+                                <span class="innerText">{{item.createdAt}}</span>
                             </span>
                         </div>
                         <div class="textBoxC">
-                            <span class="contentText">공지사항 테스트</span>
+                            <span class="contentText">{{item.content}}</span>
                         </div>
                     </div>
                 </li>
-                <li class="boardItem">
-                    <div class="itemPartA">
-                        <div class="textBoxA">
-                            <span class="boardTitle">공지사항 2</span>
-                        </div>
-                        <div class="textBoxB">
-                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
-                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
-                                <span class="innerText">2023-02-13</span>
-                            </span>
-                        </div>
-                        <div class="textBoxC">
-                            <span class="contentText">공지사항 테스트</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="boardItem">
-                    <div class="itemPartA">
-                        <div class="textBoxA">
-                            <span class="boardTitle">공지사항 3</span>
-                        </div>
-                        <div class="textBoxB">
-                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
-                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
-                                <span class="innerText">2023-02-13</span>
-                            </span>
-                        </div>
-                        <div class="textBoxC">
-                            <span class="contentText">공지사항 테스트</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="boardItem">
-                    <div class="itemPartA">
-                        <div class="textBoxA">
-                            <span class="boardTitle">공지사항 4</span>
-                        </div>
-                        <div class="textBoxB">
-                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
-                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
-                                <span class="innerText">2023-02-13</span>
-                            </span>
-                        </div>
-                        <div class="textBoxC">
-                            <span class="contentText">공지사항 테스트</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="boardItem">
-                    <div class="itemPartA">
-                        <div class="textBoxA">
-                            <span class="boardTitle">공지사항 5</span>
-                        </div>
-                        <div class="textBoxB">
-                            <span class="timeStamp" style="color: #999; font-size: 0.9em; ">
-                                <iconify-icon icon="ic:baseline-access-time-filled"></iconify-icon>
-                                <span class="innerText">2023-02-13</span>
-                            </span>
-                        </div>
-                        <div class="textBoxC">
-                            <span class="contentText">공지사항 테스트</span>
-                        </div>
-                    </div>
-                </li>
+                {% endfor %}
             </ul>
 
-
-
-            <ul id="qnaList" style="display : none;">
-                
+            <ul id="qnaList" style="display: none">
                 <div id="commentsWrap">
                     <div id="comments">
                         <form method="post" action="" id="commentfrm">
@@ -121,7 +56,8 @@
                         <div id="temp">
                             <ul>
                                 {% for item in comment %} {% if item.depth === 0 %}
-                                <li id="commentContent" data-index="{{item.id}}">                            <div class="writeData">
+                                <li id="commentContent" data-index="{{item.id}}">
+                                    <div class="writeData">
                                         <span id="userimg">
                                             <img src="{{item.userimg}}" alt="" />
                                         </span>
@@ -141,22 +77,22 @@
                                         {% endif %}
                                     </div>
                                     <div id="recommentBox">
-                                        <input type="hidden" value="{{item.PATH}}" id="parentId">
-                                        <span id="openRecomment"><iconify-icon icon="octicon:triangle-down-24"></iconify-icon></iconify-icon>답글 열기</span>
+                                        <input type="hidden" value="{{item.PATH}}" id="parentId" />
+                                        <span id="openRecomment"><iconify-icon icon="octicon:triangle-down-24"></iconify-icon>답글 열기</span>
                                     </div>
                                 </li>
                                 {% else %}
                                 <li id="commentContent" class="child" data-index="{{item.id}}">
-                                    <input type="hidden" value="{{item.PATH}}" id="parentId">
+                                    <input type="hidden" value="{{item.PATH}}" id="parentId" />
                                     <div class="writeData">
                                         <span id="userimg">
                                             <img src="{{item.userimg}}" alt="" />
                                         </span>
                                         <div>
                                             <span id="commentUser" class="writer">{{item.userid}}</span>
-                                        <span class="timeStamp" style="color: #999; font-size: 0.9em">
-                                            <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
-                                        </span>
+                                            <span class="timeStamp" style="color: #999; font-size: 0.9em">
+                                                <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
+                                            </span>
                                         </div>
                                     </div>
                                     <input type="text" class="commentContent" value="{{item.content}}" disabled />
@@ -270,24 +206,25 @@
     </div>
 </div>
 <script type="module" src="/js/lib/timestamp.js"></script>
+<script type="text/javascript" src="/js/module/forum.js"></script>
 <script>
     const items = document.querySelectorAll("#navigationTab li");
-    items.forEach(item => {
+    items.forEach((item) => {
         item.addEventListener("click", () => {
-            items.forEach(v => {
+            items.forEach((v) => {
                 v.classList.remove("active");
             });
             item.classList.add("active");
 
-            if (document.querySelector('.announcement').classList.contains("active")) {
-                document.querySelector('#noticeList').style.display = 'block';
-                document.querySelector('#qnaList').style.display = 'none';
-            }
-            else if (document.querySelector('.question').classList.contains("active")) {
-            document.querySelector('#qnaList').style.display = 'block';
-            document.querySelector('#noticeList').style.display = 'none';
+            if (document.querySelector(".announcement").classList.contains("active")) {
+                document.querySelector("#noticeList").style.display = "block";
+                document.querySelector("#qnaList").style.display = "none";
+            } else if (document.querySelector(".question").classList.contains("active")) {
+                document.querySelector("#qnaList").style.display = "block";
+                document.querySelector("#noticeList").style.display = "none";
             }
         });
     });
 </script>
 {% endblock%}
+
