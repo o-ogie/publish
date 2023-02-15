@@ -29,11 +29,3 @@ blindBtn.forEach((button, index) => {
     });
 });
 
-`
-<div class="hiddenWrap">
-    <span>
-        <iconify-icon icon="fa6-solid:ban"></iconify-icon>: 차단된 게시글입니다
-    </span>
-</div>;
-`;
-

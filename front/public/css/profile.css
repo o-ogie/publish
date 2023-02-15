@@ -284,19 +284,24 @@ body {
 #details {
     position: absolute;
     display: block;
-    background: #eee;
-    color: rgb(18, 91, 143);
+    background: rgba(40, 40, 40, 0.5);
+    backdrop-filter: blur(8px);
+    color: #fff;
     border-radius: 8px;
     width: 300px;
-    max-height: 200px;
+    max-height: 220px;
     overflow-y: scroll;
     padding: 16px;
     font-size: 14px;
     left: 10%;
-    top: 40%;
+    top: 10%;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     display: none;
 }
+#details li:hover {
+    color: rgb(219, 247, 34);
+}
+
 #details.on {
     display: block;
 }

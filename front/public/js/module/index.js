@@ -68,7 +68,7 @@ const paging = (data) => {
                 </a>`;
 
         content.append(li);
-        
+
         const category = document.querySelectorAll(".category");
         for (item of category) {
             if (item.innerHTML === "null") item.style.display = "none";
