@@ -66,7 +66,7 @@ class Kakao {
             const host = `https://kapi.kakao.com/v2/user/me`
             const {data} = await this.axios.post(host, null, {
                 headers: {
-                    "COntent-type" : "application/x-www-form-urlencoded",
+                    "Content-type" : "application/x-www-form-urlencoded",
                     Authorization: `Bearer ${access_token}`
                 }
             })

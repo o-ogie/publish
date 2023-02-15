@@ -325,6 +325,8 @@ class BoardService {
             throw new this.BadRequest(e);
         }
     }
+
+    
 }
 
 module.exports = BoardService;
