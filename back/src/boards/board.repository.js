@@ -12,16 +12,28 @@ class BoardRepository {
         this.PointUp = PointUp;
     }
 
-    async findAll({ searchType, search, sort, category, limit }) {
+    async findAll({ searchType, search, sort, category, limit, pagingsort, pagingcategory }) {
         try {
+            const check = (post, query) => {
+                if (!post && query) {
+                    return query;
+                } else if (post && !query) {
+                    return post;
+                } else if (!post && !query) return null;
+            };
+
+            let sortvalue = check(sort, pagingsort);
+            let categoryvalue = check(category, pagingcategory);
+            console.log("catecatecate", categoryvalue);
+            console.log("sortsort", sortvalue);
             let where;
             if ((searchType === "A.subject") | (searchType === "A.content")) {
                 where = `WHERE ${searchType} LIKE '%${search}%'`;
             } else {
                 where = !searchType ? "" : `WHERE ${searchType}="${search}"`;
             }
-            const sortKey = !sort ? `ORDER BY A.id DESC` : `ORDER BY ${sort} DESC`;
-            const categoryKey = !category ? `` : `WHERE category="${category}"`;
+            const sortKey = !sortvalue ? `ORDER BY A.id DESC` : `ORDER BY ${sortvalue} DESC`;
+            const categoryKey = !categoryvalue ? `` : `WHERE category="${categoryvalue}"`;
             const limitquery = !limit ? `` : `Limit ${limit.limit}, ${limit.views}`;
 
             const query = `SELECT 
@@ -42,9 +54,9 @@ class BoardRepository {
         (SELECT COUNT(boardid) FROM Comment WHERE boardid = A.id) AS commentCount, 
         (SELECT COUNT(BoardId) FROM Liked WHERE BoardId = A.id) AS likeCount
         FROM Board AS A 
-        JOIN User AS B 
+        LEFT JOIN User AS B 
         ON A.userid = B.userid
-        JOIN Hashtag AS C
+        LEFT JOIN Hashtag AS C
         ON A.id = C.boardid
         ${where}${categoryKey}
         GROUP BY A.id
@@ -114,7 +126,6 @@ JOIN User AS B
 ON comments.userid = B.userid
 WHERE comments.boardid = ${idx}
 ORDER BY PATH;`);
-            console.log("asdaksljflsdkjglkasjglasdjglksdjg", comment);
             // const hashtag = await this.Hashtag.findAll({
             //     attributes: ["tagname"],
             //     raw: true,

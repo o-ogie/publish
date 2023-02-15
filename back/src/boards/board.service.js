@@ -7,9 +7,9 @@ class BoardService {
         this.viewObj = new Object();
     }
 
-    async getList({ searchType, search, sort, category }, { count }) {
+    async getList({ searchType, search, sort, category }, { count, sort: pagingsort, category: pagingcategory }) {
         try {
-            console.log("scht, sch, srt", searchType, search, sort, count);
+            console.log("scht, sch, srt", searchType, search, sort, count, pagingsort, pagingcategory);
             if (category === `default`) category = ``;
             const views = 9;
             if (!count) count = 0;
@@ -18,8 +18,8 @@ class BoardService {
                 limit: limitval,
                 views,
             };
-            const data = await this.boardRepository.findAll({ searchType, search, sort, category, limit });
-            const list = data.filter((v) => v.category !== "notice" || v.category !== "QnA");
+            const data = await this.boardRepository.findAll({ searchType, search, sort, category, limit, pagingsort, pagingcategory });
+            const list = data.filter((v) => v.category !== "notice" && v.category !== "QnA");
             // if (list.length === 0) throw "내용이 없습니다";
             // console.log("serv", list);
             return list;
