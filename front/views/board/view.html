@@ -66,8 +66,7 @@
                 <div id="temp">
                     <ul>
                         {% for item in comment %} {% if item.depth === 0 %}
-                        <li id="commentContent" data-index="{{item.id}}">
-                            <div class="writeData">
+                        <li id="commentContent" data-index="{{item.id}}">                            <div class="writeData">
                                 <span id="userimg">
                                     <img src="{{item.userimg}}" alt="" />
                                 </span>
@@ -88,7 +87,7 @@
                             </div>
                             <div id="recommentBox">
                                 <input type="hidden" value="{{item.PATH}}" id="parentId">
-                                <span id="openRecomment"><iconify-icon icon="octicon:triangle-down-24"></iconify-icon></iconify-icon>답글 열기</span>
+                                <span id="openRecomment">답글 열기</span>
                             </div>
                         </li>
                         {% else %}
