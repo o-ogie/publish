@@ -101,7 +101,8 @@ route.get("/:id/:idx", async (req, res) => {
         const { id, idx } = req.params;
         const respone = await request.get(`/boards/${id}/${idx}/${userid}`);
         const [data, comment] = respone.data;
-        console.log(comment);
+        console.log(data);
+        // console.log(comment);
         res.render("board/view.html", { data, user, comment });
     } catch (e) {
         next(e);
