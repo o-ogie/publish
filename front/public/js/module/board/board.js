@@ -21,9 +21,12 @@ const frm = document.querySelector("#frm");
 const prevFrm = document.querySelector("#previewWrap");
 submitBtn.addEventListener("click", () => {
     prevFrm.classList.add("on");
+    prevFrm.parentNode.classList.add("on");
+
 });
 cancelBtn.addEventListener("click", () => {
     prevFrm.classList.remove("on");
+    prevFrm.parentNode.classList.remove("on");
 });
 
 const inserthandler = (e) => {
