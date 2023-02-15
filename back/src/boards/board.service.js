@@ -11,6 +11,7 @@ class BoardService {
         try {
             console.log("scht, sch, srt", searchType, search, sort, count, pagingsort, pagingcategory);
             if (category === `default`) category = ``;
+            if (pagingcategory === `default`) pagingcategory = ``;
             const views = 9;
             if (!count) count = 0;
             let limitval = views * count;
