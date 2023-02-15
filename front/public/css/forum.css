@@ -1,11 +1,9 @@
-
-
 #blogWrap {
     width: 780px;
     height: 100%;
     border-radius: 12px;
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -13,7 +11,7 @@
 #mainContainer {
     width: 100%;
     height: 100%;
-    padding-top: 160px;
+    padding-top: 60px;
 }
 
 #navigationTab {

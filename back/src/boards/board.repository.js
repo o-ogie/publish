@@ -12,16 +12,28 @@ class BoardRepository {
         this.PointUp = PointUp;
     }
 
-    async findAll({ searchType, search, sort, category, limit }) {
+    async findAll({ searchType, search, sort, category, limit, pagingsort, pagingcategory }) {
         try {
+            const check = (post, query) => {
+                if (!post && query) {
+                    return query;
+                } else if (post && !query) {
+                    return post;
+                } else if (!post && !query) return null;
+            };
+
+            let sortvalue = check(sort, pagingsort);
+            let categoryvalue = check(category, pagingcategory);
+            console.log("catecatecate", categoryvalue);
+            console.log("sortsort", sortvalue);
             let where;
             if ((searchType === "A.subject") | (searchType === "A.content")) {
                 where = `WHERE ${searchType} LIKE '%${search}%'`;
             } else {
                 where = !searchType ? "" : `WHERE ${searchType}="${search}"`;
             }
-            const sortKey = !sort ? `ORDER BY A.id DESC` : `ORDER BY ${sort} DESC`;
-            const categoryKey = !category ? `` : `WHERE category="${category}"`;
+            const sortKey = !sortvalue ? `ORDER BY A.id DESC` : `ORDER BY ${sortvalue} DESC`;
+            const categoryKey = !categoryvalue ? `` : `WHERE category="${categoryvalue}"`;
             const limitquery = !limit ? `` : `Limit ${limit.limit}, ${limit.views}`;
 
             const query = `SELECT 
@@ -36,21 +48,21 @@ class BoardRepository {
         A.state,
         B.userImg,
         B.nickname,
+        B.introduce,
         (SELECT GROUP_CONCAT(D.userid SEPARATOR ', ') FROM Liked AS D WHERE A.id = D.boardid) AS likeidlist,
         GROUP_CONCAT(C.tagname SEPARATOR ', ') AS tagname,
         (SELECT COUNT(boardid) FROM Comment WHERE boardid = A.id) AS commentCount, 
         (SELECT COUNT(BoardId) FROM Liked WHERE BoardId = A.id) AS likeCount
         FROM Board AS A 
-        JOIN User AS B 
+        LEFT JOIN User AS B 
         ON A.userid = B.userid
-        JOIN Hashtag AS C
+        LEFT JOIN Hashtag AS C
         ON A.id = C.boardid
         ${where}${categoryKey}
         GROUP BY A.id
         ${sortKey}
         ${limitquery};`;
             const [findAll] = await this.sequelize.query(query);
-            console.log("findAll::::", findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
@@ -85,7 +97,6 @@ class BoardRepository {
       GROUP BY A.id
       ORDER BY ${order} DESC;`;
             const [findAll] = await this.sequelize.query(query);
-            console.log(findAll);
             return findAll;
         } catch (e) {
             throw new Error(e);
@@ -101,11 +112,11 @@ class BoardRepository {
             // console.log("view", view);
             const [comment] = await this.sequelize.query(`
             WITH RECURSIVE comments (id, content, depth, parentid, createdAt, updatedAt, boardid, userid, PATH) AS (
-SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, id
+SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, CAST(id AS CHAR(100))
 FROM Comment
 WHERE parentid = 0
 UNION ALL
-SELECT t.id, t.content, comments.depth + 1, t.parentid, t.createdAt, t.updatedAt, t.boardid, t.userid, PATH
+SELECT t.id, t.content, comments.depth + 1, t.parentid, t.createdAt, t.updatedAt, t.boardid, t.userid, concat(comments.PATH, '-', t.id)
 FROM comments
 JOIN Comment t ON comments.id = t.parentid
 )
@@ -114,8 +125,7 @@ FROM comments
 JOIN User AS B
 ON comments.userid = B.userid
 WHERE comments.boardid = ${idx}
-ORDER BY PATH`);
-            // console.log(comment);
+ORDER BY PATH;`);
             // const hashtag = await this.Hashtag.findAll({
             //     attributes: ["tagname"],
             //     raw: true,
@@ -305,7 +315,13 @@ ORDER BY PATH`);
     async updatehistory(userid, idx) {
         console.log("repo history :::", userid, idx);
         try {
-            await this.History.findOrCreate({ where: { userid, boardid: idx } });
+            const check = await this.History.findOne({ raw: true, where: { userid, boardid: idx } });
+            if (!check) {
+                await this.History.create({ userid, boardid: idx });
+            } else {
+                await this.History.destroy({ where: { userid, boardid: idx } });
+                await this.History.create({ userid, boardid: idx });
+            }
 
             const sql = `
                 DELETE FROM History

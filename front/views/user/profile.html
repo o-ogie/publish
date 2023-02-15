@@ -1,44 +1,49 @@
-{% extends 'layout/layout.html' %}
-{% block content %}
-<link rel="stylesheet" href="/css/profile.css">
+{% extends 'layout/layout.html' %} {% block content %}
+<link rel="stylesheet" href="/css/profile.css" />
 
 <div id="profileWrap">
     <div class="topContainer">
         <div id="imageBox">
-            <img id="previewImg" src='{{userImg}}' alt="">
+            <img id="previewImg" src="{{userImg}}" alt="" />
         </div>
     </div>
     <div class="bottomContainer">
         <h2 id="bannerText">{{userid}}</h2>
         <form method="post" action="/user/delete" id="profileFrm">
-            <input type="hidden" name="userid" id="userid" value="{{userid}}">
-            <input type="hidden" name="provider" id="provider" value="{{provider}}">
+            <input type="hidden" name="userid" id="userid" value="{{userid}}" />
+            <input type="hidden" name="provider" id="provider" value="{{provider}}" />
             <ul class="container">
-                <input type="hidden" name="userImg" id="inputImg">
+                <input type="hidden" name="userImg" id="inputImg" />
                 <li id="nicknameBox">
                     <div class="inputContainer">
                         <span><iconify-icon icon="mdi:account-tag"></iconify-icon></span>
-                        <input type="text" id="nickname"  value="{{nickname}}" readonly>
-                    </div>
-                </li>
-                <li id="usernameBox">
-                    <div class="inputContainer">
-                        <span><iconify-icon icon="mdi:account-edit"></iconify-icon></span>
-                        <input type="text" id="username"  value="{{username}}" readonly>
-                    </div>
-                </li>
-                <li id="phoneNumberBox">
-                    <div class="inputContainer">
-                        <span><iconify-icon icon="material-symbols:phone-android-rounded"></iconify-icon></span>
-                        <input type="text" id="phoneNumber"  value="{{phoneNumber}}" readonly>
+                        <input type="text" id="nickname" value="{{nickname}}" readonly />
                     </div>
                 </li>
                 <li id="emailBox">
                     <div class="inputContainer">
                         <span><iconify-icon icon="ic:round-email"></iconify-icon></span>
-                        <input type="text" id="email"  value="{{email}}" readonly>
+                        <input type="text" id="email" value="{{email}}" readonly />
                     </div>
                 </li>
+            </ul>
+            <ul id="userPoint">
+                <div id="points">
+                    <h3>MY POINT</h3>
+                    <p id="point">{{mypoint.mypoint}}<span>pt.</span></p>
+                    <div id="details">
+                        <ul>
+                            {% for item in point %}
+                            <li>
+                                <span>{{item.createdAt}}</span>
+                                <span>{% if item.comment === "0" %}글 작성</span>
+                                {% else %}
+                                <span>댓글 작성</span>{% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             </ul>
             <ul id="userChart">
                 <li>
@@ -60,10 +65,11 @@
             <div id="btnBox">
                 <button class="button" type="button"><a href="/user/modify">회원정보 수정</a></button>
                 <button class="button" type="submit" id="userDelete">회원탈퇴</button>
-            </div>    
+            </div>
         </form>
     </div>
 </div>
 
 <script type="module" src="/js/module/user/profile.js"></script>
 {% endblock%}
+

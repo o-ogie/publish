@@ -7,11 +7,11 @@ const request = axios.create({
     withCredentials: true,
 });
 
-route.get("/", (req, res) => {
+route.get("/", (req, res, next) => {
     res.render("board/main.html");
 });
 
-route.post("/", async (req, res) => {
+route.post("/", async (req, res, next) => {
     try {
         const { userid } = req.user;
         console.log("req.body:::", req.body);
@@ -30,7 +30,7 @@ route.post("/", async (req, res) => {
         next(e);
     }
 });
-route.post("/temp", async (req, res) => {
+route.post("/temp", async (req, res, next) => {
     try {
         const { userid } = req.user;
         console.log("req.body:::", req.body);
@@ -40,15 +40,17 @@ route.post("/temp", async (req, res) => {
     }
 });
 
-route.get("/write", (req, res) => {
+route.get("/write", (req, res, next) => {
     try {
+        console.log(req.user);
         const { userid } = req.user;
-        res.render("board/write.html", { userid });
+        const user = req.user;
+        res.render("board/write.html", { userid, user });
     } catch (e) {
         next(e);
     }
 });
-route.get("/:id", async (req, res) => {
+route.get("/:id", async (req, res, next) => {
     try {
         const user = req.user;
         const { id } = req.params;
@@ -76,7 +78,7 @@ route.get("/temp/modify", async (req, res, next) => {
     }
 });
 
-route.get("/:id/favorite", async (req, res) => {
+route.get("/:id/favorite", async (req, res, next) => {
     try {
         const user = req.user;
         const { id } = req.params;
@@ -87,14 +89,6 @@ route.get("/:id/favorite", async (req, res) => {
         next(e);
     }
 });
-// route.get("/:id/history", async (req, res) => {
-//     const user = req.user;
-//     const { id } = req.params;
-//     const response = await request.get(`/boards/${id}/histories`);
-//     console.log(user);
-//     res.render("board/favorite.html", { user, list: response.data });
-// });
-
 route.get("/:id/:idx", async (req, res) => {
     try {
         const user = req.user;
@@ -114,7 +108,7 @@ route.get("/:id/:idx", async (req, res) => {
     }
 });
 
-route.get("/:id/:idx/modify", async (req, res) => {
+route.get("/:id/:idx/modify", async (req, res, next) => {
     try {
         const { id, idx } = req.params;
         const user = req.user;
@@ -126,7 +120,7 @@ route.get("/:id/:idx/modify", async (req, res) => {
     }
 });
 
-route.post("/:id/:idx/modify", async (req, res) => {
+route.post("/:id/:idx/modify", async (req, res, next) => {
     try {
         const { userid } = req.user;
         let { id, idx } = req.params;

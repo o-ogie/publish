@@ -13,27 +13,42 @@ const request = axios.create({
 
 router.get("/", async (req, res) => {
     // console.log(`req.user :`, req.user);
-    const {searchType, search, sort, category} = req.query
-    
-    console.log('index::::: st sch srt cate',searchType,search,sort, category)
-    const respone = await request.get("/boards/",{data:{searchType, search, sort, category}});
-    const list = respone.data
+    const { searchType, search, sort, category } = req.query;
+    console.log("index::::: st sch srt cate", searchType, search, sort, category);
+    const respone = await request.get("/boards/", { data: { searchType, search, sort, category } });
+    const list = respone.data;
     // console.log(list)
     // if( req.query.searchType){
     //     const {searchType, search} = req.query
-        
+
     //     res.render("index.html",{list:searchList})
     //     return
     // }
     // if (req.user === undefined) return res.render("index.html", { list });
+    console.log(req.user);
     res.render("index.html", { user: req.user, list });
 });
 
 router.get("/forum", async (req, res) => {
     // console.log(`req.user :`, req.user);
+    const list = await request.get("/forum");
+    const [notice, comment] = list.data;
 
+    res.render("forum.html", { user: req.user, notice, comment });
+});
 
-    res.render("forum.html", { user: req.user });
+router.post("/forum", async (req, res, next) => {
+    try {
+        const body = {
+            ...req.body,
+            userid: req.user.userid,
+        };
+        console.log(body);
+        await request.post("/forum", body);
+        res.redirect("/forum");
+    } catch (e) {
+        next(e);
+    }
 });
 
 router.get("/socket", (req, res) => {

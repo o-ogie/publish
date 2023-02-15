@@ -153,7 +153,9 @@ const deleteHandler = async (e) => {
     }
 };
 
-boarddel.addEventListener("click", deleteHandler);
+if (boarddel) {
+    boarddel.addEventListener("click", deleteHandler);
+}
 
 const commentDelete = async (e) => {
     switch (e.target.id) {
@@ -210,4 +212,34 @@ const commentDelete = async (e) => {
 for (let i = 0; i < commentbtn.length; i++) {
     commentbtn[i].addEventListener("click", commentDelete);
 }
+
+const openRecomment = document.querySelectorAll("#openRecomment");
+openRecomment.forEach((v) => {
+    const children = document.querySelectorAll(".child input[value]");
+    const parentId = v.parentNode.querySelector("#parentId").value;
+
+    let count = 0;
+    for (const input of children) {
+        if (input.value.split("-")[0] === parentId) {
+            count++;
+        }
+    }
+    if (count === 0) v.style.display = "none";
+    v.innerHTML = `답글 열기(${count})`;
+
+    v.addEventListener("click", (e) => {
+        const box = e.target.parentNode;
+        const parentId = box.querySelector("#parentId").value;
+        v.classList.toggle("close");
+        if (v.className === "close") v.innerHTML = `답글 닫기`;
+        else v.innerHTML = `답글 열기(${count})`;
+
+        for (const input of children) {
+            if (input.value.split("-")[0] === parentId) {
+                let child = input.parentNode;
+                child.classList.toggle("open");
+            }
+        }
+    });
+});
 

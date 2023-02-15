@@ -8,7 +8,7 @@ const request = axios.create({
     withCredentials: true,
 });
 
-route.get("/signup", (req, res) => {
+route.get("/signup", (req, res, next) => {
     res.render("user/signup.html");
 });
 
@@ -30,7 +30,7 @@ route.post("/signup", async (req, res, next) => {
     // res.redirect(`/user/welcome?userid=${userid}&username=${username}&userpw=${userpw}`);
 });
 
-route.get("/welcome", (req, res) => {
+route.get("/welcome", (req, res, next) => {
     const { userid, username, userpw } = req.query;
     const user = {
         userid,
@@ -42,7 +42,7 @@ route.get("/welcome", (req, res) => {
     });
 });
 
-route.get("/signin", (req, res) => {
+route.get("/signin", (req, res, next) => {
     res.render("user/signin.html");
 });
 
@@ -50,21 +50,24 @@ route.get("/profile", async (req, res, next) => {
     try {
         const user = req.user;
         const response = await request.get(`/users/point/${user.userid}`);
-        console.log(response.data.length);
-        // console.log(response.data)
+        const point = response.data;
+        console.log(point);
+        const mypoint = {
+            mypoint: point.length * 10,
+        };
 
-        res.render("user/profile.html", { user, ...req.user });
+        res.render("user/profile.html", { user, ...req.user, point, mypoint });
     } catch (e) {
         next(e);
     }
 });
 
-route.get("/modify", (req, res) => {
+route.get("/modify", (req, res, next) => {
     const user = req.user;
     res.render("user/modify.html", { user, ...req.user });
 });
 
-route.post("/modify", async (req, res) => {
+route.post("/modify", async (req, res, next) => {
     try {
         // console.log("modify:::", req.body)
         const response = await request.put("/users", { ...req.body });
@@ -76,7 +79,7 @@ route.post("/modify", async (req, res) => {
     }
 });
 
-route.post("/delete", async (req, res) => {
+route.post("/delete", async (req, res, next) => {
     try {
         console.log("delete:::", req.body.userid);
         const response = await request.delete(`/users/${req.body.userid}`);

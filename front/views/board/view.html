@@ -5,129 +5,133 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <link rel="stylesheet" href="/css/board/view.css" />
 <input type="hidden" name="nowme" id="nowme" value="{{user.userid}}" />
-<div id="likes">
-    <div class="img">
-        <iconify-icon class="like" icon="mdi:cards-heart"></iconify-icon>
+<div id="wrap">
+    <div id="likes">
+        <div class="img">
+            <iconify-icon class="like" icon="mdi:cards-heart"></iconify-icon>
+        </div>
+        <p>{{data.likeCount}}</p>
+        <input type="hidden" class="likewho" value="{{data.likeidlist}}" />
     </div>
-    <p>{{data.likeCount}}</p>
-    <input type="hidden" class="likewho" value="{{data.likeidlist}}" />
+    <div id="viewwrap">
+        <div id="board">
+            <div id="boardSubject">
+                <h2>{{data.subject}}</h2>
+                <span class="category">{{data.category}}</span>
+            </div>
+            <div id="boardInfo">
+                <ul>
+                    <li>
+                        <span><iconify-icon icon="fa-solid:user-edit" style="margin-right: 5px"></iconify-icon></span><span id="userid">{{data.userid}}</span>
+                        <span class="timeStamp"><iconify-icon icon="ic:baseline-access-time-filled" style="margin-right: 3px"></iconify-icon><span class="innerText">{{data.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span></span>
+                    </li>
+                    {% if user.userid === data.userid %}
+                    <li>
+                        <span><a href="/board/{{user.userid}}/{{data.id}}/modify">수정</a></span>
+                        <span class="delete"><a href="/board/{{user.userid}}/{{data.id}}/delete">삭제</a></span>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div id="hashs">{{data.tagname}}</div>
+            <div id="contents">
+                <!-- <textarea id="boardcontent" readonly>{{data.content}}</textarea> -->
+                <div id="boardcontent">
+                    <span id="parsedText"></span>
+                </div>
+            </div>
+            <div id="profile">
+                <div id="img">
+                    <a href="http://localhost:3005/board/{{data.userid}}"><img src="{{data.userImg}}" alt="" /></a>
+                </div>
+                <div id="writerInfo">
+                    <p id="pblog"><a href="http://localhost:3005/board/{{data.userid}}">{{data.nickname}}</a></p>
+                    <p id="pIntroduce">{{data.introduce}}</p>
+                </div>
+            </div>
+        </div>
+    
+        <div id="commentsWrap">
+            <div id="comments">
+                <div id="total">
+                    <h3>{{data.commentCount}} 개의 댓글이 있습니다</h3>
+                </div>
+                <form method="post" action="" id="commentfrm">
+                    <div id="commentFrmInput">
+                        <input type="hidden" name="parentid" />
+                        <input type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요" />
+                    </div>
+                    <button type="submit">댓글 등록</button>
+                </form>
+                <div id="temp">
+                    <ul>
+                        {% for item in comment %} {% if item.depth === 0 %}
+                        <li id="commentContent" data-index="{{item.id}}">                            <div class="writeData">
+                                <span id="userimg">
+                                    <img src="{{item.userimg}}" alt="" />
+                                </span>
+                                <div>
+                                    <span id="commentUser" class="writer">{{item.userid}}</span>
+                                    <span class="timeStamp" style="color: #999; font-size: 0.9em">
+                                        <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <input type="text" class="commentContent" value="{{item.content}}" disabled />
+                            <div id="btns">
+                                <button id="commentRecomment" class="commentBtn"><iconify-icon icon="mdi:comment-plus" style="margin-right: 4px"></iconify-icon>답글</button>
+                                {% if item.userid === user.userid %}
+                                <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon>수정</button>
+                                <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>
+                                {% endif %}
+                            </div>
+                            <div id="recommentBox">
+                                <input type="hidden" value="{{item.PATH}}" id="parentId">
+                                <span id="openRecomment">답글 열기</span>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li id="commentContent" class="child" data-index="{{item.id}}">
+                            <input type="hidden" value="{{item.PATH}}" id="parentId">
+                            <div class="writeData">
+                                <span id="userimg">
+                                    <img src="{{item.userimg}}" alt="" />
+                                </span>
+                                <div>
+                                    <span id="commentUser" class="writer">{{item.userid}}</span>
+                                <span class="timeStamp" style="color: #999; font-size: 0.9em">
+                                    <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
+                                </span>
+                                </div>
+                            </div>
+                            <input type="text" class="commentContent" value="{{item.content}}" disabled />
+                            <div id="btns">
+                                {% if item.userid === user.userid %}
+                                <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon> 수정</button>
+                                <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>
+                                {% endif %}
+                            </div>
+                        </li>
+                        {% endif %} {% endfor %}
+                    </ul>
+                </div>
+                <template id="commentList">
+                    <ul>
+                        <li id="commentContent">{{content}}1</li>
+                        <li id="commentWriter">{{writer}}2</li>
+                        <li id="commentDate">{{regesterdate}}3</li>
+                        <span id="commentRecomment">댓글달기</span>
+                    </ul>
+                </template>
+                <template id="comentBtns">
+                    <span id="commentRe">수정</span>
+                    <span id="commentDelete">삭제</span>
+                </template>
+            </div>
+        </div>
+    </div>
 </div>
-<div id="viewwrap">
-    <div id="board">
-        <div id="boardSubject">
-            <h2>{{data.subject}}</h2>
-            <span class="category">{{data.category}}</span>
-        </div>
-        <div id="boardInfo">
-            <ul>
-                <li>
-                    <span><iconify-icon icon="fa-solid:user-edit" style="margin-right: 5px"></iconify-icon></span><span id="userid">{{data.userid}}</span>
-                </li>
-                <li>
-                    <span id="date" class="innerText"><iconify-icon icon="ic:baseline-access-time-filled" style="margin-right: 3px"></iconify-icon> {{data.createdAt}}</span>
-                </li>
-                <li>
-                    <span><iconify-icon icon="ic:baseline-remove-red-eye" style="margin-right: 3px"></iconify-icon> {{data.hit}} </span>
-                </li>
-                {% if user.userid === data.userid %}
-                <li>
-                    <span><a href="/board/{{user.userid}}/{{data.id}}/modify">수정</a></span>
-                </li>
-                <li>
-                    <span class="delete"><a href="/board/{{user.userid}}/{{data.id}}/delete">삭제</a></span>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-        <div id="hashs">{{data.tagname}}</div>
-        <div id="contents">
-            <!-- <textarea id="boardcontent" readonly>{{data.content}}</textarea> -->
-            <div id="boardcontent">
-                <span id="parsedText"></span>
-            </div>
-        </div>
-        <div id="profile">
-            <div id="img">
-                <img src="{{data.userImg}}" alt="" />
-            </div>
-            <div id="writerInfo">
-                <p id="pWriter">{{data.nickname}}</p>
-                <p id="pblog"><a href="http://localhost:3005/board/{{data.userid}}">{{data.nickname}}.LOG</a></p>
-            </div>
-        </div>
-    </div>
 
-    <div id="comments">
-        <div id="total">
-            <h3>{{data.commentCount}} 개의 댓글이 있습니다</h3>
-        </div>
-        <form method="post" action="" id="commentfrm">
-            <div id="commentFrmInput">
-                <input type="hidden" name="parentid" />
-                <input type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요" />
-            </div>
-            <button type="submit">댓글 등록</button>
-        </form>
-        <div id="temp">
-            <ul>
-                {% for item in comment %} {% if item.depth === 0 %}
-                <li id="commentContent" data-index="{{item.id}}">
-                    <div class="writeData">
-                        <span id="userimg">
-                            <img src="{{item.userimg}}" alt="" />
-                        </span>
-                        <span id="commentUser" class="writer">{{item.userid}}</span>
-                        <span class="timeStamp" style="color: #999; font-size: 0.9em">
-                            <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
-                        </span>
-                    </div>
-                    <input type="text" class="commentContent" value="{{item.content}}" disabled />
-                    <div id="btns">
-                        {% if item.userid === user.userid %}
-                        <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon>수정</button>
-                        <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>
-                        {% endif %}
-                    </div>
-                    <div id="recommentBox">
-                        <span id="commentRecomment">➕ 답글달기</span>
-                    </div>
-                </li>
-                {% else %}
-                <li id="commentContent" class="child" data-index="{{item.id}}">
-                    <div class="writeData">
-                        <span id="userimg">
-                            <img src="{{item.userimg}}" alt="" />
-                        </span>
-                        <span id="commentUser" class="writer">{{item.userid}}</span>
-                        <span class="timeStamp" style="color: #999; font-size: 0.9em">
-                            <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
-                        </span>
-                    </div>
-                    <input type="text" class="commentContent" value="{{item.content}}" disabled />
-                    <div id="btns">
-                        {% if item.userid === user.userid %}
-                        <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon> 수정</button>
-                        <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>
-                        {% endif %}
-                    </div>
-                </li>
-                {% endif %} {% endfor %}
-            </ul>
-        </div>
-        <template id="commentList">
-            <ul>
-                <li id="commentContent">{{content}}1</li>
-                <li id="commentWriter">{{writer}}2</li>
-                <li id="commentDate">{{regesterdate}}3</li>
-                <span id="commentRecomment">댓글달기</span>
-            </ul>
-        </template>
-        <template id="comentBtns">
-            <span id="commentRe">수정</span>
-            <span id="commentDelete">삭제</span>
-        </template>
-    </div>
-</div>
 <script>
     const Editor = toastui.Editor;
     const editor = new Editor({
