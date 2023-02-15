@@ -5,10 +5,19 @@ class forumService {
 
     async getlist() {
         try {
-            console.log("hihihihi");
-            const list = await this.forumRepository.getnotice();
-            return list;
-        } catch (e) {}
+            const [list, comment] = await this.forumRepository.getnotice();
+            return [list, comment];
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async postQ(data) {
+        try {
+            await this.forumRepository.post(data);
+        } catch (e) {
+            throw new Error(e);
+        }
     }
 }
 
