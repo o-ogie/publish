@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
     // console.log(list)
     // if( req.query.searchType){
     //     const {searchType, search} = req.query
-        
+
     //     res.render("index.html",{list:searchList})
     //     return
     // }
@@ -30,9 +30,10 @@ router.get("/", async (req, res) => {
 
 router.get("/forum", async (req, res) => {
     // console.log(`req.user :`, req.user);
+    const list = await request.get("/forum");
+    const notice = list.data;
 
-
-    res.render("forum.html", { user: req.user });
+    res.render("forum.html", { user: req.user, notice });
 });
 
 router.get("/socket", (req, res) => {
