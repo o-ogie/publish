@@ -306,7 +306,13 @@ ORDER BY PATH`);
     async updatehistory(userid, idx) {
         console.log("repo history :::", userid, idx);
         try {
-            await this.History.findOrCreate({ where: { userid, boardid: idx } });
+            const check = await this.History.findOne({ raw: true, where: { userid, boardid: idx } });
+            if (!check) {
+                await this.History.create({ userid, boardid: idx });
+            } else {
+                await this.History.destroy({ where: { userid, boardid: idx } });
+                await this.History.create({ userid, boardid: idx });
+            }
 
             const sql = `
                 DELETE FROM History
