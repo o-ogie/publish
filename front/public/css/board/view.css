@@ -9,20 +9,20 @@
 }
 
 #likes {
-    position: absolute;
+    position: sticky;
     left: 0%;
-    top: 50%;
+    top: 90%;
     width: 60px;
     height: 90px;
     color: #eee;
-    /* transform: translate(-50%, 10%); */
 }
 #likes > .img {
     position: relative;
     width: 60px;
     height: 60px;
-    border-radius: 30px;
+    border-radius: 50%;
     border: 1px solid #fff;
+    /* background: rgba(0,0,0,0.5); */
 }
 
 #likes > .img > iconify-icon {
@@ -191,21 +191,23 @@
 }
 
 #profile {
-    padding-left: 50px;
+    margin: 0 auto;
     margin-top: 100px;
+    padding-top: 30px;
+    border-top: 1px solid #ccc;
     display: flex;
     width: 800px;
-    height: 150px;
+    height: 180px;
 }
 
-#profile > #img {
+#profile #img {
     width: 150px;
     height: 150px;
     border-radius: 75px;
     overflow: hidden;
 }
 
-#profile > #img > img {
+#profile #img img {
     width: 150px;
     height: 150px;
 }
@@ -316,6 +318,10 @@
 
 #commentContent.child {
     width: 740px;
+    display: none;
+}
+#commentContent.child.open {
+    display: block;
 }
 
 #commentContent > .writeData {
@@ -387,9 +393,16 @@
 #commentContent > #recommentBox > #openRecomment {
     cursor: pointer;
 }
-#commentContent > #recommentBox > #openRecomment iconify-icon {
+#commentContent > #recommentBox > #openRecomment::before {
+    content: "▾";
+    padding-right: 3px;
+    color: #edc278;
+}
+#commentContent > #recommentBox > #openRecomment.close::before {
+    transform: rotate(180deg);
     display: inline-block;
 }
+
 
 .child {
     position: relative;
