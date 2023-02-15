@@ -10,6 +10,7 @@ class BoardService {
     async getList({ searchType, search, sort, category }, { count }) {
         try {
             console.log("scht, sch, srt", searchType, search, sort, count);
+            if (category === `default`) category = ``;
             const views = 9;
             if (!count) count = 0;
             let limitval = views * count;

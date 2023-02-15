@@ -20,24 +20,30 @@
                         <input type="text" id="nickname" value="{{nickname}}" readonly />
                     </div>
                 </li>
-                <li id="usernameBox">
-                    <div class="inputContainer">
-                        <span><iconify-icon icon="mdi:account-edit"></iconify-icon></span>
-                        <input type="text" id="username" value="{{username}}" readonly />
-                    </div>
-                </li>
-                <li id="phoneNumberBox">
-                    <div class="inputContainer">
-                        <span><iconify-icon icon="material-symbols:phone-android-rounded"></iconify-icon></span>
-                        <input type="text" id="phoneNumber" value="{{phoneNumber}}" readonly />
-                    </div>
-                </li>
                 <li id="emailBox">
                     <div class="inputContainer">
                         <span><iconify-icon icon="ic:round-email"></iconify-icon></span>
                         <input type="text" id="email" value="{{email}}" readonly />
                     </div>
                 </li>
+            </ul>
+            <ul id="userPoint">
+                <div id="points">
+                    <h3>MY POINT</h3>
+                    <p id="point">{{mypoint.mypoint}}<span>pt.</span></p>
+                    <div id="details">
+                        <ul>
+                            {% for item in point %}
+                            <li>
+                                <span>{{item.createdAt}}</span>
+                                <span>{% if item.comment === "0" %}글 작성</span>
+                                {% else %}
+                                <span>댓글 작성</span>{% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             </ul>
             <ul id="userChart">
                 <li>
@@ -62,14 +68,6 @@
             </div>
         </form>
     </div>
-</div>
-<div id="points">
-    <div id="point">MY POINT = {{mypoint.mypoint}}</div>
-    <ul>
-        {% for item in point %}
-        <li><span>{{item.createdAt}}</span><span>{% if item.comment === "0" %}글 관련</span>{% else %}<span>댓글 관련</span>{% endif %}</li>
-        {% endfor %}
-    </ul>
 </div>
 
 <script type="module" src="/js/module/user/profile.js"></script>

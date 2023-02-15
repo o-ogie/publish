@@ -2,6 +2,10 @@
     letter-spacing: -0.0525em;
 }
 
+#particles-js {
+    height: 100%;
+}
+
 body {
     height: 100%;
     overflow: hidden;
@@ -26,7 +30,7 @@ body {
     left: 50%;
     height: 100%;
     width: 100%;
-    overflow: auto;
+    overflow-y: scroll;
     transform: translate(-50%, -50%);
 }
 
