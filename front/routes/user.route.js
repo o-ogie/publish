@@ -51,12 +51,15 @@ route.get("/profile", async (req, res, next) => {
         const user = req.user;
         const response = await request.get(`/users/point/${user.userid}`);
         const point = response.data;
-        console.log(point);
         const mypoint = {
-            mypoint: point.length * 10,
+            mypoint: point.chart.length * 10,
         };
-
-        res.render("user/profile.html", { user, ...req.user, point, mypoint });
+        const sum = {
+            boardCount: point.sum.boardCount * 10,
+            commentCount: point.sum.commentCount * 10,
+        };
+        console.log(`sum:::`, sum);
+        res.render("user/profile.html", { user, ...req.user, point, mypoint, sum });
     } catch (e) {
         next(e);
     }

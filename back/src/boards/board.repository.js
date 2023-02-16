@@ -70,7 +70,7 @@ class BoardRepository {
         }
     }
     async findMain({ id, sql, order }) {
-        console.log(`repo :::`, id, sql, order);
+        console.log(`repository :::`, id, sql, order);
         try {
             const query = `SELECT 
       A.id,
@@ -132,11 +132,28 @@ ORDER BY PATH;`);
             //     raw: true,
             //     where: { boardid: idx },
             // });
-            return [view, comment];
+            const prevPost = await this.findPrevOne(id, idx);
+            const nextPost = await this.findNextOne(id, idx);
+            // console.log(`repo::::`, prevPost, nextPost);
+            return [view, prevPost, nextPost, comment];
         } catch (e) {
             throw new Error(e);
         }
     }
+    async findPrevOne(id, idx) {
+        const [[prevPost]] = await this.sequelize.query(`
+          SELECT subject, userid, id FROM Board WHERE userid ='${id}' and id < ${idx} ORDER BY id DESC LIMIT 1
+          `);
+        if (!prevPost) return null;
+        return prevPost
+      }
+      async findNextOne(id, idx) {
+        const [[nextPost]] = await this.sequelize.query(`
+          SELECT subject, userid, id FROM Board WHERE userid ='${id}' and id > ${idx} ORDER BY id ASC LIMIT 1
+        `);
+        if (!nextPost) return null;
+        return nextPost
+      }
     async createBoard(boarddata) {
         console.log(`boarddata::::`, boarddata);
         try {
@@ -341,8 +358,8 @@ ORDER BY PATH;`);
 
     async tempCheck(userid) {
         try {
-            const respone = await this.Temp.findOne({ raw: true, where: { userid } });
-            return respone;
+            const response = await this.Temp.findOne({ raw: true, where: { userid } });
+            return response;
         } catch (e) {
             throw new Error(e);
         }
@@ -350,8 +367,8 @@ ORDER BY PATH;`);
 
     async tempDestroy(userid) {
         try {
-            const respone = await this.Temp.destroy({ raw: true, where: { userid } });
-            return respone;
+            const response = await this.Temp.destroy({ raw: true, where: { userid } });
+            return response;
         } catch (e) {
             throw new Error(e);
         }
@@ -359,11 +376,12 @@ ORDER BY PATH;`);
 
     async createPoint(data) {
         try {
-            const respone = await this.PointUp.create(data);
+            const response = await this.PointUp.create(data);
         } catch (e) {
             throw new Error(e);
         }
     }
+
 }
 
 module.exports = BoardRepository;

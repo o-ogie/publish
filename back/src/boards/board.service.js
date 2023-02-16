@@ -94,13 +94,12 @@ class BoardService {
             console.log("service history :::", userid, idx);
             await this.boardRepository.updatehistory(userid, idx);
 
-            const [view, comment] = await this.boardRepository.findOne(id, idx);
+            const [view, prevPost, nextPost, comment] = await this.boardRepository.findOne(id, idx);
             let { userImg: test } = view;
             if (test.indexOf("http") === -1) {
                 test = `http://${config.host}:${config.port}/${test}`;
             }
-            console.log("asdasdasd", view, comment);
-            const data = { ...view, userImg: test };
+            const data = { ...view, prevPost, nextPost, userImg: test };
             return [data, comment];
         } catch (e) {
             console.error(e);
@@ -325,6 +324,8 @@ class BoardService {
             throw new this.BadRequest(e);
         }
     }
+
+    
 }
 
 module.exports = BoardService;

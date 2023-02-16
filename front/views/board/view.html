@@ -50,7 +50,26 @@
                 </div>
             </div>
         </div>
-    
+        <div class="btnBox">
+            {% if data.prevPost %}
+            <a href="http://localhost:3005/board/{{ data.prevPost.userid }}/{{ data.prevPost.id }}">
+                <iconify-icon icon="carbon:previous-outline"></iconify-icon>
+                <div>
+                    <span>이전 포스트</span>
+                    <div>{{ data.prevPost.subject }}</div>
+                </div>
+            </a>
+            {% endif %}
+            {% if data.nextPost %}
+            <a href="http://localhost:3005/board/{{ data.nextPost.userid }}/{{ data.nextPost.id }}">
+                <div>
+                    <span>다음 포스트</span>
+                    <div>{{ data.nextPost.subject }}</div>
+                </div>
+                <iconify-icon icon="carbon:next-outline"></iconify-icon>
+            </a>
+            {% endif %}
+         </div>   
         <div id="commentsWrap">
             <div id="comments">
                 <div id="total">
@@ -155,6 +174,8 @@
     for (item of category) {
         item.className = `category ${item.innerHTML}`;
     }
+
+    console.log(`prev:::`, '{{data.prevPost.subject}}')
 </script>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

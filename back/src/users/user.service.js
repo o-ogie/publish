@@ -47,13 +47,7 @@ class UserService {
       }
     }
 
-    async All(token){
-        const { level } = this.jwt.verifyToken(token, this.config.SALT);
-        if(level !== "admin") throw new Error("Access denied")
-        const list = await this.userRepository.getUsers();
-        console.log(list)
-        // return list;
-  }
+    
     
     async putProfile(userData) {
         try {
