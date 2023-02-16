@@ -26,7 +26,8 @@
                         <span class="timeStamp"><iconify-icon icon="ic:baseline-access-time-filled" style="margin-right: 3px"></iconify-icon><span class="innerText">{{data.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span></span>
                     </li>
                     <li>
-                        <span class="clip"><iconify-icon icon="el:paper-clip-alt"></iconify-icon></span>
+                        <span class="clip" style="color: #000; font-size: 16px; cursor:pointer;"><iconify-icon icon="el:paper-clip"></iconify-icon><input type="hidden" class="urlCopy"></span>
+                        <div id="clipMessage">링크가 복사되었습니다</div>
                         {% if user.userid === data.userid %}
                         <span><a href="/board/{{user.userid}}/{{data.id}}/modify">수정</a></span>
                         <span class="delete"><a href="/board/{{user.userid}}/{{data.id}}/delete">삭제</a></span>
