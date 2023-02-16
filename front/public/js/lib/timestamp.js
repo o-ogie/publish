@@ -2,10 +2,9 @@
 const timeStamps = document.querySelectorAll(".timeStamp .innerText");
 const timeStrings = Array.from(timeStamps).map((v) => v.innerText);
 
-
 // 현재 시간
-const offset = 1000 * 60 * 60 * 9
-const thisTime = new Date((new Date()).getTime() + offset).toISOString().slice(0, -5).split("T").join(".").split(":").join(".");
+const offset = 1000 * 60 * 60 * 9;
+const thisTime = new Date(new Date().getTime() + offset).toISOString().slice(0, -5).split("T").join(".").split(":").join(".");
 
 timeStrings.forEach((timeStamp, index) => {
     const splitTimeStamp = timeStamp.split(".");
@@ -25,3 +24,4 @@ timeStrings.forEach((timeStamp, index) => {
         else timeStamps[index].innerHTML = splitTimeStamp[0];
     }
 });
+

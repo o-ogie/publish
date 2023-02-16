@@ -3,8 +3,6 @@ import request from "/js/lib/request.js";
 const blindBtn = document.querySelectorAll(".hideItem");
 const itemId = document.querySelectorAll("#itemId");
 const boarditem = document.querySelector(".boardItem");
-console.log(boarditem);
-console.log(itemId.value);
 
 blindBtn.forEach((button, index) => {
     button.addEventListener("click", async (e) => {
