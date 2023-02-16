@@ -31,32 +31,20 @@
                 <div id="points">
                     <h3>MY POINT</h3>
                     <p id="point">{{mypoint.mypoint}}<span>pt.</span></p>
-                    <div id="details">
-                        <ul>
-                            {% for item in point %}
-                            <li>
-                                <span>{{item.createdAt}}</span>
-                                <span>{% if item.comment === "0" %}글 작성</span>
-                                {% else %}
-                                <span>댓글 작성</span>{% endif %}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
                 </div>
             </ul>
             <ul id="userChart">
-                <li>
+                <li class="receivedLike">
                     <iconify-icon icon="mdi:cards-heart-outline"></iconify-icon>
                     <!-- <span>{{liked.length}}</span> -->
                     <span id="total_Like"></span>
                 </li>
-                <li>
+                <li class="receivedComment">
                     <iconify-icon icon="uil:comment-plus"></iconify-icon>
                     <!-- <span>{{comment.length}}</span> -->
                     <span id="total_Comment"></span>
                 </li>
-                <li>
+                <li class="receivedHit">
                     <iconify-icon icon="mdi:comment-eye-outline"></iconify-icon>
                     <!-- <span>{{hit}}</span> -->
                     <span id="total_View"></span>
@@ -69,7 +57,29 @@
         </form>
     </div>
 </div>
-
+<div id="details">
+    <div class="bannerText"><h3>내 활동 내역</h3></div>
+    <div id="sum">
+        <span class="totalBoard">글 합산 점수<p>{{sum.boardCount}}</p></span>
+        <span class="totalComment">댓글 합산 점수<p>{{sum.commentCount}}</p></span>
+    </div>
+    <ul id="chart">
+        <h3>내 활동 기록</h3>
+        {% for item in point.chart %}
+        <li>
+            <span class="timeStamp"><span class="innerText">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span></span>
+            {% if item.comment === "0" %}
+            <span class="boardTitle">[포스트]<span class="innerText"> {{item.subject}}</span></span>
+            <span class="addPoint">+10</span>
+            {% else %}
+            <span class="commentContent">[코멘트]<span class="innerText"> {{item.Content}}</span></span>
+            <span class="addPoint">+10</span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<script type="module" src="/js/lib/timestamp.js"></script>
 <script type="module" src="/js/module/user/profile.js"></script>
 {% endblock%}
 
