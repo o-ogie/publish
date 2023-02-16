@@ -1,5 +1,3 @@
-import request from "/js/lib/request.js";
-
 class CommentRequest {
     constructor(request) {
         this.request = request;
@@ -42,5 +40,5 @@ class CommentRequest {
     }
 }
 
-export default new CommentRequest(request);
+export default CommentRequest;
 

@@ -34,9 +34,7 @@ const server = app.listen(PORT, async () => {
     // await sequelize.models.Board.create({ userid: "test12", subject: `QnA`, content: "<div>test</div>", category: "QnA", introduce: "", state: "public" });
 
     // for (let i = 0; i < 30; i++) {
-
     //     await sequelize.models.Board.create({ userid: "web7722", subject: `test${i}`, content: "<div>test</div>", category: "food", introduce: "", state: "public" });
-
     // }
 
     console.log(`backend server listening on port ${PORT}`);

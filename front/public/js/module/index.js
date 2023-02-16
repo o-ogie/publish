@@ -4,10 +4,23 @@ import request from "/js/lib/request.js";
 const sortSwitch = document.querySelector("#sortSwitch");
 const categorySwitch = document.querySelector("#categorySwitch");
 
-sortSwitch.value = location.search.indexOf("sort") === -1 ? "A.id" : location.search.split("=")[1];
-categorySwitch.value = location.search.indexOf("category") === -1 ? "default" : location.search.split("=")[1];
-const sort = sortSwitch.value;
-const category = categorySwitch.value;
+let options = {};
+if (location.search)
+    options = location.search
+        .split("?")[1]
+        .split("&")
+        .reduce((acc, val) => {
+            let [k, y] = val.split("=");
+            acc[k] = y;
+            return acc;
+        }, {});
+
+if (!options["sort"]) options.sort = "A.id";
+if (!options["category"]) options.category = "default";
+sortSwitch.value = options.sort;
+categorySwitch.value = options.category;
+
+console.log(options);
 
 let count = 0;
 const content = document.querySelector("#boardList");
@@ -15,7 +28,7 @@ const more = document.querySelector("#more");
 const observer = new IntersectionObserver(async (entries) => {
     if (entries[0].isIntersecting) {
         count++;
-        const response = await request.get(`boards/?count=${count}&&sort=${sort}&&category=${category}`);
+        const response = await request.get(`boards/?count=${count}&&sort=${options.sort}&&category=${options.category}`);
         console.log(response.data);
         paging(response.data);
     }
@@ -73,6 +86,13 @@ const level = document.querySelector("#userLevel").value;
 const paging = (data) => {
     data.forEach((v) => {
         let li = document.createElement("li");
+        console.log(v.state);
+        let state =
+            v.state === "blind"
+                ? `<div class="hiddenWrap">
+                    <span><iconify-icon icon="fa6-solid:ban"></iconify-icon>: 차단된 게시글입니다</span>
+                </div>`
+                : " ";
         // v.level = "admin";
         li.className = "boardItem";
         const levelspan = level === "admin" ? `<span class="hideItem"><iconify-icon icon="mdi:hide"></iconify-icon></span>` : " ";
@@ -83,6 +103,7 @@ const paging = (data) => {
                   .slice(0, 3)
                   .map((v) => `<li>${v}</li>`);
         li.innerHTML = `${levelspan}
+        ${state}
                 <input type="hidden" value="${v.id}" id="itemId" />
                 <a href="/board/${v.userid}/${v.id}">
                     <div class="itemWrap">

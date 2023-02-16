@@ -36,8 +36,10 @@ ORDER BY PATH;`);
 
     async post(data) {
         try {
+            const { parentid, comment: content, userid } = data;
             const qnaBoard = await this.Board.findOne({ raw: true, where: { category: "QnA" } });
-            console.log(data);
+            const boardid = qnaBoard.id;
+            const a = await this.Comment.create({ content, parentid, boardid, userid });
         } catch (e) {}
     }
 }
