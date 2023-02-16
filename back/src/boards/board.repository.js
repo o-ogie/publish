@@ -28,12 +28,12 @@ class BoardRepository {
             console.log("sortsort", sortvalue);
             let where;
             if ((searchType === "A.subject") | (searchType === "A.content")) {
-                where = `WHERE ${searchType} LIKE '%${search}%'`;
+                where = `AND ${searchType} LIKE '%${search}%'`;
             } else {
-                where = !searchType ? "" : `WHERE ${searchType}="${search}"`;
+                where = !searchType ? "" : `AND ${searchType}="${search}"`;
             }
             const sortKey = !sortvalue ? `ORDER BY A.id DESC` : `ORDER BY ${sortvalue} DESC`;
-            const categoryKey = !categoryvalue ? `` : `WHERE category="${categoryvalue}"`;
+            const categoryKey = !categoryvalue ? `` : `AND category="${categoryvalue}"`;
             const limitquery = !limit ? `` : `Limit ${limit.limit}, ${limit.views}`;
 
             const query = `SELECT 
@@ -58,6 +58,7 @@ class BoardRepository {
         ON A.userid = B.userid
         LEFT JOIN Hashtag AS C
         ON A.id = C.boardid
+        WHERE A.category not in("notice", "QnA")
         ${where}${categoryKey}
         GROUP BY A.id
         ${sortKey}

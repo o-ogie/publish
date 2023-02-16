@@ -14,7 +14,9 @@ class forumService {
 
     async postQ(data) {
         try {
-            await this.forumRepository.post(data);
+            let { parentid, comment, userid } = data;
+            if (!parentid) parentid = 0;
+            await this.forumRepository.post({ parentid, comment, userid });
         } catch (e) {
             throw new Error(e);
         }
