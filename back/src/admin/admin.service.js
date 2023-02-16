@@ -39,9 +39,20 @@ class AdminService{
 
     async timeBoard() {
         try{
-            const board = await this.adminRepository.eachTime()
-            console.log('sev:::',board)
+            const [board] = await this.adminRepository.eachTime()
+            // console.log('sev:::',board)
             return board
+        }catch(e){
+            throw new this.BadRequest(e)
+        }
+    }
+
+    async genderLike(){
+        try{
+            const [likes] = await this.adminRepository.category_gender_like()
+            console.log('serv::::',likes)
+            return likes
+
         }catch(e){
             throw new this.BadRequest(e)
         }

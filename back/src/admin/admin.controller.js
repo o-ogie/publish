@@ -29,6 +29,7 @@ class AdminController {
     async getHashrank(req,res,next){
         try{
             const response = await this.adminService.hashRank()
+            // console.log('res::::',response)
             res.json(response)
         }catch(e){
             next(e)
@@ -51,6 +52,15 @@ class AdminController {
             res.json(response)
         }catch(e){
             next(e)
+        }
+    }
+
+    async categoryGenderLike(req,res,next){
+        try{
+            const response = await this.adminService.genderLike()
+            res.json(response)
+        }catch(e){
+
         }
     }
 }
