@@ -1,7 +1,8 @@
 class UserRepository {
-    constructor({ User, PointUp }) {
+    constructor({ sequelize, User, PointUp }) {
         this.User = User;
         this.PointUp = PointUp;
+        this.sequelize = sequelize;
     }
 
     async addUser(payload) {
@@ -85,9 +86,20 @@ class UserRepository {
     }
 
     async findPoint(userid) {
+        console.log(userid)
         try {
-            const respone = await this.PointUp.findAll({ raw: true, where: { userid } });
-            return respone;
+            const sql = `SELECT A.id, A.userid, A.boardid, A.comment, A.commentid, A.createdAt, B.subject, C.Content FROM PointUp AS A JOIN Board AS B ON A.boardid = B.id LEFT JOIN Comment AS C ON A.commentid = C.id WHERE A.userid = '${userid}' ORDER BY A.createdAt DESC;`
+            const sql2 = `SELECT 
+            userid, 
+            (select count(*) from pointup where commentid is null and userid=a.userid) as boardCount, 
+            COUNT(commentid) AS commentCount 
+        FROM Pointup as a
+        WHERE userid = '${userid}'
+        `
+            const [chart] = await this.sequelize.query(sql)
+            const [[sum]] = await this.sequelize.query(sql2)
+            const data = {chart, sum}
+            return data;
         } catch (e) {
             throw new Error(e);
         }
