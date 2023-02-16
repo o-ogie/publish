@@ -141,14 +141,14 @@ ORDER BY PATH;`);
     }
     async findPrevOne(id, idx) {
         const [[prevPost]] = await this.sequelize.query(`
-          SELECT subject, userid, id FROM Board WHERE id < ${idx} ORDER BY id DESC LIMIT 1
+          SELECT subject, userid, id FROM Board WHERE userid ='${id}' and id < ${idx} ORDER BY id DESC LIMIT 1
           `);
         if (!prevPost) return null;
         return prevPost
       }
       async findNextOne(id, idx) {
         const [[nextPost]] = await this.sequelize.query(`
-          SELECT subject, userid, id FROM Board WHERE id > ${idx} ORDER BY id ASC LIMIT 1
+          SELECT subject, userid, id FROM Board WHERE userid ='${id}' and id > ${idx} ORDER BY id ASC LIMIT 1
         `);
         if (!nextPost) return null;
         return nextPost
