@@ -245,15 +245,20 @@ openRecomment.forEach((v) => {
 
 
 
-const clip = () => {
+const clipHandler = () => {
     let url = '';
     let textarea = document.createElement("textarea");
     document.body.appendChild(textarea);
-    url = 'window.location.href';
+    url = window.location.href;
     textarea.value = url;
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
-    alert("링크가 복사되었습니다.")
+    document.querySelector("#clipMessage").classList.add("on");
+    setTimeout(() => {
+        document.querySelector("#clipMessage").classList.remove("on");
+    }, 4000);
  };
  
+ const clip = document.querySelector(".clip");
+ clip.addEventListener("click", clipHandler)
