@@ -130,8 +130,6 @@ const checkHandler = () => {
 checkbox.addEventListener("change", checkHandler);
 
 
-
-
 /** 주소찾기 */
 const findAddress = () => {
   new daum.Postcode({

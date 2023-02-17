@@ -62,7 +62,7 @@
           </div>
         </li>
         <li id="introBox">
-          <input type="text" name="introduce" id="introduce" placeholder="한 줄 소개"  maxlength="30">
+          <input type="text" name="introduce" id="introduce" placeholder="한 줄 소개" maxlength="30">
         </li>
       </ul>
       <div id="btnBox">
@@ -72,5 +72,19 @@
     </form>
   </div>
 </div>
+<script>
+  const submitBtn = document.querySelectorAll("#btnBox .button")[0]
+  submitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    try {
+      if (!document.querySelector("#userpw").value && !document.querySelector("#pwcheck").value) {
+        throw new Error("비밀번호 입력란을 채워주세요");
+      }
+      e.target.form.submit()
+    } catch (e) {
+      alert(e);
+    }
+  });
+</script>
 <script type="module" src="/js/module/user/signup.js"></script>
 {% endblock%}
