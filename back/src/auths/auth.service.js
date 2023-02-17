@@ -18,6 +18,7 @@ class AuthService {
 
       // console.log(`serv :`, user)
       const token = this.jwt.createToken(user)
+      console.log(`token :`, token)
       return token;
     } catch (e) {
       throw new this.HttpException(e);
