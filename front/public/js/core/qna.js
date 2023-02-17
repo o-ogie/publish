@@ -2,7 +2,7 @@ import Component from "/js/core/component.js";
 
 class Qna extends Component {
     async setup() {
-        const list = await axios.get("http://localhost:3000/forum");
+        const list = await axios.get("http://54.180.142.99:80/forum");
         const [notice, comment] = list.data;
         this.setstatus({ list: comment });
     }

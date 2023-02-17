@@ -63,7 +63,7 @@ router.use("/admin", admin);
 // 카카오 API 로그인
 KKO_HOST = `https://kauth.kakao.com`;
 REST_API_KEY = `e6dfa1b635337a7d85d3ef92c885670c`;
-REDIRECT_URI = `http://localhost:3000/auths/kakao`;
+REDIRECT_URI = `http://54.180.142.99:80/auths/kakao`;
 CLIENT_SERCRET = `liSNdnbPh4yEOm9ZqSuocwothsK1tbKa`;
 
 router.get("/kakao/login", (req, res) => {

@@ -44,17 +44,17 @@
             </div>
             <div id="profile">
                 <div id="img">
-                    <a href="http://localhost:3005/board/{{data.userid}}"><img src="{{data.userImg}}" alt="" /></a>
+                    <a href="http://3.39.10.104:80/board/{{data.userid}}"><img src="{{data.userImg}}" alt="" /></a>
                 </div>
                 <div id="writerInfo">
-                    <p id="pblog"><a href="http://localhost:3005/board/{{data.userid}}">{{data.nickname}}</a></p>
+                    <p id="pblog"><a href="http://3.39.10.104:80/board/{{data.userid}}">{{data.nickname}}</a></p>
                     <p id="pIntroduce">{{data.introduce}}</p>
                 </div>
             </div>
         </div>
         <div class="btnBox">
             {% if data.prevPost %}
-            <a href="http://localhost:3005/board/{{ data.prevPost.userid }}/{{ data.prevPost.id }}">
+            <a href="http://3.39.10.104:80/board/{{ data.prevPost.userid }}/{{ data.prevPost.id }}">
                 <iconify-icon icon="carbon:previous-outline"></iconify-icon>
                 <div>
                     <span>이전 포스트</span>
@@ -62,7 +62,7 @@
                 </div>
             </a>
             {% endif %} {% if data.nextPost %}
-            <a href="http://localhost:3005/board/{{ data.nextPost.userid }}/{{ data.nextPost.id }}">
+            <a href="http://3.39.10.104:80/board/{{ data.nextPost.userid }}/{{ data.nextPost.id }}">
                 <div>
                     <span>다음 포스트</span>
                     <div>{{ data.nextPost.subject }}</div>
@@ -89,10 +89,10 @@
                         <li id="commentContent" data-index="{{item.id}}">
                             <div class="writeData">
                                 <span id="userimg">
-                                    <a href="http://localhost:3005/board/{{item.userid}}"><img src="{{item.userimg}}" alt="" /></a>
+                                    <a href="http://3.39.10.104:80/board/{{item.userid}}"><img src="{{item.userimg}}" alt="" /></a>
                                 </span>
                                 <div>
-                                    <span id="commentUser" class="writer"><a href="http://localhost:3005/board/{{item.userid}}">{{item.userid}}</a></span>
+                                    <span id="commentUser" class="writer"><a href="http://3.39.10.104:80/board/{{item.userid}}">{{item.userid}}</a></span>
                                     <span class="timeStamp" style="color: #999; font-size: 0.9em">
                                         <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
                                     </span>
@@ -116,10 +116,10 @@
                             <input type="hidden" value="{{item.PATH}}" id="parentId" />
                             <div class="writeData">
                                 <span id="userimg">
-                                    <a href="http://localhost:3005/board/{{item.userid}}"><img src="{{item.userimg}}" alt="" /></a>
+                                    <a href="http://3.39.10.104:80/board/{{item.userid}}"><img src="{{item.userimg}}" alt="" /></a>
                                 </span>
                                 <div>
-                                    <span id="commentUser" class="writer"><a href="http://localhost:3005/board/{{item.userid}}">{{item.userid}}</a></span>
+                                    <span id="commentUser" class="writer"><a href="http://3.39.10.104:80/board/{{item.userid}}">{{item.userid}}</a></span>
                                     <span class="timeStamp" style="color: #999; font-size: 0.9em">
                                         <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
                                     </span>
@@ -189,7 +189,7 @@
     }
 </script>
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="http://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="module" src="/js/lib/request.js"></script>
 <script type="module" src="/js/lib/timestamp.js"></script>
 <script type="module" src="/js/module/board/view.js"></script>
