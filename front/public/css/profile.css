@@ -365,7 +365,7 @@ body {
 #points:hover::after {
     content: "내 활동점수 보기";
     position: absolute;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     width: 200px;
     height: 50px;
@@ -375,7 +375,7 @@ body {
     border-radius: 6px;
     bottom: 70px;
     left: -130px;
-    color:#e76d6d;
+    color: rgb(237, 52, 52);
 }
 #points:hover::before {
     content: "▲";

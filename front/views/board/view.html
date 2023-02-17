@@ -22,22 +22,26 @@
             <div id="boardInfo">
                 <ul>
                     <li>
-                        <span><iconify-icon icon="fa-solid:user-edit" style="margin-right: 5px"></iconify-icon></span><span id="userid">{{data.userid}}</span>
-                        <span class="timeStamp"><iconify-icon icon="ic:baseline-access-time-filled" style="margin-right: 3px"></iconify-icon><span class="innerText">{{data.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span></span>
+                        <span><iconify-icon icon="fa-solid:user-edit"
+                                style="margin-right: 5px"></iconify-icon></span><span id="userid">{{data.userid}}</span>
+                        <span class="timeStamp"><iconify-icon icon="ic:baseline-access-time-filled"
+                                style="margin-right: 3px"></iconify-icon><span
+                                class="innerText">{{data.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span></span>
                     </li>
-                    {% if user.userid === data.userid %}
                     <li>
+                        <span class="clip" style="color: #000; font-size: 16px; cursor:pointer;"><iconify-icon
+                                icon="el:paper-clip"></iconify-icon><input type="hidden" class="urlCopy"></span>
+                        <div id="clipMessage">링크가 복사되었습니다</div>
+                        {% if user.userid === data.userid %}
                         <span><a href="/board/{{user.userid}}/{{data.id}}/modify">수정</a></span>
                         <span class="delete"><a href="/board/{{user.userid}}/{{data.id}}/delete">삭제</a></span>
+                        {% endif %}
                     </li>
-                    {% endif %}
                 </ul>
             </div>
             <div id="hashs">{{data.tagname}}</div>
             <div id="contents">
-                <!-- <textarea id="boardcontent" readonly>{{data.content}}</textarea> -->
                 <div id="boardcontent">
-                    <span id="parsedText"></span>
                 </div>
             </div>
             <div id="profile">
@@ -69,7 +73,7 @@
                 <iconify-icon icon="carbon:next-outline"></iconify-icon>
             </a>
             {% endif %}
-         </div>   
+        </div>
         <div id="commentsWrap">
             <div id="comments">
                 <div id="total">
@@ -85,23 +89,30 @@
                 <div id="temp">
                     <ul>
                         {% for item in comment %} {% if item.depth === 0 %}
-                        <li id="commentContent" data-index="{{item.id}}">                            <div class="writeData">
+                        <li id="commentContent" data-index="{{item.id}}">
+                            <div class="writeData">
                                 <span id="userimg">
-                                    <img src="{{item.userimg}}" alt="" />
+                                    <a href="http://localhost:3005/board/{{item.userid}}"><img src="{{item.userimg}}"
+                                            alt="" /></a>
                                 </span>
                                 <div>
-                                    <span id="commentUser" class="writer">{{item.userid}}</span>
+                                    <span id="commentUser" class="writer"><a
+                                            href="http://localhost:3005/board/{{item.userid}}">{{item.userid}}</a></span>
                                     <span class="timeStamp" style="color: #999; font-size: 0.9em">
-                                        <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
+                                        <span id="commentDate"
+                                            class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
                                     </span>
                                 </div>
                             </div>
                             <input type="text" class="commentContent" value="{{item.content}}" disabled />
                             <div id="btns">
-                                <button id="commentRecomment" class="commentBtn"><iconify-icon icon="mdi:comment-plus" style="margin-right: 4px"></iconify-icon>답글</button>
+                                <button id="commentRecomment" class="commentBtn"><iconify-icon icon="mdi:comment-plus"
+                                        style="margin-right: 4px"></iconify-icon>답글</button>
                                 {% if item.userid === user.userid %}
-                                <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon>수정</button>
-                                <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>
+                                <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit"
+                                        style="margin-right: 4px"></iconify-icon>수정</button>
+                                <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove"
+                                        style="margin-right: 4px"></iconify-icon> 삭제</button>
                                 {% endif %}
                             </div>
                             <div id="recommentBox">
@@ -114,20 +125,25 @@
                             <input type="hidden" value="{{item.PATH}}" id="parentId">
                             <div class="writeData">
                                 <span id="userimg">
-                                    <img src="{{item.userimg}}" alt="" />
+                                    <a href="http://localhost:3005/board/{{item.userid}}"><img src="{{item.userimg}}"
+                                            alt="" /></a>
                                 </span>
                                 <div>
-                                    <span id="commentUser" class="writer">{{item.userid}}</span>
-                                <span class="timeStamp" style="color: #999; font-size: 0.9em">
-                                    <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
-                                </span>
+                                    <span id="commentUser" class="writer"><a
+                                            href="http://localhost:3005/board/{{item.userid}}">{{item.userid}}</a></span>
+                                    <span class="timeStamp" style="color: #999; font-size: 0.9em">
+                                        <span id="commentDate"
+                                            class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
+                                    </span>
                                 </div>
                             </div>
                             <input type="text" class="commentContent" value="{{item.content}}" disabled />
                             <div id="btns">
                                 {% if item.userid === user.userid %}
-                                <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon> 수정</button>
-                                <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>
+                                <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit"
+                                        style="margin-right: 4px"></iconify-icon> 수정</button>
+                                <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove"
+                                        style="margin-right: 4px"></iconify-icon> 삭제</button>
                                 {% endif %}
                             </div>
                         </li>
@@ -148,10 +164,15 @@
                 </template>
             </div>
         </div>
+        <div id="empty"></div>
+    </div>
+    <div id="sideComponent">
+        <div id="headerList"></div>
     </div>
 </div>
 
 <script>
+    // toast UI
     const Editor = toastui.Editor;
     const editor = new Editor({
         el: document.querySelector("#boardcontent"),
@@ -159,23 +180,30 @@
         height: "auto",
         initialEditType: "markdown",
         previewStyle: "horizontal",
-        theme: "dark",
     });
-    document.querySelector(".ProseMirror").innerHTML = he.decode("{{data.content}}");
-    document.querySelector(".toastui-editor-toolbar").style.display = "none";
-    document.querySelector(".md-mode").style.display = "none";
-    document.querySelector(".toastui-editor-mode-switch").style.display = "none";
+
+    const editor2 = new Editor({
+        el: document.querySelector("#headerList"),
+        minHeight: "500px",
+        height: "auto",
+        initialEditType: "markdown",
+        previewStyle: "horizontal",
+    });
+
     const mdViewer = document.querySelector(".toastui-editor-md-preview");
     const mdContent = document.querySelector(".toastui-editor-contents");
     mdContent.style.width = "100%";
     mdViewer.style.background = "#fff";
+    document.querySelector(".ProseMirror").innerHTML = he.decode("{{data.content}}");
+    document.querySelector("#headerList .ProseMirror").innerHTML = he.decode("{{data.content}}");
+
+
 
     const category = document.querySelectorAll(".category");
     for (item of category) {
         item.className = `category ${item.innerHTML}`;
     }
 
-    console.log(`prev:::`, '{{data.prevPost.subject}}')
 </script>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -183,4 +211,3 @@
 <script type="module" src="/js/lib/timestamp.js"></script>
 <script type="module" src="/js/module/board/view.js"></script>
 {% endblock %}
-

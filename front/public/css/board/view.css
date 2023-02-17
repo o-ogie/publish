@@ -1,7 +1,8 @@
 
 #wrap {
-    width: 1200px;
-    height: 180vh;
+    margin-top: 60px;
+    width: 1380px;
+    height: 100%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -10,9 +11,9 @@
 }
 
 #likes {
-    position: sticky;
-    left: 0%;
-    top: 130%;
+    position: fixed;
+    margin-left: 120px;
+    top: 15%;
     width: 60px;
     height: 90px;
     color: #eee;
@@ -77,7 +78,7 @@
 #viewwrap {
     width: 900px;
     height: 100%;
-    position: absolute;
+    position: relative;
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -317,6 +318,7 @@
     box-shadow: rgb(0 0 0 / 0.5) 0px 6px 12px;
     /* background-color: #232323; */
     border-radius: 12px;
+    padding-bottom: 20px;
     margin-top: 60px;
     width: 900px;
 }
@@ -435,7 +437,7 @@
     font-size: 12px;
 }
 
-#comments > #temp > ul > #commentContent > .writeData > #userimg > img {
+#comments > #temp > ul > #commentContent > .writeData > #userimg img {
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -507,7 +509,7 @@
     height: 60px;
 }
 
-.child > .writeData > .writer {
+.child > .writeData .writer {
     display: block;
     margin-bottom: 7px;
 }
@@ -543,6 +545,54 @@
     font-size: 16px;
 }
 
+
+
+
+/* clip */
+#clipMessage {
+    width: 220px;
+    height: 50px;
+    background-color: #e15241;
+    color: #FFF;
+    font-size: 16px;
+    position: absolute;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+    top: 1.4%;
+    right: 4%;
+    opacity: 0;
+}
+#clipMessage.on {
+    animation-name: fadeIn;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity : 0;
+	}
+    20% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+	100% {
+		opacity : 0;
+	}
+}
+
+
+#empty {
+    height: 100px;
+}
+
+
+
+
 /* toast ui */
 .toastui-editor-md-preview-highlight:after {
     display: none;
@@ -561,3 +611,48 @@
     margin: 5px 0;
 }
 
+
+#sideComponent {
+    right: 0;
+    position: fixed;
+    top: 15%;
+    width: 240px;
+    overflow: hidden;
+}
+
+#headerList .toastui-editor-contents h1, 
+#headerList .toastui-editor-contents h2, 
+#headerList .toastui-editor-contents h3 {
+    color: #fff;
+    cursor: pointer;
+}
+#headerList .toastui-editor-contents h1:hover, 
+#headerList .toastui-editor-contents h2:hover, 
+#headerList .toastui-editor-contents h3:hover {
+    color: #ccc;
+}
+
+#headerList .toastui-editor-contents h1 {
+    font-size: 22px;
+    font-weight: 600;
+}
+#headerList .toastui-editor-contents h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+#headerList .toastui-editor-contents h3 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+.toastui-editor-toolbar,
+.md-mode,
+.toastui-editor-mode-switch,
+#headerList .toastui-editor-contents *:not(h1):not(h2):not(h3) {
+    display: none !important;
+  }
+
+  #headerList {
+    background: transparent;
+  }  
