@@ -22,8 +22,9 @@ const comment = document.querySelector('#total_Comment')
 const view = document.querySelector('#total_View')
 
 ;(async()=>{
-    const {data} = await request.get(`/boards/profile/${userid.value}`)
-    
+    const userid = document.querySelector('#userid').value
+    const {data} = await request.get(`/boards/profile/${userid}`)
+    console.log(data)
     like.innerHTML=data.likes
     comment.innerHTML=data.comment
     view.innerHTML=data.view
