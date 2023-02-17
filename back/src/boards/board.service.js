@@ -112,13 +112,14 @@ class BoardService {
             const regex = /https?:\/\/[^\s]*?\.(?:png|jpe?g|gif)/g;
             const match = regex.exec(content);
             let imgs = null;
-            if (match) { imgs = match }
-            else {
-            imgs = content
-                .split(`img src="`)
-                .filter((v) => v.indexOf("http") !== -1)
-                .map((v) => v.split(`"&gt`)[0]);
-            }    
+            if (match) {
+                imgs = match;
+            } else {
+                imgs = content
+                    .split(`img src="`)
+                    .filter((v) => v.indexOf("http") !== -1)
+                    .map((v) => v.split(`"&gt`)[0]);
+            }
             const boarddata = {
                 userid,
                 subject,
