@@ -155,7 +155,7 @@ const imghandler = async (e) => {
             preimg.append(img);
 
             const contentDiv = document.querySelector(".ProseMirror");
-            contentDiv.innerHTML += `${"&lt"}img src=${img.src}>`;
+            contentDiv.innerHTML += `${"&lt"}img src="${img.src}">`;
 
             const thumbnail = document.querySelector("#thumbnail");
             thumbnail.append(img);
