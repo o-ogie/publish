@@ -109,15 +109,6 @@ class BoardService {
         console.log(`serv :`, { userid, subject, content, hashtag, category, introduce });
         try {
             if (!userid || !subject || !content) throw "내용이 없습니다";
-<<<<<<< HEAD
-            let imgs = null;
-            if (content.indexOf("img src=") !== -1)
-                [imgs] = content
-                    .split("&lt;")
-                    .filter((v) => v.indexOf(`img src="http`) !== -1)
-                    .map((v) => v.split(`img src="`)[1].split(`"&gt`)[0]);
-            console.log("agdsgsdgasdgsdggs", imgs);
-=======
             const regex = /https?:\/\/[^\s]*?\.(?:png|jpe?g|gif)/g;
             const match = regex.exec(content);
             // console.log("match :::::", match[0])
@@ -128,7 +119,7 @@ class BoardService {
             //     .filter((v) => v.indexOf("http") !== -1)
             //     .map((v) => v.split(`"&gt`)[0]);
             //     console.log("imgs:::", imgs);
->>>>>>> main
+
             const boarddata = {
                 userid,
                 subject,
@@ -139,10 +130,6 @@ class BoardService {
                 image: imgs,
             };
             if (!imgs) delete boarddata.image;
-<<<<<<< HEAD
-            console.log("board====", boarddata);
-=======
->>>>>>> main
             const write = await this.boardRepository.createBoard(boarddata);
             return write;
         } catch (e) {
