@@ -261,4 +261,31 @@ const clipHandler = () => {
  };
  
  const clip = document.querySelector(".clip");
+ console.log(clip);
  clip.addEventListener("click", clipHandler)
+
+
+
+
+ const sideComponent = document.querySelector('#sideComponent');
+ const likes = document.querySelector('#likes');
+ const comments = document.querySelector('#commentsWrap');
+
+ sideComponent.addEventListener('click', (e) => {
+     const boardContent = document.querySelector('#boardcontent');
+     const headline = boardContent.querySelectorAll(`${e.target.tagName}`);
+     
+     headline.forEach((v) => {
+     if (v.innerText === e.target.innerText) {
+         v.scrollIntoView({ behavior: 'smooth' });
+     }
+     });
+ });
+
+ const scrollHandler = () => {
+    if (window.pageYOffset < comments.offsetTop - window.innerHeight * 0.3) {
+        sideComponent.style.top = `${window.pageYOffset + window.innerHeight * 0.3}px`;
+        likes.style.top = `${window.pageYOffset + window.innerHeight * 0.3}px`;
+    }
+    }
+    window.addEventListener('scroll', scrollHandler);

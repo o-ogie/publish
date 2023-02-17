@@ -197,13 +197,6 @@
     document.querySelector(".ProseMirror").innerHTML = he.decode("{{data.content}}");
     document.querySelector("#headerList .ProseMirror").innerHTML = he.decode("{{data.content}}");
 
-    const sideComponent = document.querySelector('#sideComponent');
-    const likes = document.querySelector('#likes');
-
-    window.addEventListener('scroll', () => {
-    sideComponent.style.top = `${window.pageYOffset + window.innerHeight * 0.3}px`;
-    likes.style.top = `${window.pageYOffset + window.innerHeight * 0.3}px`;
-    });
 
 
     const category = document.querySelectorAll(".category");

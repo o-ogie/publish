@@ -12,8 +12,8 @@
 
 #likes {
     position: fixed;
-    margin-left: 100px;
-    top: 20%;
+    margin-left: 120px;
+    top: 15%;
     width: 60px;
     height: 90px;
     color: #eee;
@@ -560,8 +560,8 @@
     line-height: 50px;
     border-radius: 4px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
-    top: 6%;
-    right: 5%;
+    top: 1.4%;
+    right: 4%;
     opacity: 0;
 }
 #clipMessage.on {
@@ -615,7 +615,7 @@
 #sideComponent {
     right: 0;
     position: fixed;
-    top: 20%;
+    top: 15%;
     width: 240px;
     overflow: hidden;
 }
@@ -624,15 +624,25 @@
 #headerList .toastui-editor-contents h2, 
 #headerList .toastui-editor-contents h3 {
     color: #fff;
+    cursor: pointer;
 }
+#headerList .toastui-editor-contents h1:hover, 
+#headerList .toastui-editor-contents h2:hover, 
+#headerList .toastui-editor-contents h3:hover {
+    color: #ccc;
+}
+
 #headerList .toastui-editor-contents h1 {
     font-size: 22px;
+    font-weight: 600;
 }
 #headerList .toastui-editor-contents h2 {
     font-size: 20px;
+    font-weight: 600;
 }
 #headerList .toastui-editor-contents h3 {
     font-size: 16px;
+    font-weight: 500;
 }
 
 
