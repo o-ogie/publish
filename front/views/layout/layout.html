@@ -20,15 +20,16 @@
     </head>
 
     <body id="particles-js">
+        <input type="hidden" id="userid" value="{{user.userid}}" />
+        <input type="hidden" id="userlevel" value="{{user.level}}" />
         <div id="layoutWrap">
             <ul id="layout">
                 <li id="logo">
                     <h1>
-                        <a href="/"><iconify-icon style="font-size: 26px; margin-right: 6px;" icon="emojione-monotone:zzz"></iconify-icon>
-                            {% if user.userid %}
-                            {{user.nickname}}.LOG
-                            {% endif %}
-                        </a> 
+                        <a href="/"
+                            ><iconify-icon style="font-size: 26px; margin-right: 6px" icon="emojione-monotone:zzz"></iconify-icon>
+                            {% if user.userid %} {{user.nickname}}.LOG {% endif %}
+                        </a>
                     </h1>
                 </li>
                 {% if user.userid %}
@@ -47,10 +48,10 @@
                     </label>
                     <div id="userMenu">
                         <ul>
-                            <li><a href="/board/{{user.userid}}" style="color:#000">내 블로그</a></li>
-                            <li><a href="/board/{{user.userid}}/favorite" style="color:#000">보관함</a></li>
-                            <li><a href="/user/profile" style="color:#000">프로필</a></li>
-                            <li><a href="/forum" style="color:#000">포럼</a></li>
+                            <li><a href="/board/{{user.userid}}" style="color: #000">내 블로그</a></li>
+                            <li><a href="/board/{{user.userid}}/favorite" style="color: #000">보관함</a></li>
+                            <li><a href="/user/profile" style="color: #000">프로필</a></li>
+                            <li><a href="/forum" style="color: #000">포럼</a></li>
                             <li id="logout">로그아웃</li>
                         </ul>
                     </div>
@@ -66,7 +67,7 @@
         <div id="chatterWrap">
             <div id="chatToggle">
                 <button><iconify-icon icon="ph:chats-bold"></iconify-icon></button>
-                <span class="messageAlert" style="display: none;"><iconify-icon icon="humbleicons:exclamation"></iconify-icon> </span>
+                <span class="messageAlert" style="display: none"><iconify-icon icon="humbleicons:exclamation"></iconify-icon> </span>
             </div>
             <div id="chatterBox">
                 <div id="userList">
@@ -83,8 +84,7 @@
                 </form>
             </div>
         </div>
-        {% endif %}
-        {% block content %} {% endblock %}
+        {% endif %} {% block content %} {% endblock %}
         <script type="module" src="/js/lib/particle.js"></script>
         <script type="module" src="/js/module/layout.js"></script>
     </body>
