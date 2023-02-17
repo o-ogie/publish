@@ -20,8 +20,6 @@ if (!options["category"]) options.category = "default";
 sortSwitch.value = options.sort;
 categorySwitch.value = options.category;
 
-console.log(options);
-
 let count = 0;
 const content = document.querySelector("#boardList");
 const more = document.querySelector("#more");

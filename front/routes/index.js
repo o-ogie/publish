@@ -43,9 +43,9 @@ router.post("/forum", async (req, res, next) => {
             ...req.body,
             userid: req.user.userid,
         };
-        console.log(body);
+        const user = req.user;
         await request.post("/forum", body);
-        res.redirect("/forum");
+        res.redirect("/forum", { user });
     } catch (e) {
         next(e);
     }

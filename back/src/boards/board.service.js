@@ -109,10 +109,13 @@ class BoardService {
         console.log(`serv :`, { userid, subject, content, hashtag, category, introduce });
         try {
             if (!userid || !subject || !content) throw "내용이 없습니다";
-            const imgs = content
-                .split("img src=")
-                .filter((v) => v.indexOf("http") !== -1)
-                .map((v) => v.split("&gt")[0]);
+            let imgs = null;
+            if (content.indexOf("img src=") !== -1)
+                [imgs] = content
+                    .split("&lt;")
+                    .filter((v) => v.indexOf(`img src="http`) !== -1)
+                    .map((v) => v.split(`img src="`)[1].split(`"&gt`)[0]);
+            console.log("agdsgsdgasdgsdggs", imgs);
             const boarddata = {
                 userid,
                 subject,
@@ -120,9 +123,10 @@ class BoardService {
                 hashtag,
                 category,
                 introduce,
-                image: imgs[0],
+                image: imgs,
             };
-            if (!imgs[0]) delete boarddata.image;
+            if (!imgs) delete boarddata.image;
+            console.log("board====", boarddata);
             const write = await this.boardRepository.createBoard(boarddata);
             return write;
         } catch (e) {
@@ -324,8 +328,6 @@ class BoardService {
             throw new this.BadRequest(e);
         }
     }
-
-    
 }
 
 module.exports = BoardService;

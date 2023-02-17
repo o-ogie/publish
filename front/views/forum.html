@@ -5,11 +5,6 @@
 <div id="wrap">
     <div id="blogWrap">
         <div id="mainContainer">
-            <!-- <div>
-                {% if user.level === 'admin' %}
-                <button id="write">글쓰기</button>
-                {% endif %}
-            </div> -->
             <div id="navigationTab">
                 <ul>
                     <li class="announcement active">
@@ -53,9 +48,11 @@
                             </div>
                             <button type="submit">댓글 등록</button>
                         </form>
-                        <div id="temp">
+                        <div id="QnA">
+                            <input type="hidden" id="userid" value="{{user.userid}}" />
+                            <input type="hidden" id="userlevel" value="{{user.level}}" />
                             <ul>
-                                {% for item in comment %} {% if item.depth === 0 %}
+                                <!-- {% for item in comment %} {% if item.depth === 0 %}
                                 <li id="commentContent" data-index="{{item.id}}">
                                     <div class="writeData">
                                         <span id="userimg">
@@ -103,7 +100,7 @@
                                         {% endif %}
                                     </div>
                                 </li>
-                                {% endif %} {% endfor %}
+                                {% endif %} {% endfor %} -->
                             </ul>
                         </div>
                         <template id="commentList">
@@ -125,7 +122,8 @@
     </div>
 </div>
 <script type="module" src="/js/lib/timestamp.js"></script>
-<script type="text/javascript" src="/js/module/forum.js"></script>
+
+<script type="module" src="/js/module/forum.js"></script>
 <script>
     const items = document.querySelectorAll("#navigationTab li");
     items.forEach((item) => {
