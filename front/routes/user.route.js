@@ -49,6 +49,7 @@ route.get("/signin", (req, res, next) => {
 route.get("/profile", async (req, res, next) => {
     try {
         const user = req.user;
+        console.log(user)
         const response = await request.get(`/users/point/${user.userid}`);
         const point = response.data;
         const mypoint = {
