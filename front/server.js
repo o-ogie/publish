@@ -35,7 +35,7 @@ app.use((error, req, res, next) => {
     res.render("error.html", { error });
 });
 
-app.listen(3005, () => {
+app.listen(80, () => {
     console.log(`front server listening on 3005`);
 });
 

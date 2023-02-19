@@ -151,7 +151,7 @@ const imghandler = async (e) => {
         for (let i = 0; i < imgarray.length; i++) {
             const img = document.createElement("img");
             img.className = "previewimg";
-            img.src = `http://localhost:3000/board/${imgarray[i]}`;
+            img.src = `http://54.180.142.99:80/board/${imgarray[i]}`;
             preimg.append(img);
 
             const contentDiv = document.querySelector(".ProseMirror");

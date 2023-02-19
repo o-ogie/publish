@@ -101,7 +101,7 @@ document.querySelector("#photoFrm").addEventListener("submit", async e => {
   const inputImg = document.querySelector("#inputImg");
   const previewImg = document.querySelector("#previewImg");
   inputImg.value = response.data.filename;
-  previewImg.src = `http://127.0.0.1:3000/${response.data.filename}`;
+  previewImg.src = `http://54.180.142.99:80/${response.data.filename}`;
   console.log(previewImg.src);
 });
 

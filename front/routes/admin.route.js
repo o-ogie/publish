@@ -3,7 +3,7 @@ const route = express.Router();
 const axios = require("axios");
 
 const request = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "http://54.180.142.99:80",
     withCredentials: true,
 });
 

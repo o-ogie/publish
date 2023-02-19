@@ -42,7 +42,7 @@ chatBtn.addEventListener("click", (e) => {
     if (chatterBox.classList.contains("clicked")) chatAlert.style.display = "none";
 });
 
-const socket = io.connect("http://localhost:3000", {
+const socket = io.connect("http://54.180.142.99:80", {
     path: "/socket.io",
     transports: ["websocket"],
 });
