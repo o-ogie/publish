@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <link rel="stylesheet" href="/css/board/view.css" />
 <input type="hidden" name="nowme" id="nowme" value="{{user.userid}}" />
+<input type="hidden" id="userid" value="{{user.userid}}" />
+<input type="hidden" id="userlevel" value="{{user.level}}" />
 <div id="wrap">
     <div id="likes">
         <div class="img">
@@ -72,126 +74,51 @@
             {% endif %}
         </div>
         <div id="commentsWrap">
-            <div id="comments">
-                <div id="total">
-                    <h3>{{data.commentCount}} 개의 댓글이 있습니다</h3>
-                </div>
-                <form method="post" action="" id="commentfrm">
-                    <div id="commentFrmInput">
-                        <input type="hidden" name="parentid" />
-                        <input type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요" />
-                    </div>
-                    <button type="submit">댓글 등록</button>
-                </form>
-                <div id="temp">
-                    <ul>
-                        {% for item in comment %} {% if item.depth === 0 %}
-                        <li id="commentContent" data-index="{{item.id}}">
-                            <div class="writeData">
-                                <span id="userimg">
-                                    <a href="http://3.39.10.104:80/board/{{item.userid}}"><img src="{{item.userimg}}" alt="" /></a>
-                                </span>
-                                <div>
-                                    <span id="commentUser" class="writer"><a href="http://3.39.10.104:80/board/{{item.userid}}">{{item.userid}}</a></span>
-                                    <span class="timeStamp" style="color: #999; font-size: 0.9em">
-                                        <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <input type="text" class="commentContent" value="{{item.content}}" disabled />
-                            <div id="btns">
-                                <button id="commentRecomment" class="commentBtn"><iconify-icon icon="mdi:comment-plus"></iconify-icon> <span id="addComment">답글</span></button>
-                                {% if item.userid === user.userid %}
-                                <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon>수정</button>
-                                <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>
-                                {% endif %}
-                            </div>
-                            <div id="recommentBox">
-                                <input type="hidden" value="{{item.PATH}}" id="parentId" />
-                                <span id="openRecomment">답글 열기</span>
-                            </div>
-                        </li>
-                        {% else %}
-                        <li id="commentContent" class="child" data-index="{{item.id}}">
-                            <input type="hidden" value="{{item.PATH}}" id="parentId" />
-                            <div class="writeData">
-                                <span id="userimg">
-                                    <a href="http://3.39.10.104:80/board/{{item.userid}}"><img src="{{item.userimg}}" alt="" /></a>
-                                </span>
-                                <div>
-                                    <span id="commentUser" class="writer"><a href="http://3.39.10.104:80/board/{{item.userid}}">{{item.userid}}</a></span>
-                                    <span class="timeStamp" style="color: #999; font-size: 0.9em">
-                                        <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <input type="text" class="commentContent" value="{{item.content}}" disabled />
-                            <div id="btns">
-                                {% if item.userid === user.userid %}
-                                <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon> 수정</button>
-                                <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>
-                                {% endif %}
-                            </div>
-                        </li>
-                        {% endif %} {% endfor %}
-                    </ul>
-                </div>
-                <template id="commentList">
-                    <ul>
-                        <li id="commentContent">{{content}}1</li>
-                        <li id="commentWriter">{{writer}}2</li>
-                        <li id="commentDate">{{regesterdate}}3</li>
-                        <span id="commentRecomment">댓글달기</span>
-                    </ul>
-                </template>
-                <template id="comentBtns">
-                    <span id="commentRe">수정</span>
-                    <span id="commentDelete">삭제</span>
-                </template>
-            </div>
+            <div id="comments"></div>
+            <div id="empty"></div>
         </div>
-        <div id="empty"></div>
+        <div id="sideComponent">
+            <div id="headerList"></div>
+        </div>
     </div>
-    <div id="sideComponent">
-        <div id="headerList"></div>
-    </div>
+
+    <script>
+        // toast UI
+        const Editor = toastui.Editor;
+        const editor = new Editor({
+            el: document.querySelector("#boardcontent"),
+            minHeight: "450px",
+            height: "auto",
+            initialEditType: "markdown",
+            previewStyle: "horizontal",
+        });
+
+        const editor2 = new Editor({
+            el: document.querySelector("#headerList"),
+            minHeight: "500px",
+            height: "auto",
+            initialEditType: "markdown",
+            previewStyle: "horizontal",
+        });
+
+        const mdViewer = document.querySelector(".toastui-editor-md-preview");
+        const mdContent = document.querySelector(".toastui-editor-contents");
+        mdContent.style.width = "100%";
+        mdViewer.style.background = "#fff";
+        document.querySelector(".ProseMirror").innerHTML = he.decode("{{data.content}}");
+        document.querySelector("#headerList .ProseMirror").innerHTML = he.decode("{{data.content}}");
+
+        const category = document.querySelectorAll(".category");
+        for (item of category) {
+            item.className = `category ${item.innerHTML}`;
+        }
+    </script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module" src="/js/lib/request.js"></script>
+    <script type="module" src="/js/lib/timestamp.js"></script>
+    <script type="module" src="/js/module/board/view.js"></script>
+    {% endblock %}
 </div>
 
-<script>
-    // toast UI
-    const Editor = toastui.Editor;
-    const editor = new Editor({
-        el: document.querySelector("#boardcontent"),
-        minHeight: "450px",
-        height: "auto",
-        initialEditType: "markdown",
-        previewStyle: "horizontal",
-    });
-
-    const editor2 = new Editor({
-        el: document.querySelector("#headerList"),
-        minHeight: "500px",
-        height: "auto",
-        initialEditType: "markdown",
-        previewStyle: "horizontal",
-    });
-
-    const mdViewer = document.querySelector(".toastui-editor-md-preview");
-    const mdContent = document.querySelector(".toastui-editor-contents");
-    mdContent.style.width = "100%";
-    mdViewer.style.background = "#fff";
-    document.querySelector(".ProseMirror").innerHTML = he.decode("{{data.content}}");
-    document.querySelector("#headerList .ProseMirror").innerHTML = he.decode("{{data.content}}");
-
-    const category = document.querySelectorAll(".category");
-    for (item of category) {
-        item.className = `category ${item.innerHTML}`;
-    }
-</script>
-
-<script src="http://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="module" src="/js/lib/request.js"></script>
-<script type="module" src="/js/lib/timestamp.js"></script>
-<script type="module" src="/js/module/board/view.js"></script>
-{% endblock %}
 

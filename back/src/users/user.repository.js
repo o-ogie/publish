@@ -44,9 +44,7 @@ class UserRepository {
         }
     }
 
-    
-
-  async updateProfile(userData) {
+    async updateProfile(userData) {
         try {
             console.log(`repo userData : `, userData);
             // const user = await this.User.update(
@@ -86,19 +84,19 @@ class UserRepository {
     }
 
     async findPoint(userid) {
-        console.log(userid)
+        console.log(userid);
         try {
-            const sql = `SELECT A.id, A.userid, A.boardid, A.comment, A.commentid, A.createdAt, B.subject, C.Content FROM PointUp AS A JOIN Board AS B ON A.boardid = B.id LEFT JOIN Comment AS C ON A.commentid = C.id WHERE A.userid = '${userid}' ORDER BY A.createdAt DESC;`
+            const sql = `SELECT A.id, A.userid, A.boardid, A.comment, A.commentid, A.createdAt, B.subject, C.Content FROM PointUp AS A JOIN Board AS B ON A.boardid = B.id LEFT JOIN Comment AS C ON A.commentid = C.id WHERE A.userid = '${userid}' ORDER BY A.createdAt DESC;`;
             const sql2 = `SELECT 
             userid, 
-            (select count(*) from pointup where commentid is null and userid=a.userid) as boardCount, 
+            (select count(*) from PointUp where commentid is null and userid=a.userid) as boardCount, 
             COUNT(commentid) AS commentCount 
-        FROM Pointup as a
+        FROM PointUp as a
         WHERE userid = '${userid}'
-        `
-            const [chart] = await this.sequelize.query(sql)
-            const [[sum]] = await this.sequelize.query(sql2)
-            const data = {chart, sum}
+        `;
+            const [chart] = await this.sequelize.query(sql);
+            const [[sum]] = await this.sequelize.query(sql2);
+            const data = { chart, sum };
             return data;
         } catch (e) {
             throw new Error(e);

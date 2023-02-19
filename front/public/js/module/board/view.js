@@ -1,4 +1,7 @@
 import request from "/js/lib/request.js";
+import Comment from "/js/core/comment.js";
+
+new Comment(document.querySelector("#comments"), request);
 
 const hashs = document.querySelector("#hashs");
 const img = document.querySelector(".img");
@@ -6,12 +9,10 @@ const heart = document.querySelector(".img > iconify-icon");
 const nowme = document.querySelector("#nowme");
 const likecount = document.querySelector("#likes > p");
 const likelist = document.querySelector(".likewho");
-const commentfrm = document.querySelector("#commentfrm");
 const boarddel = document.querySelector(".delete");
-const commetadd = document.querySelectorAll("#addComment");
-console.log(commetadd);
-
-const commentbtn = document.querySelectorAll("#btns");
+// const commetadd = document.querySelectorAll("#addComment");
+// const commentbtn = document.querySelectorAll("#btns");
+// const commentfrm = document.querySelector("#commentfrm");
 
 const createhash = (strhash) => {
     if (strhash.innerHTML === "") return;
@@ -50,7 +51,6 @@ const likeHandler = async () => {
     const [emptyval, board, id, idx] = path.split("/");
     const body = { userid };
     const respone = await request.post(`/boards/${id}/${idx}/likes`, body);
-    console.log(respone.data.check);
     likecount.innerHTML = respone.data.count;
     likecheck(respone.data.check);
 };
@@ -62,10 +62,8 @@ const likecheck = (check) => {
         heart.className = "like";
     }
 };
-console.log(likelist.value);
 const array = likelist.value.split(", ").filter((v) => v === nowme.value);
 likecheck(array[0]);
-console.log(array[0]);
 
 // const likecheck = async ({ id, idx }) => {
 //     const respone = await request.get(`/boards/${id}/${idx}/likes`);
@@ -77,68 +75,68 @@ img.addEventListener("click", likeHandler);
 //     e.target.classList.add("big");
 // });
 
-const commentHandler = async (e) => {
-    e.preventDefault();
-    try {
-        const boardWirterid = document.querySelector("#userid");
+// const commentHandler = async (e) => {
+//     e.preventDefault();
+//     try {
+//         const boardWirterid = document.querySelector("#userid");
 
-        const parentid = commentfrm.parentid.value;
-        const comment = commentfrm.comment.value;
-        const userid = nowme.value;
-        const body = {
-            userid,
-            parentid,
-            content: comment,
-            boardWirterid: boardWirterid.value,
-        };
-        const path = document.location.pathname;
-        const [emptyval, board, id, idx] = path.split("/");
-        if (comment === "") throw "내용이 없습니다.";
-        const respone = await request.post(`/boards/${idx}/comments`, body);
-        commentfrm.reset();
-        location.href = `/board/${id}/${idx}`;
-    } catch (error) {
-        alert(error);
-    }
-};
+//         const parentid = commentfrm.parentid.value;
+//         console.log(parentid);
+//         const comment = commentfrm.comment.value;
+//         const userid = nowme.value;
+//         const body = {
+//             userid,
+//             parentid,
+//             content: comment,
+//             boardWirterid: boardWirterid.value,
+//         };
+//         const path = document.location.pathname;
+//         const [emptyval, board, id, idx] = path.split("/");
+//         if (comment === "") throw "내용이 없습니다.";
+//         const respone = await request.post(`/boards/${idx}/comments`, body);
+//         commentfrm.reset();
+//         location.href = `/board/${id}/${idx}`;
+//     } catch (error) {
+//         alert(error);
+//     }
+// };
 
-commentfrm.addEventListener("submit", commentHandler);
+// commentfrm.addEventListener("submit", commentHandler);
 
-const addcommentHandler = (e) => {
-    const array = e.target.parentNode.parentNode.parentNode.children;
-    if (array["commentfrm"]) document.querySelector("#commentContent > form").remove();
-    else {
-        const clone = commentfrm.cloneNode(true);
-        const parent = e.target.parentNode.parentNode.parentNode;
+// const addcommentHandler = (e) => {
+//     const array = e.target.parentNode.parentNode.parentNode.children;
+//     if (array["commentfrm"]) document.querySelector("#commentContent > form").remove();
+//     else {
+//         const clone = commentfrm.cloneNode(true);
+//         const parent = e.target.parentNode.parentNode.parentNode;
 
-        const groupIndex = parent.dataset.index;
-        const pointUserid = parent.querySelector("#commentUser > a");
-        parent.append(clone);
-        clone.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const boardWirterid = document.querySelector("#userid");
-            console.log(boardWirterid.innerHTML);
+//         const groupIndex = parent.dataset.index;
+//         const pointUserid = parent.querySelector("#commentUser > a");
+//         parent.append(clone);
+//         clone.addEventListener("submit", async (e) => {
+//             e.preventDefault();
+//             const boardWirterid = document.querySelector("#userid");
 
-            const comment = clone.comment.value;
-            const userid = nowme.value;
-            const body = {
-                userid,
-                parentid: groupIndex,
-                content: comment,
-                pointUp: pointUserid.innerHTML,
-                boardWirterid: boardWirterid.innerHTML,
-            };
-            const path = document.location.pathname;
-            const [emptyval, board, id, idx] = path.split("/");
-            const respone = await request.post(`/boards/${idx}/comments`, body);
-            location.href = `/board/${id}/${idx}`;
-        });
-    }
-};
+//             const comment = clone.comment.value;
+//             const userid = nowme.value;
+//             const body = {
+//                 userid,
+//                 parentid: groupIndex,
+//                 content: comment,
+//                 pointUp: pointUserid.innerHTML,
+//                 boardWirterid: boardWirterid.innerHTML,
+//             };
+//             const path = document.location.pathname;
+//             const [emptyval, board, id, idx] = path.split("/");
+//             const respone = await request.post(`/boards/${idx}/comments`, body);
+//             location.href = `/board/${id}/${idx}`;
+//         });
+//     }
+// };
 
-commetadd.forEach((v) => {
-    v.addEventListener("click", addcommentHandler);
-});
+// commetadd.forEach((v) => {
+//     v.addEventListener("click", addcommentHandler);
+// });
 
 const deleteHandler = async (e) => {
     e.preventDefault();
@@ -160,91 +158,91 @@ if (boarddel) {
     boarddel.addEventListener("click", deleteHandler);
 }
 
-const commentDelete = async (e) => {
-    switch (e.target.id) {
-        case "deleteBtn":
-            const commentidx = e.target.parentNode.parentNode.dataset.index;
-            const path = document.location.pathname;
-            const [emptyval, board, id, idx] = path.split("/");
-            if (confirm("삭제하시겠습니까")) {
-                if (confirm("정말로 삭제하시겠습니까")) {
-                    await request.delete(`/boards/${id}/comments/${commentidx}`);
-                    location.href = `/board/${id}/${idx}`;
-                } else {
-                    return;
-                }
-            }
-            break;
-        case "updateBtn":
-            const target = e.target.parentNode.parentNode;
-            const input = target.querySelector("input");
-            const span = document.createElement("span");
-            const btndiv = target.querySelector("#btns");
-            input.disabled = false;
-            input.focus();
-            span.id = "submitbtn";
-            span.innerHTML = "완료";
-            btndiv.append(span);
-            const update = target.querySelector("#updateBtn");
-            update.remove();
-            break;
-        case "submitbtn":
-            if (confirm("수정하시겠습니까")) {
-                const commentidx = e.target.parentNode.parentNode.dataset.index;
+// const commentDelete = async (e) => {
+//     switch (e.target.id) {
+//         case "deleteBtn":
+//             const commentidx = e.target.parentNode.parentNode.dataset.index;
+//             const path = document.location.pathname;
+//             const [emptyval, board, id, idx] = path.split("/");
+//             if (confirm("삭제하시겠습니까")) {
+//                 if (confirm("정말로 삭제하시겠습니까")) {
+//                     await request.delete(`/boards/${id}/comments/${commentidx}`);
+//                     location.href = `/board/${id}/${idx}`;
+//                 } else {
+//                     return;
+//                 }
+//             }
+//             break;
+//         case "updateBtn":
+//             const target = e.target.parentNode.parentNode;
+//             const input = target.querySelector(".commentContent");
+//             const span = document.createElement("span");
+//             const btndiv = target.querySelector("#btns");
+//             input.disabled = false;
+//             input.focus();
+//             span.id = "submitbtn";
+//             span.innerHTML = "완료";
+//             btndiv.append(span);
+//             const update = target.querySelector("#updateBtn");
+//             update.remove();
+//             break;
+//         case "submitbtn":
+//             if (confirm("수정하시겠습니까")) {
+//                 const commentidx = e.target.parentNode.parentNode.dataset.index;
 
-                const target = e.target.parentNode.parentNode;
-                const input = target.querySelector("input");
-                const comment = input.value;
-                const userid = nowme.value;
-                const body = {
-                    userid,
-                    content: comment,
-                };
-                const path = document.location.pathname;
-                const [emptyval, board, id, idx] = path.split("/");
-                const respone = await request.put(`/boards/${id}/comments/${commentidx}`, body);
-                location.href = `/board/${id}/${idx}`;
-            } else {
-                return;
-            }
+//                 const target = e.target.parentNode.parentNode;
+//                 const input = target.querySelector(".commentContent");
+//                 const comment = input.value;
+//                 const userid = nowme.value;
+//                 const body = {
+//                     userid,
+//                     content: comment,
+//                 };
+//                 const path = document.location.pathname;
+//                 const [emptyval, board, id, idx] = path.split("/");
+//                 const respone = await request.put(`/boards/${id}/comments/${commentidx}`, body);
+//                 location.href = `/board/${id}/${idx}`;
+//             } else {
+//                 return;
+//             }
 
-            break;
-    }
-};
+//             break;
+//     }
+// };
 
-for (let i = 0; i < commentbtn.length; i++) {
-    commentbtn[i].addEventListener("click", commentDelete);
-}
+// for (let i = 0; i < commentbtn.length; i++) {
+//     commentbtn[i].addEventListener("click", commentDelete);
+// }
 
-const openRecomment = document.querySelectorAll("#openRecomment");
-openRecomment.forEach((v) => {
-    const children = document.querySelectorAll(".child input[value]");
-    const parentId = v.parentNode.querySelector("#parentId").value;
+// const openRecomment = document.querySelectorAll("#openRecomment");
+// openRecomment.forEach((v) => {
+//     const children = document.querySelectorAll(".child input[value]");
+//     const parentId = v.parentNode.querySelector("#parentId").value;
 
-    let count = 0;
-    for (const input of children) {
-        if (input.value.split("-")[0] === parentId) {
-            count++;
-        }
-    }
-    if (count === 0) v.style.display = "none";
-    v.innerHTML = `답글 열기(${count})`;
+//     let count = 0;
+//     for (const input of children) {
+//         if (input.value.split("-")[0] === parentId) {
+//             count++;
+//         }
+//     }
+//     if (count === 0) v.style.display = "none";
+//     v.innerHTML = `답글 열기(${count})`;
 
-    v.addEventListener("click", (e) => {
-        const box = e.target.parentNode;
-        const parentId = box.querySelector("#parentId").value;
-        v.classList.toggle("close");
-        if (v.className === "close") v.innerHTML = `답글 닫기`;
-        else v.innerHTML = `답글 열기(${count})`;
+//     v.addEventListener("click", (e) => {
+//         const box = e.target.parentNode;
+//         const parentId = box.querySelector("#parentId").value;
+//         v.classList.toggle("close");
+//         if (v.className === "close") v.innerHTML = `답글 닫기`;
+//         else v.innerHTML = `답글 열기(${count})`;
 
-        for (const input of children) {
-            if (input.value.split("-")[0] === parentId) {
-                let child = input.parentNode;
-                child.classList.toggle("open");
-            }
-        }
-    });
-});
+//         for (const input of children) {
+//             if (input.value.split("-")[0] === parentId) {
+//                 let child = input.parentNode;
+//                 child.classList.toggle("open");
+//             }
+//         }
+//     });
+// });
 
 const clipHandler = () => {
     let url = "";
@@ -262,7 +260,6 @@ const clipHandler = () => {
 };
 
 const clip = document.querySelector(".clip");
-console.log(clip);
 clip.addEventListener("click", clipHandler);
 
 const sideComponent = document.querySelector("#sideComponent");

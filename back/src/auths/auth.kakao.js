@@ -42,6 +42,7 @@ class Kakao {
         }
 
         const [me] = await this.User.findOrCreate({raw:true,where:payload})
+        console.log(`me::::`, me)
         return me
     }
 

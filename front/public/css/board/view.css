@@ -1,4 +1,3 @@
-
 #wrap {
     margin-top: 60px;
     width: 1380px;
@@ -71,9 +70,6 @@
     font-size: 22px;
     bottom: 0px;
 }
-
-
-
 
 #viewwrap {
     width: 900px;
@@ -182,7 +178,6 @@
     position: relative;
 }
 
-
 #board > #contents > #boardcontent {
     padding: 0 16px;
     margin-top: 10px;
@@ -233,7 +228,6 @@
     color: #999;
 }
 
-
 .btnBox {
     width: 100%;
     height: 80px;
@@ -245,7 +239,7 @@
 .btnBox > a {
     width: 360px;
     height: 80px;
-    background-color: rgba(120,120,120,0.4);
+    background-color: rgba(120, 120, 120, 0.4);
     backdrop-filter: blur(4px);
     box-shadow: rgb(0 0 0 / 0.5) 0px 6px 12px;
     border-radius: 6px;
@@ -277,8 +271,6 @@
     }
 }
 
-
-
 .btnBox > a > div > span {
     font-size: 14px;
     color: #ccc;
@@ -305,15 +297,10 @@
     margin-right: 12px;
 }
 
-
-
-
-
-
 /*comment */
 
 #commentsWrap {
-    background-color: rgba(30,30,30,0.7);
+    background-color: rgba(30, 30, 30, 0.7);
     backdrop-filter: blur(4px);
     box-shadow: rgb(0 0 0 / 0.5) 0px 6px 12px;
     /* background-color: #232323; */
@@ -328,7 +315,6 @@
     margin: auto;
     padding-top: 40px;
 }
-
 
 #commentfrm > #commentFrmInput > #comment {
     padding: 0px 0px 0px 16px;
@@ -490,7 +476,6 @@
     display: inline-block;
 }
 
-
 .child {
     position: relative;
     margin-left: 60px;
@@ -545,15 +530,12 @@
     font-size: 16px;
 }
 
-
-
-
 /* clip */
 #clipMessage {
     width: 220px;
     height: 50px;
     background-color: #e15241;
-    color: #FFF;
+    color: #fff;
     font-size: 16px;
     position: absolute;
     text-align: center;
@@ -571,27 +553,23 @@
 }
 
 @keyframes fadeIn {
-	0% {
-		opacity : 0;
-	}
+    0% {
+        opacity: 0;
+    }
     20% {
         opacity: 1;
     }
     60% {
         opacity: 1;
     }
-	100% {
-		opacity : 0;
-	}
+    100% {
+        opacity: 0;
+    }
 }
-
 
 #empty {
     height: 100px;
 }
-
-
-
 
 /* toast ui */
 .toastui-editor-md-preview-highlight:after {
@@ -611,7 +589,6 @@
     margin: 5px 0;
 }
 
-
 #sideComponent {
     right: 0;
     position: fixed;
@@ -620,14 +597,14 @@
     overflow: hidden;
 }
 
-#headerList .toastui-editor-contents h1, 
-#headerList .toastui-editor-contents h2, 
+#headerList .toastui-editor-contents h1,
+#headerList .toastui-editor-contents h2,
 #headerList .toastui-editor-contents h3 {
     color: #fff;
     cursor: pointer;
 }
-#headerList .toastui-editor-contents h1:hover, 
-#headerList .toastui-editor-contents h2:hover, 
+#headerList .toastui-editor-contents h1:hover,
+#headerList .toastui-editor-contents h2:hover,
 #headerList .toastui-editor-contents h3:hover {
     color: #ccc;
 }
@@ -645,14 +622,51 @@
     font-weight: 500;
 }
 
-
 .toastui-editor-toolbar,
 .md-mode,
 .toastui-editor-mode-switch,
 #headerList .toastui-editor-contents *:not(h1):not(h2):not(h3) {
     display: none !important;
-  }
+}
 
-  #headerList {
+#headerList {
     background: transparent;
-  }  
+}
+
+#clonefrm > #commentFrmInput > #comment {
+    padding: 0px 0px 0px 16px;
+    margin-top: 20px;
+    width: 100%;
+    height: 100px;
+    font-size: 20px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    color: #ececec;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    resize: none;
+    outline: none;
+}
+
+#clonefrm > button {
+    margin-top: 20px;
+    width: 120px;
+    height: 40px;
+    padding: 5px 10px;
+    background-color: #1c997a;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    right: 50px;
+    position: absolute;
+    z-index: 3;
+}
+#clonefrm > button:hover {
+    background-color: #0e5e3f;
+    transition: all 0.2s;
+}

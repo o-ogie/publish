@@ -10,7 +10,7 @@ class UserService {
     async signup(userData) {
         try {
             userData.address = `${userData.address} ${userData.detailAddress}`;
-            userData.userImg = userData.userImg ? `http://${this.config.host}:${this.config.port}/${userData.userImg}` : undefined;
+            userData.userImg = userData.userImg ? `http://${this.config.host}:${this.config.imgport}/${userData.userImg}` : undefined;
             const { userid, username, userpw, ...rest } = userData;
             if (!userid || !userpw || !username) throw "내용이 없습니다";
             const hash = this.crypto.createHmac("sha256", this.config.SALT).update(userpw).digest("hex");
@@ -37,18 +37,16 @@ class UserService {
     }
 
     async me(token) {
-      try {
-          const { userid } = this.jwt.verifyToken(token, this.config.SALT);
-          const user = await this.userRepository.getUserById(userid);
-          // console.log(user)
-          return user;
-      } catch (e) {
-          throw new Error(e);
-      }
+        try {
+            const { userid } = this.jwt.verifyToken(token, this.config.SALT);
+            const user = await this.userRepository.getUserById(userid);
+            // console.log(user)
+            return user;
+        } catch (e) {
+            throw new Error(e);
+        }
     }
 
-    
-    
     async putProfile(userData) {
         try {
             console.log(`userData ::::`, userData);

@@ -1,6 +1,9 @@
 import Qna from "/js/core/qna.js";
+import request from "/js/lib/request.js";
 
-new Qna(document.querySelector("#QnA > ul"));
+console.log(document.querySelector("#qnaComments"));
+new Qna(document.querySelector("#qnaComments"), request);
+
 const value = document.querySelectorAll(".contentText");
 
 value.forEach((v) => (v.innerHTML = v.innerHTML.replaceAll("&lt;", "<").replaceAll("&gt;", ">")));

@@ -40,82 +40,9 @@
 
             <ul id="qnaList" style="display: none">
                 <div id="commentsWrap">
-                    <div id="comments">
-                        <form method="post" action="" id="commentfrm">
-                            <div id="commentFrmInput">
-                                <input type="hidden" name="parentid" />
-                                <input type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요" />
-                            </div>
-                            <button type="submit">댓글 등록</button>
-                        </form>
-                        <div id="QnA">
-                            <input type="hidden" id="userid" value="{{user.userid}}" />
-                            <input type="hidden" id="userlevel" value="{{user.level}}" />
-                            <ul>
-                                <!-- {% for item in comment %} {% if item.depth === 0 %}
-                                <li id="commentContent" data-index="{{item.id}}">
-                                    <div class="writeData">
-                                        <span id="userimg">
-                                            <img src="{{item.userimg}}" alt="" />
-                                        </span>
-                                        <div>
-                                            <span id="commentUser" class="writer">{{item.userid}}</span>
-                                            <span class="timeStamp" style="color: #999; font-size: 0.9em">
-                                                <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <input type="text" class="commentContent" value="{{item.content}}" disabled />
-                                    <div id="btns">
-                                        <button id="commentRecomment" class="commentBtn"><iconify-icon icon="mdi:comment-plus" style="margin-right: 4px"></iconify-icon>답글</button>
-                                        {% if item.userid === user.userid %}
-                                        <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon>수정</button>
-                                        <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>
-                                        {% endif %}
-                                    </div>
-                                    <div id="recommentBox">
-                                        <input type="hidden" value="{{item.PATH}}" id="parentId" />
-                                        <span id="openRecomment"><iconify-icon icon="octicon:triangle-down-24"></iconify-icon>답글 열기</span>
-                                    </div>
-                                </li>
-                                {% else %}
-                                <li id="commentContent" class="child" data-index="{{item.id}}">
-                                    <input type="hidden" value="{{item.PATH}}" id="parentId" />
-                                    <div class="writeData">
-                                        <span id="userimg">
-                                            <img src="{{item.userimg}}" alt="" />
-                                        </span>
-                                        <div>
-                                            <span id="commentUser" class="writer">{{item.userid}}</span>
-                                            <span class="timeStamp" style="color: #999; font-size: 0.9em">
-                                                <span id="commentDate" class="innerText writer">{{item.createdAt.slice(0,-5).split('T').join(".").split(':').join(".")}}</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <input type="text" class="commentContent" value="{{item.content}}" disabled />
-                                    <div id="btns">
-                                        {% if item.userid === user.userid %}
-                                        <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon> 수정</button>
-                                        <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>
-                                        {% endif %}
-                                    </div>
-                                </li>
-                                {% endif %} {% endfor %} -->
-                            </ul>
-                        </div>
-                        <template id="commentList">
-                            <ul>
-                                <li id="commentContent">{{content}}1</li>
-                                <li id="commentWriter">{{writer}}2</li>
-                                <li id="commentDate">{{regesterdate}}3</li>
-                                <span id="commentRecomment">댓글달기</span>
-                            </ul>
-                        </template>
-                        <template id="comentBtns">
-                            <span id="commentRe">수정</span>
-                            <span id="commentDelete">삭제</span>
-                        </template>
-                    </div>
+                    <input type="hidden" id="userid" value="{{user.userid}}" />
+                    <input type="hidden" id="userlevel" value="{{user.level}}" />
+                    <div id="qnaComments"></div>
                 </div>
             </ul>
         </div>
