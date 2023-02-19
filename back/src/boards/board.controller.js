@@ -44,6 +44,7 @@ class BoardController {
         try {
             const { id, idx, userid } = req.params;
             const response = await this.boardService.getView(id, idx, userid);
+            console.log(response);
             res.json(response);
         } catch (e) {
             next(e);
@@ -214,18 +215,6 @@ class BoardController {
             next(e);
         }
     }
-
-    async getPoint(req, res, next) {
-        try {
-            const { userid } = req.params;
-            const point = await this.boardService.findPoint(userid);
-            res.json(point);
-        } catch (e) {
-            next(e);
-        }
-    }
-
-    
 }
 
 module.exports = BoardController;

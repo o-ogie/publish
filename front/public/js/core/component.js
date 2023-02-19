@@ -13,8 +13,9 @@ class Component {
     async render() {
         const a = await this.templete();
         this.target.innerHTML = a;
+        this.mount();
     }
-
+    mount() {}
     async templete() {}
 
     addEvent(type, select, callback) {

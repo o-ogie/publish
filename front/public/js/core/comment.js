@@ -7,7 +7,39 @@ class Comment extends Component {
         const userid = null;
         const respone = await this.request.get(`/boards/${id}/${idx}/${userid}`);
         const [data, comment] = respone.data;
-        this.setstatus({ list: comment });
+        this.setstatus({ list: comment, data: data });
+    }
+
+    mount() {
+        const openRecomment = document.querySelectorAll("#openRecomment");
+        openRecomment.forEach((v) => {
+            const children = document.querySelectorAll(".child input[value]");
+            const parentId = v.parentNode.querySelector("#parentId").value;
+            let count = 0;
+            for (const input of children) {
+                if (input.value.split("-")[0] === parentId) {
+                    count++;
+                }
+            }
+            if (count === 0) v.style.display = "none";
+            v.innerHTML = `답글 열기(${count})`;
+            console.log(v);
+
+            v.addEventListener("click", (e) => {
+                const box = e.target.parentNode;
+                const parentId = box.querySelector("#parentId").value;
+                v.classList.toggle("close");
+                if (v.className === "close") v.innerHTML = `답글 닫기`;
+                else v.innerHTML = `답글 열기(${count})`;
+
+                for (const input of children) {
+                    if (input.value.split("-")[0] === parentId) {
+                        let child = input.parentNode;
+                        child.classList.toggle("open");
+                    }
+                }
+            });
+        });
     }
 
     templete() {
@@ -16,11 +48,15 @@ class Comment extends Component {
         const list = this.state?.list;
         if (list === undefined) return "로딩중";
         const parent = this.target.parentNode;
+        const count = this.state.data.commentCount;
         const userid = document.querySelector("#userid").value;
         const userlevel = document.querySelector("#userlevel").value;
         const url = "http://localhost:3005/board/";
         let recomment = `<button id="commentRecomment" class="commentBtn"><iconify-icon icon="mdi:comment-plus"></iconify-icon><span id="addComment">답글</span></button>`;
         const data = `
+            <div id="total">
+                    <h3>${count} 개의 댓글이 있습니다</h3>
+            </div>
             <form method="post" action="" id="commentfrm">
                 <div id="commentFrmInput">
                 <input type="hidden" name="parentid" />
@@ -31,13 +67,20 @@ class Comment extends Component {
             <div id="temp">
                 <ul>${list
                     .map((v) => {
-                        let clas = v.depth > 0 ? 'class="child open"' : " ";
+                        let clas = v.depth > 0 ? 'class="child"' : " ";
                         let btns =
                             userid === v.userid || userlevel === "admin"
                                 ? `<button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon>수정</button>
                         <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>`
                                 : " ";
                         let recommentbtn = v.depth > 0 ? " " : recomment;
+                        let openRecomment =
+                            v.depth > 0
+                                ? " "
+                                : `<div id="recommentBox">
+                                <input type="hidden" value="${v.PATH}" id="parentId" />
+                                <span id="openRecomment">답글 열기</span>
+                            </div>`;
                         return `
                 <li id="commentContent" ${clas} data-index="${v.id}">
                     <input type="hidden" value="${v.parentid}" id="parentId" />
@@ -58,6 +101,8 @@ class Comment extends Component {
                     ${recommentbtn}
                     ${btns}
                     </div>  
+                    ${openRecomment}
+
                 </li>`;
                     })
                     .join("")}
