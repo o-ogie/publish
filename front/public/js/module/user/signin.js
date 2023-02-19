@@ -46,16 +46,17 @@ frm.addEventListener("submit", async (e) => {
 
 
 // show pw 
-let eyeButton = document.querySelector(".eye");
+let eyeButton = document.querySelectorAll(".eye");
 
-eyeButton.addEventListener("click", () => {
-  eyeButton.classList.toggle("switchOn");
-  if (eyeButton.classList.contains("switchOn")) {
-    document.querySelector("#userpw").type = "text";
+eyeButton.forEach((v) => v.addEventListener("click",() => {
+  v.classList.toggle("switchOn");
+  let input = v.parentElement.querySelector("input");
+  if (v.classList.contains("switchOn")) {
+    input.type = "text";
   } else {
-    document.querySelector("#userpw").type = "password";
+    input.type = "password";
   }
-});
+}));
 
 
 
