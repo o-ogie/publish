@@ -1,8 +1,9 @@
 class Component {
     state;
     target;
-    constructor(_target) {
+    constructor(_target, request) {
         this.target = _target;
+        this.request = request;
         this.setup();
         this.render();
         this.setEvent();
@@ -12,7 +13,6 @@ class Component {
     async render() {
         const a = await this.templete();
         this.target.innerHTML = a;
-        console.log("render");
     }
 
     async templete() {}

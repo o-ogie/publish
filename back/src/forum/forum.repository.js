@@ -5,8 +5,9 @@ class forumRepository {
         this.sequelize = sequelize;
     }
 
-    async getnotice() {
+    async getnotice({ userid, level }) {
         try {
+            let andquery = userid ? `AND Comment.userid = "${userid}"` : "";
             const list = await this.Board.findAll({ raw: true, where: { category: "notice" } });
             const qnaBoard = await this.Board.findOne({ raw: true, where: { category: "QnA" } });
             const idx = qnaBoard.id;
@@ -15,6 +16,7 @@ class forumRepository {
 SELECT id, content, depth, parentid, createdAt, updatedAt, boardid, userid, CAST(id AS CHAR(100))
 FROM Comment
 WHERE parentid = 0
+${andquery}
 UNION ALL
 SELECT t.id, t.content, comments.depth + 1, t.parentid, t.createdAt, t.updatedAt, t.boardid, t.userid, concat(comments.PATH, '-', t.id)
 FROM comments
@@ -25,7 +27,7 @@ FROM comments
 JOIN User AS B
 ON comments.userid = B.userid
 WHERE comments.boardid = ${idx}
-ORDER BY PATH;`);
+ORDER BY PATH DESC;`);
 
             const board = await this.Board.findAll({ raw: true });
             return [list, comment];
@@ -36,11 +38,32 @@ ORDER BY PATH;`);
 
     async post(data) {
         try {
-            const { parentid, comment: content, userid } = data;
+            const { parentid, content, userid } = data;
             const qnaBoard = await this.Board.findOne({ raw: true, where: { category: "QnA" } });
             const boardid = qnaBoard.id;
-            const a = await this.Comment.create({ content, parentid, boardid, userid });
-        } catch (e) {}
+            const respone = await this.Comment.create({ content, parentid, boardid, userid });
+            return respone;
+        } catch (e) {
+            throw new Error();
+        }
+    }
+
+    async update({ commentidx, body }) {
+        try {
+            const [respone] = await this.Comment.update(body, { where: { id: commentidx } });
+            return respone;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async deleteQ(commentidx) {
+        try {
+            const respone = await this.Comment.destroy({ where: { id: commentidx } });
+            return respone;
+        } catch (e) {
+            throw new Error(e);
+        }
     }
 }
 

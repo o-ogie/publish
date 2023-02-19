@@ -3,9 +3,10 @@ class forumService {
         this.forumRepository = forumRepository;
     }
 
-    async getlist() {
+    async getlist({ userid, level }) {
         try {
-            const [list, comment] = await this.forumRepository.getnotice();
+            if (level === "admin") userid = null;
+            const [list, comment] = await this.forumRepository.getnotice({ userid, level });
             return [list, comment];
         } catch (e) {
             throw new Error(e);
@@ -14,9 +15,29 @@ class forumService {
 
     async postQ(data) {
         try {
-            let { parentid, comment, userid } = data;
+            let { parentid, content, userid } = data;
             if (!parentid) parentid = 0;
-            await this.forumRepository.post({ parentid, comment, userid });
+            const respone = await this.forumRepository.post({ parentid, content, userid });
+            return respone;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async putQna({ commentidx, body }) {
+        try {
+            console.log(commentidx, body);
+            const respone = await this.forumRepository.update({ commentidx, body });
+            return respone;
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    async delQna(commentidx) {
+        try {
+            const respone = await this.forumRepository.deleteQ(commentidx);
+            return respone;
         } catch (e) {
             throw new Error(e);
         }

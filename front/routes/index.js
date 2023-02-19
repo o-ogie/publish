@@ -30,8 +30,9 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/forum", async (req, res) => {
-    // console.log(`req.user :`, req.user);
-    const list = await request.get("/forum");
+    // console.log(`req.user :`, req.user);\
+    const { userid, level } = req.user;
+    const list = await request.get(`/forum/${userid}/${level}`);
     const [notice, comment] = list.data;
 
     res.render("forum.html", { user: req.user, notice, comment });

@@ -97,7 +97,7 @@ class BoardService {
             const [view, prevPost, nextPost, comment] = await this.boardRepository.findOne(id, idx);
             let { userImg: test } = view;
             if (test.indexOf("http") === -1) {
-                test = `http://${config.host}:${config.port}/${test}`;
+                test = `http://${config.host}:${config.IMGPORT}/${test}`;
             }
             const data = { ...view, prevPost, nextPost, userImg: test };
             return [data, comment];

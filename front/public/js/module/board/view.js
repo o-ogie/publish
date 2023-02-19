@@ -177,7 +177,7 @@ const commentDelete = async (e) => {
             break;
         case "updateBtn":
             const target = e.target.parentNode.parentNode;
-            const input = target.querySelector("input");
+            const input = target.querySelector(".commentContent");
             const span = document.createElement("span");
             const btndiv = target.querySelector("#btns");
             input.disabled = false;
@@ -193,7 +193,7 @@ const commentDelete = async (e) => {
                 const commentidx = e.target.parentNode.parentNode.dataset.index;
 
                 const target = e.target.parentNode.parentNode;
-                const input = target.querySelector("input");
+                const input = target.querySelector(".commentContent");
                 const comment = input.value;
                 const userid = nowme.value;
                 const body = {
@@ -203,6 +203,7 @@ const commentDelete = async (e) => {
                 const path = document.location.pathname;
                 const [emptyval, board, id, idx] = path.split("/");
                 const respone = await request.put(`/boards/${id}/comments/${commentidx}`, body);
+
                 location.href = `/board/${id}/${idx}`;
             } else {
                 return;

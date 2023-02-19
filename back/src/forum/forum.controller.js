@@ -4,7 +4,8 @@ class forumController {
     }
     async getview(req, res, next) {
         try {
-            const [list, comment] = await this.forumService.getlist();
+            const { userid, level } = req.params;
+            const [list, comment] = await this.forumService.getlist({ userid, level });
             res.json([list, comment]);
         } catch (e) {
             next(e);
@@ -13,7 +14,29 @@ class forumController {
 
     async postQna(req, res, next) {
         try {
-            await this.forumService.postQ(req.body);
+            const respone = await this.forumService.postQ(req.body);
+            res.json(respone);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async putQna(req, res, next) {
+        try {
+            const { commentidx } = req.params;
+            const body = req.body;
+            const respone = await this.forumService.putQna({ commentidx, body });
+            res.json(respone);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async delQna(req, res, next) {
+        try {
+            const { commentidx } = req.params;
+            const respone = await this.forumService.delQna(commentidx);
+            res.json(respone);
         } catch (e) {
             next(e);
         }
