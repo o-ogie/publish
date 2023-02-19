@@ -1,4 +1,7 @@
 import request from "/js/lib/request.js";
+import Comment from "/js/core/comment.js";
+
+new Comment(document.querySelector("#comments"), request);
 
 const hashs = document.querySelector("#hashs");
 const img = document.querySelector(".img");
@@ -9,8 +12,6 @@ const likelist = document.querySelector(".likewho");
 const commentfrm = document.querySelector("#commentfrm");
 const boarddel = document.querySelector(".delete");
 const commetadd = document.querySelectorAll("#addComment");
-console.log(commetadd);
-
 const commentbtn = document.querySelectorAll("#btns");
 
 const createhash = (strhash) => {
@@ -50,7 +51,6 @@ const likeHandler = async () => {
     const [emptyval, board, id, idx] = path.split("/");
     const body = { userid };
     const respone = await request.post(`/boards/${id}/${idx}/likes`, body);
-    console.log(respone.data.check);
     likecount.innerHTML = respone.data.count;
     likecheck(respone.data.check);
 };
@@ -62,10 +62,8 @@ const likecheck = (check) => {
         heart.className = "like";
     }
 };
-console.log(likelist.value);
 const array = likelist.value.split(", ").filter((v) => v === nowme.value);
 likecheck(array[0]);
-console.log(array[0]);
 
 // const likecheck = async ({ id, idx }) => {
 //     const respone = await request.get(`/boards/${id}/${idx}/likes`);
@@ -83,6 +81,7 @@ const commentHandler = async (e) => {
         const boardWirterid = document.querySelector("#userid");
 
         const parentid = commentfrm.parentid.value;
+        console.log(parentid);
         const comment = commentfrm.comment.value;
         const userid = nowme.value;
         const body = {
@@ -117,7 +116,6 @@ const addcommentHandler = (e) => {
         clone.addEventListener("submit", async (e) => {
             e.preventDefault();
             const boardWirterid = document.querySelector("#userid");
-            console.log(boardWirterid.innerHTML);
 
             const comment = clone.comment.value;
             const userid = nowme.value;
@@ -203,7 +201,6 @@ const commentDelete = async (e) => {
                 const path = document.location.pathname;
                 const [emptyval, board, id, idx] = path.split("/");
                 const respone = await request.put(`/boards/${id}/comments/${commentidx}`, body);
-
                 location.href = `/board/${id}/${idx}`;
             } else {
                 return;
@@ -263,7 +260,6 @@ const clipHandler = () => {
 };
 
 const clip = document.querySelector(".clip");
-console.log(clip);
 clip.addEventListener("click", clipHandler);
 
 const sideComponent = document.querySelector("#sideComponent");

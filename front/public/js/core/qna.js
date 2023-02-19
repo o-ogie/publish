@@ -130,6 +130,11 @@ class Qna extends Component {
                     span.innerHTML = "완료";
                     span.style.color = "#fff";
                     btndiv.append(span);
+                    input.addEventListener("keydown", async (e) => {
+                        if (e.key === "Enter") {
+                            document.querySelector("#submitbtn").click();
+                        }
+                    });
                     const update = target.querySelector("#updateBtn");
                     update.remove();
                     break;
@@ -145,8 +150,6 @@ class Qna extends Component {
                             userid,
                             content: comment,
                         };
-                        const path = document.location.pathname;
-                        const [emptyval, board, id, idx] = path.split("/");
                         const respone = await this.request.put(`/forum/${commentidx}`, body);
 
                         if (respone.data === 1) this.setup();

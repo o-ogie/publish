@@ -80,19 +80,18 @@ class BoardService {
                 console.log("current state:::", currentState);
                 throw new Error("차단된 게시글입니다");
             }
-
-            if (!this.viewObj["hit"]) this.viewObj["hit"] = [];
-            if (this.viewObj["hit"].indexOf(`${userid}+${idx}`) === -1 && id !== userid) {
-                this.viewObj["hit"].push(`${userid}+${idx}`);
-                await this.boardRepository.updatehit(idx);
+            if (userid !== "null") {
+                if (!this.viewObj["hit"]) this.viewObj["hit"] = [];
+                if (this.viewObj["hit"].indexOf(`${userid}+${idx}`) === -1 && id !== userid) {
+                    this.viewObj["hit"].push(`${userid}+${idx}`);
+                    await this.boardRepository.updatehit(idx);
+                }
+                console.log(this.viewObj["hit"]);
+                setTimeout(() => {
+                    this.viewObj["hit"].splice(this.viewObj["hit"].indexOf(`${userid}+${idx}`), 1);
+                }, 200000);
             }
-            console.log(this.viewObj["hit"]);
-            setTimeout(() => {
-                this.viewObj["hit"].splice(this.viewObj["hit"].indexOf(`${userid}+${idx}`), 1);
-            }, 200000);
-
-            console.log("service history :::", userid, idx);
-            await this.boardRepository.updatehistory(userid, idx);
+            if (userid !== "null" && userid !== "guest") await this.boardRepository.updatehistory(userid, idx);
 
             const [view, prevPost, nextPost, comment] = await this.boardRepository.findOne(id, idx);
             let { userImg: test } = view;

@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <link rel="stylesheet" href="/css/board/view.css" />
 <input type="hidden" name="nowme" id="nowme" value="{{user.userid}}" />
+<input type="hidden" id="userid" value="{{user.userid}}" />
+<input type="hidden" id="userlevel" value="{{user.level}}" />
 <div id="wrap">
     <div id="likes">
         <div class="img">
@@ -100,7 +102,9 @@
                             </div>
                             <input type="text" class="commentContent" value="{{item.content}}" disabled />
                             <div id="btns">
-                                <button id="commentRecomment" class="commentBtn"><iconify-icon icon="mdi:comment-plus"></iconify-icon> <span id="addComment">답글</span></button>
+                                <button id="commentRecomment" class="commentBtn">
+                                    <iconify-icon icon="mdi:comment-plus" style="margin-right: 1px"></iconify-icon> <span id="addComment">답글</span>
+                                </button>
                                 {% if item.userid === user.userid %}
                                 <button id="updateBtn" class="commentBtn"><iconify-icon icon="mdi:comment-edit" style="margin-right: 4px"></iconify-icon>수정</button>
                                 <button id="deleteBtn" class="commentBtn"><iconify-icon icon="mdi:comment-remove" style="margin-right: 4px"></iconify-icon> 삭제</button>
@@ -136,62 +140,50 @@
                         {% endif %} {% endfor %}
                     </ul>
                 </div>
-                <template id="commentList">
-                    <ul>
-                        <li id="commentContent">{{content}}1</li>
-                        <li id="commentWriter">{{writer}}2</li>
-                        <li id="commentDate">{{regesterdate}}3</li>
-                        <span id="commentRecomment">댓글달기</span>
-                    </ul>
-                </template>
-                <template id="comentBtns">
-                    <span id="commentRe">수정</span>
-                    <span id="commentDelete">삭제</span>
-                </template>
             </div>
+            <div id="empty"></div>
         </div>
-        <div id="empty"></div>
+        <div id="sideComponent">
+            <div id="headerList"></div>
+        </div>
     </div>
-    <div id="sideComponent">
-        <div id="headerList"></div>
-    </div>
+
+    <script>
+        // toast UI
+        const Editor = toastui.Editor;
+        const editor = new Editor({
+            el: document.querySelector("#boardcontent"),
+            minHeight: "450px",
+            height: "auto",
+            initialEditType: "markdown",
+            previewStyle: "horizontal",
+        });
+
+        const editor2 = new Editor({
+            el: document.querySelector("#headerList"),
+            minHeight: "500px",
+            height: "auto",
+            initialEditType: "markdown",
+            previewStyle: "horizontal",
+        });
+
+        const mdViewer = document.querySelector(".toastui-editor-md-preview");
+        const mdContent = document.querySelector(".toastui-editor-contents");
+        mdContent.style.width = "100%";
+        mdViewer.style.background = "#fff";
+        document.querySelector(".ProseMirror").innerHTML = he.decode("{{data.content}}");
+        document.querySelector("#headerList .ProseMirror").innerHTML = he.decode("{{data.content}}");
+
+        const category = document.querySelectorAll(".category");
+        for (item of category) {
+            item.className = `category ${item.innerHTML}`;
+        }
+    </script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module" src="/js/lib/request.js"></script>
+    <script type="module" src="/js/lib/timestamp.js"></script>
+    <script type="module" src="/js/module/board/view.js"></script>
+    {% endblock %}
 </div>
-
-<script>
-    // toast UI
-    const Editor = toastui.Editor;
-    const editor = new Editor({
-        el: document.querySelector("#boardcontent"),
-        minHeight: "450px",
-        height: "auto",
-        initialEditType: "markdown",
-        previewStyle: "horizontal",
-    });
-
-    const editor2 = new Editor({
-        el: document.querySelector("#headerList"),
-        minHeight: "500px",
-        height: "auto",
-        initialEditType: "markdown",
-        previewStyle: "horizontal",
-    });
-
-    const mdViewer = document.querySelector(".toastui-editor-md-preview");
-    const mdContent = document.querySelector(".toastui-editor-contents");
-    mdContent.style.width = "100%";
-    mdViewer.style.background = "#fff";
-    document.querySelector(".ProseMirror").innerHTML = he.decode("{{data.content}}");
-    document.querySelector("#headerList .ProseMirror").innerHTML = he.decode("{{data.content}}");
-
-    const category = document.querySelectorAll(".category");
-    for (item of category) {
-        item.className = `category ${item.innerHTML}`;
-    }
-</script>
-
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="module" src="/js/lib/request.js"></script>
-<script type="module" src="/js/lib/timestamp.js"></script>
-<script type="module" src="/js/module/board/view.js"></script>
-{% endblock %}
 
