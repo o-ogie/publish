@@ -93,19 +93,11 @@ a {
     top: 0;
     right: 0;
     cursor: pointer;
+    opacity: 1;
 }
-.inputContainer > span.eye::after {
-    content: "∖";
-    color: #333;
-    font-size: 26px;
-    z-index: 2;
-    top: 46%;
-    right: 8%;
-    transform: translate(-50%, -50%);
-    position: absolute;
-}
-.inputContainer > span.eye.switchOn::after {
-    display: none;
+
+.inputContainer > span.eye.switchOn {
+    opacity: 0;
 }
 
 
